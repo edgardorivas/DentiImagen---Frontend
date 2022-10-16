@@ -7,10 +7,10 @@
     <br />
     <form class="flex flex-wrap mx-5">
       <div class="w-full mb-3">
-        <input class="block w-full px-3 py-2.5 rounded-lg border" type="text" placeholder="Usuario">
+        <input class="block w-full px-3 py-2.5 rounded-lg border" type="text" placeholder="Usuario" autocomplete="user">
       </div>
       <div class="w-full">
-        <input class="block w-full px-3 py-2.5 rounded-lg border" type="password" placeholder="Contraseña">
+        <input class="block w-full px-3 py-2.5 rounded-lg border" type="password" placeholder="Contraseña" autocomplete="password">
       </div>
       <br />
       <div class="w-full mt-12">
@@ -27,6 +27,7 @@
 </template>
 <script>
   export default {
+    // https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete // Docs para autocompletar
     // eslint-disable-next-line vue/multi-word-component-names
     name: 'login',
   }
