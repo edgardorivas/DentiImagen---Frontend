@@ -5,6 +5,10 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/',
+    redirect: '/auth',
+  },
+  {
     path: '/auth',
     redirect: '/auth/login',
     name: 'Contenedor de login',
