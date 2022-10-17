@@ -14,7 +14,7 @@
       </div>
       <br />
       <div class="w-full mt-12">
-        <button class="block w-full py-3 rounded-lg bg-verdiAnderson text-white">Iniciar sesión</button>
+        <button class="block w-full py-3 rounded-lg bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100">Iniciar sesión</button>
       </div>
     </form>
     <br />
