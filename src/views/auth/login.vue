@@ -5,7 +5,7 @@
       <p>Por favor ingrese sus datos de acceso</p>
     </div>
     <br />
-    <form class="flex flex-wrap mx-5" @submit.prevent="loginUsuario">
+    <form class="flex flex-wrap mx-5"  @submit.prevent="loginUsuario">
       <div class="w-full mb-3">
         <input class="block w-full px-3 py-2.5 rounded-lg border" v-model="auth.usuario" type="text" placeholder="Usuario" autocomplete="user">
       </div>
@@ -40,8 +40,8 @@
       return {
         // Se almacenan las variables que usaras en la vista
         auth: {
-          usuario: 'lolo',
-          contrasena: '1234a5678a',
+          usuario: null,
+          contrasena: null ,
         },
         loading: false,
       }

@@ -8,22 +8,55 @@
       </p>
     </div>
     <br />
-    <form action="#" class="flex flex-wrap mx-5">
-      <div class="w-full mb-3">
-        <input type="text" class="w-full px-3 py-2.5 rounded-lg border" placeholder="¿Pregunta 1?"/>
-      </div>
-      <div class="w-full mb-3">
-        <input type="text" class="w-full px-3 py-2.5 rounded-lg border" placeholder="¿Pregunta 2?"/>
-      </div>
-      <div class="w-full mb-3">
-        <input type="text" class="w-full px-3 py-2.5 rounded-lg border" placeholder="¿Pregunta 3?"/>
-      </div>
-      <div class="w-full mt-2">
-        <button class=" block w-full py-3 rounded-lg bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100">Continuar</button>
+<!--formulario para la busqueda del correo-->
+    <form @submit.prevent="buscarEmail"  class="flex flex-wrap mx-5" v-if="!siguiente" >
+      <div  class="w-full">
+        <div class="w-full mb-3">
+          <input type="email" class="w-full px-3 py-2.5 rounded-lg border" v-model="correo" placeholder="email"/>
+        </div>
+        <div class="w-full mt-2">
+          <button  class=" block w-full py-3 rounded-lg bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100">Siguiente >></button>
+        </div>
       </div>
     </form>
+
+    <!--formulario para responder las preguntas de seguridad-->
+    <form  class="flex flex-wrap mx-5" @submit.prevent="validarPreguntas" v-else-if="siguiente==true">
+      <div  class="w-full"  >
+        <div class="w-full mb-3">
+          <input type="text" class="w-full px-3 py-2.5 rounded-lg border" v-model="pregunta.respuesta1" v-bind:placeholder="datos.pregunta_uno" />
+        </div>
+        <div class="w-full mb-3">
+          <input type="text" class="w-full px-3 py-2.5 rounded-lg border" v-model="pregunta.respuesta2" v-bind:placeholder="datos.pregunta_dos" />
+        </div>
+        <div class="w-full mb-3">
+          <input type="text" class="w-full px-3 py-2.5 rounded-lg border" v-model="pregunta.respuesta3" v-bind:placeholder="datos.pregunta_tres" />
+        </div>
+        <div class="w-full mt-2">
+          <button class=" block w-full py-3 rounded-lg bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100">Continuar</button>
+        </div>
+      </div>
+    </form>
+    <!--formulario para actualizar la contraseña-->
+    <form   class="flex flex-wrap mx-5" v-if="siguiente == 'clave'" >
+      <div  class="w-full">
+        <div class="w-full mb-3">
+          <input type="password" class="w-full px-3 py-2.5 rounded-lg border"  placeholder="clave nueva"/>
+        </div>
+        <div class="w-full mb-3">
+          <input type="password" class="w-full px-3 py-2.5 rounded-lg border"  placeholder="repite la clave nueva"/>
+        </div>
+        <div class="w-full mt-2">
+          <button  class=" block w-full py-3 rounded-lg bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100">Siguiente >></button>
+        </div>
+        <div class="w-full mt-2">
+          <button v-on:click="regresar" class=" block w-full py-3 rounded-lg bg-red-500 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100"> Regresar</button>
+        </div>
+      </div>
+    </form>
+    <!-- falta crear la funcion en el methos para pasar la nueva contraseña y redirigir a al login-->
+
 	<br>
-	
     <div class="text-center">
 		<img alt="Vue logo" width="20px" src="@/assets/flechaRegreso.png" class="inline pl-1">
 		<router-link to="/auth/login" class="text-blue-600 mt-7">  Ir a inicio de sesión</router-link>
@@ -31,7 +64,99 @@
   </div>
 </template>
 <script>
-export default {
-  name: "recuperar-auth",
-};
+	import axios from 'axios';
+  import config from './../../config';
+	export default {
+    // https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete // Docs para autocompletar
+    // eslint-disable-next-line vue/multi-word-component-names
+    name: "recuperar-auth",
+    data(){
+      return {
+        pregunta:{
+          respuesta1 : null,
+          respuesta2 : null,
+          respuesta3 : null
+        },
+        loading: false,
+        correo : null,
+        siguiente:false,
+        datos:null
+        
+      }
+    },
+    methods: {
+      async buscarEmail(){
+        try {
+          this.$store.dispatch('getLoadingApp', true);
+          const request = await axios({
+            method: 'POST',
+            baseURL: config.backend.baseURL,
+            url: '/login/recuperacion',
+            data:{
+              email: this.correo,
+            }
+            
+          });
+          console.log();
+          this.$message({
+            message: 'correo encontrado',
+            type: 'success'
+          });
+          this.datos = request.data.data[0]
+          this.$store.dispatch('getLoadingApp', false);
+          this.siguiente = !this.siguiente;
+          return request ;
+
+        } catch (error) {
+          if (error.response) {
+            this.$message({
+              message: error.response.data.mensaje || 'Sin mensaje del servidor',
+              type: 'error',
+            });
+          } else {
+            this.$message({
+              message: 'No estas conectado a internet.',
+              type: 'error'
+            });
+          }
+          this.$store.dispatch('getLoadingApp', false);
+          console.clear()
+        }
+      },
+      async validarPreguntas(){
+        try {
+          if(this.datos.respuesta_uno != this.pregunta.respuesta1){
+            throw new Error('Respuesta de la pregunta 1 es incorrecta');
+          }
+          if(this.datos.respuesta_dos != this.pregunta.respuesta2){
+            throw new Error('Respuesta de la pregunta 1 es incorrecta');
+          }
+          if(this.datos.respuesta_tres != this.pregunta.respuesta3){
+            throw new Error('Respuesta de la pregunta 1 es incorrecta');
+          }
+          this.siguiente = 'clave';
+          this.$store.dispatch('getLoadingApp', false);
+
+        } catch (error) {
+          if (error.response) {
+            this.$message({
+              message: error.response.data.mensaje || 'Sin mensaje del servidor',
+              type: 'error',
+            });
+          } else {
+            this.$message({
+              message: 'No estas conectado a internet.',
+              type: 'error'
+            });
+          }
+          this.$store.dispatch('getLoadingApp', false);
+          console.clear();
+        }
+      },
+      regresar: function(){
+        this.siguiente = false;
+      }
+    } 
+  }		
+
 </script>
