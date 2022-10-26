@@ -7,10 +7,10 @@
     <br />
     <form class="flex flex-wrap mx-5"  @submit.prevent="loginUsuario">
       <div class="w-full mb-3">
-        <input class="block w-full px-3 py-2.5 rounded-lg border" v-model="auth.usuario" type="text" placeholder="Usuario" autocomplete="user">
+        <input class="block w-full px-3 py-2.5 rounded-lg border" required v-model="auth.usuario" type="text" placeholder="Usuario" autocomplete="user">
       </div>
       <div class="w-full">
-        <input class="block w-full px-3 py-2.5 rounded-lg border" v-model="auth.contrasena" type="password" placeholder="Contraseña" autocomplete="password">
+        <input class="block w-full px-3 py-2.5 rounded-lg border" required v-model="auth.contrasena" type="password" placeholder="Contraseña" autocomplete="password">
       </div>
       <br />
       <div class="w-full mt-12">

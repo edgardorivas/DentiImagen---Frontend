@@ -12,7 +12,8 @@
     <form @submit.prevent="buscarEmail"  class="flex flex-wrap mx-5" v-if="!siguiente" >
       <div  class="w-full">
         <div class="w-full mb-3">
-          <input type="email" class="w-full px-3 py-2.5 rounded-lg border" v-model="correo" placeholder="email"/>
+          <input type="email" class="w-full px-3 py-2.5 rounded-lg border" v-model="correo" id="input-email" placeholder="email"/>
+          <!--pequeño mensaje de error: <p class="text-red-500 text-sm italic mt-1">Please choose a password.</p>-->
         </div>
         <div class="w-full mt-2">
           <button  class=" block w-full py-3 rounded-lg bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100">Siguiente >></button>
@@ -24,33 +25,34 @@
     <form  class="flex flex-wrap mx-5" @submit.prevent="validarPreguntas" v-else-if="siguiente==true">
       <div  class="w-full"  >
         <div class="w-full mb-3">
-          <input type="text" class="w-full px-3 py-2.5 rounded-lg border" v-model="pregunta.respuesta1" v-bind:placeholder="datos.pregunta_uno" />
+          <input type="text"  class="w-full px-3 py-2.5 rounded-lg border" v-model="pregunta.respuesta1" v-bind:placeholder="datos.pregunta_uno" />
         </div>
         <div class="w-full mb-3">
-          <input type="text" class="w-full px-3 py-2.5 rounded-lg border" v-model="pregunta.respuesta2" v-bind:placeholder="datos.pregunta_dos" />
+          <input type="text"  class="w-full px-3 py-2.5 rounded-lg border" v-model="pregunta.respuesta2" v-bind:placeholder="datos.pregunta_dos" />
         </div>
         <div class="w-full mb-3">
-          <input type="text" class="w-full px-3 py-2.5 rounded-lg border" v-model="pregunta.respuesta3" v-bind:placeholder="datos.pregunta_tres" />
+          <input type="text"  class="w-full px-3 py-2.5 rounded-lg border" v-model="pregunta.respuesta3" v-bind:placeholder="datos.pregunta_tres" />
         </div>
         <div class="w-full mt-2">
           <button class=" block w-full py-3 rounded-lg bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100">Continuar</button>
         </div>
       </div>
     </form>
+
     <!--formulario para actualizar la contraseña-->
-    <form   class="flex flex-wrap mx-5" v-if="siguiente == 'clave'" >
+    <form   class="flex flex-wrap mx-5" @submit.prevent="nuevaClave" v-if="siguiente == 'clave'" >
       <div  class="w-full">
         <div class="w-full mb-3">
-          <input type="password" class="w-full px-3 py-2.5 rounded-lg border"  placeholder="clave nueva"/>
+          <input type="password"  class="w-full px-3 py-2.5 rounded-lg border" v-model="claveNueva" placeholder="clave nueva"/>
         </div>
         <div class="w-full mb-3">
-          <input type="password" class="w-full px-3 py-2.5 rounded-lg border"  placeholder="repite la clave nueva"/>
+          <input type="password"  class="w-full px-3 py-2.5 rounded-lg border" v-model="claveRepetida"  placeholder="repite la clave nueva"/>
         </div>
         <div class="w-full mt-2">
           <button  class=" block w-full py-3 rounded-lg bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100">Siguiente >></button>
         </div>
         <div class="w-full mt-2">
-          <button v-on:click="regresar" class=" block w-full py-3 rounded-lg bg-red-500 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100"> Regresar</button>
+          <button v-on:click="regresar" class=" block w-full py-3 rounded-lg bg-blue-600 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100"> Regresar</button>
         </div>
       </div>
     </form>
@@ -77,6 +79,9 @@
           respuesta2 : null,
           respuesta3 : null
         },
+        claveNueva:null,
+        claveRepetida:null,
+
         loading: false,
         correo : null,
         siguiente:false,
@@ -97,7 +102,6 @@
             }
             
           });
-          console.log();
           this.$message({
             message: 'correo encontrado',
             type: 'success'
@@ -123,19 +127,56 @@
           console.clear()
         }
       },
+
       async validarPreguntas(){
         try {
-          if(this.datos.respuesta_uno != this.pregunta.respuesta1){
-            throw new Error('Respuesta de la pregunta 1 es incorrecta');
-          }
-          if(this.datos.respuesta_dos != this.pregunta.respuesta2){
-            throw new Error('Respuesta de la pregunta 1 es incorrecta');
-          }
-          if(this.datos.respuesta_tres != this.pregunta.respuesta3){
-            throw new Error('Respuesta de la pregunta 1 es incorrecta');
-          }
-          this.siguiente = 'clave';
+          this.$store.dispatch('getLoadingApp', true);
+          const request = await axios({
+            method: 'POST',
+            baseURL: config.backend.baseURL,
+            url: '/login/comparar',
+            data:{
+              preguntas: this.pregunta, 
+              respuestas: this.datos
+            }
+          });
+          this.$message({
+            message: request.data.mensaje,
+            type: 'success'
+          });
+          this.siguiente='clave';
           this.$store.dispatch('getLoadingApp', false);
+          
+        } catch (error) {
+          console.log(error)
+          this.$message({
+            message: error.response.data.mensaje,
+            type: 'error'
+          });
+          this.$store.dispatch('getLoadingApp', false);
+          //console.clear();
+        }
+      },
+
+      async nuevaClave(){
+        try {
+          this.$store.dispatch('getLoadingApp', true);
+          const request = await axios({
+            method: 'PATCH',
+            baseURL: config.backend.baseURL,
+            url: '/usuario/'+this.datos.id,
+            data:{
+              clave: this.claveNueva,
+              claveRecuperacion: this.claveRepetida,
+            }
+          });
+          this.$router.push({ path: 'login' })
+          this.$message({
+            message: request.data.mensaje,
+            type: 'success'
+          });
+          this.$store.dispatch('getLoadingApp', false);
+
 
         } catch (error) {
           if (error.response) {
@@ -145,18 +186,24 @@
             });
           } else {
             this.$message({
-              message: 'No estas conectado a internet.',
+              message: 'No esta conectado a interned',
               type: 'error'
             });
           }
           this.$store.dispatch('getLoadingApp', false);
-          console.clear();
+          console.clear()
         }
       },
       regresar: function(){
+        this.correo = null;
+        this.pregunta.respuesta1 = null;
+        this.pregunta.respuesta2 = null;
+        this.pregunta.respuesta3 = null;
         this.siguiente = false;
-      }
-    } 
-  }		
+
+      },
+    }
+  } 
+  
 
 </script>
