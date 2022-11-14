@@ -7,10 +7,8 @@ import ElementUI from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/es';
 
 /* Importaciones de archivos o librerias css */
-// import 'bootstrap/dist/css/bootstrap.css'
 import 'element-ui/lib/theme-chalk/index.css'
-import 'bootstrap/scss/bootstrap.scss'
-import 'bootstrap/dist/js/bootstrap'
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import './assets/css/style.css'
 import './assets/scss/index.scss'
 

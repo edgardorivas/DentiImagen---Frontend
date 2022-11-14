@@ -27,6 +27,29 @@ const routes = [
     ],
   },
   {
+    path: '/admin',
+    redirect: '/admin/dashboard',
+    component: () => import('../layouts/Admin.vue'),
+    children: [
+      {
+        path: "/admin/dashboard",
+        component: () => import('../views/admin/Dashboard.vue'),
+      },
+      {
+        path: "/admin/settings",
+        component: () => import('../views/admin/Settings.vue'),
+      },
+      {
+        path: "/admin/tables",
+        component: () => import('../views/admin/Tables.vue'),
+      },
+      {
+        path: "/admin/maps",
+        component: () => import('../views/admin/Maps.vue'),
+      },
+    ],
+  },
+  {
     path: '*',
     name: 'Error 404',
     component: () => import('./../views/error404.vue'),
