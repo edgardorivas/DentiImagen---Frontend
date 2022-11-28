@@ -2,6 +2,7 @@
   <footer class="block py-4">
     <div class="container mx-auto px-4">
       <hr class="mb-4 border-b-1 border-blueGray-200" />
+      <!--
       <div
         class="flex flex-wrap items-center md:justify-between justify-center"
       >
@@ -14,7 +15,7 @@
               href="https://www.creative-tim.com?ref=vn-footer-admin"
               class="text-blueGray-500 hover:text-blueGray-700 text-sm font-semibold py-1"
             >
-              Creative Tim
+              
             </a>
           </div>
         </div>
@@ -33,7 +34,7 @@
                 href="https://www.creative-tim.com/presentation?ref=vn-footer-admin"
                 class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
               >
-                About Us
+                
               </a>
             </li>
             <li>
@@ -41,7 +42,7 @@
                 href="http://blog.creative-tim.com?ref=vn-footer-admin"
                 class="text-blueGray-600 hover:text-blueGray-800 text-sm font-semibold block py-1 px-3"
               >
-                Blog
+                
               </a>
             </li>
             <li>
@@ -55,6 +56,7 @@
           </ul>
         </div>
       </div>
+      -->
     </div>
   </footer>
 </template>

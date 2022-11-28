@@ -51,6 +51,7 @@
         try {
           const { usuario, contrasena } = this.auth;
           this.$store.dispatch('getLoadingApp', true);
+
           const request = await axios({
             method: 'POST',
             baseURL: config.backend.baseURL,
@@ -60,11 +61,14 @@
               clave: contrasena,
             }
           });
+          localStorage.setItem('token_acess',request.data.data.token);
           this.$message({
             message: 'Iniciaste sesion de forma correcta',
             type: 'success'
           });
+
           this.$store.dispatch('getLoadingApp', false);
+          this.$router.push({ path: '/admin/dashboard' });
           return request
         } catch (error) {
           if (error.response) {

@@ -1,14 +1,13 @@
 <template>
-  <div class="container-fluid">
-    <div class="row justify-content-center align-items-center g-2" id="container-auth">
-      <div class="col justify-content-center">
-        <div class="d-flex flex-row justify-content-center">
+  <div class="container m-auto mt-11">
+    <div class="flex flex-row " id="container-auth">
+      <div class=" justify-center ">
+        <div class=" justify-center w-1/3 m-auto">
           <img alt="Vue logo" width="300px" src="@/assets/logotipoEmpresa.png">
         </div>
-
         <router-view />
       </div>
-      <div class="col justify-content-center">Imagen chida central</div>
+      <div class=" justify-center flex-1 ">Imagen chida central</div>
     </div>
   </div>
 </template>
@@ -18,7 +17,7 @@
   }
 </script>
 <style lang="scss">
-  #container-auth {
-    height: 100vh;
+  .container-auth {
+    height: 100vw;
   }
 </style>

@@ -22,7 +22,7 @@
   </div>
 </template>
 <script>
-import Chart from "chart.js";
+
 export default {
   mounted: function () {
     this.$nextTick(function () {
@@ -119,7 +119,7 @@ export default {
         },
       };
       let ctx = document.getElementById("bar-chart").getContext("2d");
-      window.myBar = new Chart(ctx, config);
+      //window.myBar = new Chart(ctx, config);
     });
   },
 };
