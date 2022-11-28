@@ -24,20 +24,11 @@ export default {
           baseURL: config.backend.baseURL,
           url: '/usuario',
         });
-        console.log(resultado)
         context.commit('setusuarios', resultado.data)
       } catch (error) {
         console.log(error)
         if (error.response) {
-          this.$message({
-            message: error.response.data.mensaje || 'Sin mensaje del servidor',
-            type: 'error',
-          });
-        } else {
-          this.$message({
-            message: 'No estas conectado a internet.',
-            type: 'error'
-          });
+          alert(error);
         }
         context.commit('setusuarios', [])
       }
