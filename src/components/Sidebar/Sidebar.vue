@@ -18,7 +18,7 @@
         class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
         to="/"
       >
-        Vue Notus
+        Dentimagen
       </router-link>
       <!-- User -->
       <ul class="md:hidden items-center flex flex-wrap list-none">
@@ -44,7 +44,7 @@
                 class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
                 to="/"
               >
-                Vue Notus
+                Dentimagen
               </router-link>
             </div>
             <div class="w-6/12 flex justify-end">
@@ -75,7 +75,7 @@
         <h6
           class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
         >
-          Admin Layout Pages
+          Admin
         </h6>
         <!-- Navigation -->
 
@@ -99,11 +99,12 @@
                   class="fas fa-tv mr-2 text-sm"
                   :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"
                 ></i>
-                Dashboard
+                Inicio
               </a>
             </router-link>
           </li>
-
+        </ul>
+        <ul>
           <li class="items-center">
             <router-link
               to="/admin/settings"
@@ -123,10 +124,13 @@
                   class="fas fa-tools mr-2 text-sm"
                   :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"
                 ></i>
-                Settings
+                Configuraciones
               </a>
             </router-link>
           </li>
+        </ul>
+          <!--
+
 
           <li class="items-center">
             <router-link
@@ -174,15 +178,15 @@
           </li>
         </ul>
 
-        <!-- Divider -->
+         Divider 
         <hr class="my-4 md:min-w-full" />
-        <!-- Heading -->
+        Heading 
         <h6
           class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
         >
           Auth Layout Pages
         </h6>
-        <!-- Navigation -->
+         Navigation 
 
         <ul class="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
           <li class="items-center">
@@ -208,15 +212,15 @@
           </li>
         </ul>
 
-        <!-- Divider -->
+        Divider 
         <hr class="my-4 md:min-w-full" />
-        <!-- Heading -->
+         Heading 
         <h6
           class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
         >
           No Layout Pages
         </h6>
-        <!-- Navigation -->
+         Navigation 
 
         <ul class="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
           <li class="items-center">
@@ -240,15 +244,15 @@
           </li>
         </ul>
 
-        <!-- Divider -->
+        Divider 
         <hr class="my-4 md:min-w-full" />
-        <!-- Heading -->
+         Heading 
         <h6
           class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
         >
           Documentation
         </h6>
-        <!-- Navigation -->
+         Navigation 
         <ul class="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
           <li class="inline-flex">
             <a
@@ -340,6 +344,7 @@
             </a>
           </li>
         </ul>
+      -->
       </div>
     </div>
   </nav>

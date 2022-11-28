@@ -39,6 +39,7 @@ export default {
   },
   async created() {
     await this.$store.dispatch('obtenerListaDeUsuarios', true);
+ 
   }
 };
 </script>

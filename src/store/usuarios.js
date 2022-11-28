@@ -25,6 +25,7 @@ export default {
           url: '/usuario',
         });
         context.commit('setusuarios', resultado.data)
+        
       } catch (error) {
         console.log(error)
         if (error.response) {
