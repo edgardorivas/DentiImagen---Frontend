@@ -10,7 +10,7 @@
         </div>
         </div>
       -->
-      <div class="flex flex-wrap mt-4">
+      <div class="flex flex-wrap mt-4 ">
         <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
           <card-page-visits />
         </div>
@@ -19,10 +19,10 @@
           <card-social-traffic />
         </div>
       -->
-      </div>
+      </div>  
     </div>
   </div>
-
+  
 </template>
 <script>
 //import CardLineChart from "@/components/Cards/CardLineChart.vue";
@@ -31,15 +31,20 @@ import CardPageVisits from "@/components/Cards/CardPageVisits.vue";
 //import CardSocialTraffic from "@/components/Cards/CardSocialTraffic.vue";
 export default {
   name: "dashboard-page",
+  created() {
+    this.$store.dispatch('obtenerListaDeUsuarios')
+  },
   components: {
     //CardLineChart,
     //CardBarChart,
     CardPageVisits,
     //CardSocialTraffic,
   },
-  async created() {
-    await this.$store.dispatch('obtenerListaDeUsuarios', true);
- 
-  }
+  
+  
+  /**async created() {
+    let datos= await this.$store.dispatch('obtenerListaDeUsuarios', true);
+    console.log(datos);
+  }*/
 };
 </script>

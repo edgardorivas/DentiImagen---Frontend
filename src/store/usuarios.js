@@ -27,7 +27,6 @@ export default {
         context.commit('setusuarios', resultado.data)
         
       } catch (error) {
-        console.log(error)
         if (error.response) {
           alert(error);
         }

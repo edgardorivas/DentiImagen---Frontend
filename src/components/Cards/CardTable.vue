@@ -10,7 +10,7 @@
             class="font-semibold text-lg"
             :class="[color === 'light' ? 'text-blueGray-700' : 'text-white']"
           >
-            Card Tables
+            Tabla
           </h3>
         </div>
       </div>
@@ -28,7 +28,7 @@
                   : 'bg-emerald-800 text-emerald-300 border-emerald-700',
               ]"
             >
-              Project
+              
             </th>
             <th
               class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
@@ -513,5 +513,6 @@ export default {
       },
     },
   },
+  
 };
 </script>

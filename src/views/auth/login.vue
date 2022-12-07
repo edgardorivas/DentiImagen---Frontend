@@ -61,8 +61,9 @@
               clave: contrasena,
             }
           });
+          //aqui se guarda el token de acceso
           localStorage.setItem('token_acess',request.data.data.token);
-          console.log(localStorage.getItem('token_acess'));
+          //console.log(localStorage.getItem('token_acess'));
           this.$message({
             message: 'Iniciaste sesion de forma correcta',
             type: 'success'
