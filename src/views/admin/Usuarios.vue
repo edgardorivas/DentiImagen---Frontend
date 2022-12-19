@@ -26,12 +26,12 @@
                 <th
                   class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
                 >
-                  Nombre
+                  Nombres
                 </th>
                 <th
                   class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
                 >
-                  Apellido
+                  Usuario
                 </th>
                 <th
                   class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
@@ -43,6 +43,11 @@
                 >
                   Nivel
                 </th>
+                <th
+                  class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+                >
+                  Creado
+                </th>
               </tr>
             </thead>
             <tbody v-if="(usuarios && usuarios.data)">
@@ -50,22 +55,31 @@
                 <td
                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left "
                 >
-                  {{datos.nombre}}
+                  <router-link :to="'/admin/usuarios/detalle/'+datos.id" class="text-emerald-500 hover:text-emerald-600" >
+                    {{datos.nombre}} {{datos.apellido}}
+                  </router-link>
                 </td>
                 <td
                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
                 >
-                  {{datos.apellido}}
+                  <router-link :to="'/admin/usuarios/detalle/'+datos.id" class="text-emerald-500 hover:text-emerald-600" >
+                    @{{datos.usuario}}
+                  </router-link>
                 </td>
                 <td
-                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left uppercase"
                 >
                   {{datos.especializacion}}
                 </td>
                 <td
-                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left uppercase"
                 >
                   {{datos.nivel}}
+                </td>
+                <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left uppercase"
+                >
+                  {{parseDate(datos.fecha)}}
                 </td>
               </tr>
             </tbody>
@@ -85,6 +99,11 @@
     },
     created() {
       this.$store.dispatch('obtenerListaDeUsuarios')
+    },
+    methods: {
+      parseDate(date) {
+        return new Date(date).toLocaleString();
+      },
     },
     computed: {
       usuarios(){
