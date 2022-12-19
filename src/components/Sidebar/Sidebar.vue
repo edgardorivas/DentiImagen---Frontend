@@ -90,20 +90,6 @@
         <ul class="md:flex-col md:min-w-full flex flex-col list-none">
           <li class="items-center">
             <router-link
-              to="/admin/configuraciones"
-              class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
-              exact-active-class="text-emerald-500 hover:text-emerald-600"
-            >
-              <i
-                class="fas fa-tools mr-2 text-sm"
-              ></i>
-              Configuraciones
-            </router-link>
-          </li>
-        </ul>
-        <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-          <li class="items-center">
-            <router-link
               to="/admin/usuarios"
               class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
               exact-active-class="text-emerald-500 hover:text-emerald-600"
@@ -112,6 +98,20 @@
                 class="fas fa-users mr-2 text-sm"
               ></i>
               Usuarios
+            </router-link>
+          </li>
+        </ul>
+        <ul class="md:flex-col md:min-w-full flex flex-col list-none">
+          <li class="items-center">
+            <router-link
+              to="/admin/configuraciones"
+              class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
+              exact-active-class="text-emerald-500 hover:text-emerald-600"
+            >
+              <i
+                class="fas fa-tools mr-2 text-sm"
+              ></i>
+              Configuraciones
             </router-link>
           </li>
         </ul>
