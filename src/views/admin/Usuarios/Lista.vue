@@ -18,72 +18,40 @@
             </div>
           </div>
         </div>
-        <div class="block w-full overflow-x-auto">
-          <!-- Projects table -->
-          <table class="items-center w-full bg-transparent border-collapse">
-            <thead>
-              <tr>
-                <th
-                  class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-                >
-                  Nombres
-                </th>
-                <th
-                  class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-                >
-                  Usuario
-                </th>
-                <th
-                  class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-                >
-                  Especializacion
-                </th>
-                <th
-                  class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-                >
-                  Nivel
-                </th>
-                <th
-                  class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-                >
-                  Creado
-                </th>
-              </tr>
-            </thead>
-            <tbody v-if="(usuarios && usuarios.data)">
-              <tr v-for="datos in usuarios.data" :key="datos.id">
-                <td
-                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left "
-                >
-                  <router-link :to="'/admin/usuarios/'+datos.id" class="text-emerald-500 hover:text-emerald-600" >
-                    {{datos.nombre}} {{datos.apellido}}
+        <div class="mt-5">
+          <el-table :data="usuarios.data" class="w-full">
+            <el-table-column fixed prop="usuario" label="Usuario" width="190">
+              <template slot-scope="scope">
+                <router-link :to="`/admin/usuarios/${scope.row.id}`" class="uppercase text-verdiAnderson">
+                  @{{scope.row.usuario}}
+                </router-link>
+              </template>
+            </el-table-column>
+            <el-table-column prop="nombre" label="Nombres"></el-table-column>
+            <el-table-column prop="apellido" label="Apellidos"></el-table-column>
+            <el-table-column prop="nivel" label="Rango" width="190">
+              <template slot-scope="scope">
+                <p class="text-verdiAnderson uppercase">{{scope.row.nivel}}</p>
+              </template>
+            </el-table-column>
+            <el-table-column prop="fecha" label="Creado">
+              <template slot-scope="scope">
+                <p class="">{{parseDate(scope.row.fecha)}}</p>
+              </template>
+            </el-table-column>
+            <el-table-column
+              fixed="right"
+              label="Operaciones"
+              width="170">
+              <template slot-scope="scope">
+                <p class="text-center">
+                  <router-link :to="`/admin/usuarios/${scope.row.id}`" class="text-verdiAnderson text-xs w-full">
+                    Editar
                   </router-link>
-                </td>
-                <td
-                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
-                >
-                  <router-link :to="'/admin/usuarios/'+datos.id" class="text-emerald-500 hover:text-emerald-600" >
-                    @{{datos.usuario}}
-                  </router-link>
-                </td>
-                <td
-                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left uppercase"
-                >
-                  {{datos.especializacion}}
-                </td>
-                <td
-                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left uppercase"
-                >
-                  {{datos.nivel}}
-                </td>
-                <td
-                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left uppercase"
-                >
-                  {{parseDate(datos.fecha)}}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                </p>
+              </template>
+            </el-table-column>
+          </el-table>
         </div>
       </div>
     </div>
