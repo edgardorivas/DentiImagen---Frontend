@@ -17,12 +17,18 @@ const routes = [
       {
         path: '/auth/login',
         name: 'Login de usuario',
-        component: () => import('../views/auth/login.vue')
+        component: () => import('../views/auth/login.vue'),
+        meta: {
+          noAuth: true
+        }
       },
       {
         path: '/auth/recuperar',
         name: 'Recuperacion de cuenta',
-        component: () => import('../views/auth/recuperar.vue')
+        component: () => import('../views/auth/recuperar.vue'),
+        meta: {
+          noAuth: true
+        }
       },
     ],
   },
@@ -63,6 +69,17 @@ const routes = [
         component: () => import('../views/admin/Maps.vue'),
       },
     ],
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/logout',
+    name: 'Cerrar Sesion',
+    component: () => import('./../views/auth/logout.vue'),
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '*',
@@ -72,14 +89,30 @@ const routes = [
       requiresAuth: false
     }
   }
-
-
-]
+];
 
 const router = new VueRouter({
   mode: 'history',
   linkActiveClass: 'active is-active',
   routes
+})
+
+router.beforeEach(async (to, from, next) => {
+  const user = localStorage.getItem('token_acess')
+  const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
+  const noAuth = to.matched.some(x => x.meta.noAuth)
+
+  if (noAuth) {
+    if (user) {
+      next(`/admin`)
+    } else {
+      next()
+    }
+  } else if (requiresAuth && !user) {
+    next(`/auth/login`)
+  } else {
+    next()
+  }
 })
 
 export default router

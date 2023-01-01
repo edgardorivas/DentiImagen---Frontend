@@ -30,7 +30,7 @@
         Perfil
       </router-link>
       <div class="h-0 my-2 border border-solid border-blueGray-100" />
-      <router-link to="/auth/sali" class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
+      <router-link to="/logout" class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
         Cerrar Sesion
       </router-link>
     </div>
