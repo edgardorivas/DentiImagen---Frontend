@@ -12,7 +12,7 @@
             <div
               class="relative w-full px-4 max-w-full flex-grow flex-1 text-right"
             >
-              <router-link to="/usuario/agregar" class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 ">
+              <router-link to="/admin/usuario/agregar" class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 ">
                 Agregar nuevo
               </router-link>
             </div>
@@ -55,14 +55,14 @@
                 <td
                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left "
                 >
-                  <router-link :to="'/admin/usuarios/detalle/'+datos.id" class="text-emerald-500 hover:text-emerald-600" >
+                  <router-link :to="'/admin/usuarios/'+datos.id" class="text-emerald-500 hover:text-emerald-600" >
                     {{datos.nombre}} {{datos.apellido}}
                   </router-link>
                 </td>
                 <td
                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
                 >
-                  <router-link :to="'/admin/usuarios/detalle/'+datos.id" class="text-emerald-500 hover:text-emerald-600" >
+                  <router-link :to="'/admin/usuarios/'+datos.id" class="text-emerald-500 hover:text-emerald-600" >
                     @{{datos.usuario}}
                   </router-link>
                 </td>
@@ -90,7 +90,7 @@
   </div>
 </template>
 <script>
-  import config from './../../config';
+  import config from '../../../config';
   export default {
     name: 'users-list',
     metaInfo: {

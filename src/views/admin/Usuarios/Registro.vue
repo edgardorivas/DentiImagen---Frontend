@@ -16,7 +16,7 @@
     </div>
 
     <div id="formulario-registro-usuario">
-        
+
       <div class="flex items-center justify-center  ">
         <div class=" my-20 max-w-screen-2xl px-10 py-10 mx-auto rounded-lg shadow-xl">
           <div class="max-w-2xl mx-auto space-y-6">
@@ -84,7 +84,7 @@
                     </div>
                 </div>
 
-              
+
               <div class="my-2 font-medium opacity-70">
                 <input type="checkbox" />
                 Subscribe and follow company updates.
@@ -104,12 +104,12 @@
   </div>
 </template>
 <script>
-import config from "./../../config";
-export default {
-  name: "users-add",
-  metaInfo: {
-    title: config.frontend.title,
-    titleTemplate: "%s | Lista de Usuarios",
-  },
-};
+  import config from "../../../config";
+  export default {
+    name: "users-add",
+    metaInfo: {
+      title: config.frontend.title,
+      titleTemplate: "%s | Agregar nuevo usuario",
+    },
+  };
 </script>
