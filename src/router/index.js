@@ -54,6 +54,18 @@ const routes = [
     ],
   },
   {
+    path: "/usuario",
+    redirect: "/usuario/agregar",
+    name:"usuarios",
+    component: () => import('../layouts/Admin.vue'),
+    children:[
+      {
+        path:"/usuario/agregar",
+        component: () => import('../views/usuario/agregar.vue'),
+      }
+    ]
+  },
+  {
     path: '*',
     name: 'Error 404',
     component: () => import('./../views/error404.vue'),
@@ -61,6 +73,8 @@ const routes = [
       requiresAuth: false
     }
   }
+  
+
 ]
 
 const router = new VueRouter({
