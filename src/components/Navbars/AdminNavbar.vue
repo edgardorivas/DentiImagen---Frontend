@@ -33,9 +33,6 @@ export default {
     ubicacion () {
       return this.$route.matched;
     }
-  },
-  created() {
-    console.log(this.$route)
   }
 };
 </script>
