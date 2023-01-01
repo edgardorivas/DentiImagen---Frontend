@@ -37,14 +37,17 @@ const routes = [
       },
       {
         path: "/admin/usuarios",
+        name: 'Lista de Usuarios',
         component: () => import('../views/admin/Usuarios/Lista.vue'),
       },
       {
         path: "/admin/usuario/agregar",
+        name: 'Registro de Usuario',
         component: () => import('../views/admin/Usuarios/Registro.vue'),
       },
       {
         path: "/admin/usuarios/:ID",
+        name: 'Editar Usuario',
         component: () => import('../views/admin/Usuarios/Editar.vue'),
       },
       {

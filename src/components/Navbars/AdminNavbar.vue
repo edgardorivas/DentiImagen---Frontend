@@ -7,9 +7,13 @@
       class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4"
     >
       <!-- Brand -->
-      <router-link to="/admin/dashboard" class="text-white text-sm uppercase hidden lg:inline-block font-semibold">
-        Inicio
-      </router-link>
+      <el-breadcrumb class="text-white text-md uppercase hidden lg:inline-block font-semibold" separator-class="el-icon-arrow-right">
+        <template v-for="(path) of ubicacion">
+          <el-breadcrumb-item :key="path.path" v-if="path.path != '/admin/dashboard'" :to="{ path: path.path }" class="text-white">
+            {{path.name || 'Inicio'}}
+          </el-breadcrumb-item>
+        </template>
+      </el-breadcrumb>
       <!-- User -->
       <ul class="flex-col md:flex-row list-none items-center hidden md:flex">
         <user-dropdown />
@@ -25,5 +29,27 @@ export default {
   components: {
     UserDropdown,
   },
+  computed: {
+    ubicacion () {
+      return this.$route.matched;
+    }
+  },
+  created() {
+    console.log(this.$route)
+  }
 };
 </script>
+<style lang="scss">
+  .el-breadcrumb__item {
+    span {
+      color: white !important;
+    }
+    i {
+      color: black;
+    }
+
+    span, i {
+      font-size: 14px;
+    }
+  }
+</style>
