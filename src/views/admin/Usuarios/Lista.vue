@@ -19,39 +19,41 @@
           </div>
         </div>
         <div class="mt-5">
-          <el-table :data="usuarios.data" class="w-full">
-            <el-table-column fixed prop="usuario" label="Usuario" width="190">
-              <template slot-scope="scope">
-                <router-link :to="`/admin/usuarios/${scope.row.id}`" class="uppercase text-verdiAnderson">
-                  @{{scope.row.usuario}}
-                </router-link>
-              </template>
-            </el-table-column>
-            <el-table-column prop="nombre" label="Nombres"></el-table-column>
-            <el-table-column prop="apellido" label="Apellidos"></el-table-column>
-            <el-table-column prop="nivel" label="Rango" width="190">
-              <template slot-scope="scope">
-                <p class="text-verdiAnderson uppercase">{{scope.row.nivel}}</p>
-              </template>
-            </el-table-column>
-            <el-table-column prop="fecha" label="Creado">
-              <template slot-scope="scope">
-                <p class="">{{parseDate(scope.row.fecha)}}</p>
-              </template>
-            </el-table-column>
-            <el-table-column
-              fixed="right"
-              label="Operaciones"
-              width="170">
-              <template slot-scope="scope">
-                <p class="text-center">
-                  <router-link :to="`/admin/usuarios/${scope.row.id}`" class="text-verdiAnderson text-xs w-full">
-                    Editar
+          <div v-if="usuarios && usuarios.data">
+            <el-table :data="usuarios.data" class="w-full">
+              <el-table-column fixed prop="usuario" label="Usuario" width="190">
+                <template slot-scope="scope">
+                  <router-link :to="`/admin/usuarios/${scope.row.id}`" class="uppercase text-verdiAnderson">
+                    @{{scope.row.usuario}}
                   </router-link>
-                </p>
-              </template>
-            </el-table-column>
-          </el-table>
+                </template>
+              </el-table-column>
+              <el-table-column prop="nombre" label="Nombres"></el-table-column>
+              <el-table-column prop="apellido" label="Apellidos"></el-table-column>
+              <el-table-column prop="nivel" label="Rango" width="190">
+                <template slot-scope="scope">
+                  <p class="text-verdiAnderson uppercase">{{scope.row.nivel}}</p>
+                </template>
+              </el-table-column>
+              <el-table-column prop="fecha" label="Creado">
+                <template slot-scope="scope">
+                  <p class="">{{parseDate(scope.row.fecha)}}</p>
+                </template>
+              </el-table-column>
+              <el-table-column
+                fixed="right"
+                label="Operaciones"
+                width="170">
+                <template slot-scope="scope">
+                  <p class="text-center">
+                    <router-link :to="`/admin/usuarios/${scope.row.id}`" class="text-verdiAnderson text-xs w-full">
+                      Editar
+                    </router-link>
+                  </p>
+                </template>
+              </el-table-column>
+            </el-table>
+          </div>
         </div>
       </div>
     </div>
