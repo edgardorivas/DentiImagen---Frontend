@@ -59,7 +59,7 @@ export default {
       }
       context.dispatch('getLoadingApp', false);
     },
-    async obtenerDetalleUsuario (context, userId) {
+    async obtenerDetalleUsuario (context, payload = { id: String }) {
       const token = localStorage.getItem('token_acess')
       context.dispatch('getLoadingApp', true);
       try {
@@ -70,9 +70,7 @@ export default {
           headers: {
             ['auth-token']: token,
           },
-          data: {
-            id: userId
-          }
+          data: payload,
         });
         context.commit('setdetalleUsuarioId', resultado.data)
       } catch (error) {

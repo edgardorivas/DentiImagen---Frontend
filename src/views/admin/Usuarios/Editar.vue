@@ -142,7 +142,7 @@
       titleTemplate: "%s | Editar Usuario",
     },
     created() {
-      this.$store.dispatch('obtenerDetalleUsuario', this.$route.params.ID);
+      this.$store.dispatch('obtenerDetalleUsuario', { id: this.$route.params.ID });
     },
     data() {
       return {
