@@ -24,5 +24,8 @@ export default {
     HeaderStats,
     FooterAdmin,
   },
+  created() {
+    this.$store.dispatch('obtenerRoles');
+  }
 };
 </script>
