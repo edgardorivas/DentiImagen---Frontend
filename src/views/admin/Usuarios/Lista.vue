@@ -30,9 +30,15 @@
               </el-table-column>
               <el-table-column prop="nombre" label="Nombres"></el-table-column>
               <el-table-column prop="apellido" label="Apellidos"></el-table-column>
+              <el-table-column prop="correo" label="Correo Electronico"></el-table-column>
               <el-table-column prop="nivel" label="Rango" width="190">
                 <template slot-scope="scope">
                   <p class="text-verdiAnderson uppercase">{{scope.row.nivel}}</p>
+                </template>
+              </el-table-column>
+              <el-table-column prop="especializacion" label="Especializacion" width="190">
+                <template slot-scope="scope">
+                  <p class="text-verdiAnderson uppercase">{{scope.row.especializacion}}</p>
                 </template>
               </el-table-column>
               <el-table-column prop="fecha" label="Creado">
