@@ -111,7 +111,19 @@
               </div>
               <br>
               <div class="flex flex-wrap justify-around">
-                <button :disabled="loading" class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">Guardar</button>
+                <el-popconfirm
+                  confirm-button-text='Si, Eliminar'
+                  confirm-button-type="danger"
+                  cancel-button-text='No, Cancelar'
+                  icon="el-icon-info"
+                  icon-color="red"
+                  :title="`Estas seguro de eliminar el usuario ${usuarioDetalle.data[0].usuario}?`"
+                  class="w-full md:w-1/3"
+                  @confirm="eliminarUsuario(usuarioDetalle.data[0])"
+                >
+                  <button slot="reference" :disabled="loading" class="w-full bg-red-600 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md" type="button">Eliminar</button>
+                </el-popconfirm>
+                <button :disabled="loading" class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md" type="submit">Guardar</button>
               </div>
             </form>
           </div>
@@ -176,11 +188,42 @@
           console.clear()
         }
       },
-      async eliminarUsuario() {
-        this.$message({
-          message: 'Eliminado Correctamente',
-          type: 'success'
-        });
+      async eliminarUsuario(payload) {
+        try {
+          this.$store.dispatch('getLoadingApp', true);
+          this.loading = true;
+          const token = localStorage.getItem('token_acess');
+          const request = await axios({
+            method: 'DELETE',
+            baseURL: config.backend.baseURL,
+            url: '/usuario/' + payload.id,
+            headers: {
+              ['auth-token']: token,
+            },
+          });
+          this.$store.dispatch('getLoadingApp', false);
+          this.loading = false;
+          this.$message({
+            message: 'Eliminado Exitosamente',
+            type: 'success',
+          });
+          this.$router.push({ path: '/admin/usuarios' });
+        } catch (error) {
+          if (error.response) {
+            this.$message({
+              message: error.response.data.mensaje || 'Sin mensaje del servidor',
+              type: 'error',
+            });
+          } else {
+            this.$message({
+              message: 'No estas conectado a internet.',
+              type: 'error'
+            });
+          }
+          this.$store.dispatch('getLoadingApp', false);
+          this.loading = false;
+          console.clear()
+        }
       },
     },
     computed: {
@@ -193,3 +236,8 @@
     }
   };
 </script>
+<style lang="scss">
+  .el-button--danger {
+    background-color: #dc2626;
+  }
+</style>
