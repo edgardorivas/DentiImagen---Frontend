@@ -63,7 +63,7 @@
               <div v-if="nivelesUsuario && nivelesUsuario.data" class="w-full md:w-1/2 lg:w-3/12 px-2 mb-3 py-1">
                 <label>
                   <p class="ml-1">Nivel / Rol</p>
-                  <el-select v-model="nuevoUsuario.nivel" placeholder="Nivel del trabajador">
+                  <el-select v-model="nuevoUsuario.nivel" placeholder="Nivel del trabajador" class="w-full">
                     <el-option v-for="item in nivelesUsuario.data" :key="item.id_nivel_usuario" :label="item.nombre_nivel_usuario" :value="item.id_nivel_usuario"></el-option>
                   </el-select>
                 </label>
