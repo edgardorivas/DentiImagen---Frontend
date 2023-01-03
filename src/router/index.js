@@ -46,6 +46,23 @@ const routes = [
         name: 'Lista de Usuarios',
         component: () => import('../views/admin/Usuarios/Lista.vue'),
       },
+      //edgardo
+      {
+        path: "/admin/materiales",
+        name: 'Lista de materiales',
+        component: () => import('../views/admin/materiales/lista.vue'),
+      },
+      {
+        path: "/admin/materiales/agregar",
+        name: 'Registro de materiales',
+        component: () => import('../views/admin/materiales/registro.vue'),
+      },
+      {
+        path: "/admin/materiales/:ID",
+        name: 'Editar materiales',
+        component: () => import('../views/admin/materiales/Editar.vue'),
+      },
+      //fin
       {
         path: "/admin/usuario/agregar",
         name: 'Registro de Usuario',

@@ -115,10 +115,60 @@
             </router-link>
           </li>
         </ul>
+        <!--edgardo-->
+        <ul class="md:flex-col md:min-w-full flex flex-col list-none">
+          <li class="items-center">
+           
+            
+            <el-menu
+              default-active=""
+              class="el-menu-vertical-demo"
+              @open="handleOpen"
+              @close="handleClose">
+              <el-submenu index="1">
+                
+                  <router-link slot="title"
+                  to="/admin/materiales"
+                  class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
+                  exact-active-class="text-emerald-500 hover:text-emerald-600">
+                    <i class="fa-sharp fa-solid fa-syringe"></i>
+                    Materiales
+                  </router-link>
+                
+                <el-menu-item-group >
+                  <el-menu-item index="1-1">
+                    <router-link slot="title"
+                      to="/admin/productos"
+                      class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
+                      exact-active-class="text-emerald-500 hover:text-emerald-600">
+                        <i class="fa-sharp fa-solid fa-syringe"></i>
+                        Tipos
+                    </router-link>
+                  </el-menu-item>
+                  <!--
+                  <el-menu-item index="1-2">
+                    <router-link slot="title"
+                      to="/admin/productos"
+                      class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
+                      exact-active-class="text-emerald-500 hover:text-emerald-600">
+                        <i class="fa-sharp fa-solid fa-syringe"></i>
+                        Provedor
+                    </router-link>
+                  </el-menu-item>
+                  -->
+                </el-menu-item-group>
+                
+              </el-submenu>
+          </el-menu> 
+          </li>
+        </ul>
+    
+        <!--fin-->
       </div>
     </div>
   </nav>
 </template>
+  
 
 <script>
 import NotificationDropdown from "@/components/Dropdowns/NotificationDropdown.vue";
@@ -142,3 +192,8 @@ export default {
   },
 };
 </script>
+<style>
+.el-menu{
+  border:none
+}
+</style>

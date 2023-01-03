@@ -24,6 +24,7 @@
           </button>
         </div>
         <div class="mt-5">
+          
           <div v-if="usuarios && usuarios.data">
             <el-table :data="usuarios.data" class="w-full">
               <el-table-column fixed prop="usuario" label="Usuario" width="190">
@@ -158,6 +159,7 @@
       //   return this.$store.getters.getusuarios;
       // },
       usuarios () {
+        
         return this.$store.getters.getdetalleUsuarioId;
       },
       nivelesUsuario () {
