@@ -46,6 +46,16 @@ const routes = [
         name: 'Lista de Usuarios',
         component: () => import('../views/admin/Usuarios/Lista.vue'),
       },
+      {
+        path: "/admin/usuario/agregar",
+        name: 'Registro de Usuario',
+        component: () => import('../views/admin/Usuarios/Registro.vue'),
+      },
+      {
+        path: "/admin/usuarios/:ID",
+        name: 'Editar Usuario',
+        component: () => import('../views/admin/Usuarios/Editar.vue'),
+      },
       //edgardo
       {
         path: "/admin/materiales",
@@ -62,17 +72,22 @@ const routes = [
         name: 'Editar materiales',
         component: () => import('../views/admin/materiales/Editar.vue'),
       },
+      {
+        path: "/admin/tipo-materiales",
+        name: 'Lista de tipos de materiales',
+        component: () => import('../views/admin/materiales/tipoMateriales/lista.vue'),
+      },
+      {
+        path: "/admin/tipo-materiales/agregar",
+        name: 'Agregar tipos de materiales',
+        component: () => import('../views/admin/materiales/tipoMateriales/registro.vue'),
+      },
+      {
+        path: "/admin/tipo-materiales/:ID",
+        name: 'Editar tipos de materiales',
+        component: () => import('../views/admin/materiales/tipoMateriales/editar.vue'),
+      },
       //fin
-      {
-        path: "/admin/usuario/agregar",
-        name: 'Registro de Usuario',
-        component: () => import('../views/admin/Usuarios/Registro.vue'),
-      },
-      {
-        path: "/admin/usuarios/:ID",
-        name: 'Editar Usuario',
-        component: () => import('../views/admin/Usuarios/Editar.vue'),
-      },
       {
         path: "/admin/configuraciones",
         component: () => import('../views/admin/Settings.vue'),

@@ -150,7 +150,7 @@
         this.modal = false;
       },
       aplicarFiltro() {
-        console.log('sdfsdf')
+
         this.$store.dispatch('obtenerDetalleUsuario', this.search);
       }
     },

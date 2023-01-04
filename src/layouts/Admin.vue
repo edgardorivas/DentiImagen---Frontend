@@ -27,6 +27,9 @@ export default {
   created() {
     this.$store.dispatch('obtenerRoles');
     this.$store.dispatch('obtenerTipoProducto');
+    this.$store.dispatch('obtenerListaDeTipoProducto');
+
+
   }
 };
 </script>

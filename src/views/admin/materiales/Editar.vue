@@ -19,15 +19,45 @@
                   <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                     <label>
                       <p class="ml-1">Nombres</p>
-                      <el-input placeholder="Nombres del trabajador" type="text"  auto-complete="name" v-model="materialDetalles.data[0].nombre_recurso"></el-input>
+                      <el-input placeholder="Nombres del trabajador" type="text"  auto-complete="name" v-model="materialDetalles.data[0].nombre"></el-input>
                     </label>
                   </div>
                   <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                     <label>
                       <p class="ml-1">Descripcion</p>
-                      <el-input placeholder="Apellidos del trabajador" type="text" auto-complete="family-name" v-model="materialDetalles.data[0].descripcion_recurso"></el-input>
+                      <el-input placeholder="Apellidos del trabajador" type="text" auto-complete="family-name" v-model="materialDetalles.data[0].descripcion"></el-input>
                     </label>
                   </div>
+
+                  <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                    <label>
+                      <p class="ml-1">Cantidad disponible</p>
+                      <el-input placeholder="Apellidos del trabajador" type="text" auto-complete="family-name" v-model="materialDetalles.data[0].disponible"></el-input>
+                    </label>
+                  </div>
+
+                  <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                    <label>
+                      <p class="ml-1">cantidad minima</p>
+                      <el-input placeholder="Apellidos del trabajador" type="text" auto-complete="family-name" v-model="materialDetalles.data[0].minimo"></el-input>
+                    </label>
+                  </div>
+
+                  <div v-if="materialDetalles && materialDetalles.data" class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                  <label>
+                    <p class="ml-1">Tipo</p>
+                    <el-select v-model="materialDetalles.data[0].tipo_recurso" placeholder="Nivel del trabajador" class="w-full">
+                      <el-option v-for="item in tipoMaterial.data" :key="item.id_tipo_recurso" :label="item.nombre_tipo_recurso" :value="item.id_tipo_recurso"></el-option>
+                    </el-select>
+                  </label>
+                </div>
+               
+                <div v-if="materialDetalles.data[0].tipo_recurso === 1" class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                  <label>
+                    <p class="ml-1">Costo</p>
+                    <el-input placeholder="Telefono del trabajador" type="number"  v-model="materialDetalles.data[0].costo"></el-input>
+                  </label>
+                </div>
                  
                   
                   <!--
@@ -164,8 +194,8 @@
         materialDetalles () {
           return this.$store.getters.getDetalleProductoId;
         },
-        nivelesUsuario () {
-          return this.$store.getters.getnivelesUsuarios;
+        tipoMaterial () {
+          return this.$store.getters.getTipoMaterial;
         }
       }
     };

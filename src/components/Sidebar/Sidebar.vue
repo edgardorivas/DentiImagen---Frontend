@@ -122,9 +122,7 @@
             
             <el-menu
               default-active=""
-              class="el-menu-vertical-demo"
-              @open="handleOpen"
-              @close="handleClose">
+              class="el-menu-vertical-demo">
               <el-submenu index="1">
                 
                   <router-link slot="title"
@@ -138,7 +136,7 @@
                 <el-menu-item-group >
                   <el-menu-item index="1-1">
                     <router-link slot="title"
-                      to="/admin/productos"
+                      to="/admin/tipo-materiales"
                       class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
                       exact-active-class="text-emerald-500 hover:text-emerald-600">
                         <i class="fa-sharp fa-solid fa-syringe"></i>
