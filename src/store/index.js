@@ -5,6 +5,7 @@ import loading from './loading';
 import usuarios from './usuarios';
 import productos from './productos';
 import tipoProducto from './tipoProducto';
+import proveedores from './proveedores';
 
 Vue.use(Vuex)
 
@@ -21,6 +22,7 @@ export default new Vuex.Store({
     loading,
     usuarios,
     productos,
-    tipoProducto
+    tipoProducto,
+    proveedores
   }
 })

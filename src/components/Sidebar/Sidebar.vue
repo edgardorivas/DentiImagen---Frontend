@@ -115,11 +115,11 @@
             </router-link>
           </li>
         </ul>
-        <!--edgardo-->
+
+
+        <!--edgardo: menu desplegable-->
         <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-          <li class="items-center">
-           
-            
+          <li class="items-center"> 
             <el-menu
               default-active=""
               class="el-menu-vertical-demo">
@@ -162,6 +162,18 @@
         </ul>
     
         <!--fin-->
+        <ul class="md:flex-col md:min-w-full flex flex-col list-none">
+          <li class="items-center">
+            <router-link
+              to="/admin/proveedores"
+              class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
+              exact-active-class="text-emerald-500 hover:text-emerald-600"
+            >
+            <i class="fa-sharp fa-solid fa-user"></i>
+              Proveedores
+            </router-link>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>

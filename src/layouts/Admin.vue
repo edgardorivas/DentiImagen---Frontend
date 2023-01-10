@@ -26,9 +26,8 @@ export default {
   },
   created() {
     this.$store.dispatch('obtenerRoles');
+    this.$store.dispatch('obtenerRecurso');
     this.$store.dispatch('obtenerTipoProducto');
-    this.$store.dispatch('obtenerListaDeTipoProducto');
-
 
   }
 };

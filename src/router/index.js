@@ -57,6 +57,8 @@ const routes = [
         component: () => import('../views/admin/Usuarios/Editar.vue'),
       },
       //edgardo
+
+      //materiales
       {
         path: "/admin/materiales",
         name: 'Lista de materiales',
@@ -72,6 +74,7 @@ const routes = [
         name: 'Editar materiales',
         component: () => import('../views/admin/materiales/Editar.vue'),
       },
+      //tipo-materiales
       {
         path: "/admin/tipo-materiales",
         name: 'Lista de tipos de materiales',
@@ -87,6 +90,18 @@ const routes = [
         name: 'Editar tipos de materiales',
         component: () => import('../views/admin/materiales/tipoMateriales/editar.vue'),
       },
+      //proveedores
+      {
+        path: "/admin/proveedores",
+        name: 'Lista de proveedores',
+        component: () => import('../views/admin/proveedores/lista.vue'),
+      },
+      {
+        path: "/admin/proveedores/agregar",
+        name: 'Agregar Proveedores',
+        component: () => import('../views/admin/proveedores/registro.vue'),
+      },
+      
       //fin
       {
         path: "/admin/configuraciones",

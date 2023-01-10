@@ -150,7 +150,6 @@
         this.modal = false;
       },
       aplicarFiltro() {
-
         this.$store.dispatch('obtenerDetalleUsuario', this.search);
       }
     },
@@ -159,7 +158,6 @@
       //   return this.$store.getters.getusuarios;
       // },
       usuarios () {
-        
         return this.$store.getters.getdetalleUsuarioId;
       },
       nivelesUsuario () {
