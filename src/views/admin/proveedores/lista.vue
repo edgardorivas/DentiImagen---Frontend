@@ -32,7 +32,7 @@
               <el-table :data="proveedores.data" class="w-full">
                 <el-table-column fixed prop="nombre_proveedor" label="Nombre" width="190">
                   <template slot-scope="scope">
-                    <router-link :to="`/admin/usuarios/${scope.row.id}`" class="uppercase text-verdiAnderson">
+                    <router-link :to="`/admin/proveedores/${scope.row.id_provedor}`" class="uppercase text-verdiAnderson">
                       @{{scope.row.nombre_proveedor}}
                     </router-link>
                   </template>
@@ -49,7 +49,7 @@
                   width="170">
                   <template slot-scope="scope">
                     <p class="text-center">
-                      <router-link :to="`/admin/usuarios/${scope.row.id}`" class="text-verdiAnderson text-xs w-full">
+                      <router-link :to="`/admin/proveedores/${scope.row.id_provedor}`" class="text-verdiAnderson text-xs w-full">
                         Editar
                       </router-link>
                     </p>

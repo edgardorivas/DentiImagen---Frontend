@@ -26,7 +26,7 @@ export default {
   },
   created() {
     this.$store.dispatch('obtenerRoles');
-    this.$store.dispatch('obtenerRecurso');
+    this.$store.dispatch('obtenerListaDeproducto');
     this.$store.dispatch('obtenerTipoProducto');
 
   }

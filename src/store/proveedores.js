@@ -18,7 +18,7 @@ export default {
     getProveedores: (state) => {
       return state.proveedores
     },
-    getDetalleUsuarioId: (state) => {
+    getDetalleProveedoresId: (state) => {
       return state.detalleProveedoresId
     }
   },

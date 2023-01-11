@@ -101,7 +101,11 @@ const routes = [
         name: 'Agregar Proveedores',
         component: () => import('../views/admin/proveedores/registro.vue'),
       },
-      
+      {
+        path: "/admin/proveedores/:ID",
+        name: 'Editar Proveedores',
+        component: () => import('../views/admin/proveedores/editar.vue'),
+      },
       //fin
       {
         path: "/admin/configuraciones",
