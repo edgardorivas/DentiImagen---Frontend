@@ -13,18 +13,18 @@
             <form @submit.prevent="registroMaterial">
               <div class="flex flex-wrap justify-around">
                 <div class="w-11/12">
-                  <el-divider>Datos del Material</el-divider>
+                  <el-divider>Datos del tipo de materia</el-divider>
                 </div>
                 <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                   <label>
                     <p class="ml-1">Nombre</p>
-                    <el-input placeholder="Nombre del material" auto-complete="name" v-model="nuevoTipoMaterial.nombre"></el-input>
+                    <el-input placeholder="Nombre del tipo de material" auto-complete="name" v-model="nuevoTipoMaterial.nombre"></el-input>
                   </label>
                 </div>
                 <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                   <label>
                     <p class="ml-1">Descripcion</p>
-                    <el-input placeholder="Descripcion del material" auto-complete="family-name" v-model="nuevoTipoMaterial.descripcion"></el-input>
+                    <el-input placeholder="Descripcion del tipo material" auto-complete="family-name" v-model="nuevoTipoMaterial.descripcion"></el-input>
                   </label>
                 </div>
               </div>

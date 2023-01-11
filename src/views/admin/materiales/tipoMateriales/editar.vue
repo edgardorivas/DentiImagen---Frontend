@@ -19,13 +19,13 @@
                 <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                   <label>
                     <p class="ml-1">Nombre</p>
-                    <el-input placeholder="Nombres del trabajador" type="text"  auto-complete="name" v-model="TipoMateriales.data[0].nombre_tipo_recurso"></el-input>
+                    <el-input placeholder="Nombres del tipo de material" type="text"  auto-complete="name" v-model="TipoMateriales.data[0].nombre_tipo_recurso"></el-input>
                   </label>
                 </div>
                 <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                   <label>
                     <p class="ml-1">Descripcion</p>
-                    <el-input placeholder="Apellidos del trabajador" type="text" auto-complete="family-name" v-model="TipoMateriales.data[0].descripcion_tipo_recurso"></el-input>
+                    <el-input placeholder="Descripcion del tipo de material" type="text" auto-complete="family-name" v-model="TipoMateriales.data[0].descripcion_tipo_recurso"></el-input>
                   </label>
                 </div>    
               </div>

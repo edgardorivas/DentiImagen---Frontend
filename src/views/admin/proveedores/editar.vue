@@ -32,14 +32,14 @@
                   <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                     <label>
                       <p class="ml-1">Telefono</p>
-                      <el-input placeholder="Apellidos del trabajador" type="text" auto-complete="family-name" v-model="proveedorDetalles.data[0].telefono_proveedor"></el-input>
+                      <el-input placeholder="Telefono del proveedor" type="text" auto-complete="family-name" v-model="proveedorDetalles.data[0].telefono_proveedor"></el-input>
                     </label>
                   </div>
 
                   <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                     <label>
                       <p class="ml-1">RIF del proveedor</p>
-                      <el-input placeholder="Apellidos del trabajador" type="text" auto-complete="family-name" v-model="proveedorDetalles.data[0].rif_provedor"></el-input>
+                      <el-input placeholder="RiF del proveedor" type="text" auto-complete="family-name" v-model="proveedorDetalles.data[0].rif_provedor"></el-input>
                     </label>
                   </div>
                    <!--

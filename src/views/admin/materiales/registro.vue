@@ -43,7 +43,7 @@
                 <div v-if="tipoMaterial && tipoMaterial.data" class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                   <label>
                     <p class="ml-1">Tipo</p>
-                    <el-select v-model="nuevoMaterial.tipo_recurso" placeholder="Nivel del trabajador" class="w-full">
+                    <el-select v-model="nuevoMaterial.tipo_recurso" placeholder="Tipo de materia" class="w-full">
                       <el-option v-for="item in tipoMaterial.data" :key="item.id_tipo_recurso" :label="item.nombre_tipo_recurso" :value="item.id_tipo_recurso"></el-option>
                     </el-select>
                   </label>
@@ -83,7 +83,7 @@
             descripcion: null,
             cantidadD: null,
             cantidadM: null,
-            tipo_recurso: 1,
+            tipo_recurso: '',
             costo:0
           },
           loading: false,

@@ -14,32 +14,32 @@
               <form @submit.prevent="modificarMaterial(materialDetalles.data[0])">
                 <div class="flex flex-wrap justify-around">
                   <div class="w-11/12">
-                    <el-divider>Datos del Trabajador</el-divider>
+                    <el-divider>Datos de la materia</el-divider>
                   </div>
                   <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                     <label>
                       <p class="ml-1">Nombres</p>
-                      <el-input placeholder="Nombres del trabajador" type="text"  auto-complete="name" v-model="materialDetalles.data[0].nombre"></el-input>
+                      <el-input placeholder="Nombres de la materia" type="text"  auto-complete="name" v-model="materialDetalles.data[0].nombre"></el-input>
                     </label>
                   </div>
                   <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                     <label>
                       <p class="ml-1">Descripcion</p>
-                      <el-input placeholder="Apellidos del trabajador" type="text" auto-complete="family-name" v-model="materialDetalles.data[0].descripcion"></el-input>
+                      <el-input placeholder="Descripcion del material" type="text" auto-complete="family-name" v-model="materialDetalles.data[0].descripcion"></el-input>
                     </label>
                   </div>
 
                   <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                     <label>
                       <p class="ml-1">Cantidad disponible</p>
-                      <el-input placeholder="Apellidos del trabajador" type="text" auto-complete="family-name" v-model="materialDetalles.data[0].disponible"></el-input>
+                      <el-input placeholder="Cantidad disponible del material" type="number" auto-complete="family-name" v-model="materialDetalles.data[0].disponible"></el-input>
                     </label>
                   </div>
 
                   <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                     <label>
                       <p class="ml-1">cantidad minima</p>
-                      <el-input placeholder="Apellidos del trabajador" type="text" auto-complete="family-name" v-model="materialDetalles.data[0].minimo"></el-input>
+                      <el-input placeholder="cantidad minima del material" type="number" auto-complete="family-name" v-model="materialDetalles.data[0].minimo"></el-input>
                     </label>
                   </div>
 
@@ -55,7 +55,7 @@
                 <div v-if="materialDetalles.data[0].tipo_recurso === 1" class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                   <label>
                     <p class="ml-1">Costo</p>
-                    <el-input placeholder="Telefono del trabajador" type="number"  v-model="materialDetalles.data[0].costo"></el-input>
+                    <el-input placeholder="Costo del servicio" type="number"  v-model="materialDetalles.data[0].costo"></el-input>
                   </label>
                 </div>
                  
