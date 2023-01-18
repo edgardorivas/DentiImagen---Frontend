@@ -106,6 +106,13 @@ const routes = [
         name: 'Editar Proveedores',
         component: () => import('../views/admin/proveedores/editar.vue'),
       },
+
+      //recivos de compra
+      {
+        path: "/admin/recivo/compra",
+        name: 'Agregar recivo de compra',
+        component: () => import('../views/admin/recibos/compra/registro.vue'),
+      },
       //fin
       {
         path: "/admin/configuraciones",
