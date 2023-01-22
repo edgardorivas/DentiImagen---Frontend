@@ -7,6 +7,8 @@ import productos from './productos';
 import tipoProducto from './tipoProducto';
 import proveedores from './proveedores';
 import materialesProveedor from './compra';
+import inventario from './inventario';
+
 
 
 Vue.use(Vuex)
@@ -26,6 +28,7 @@ export default new Vuex.Store({
     productos,
     tipoProducto,
     proveedores,
-    materialesProveedor
+    materialesProveedor,
+    inventario
   }
 })

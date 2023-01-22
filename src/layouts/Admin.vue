@@ -28,6 +28,8 @@ export default {
     this.$store.dispatch('obtenerRoles');
     this.$store.dispatch('obtenerListaDeproducto');
     this.$store.dispatch('obtenerTipoProducto');
+    this.$store.dispatch('obtenerInventario');
+
 
   }
 };
