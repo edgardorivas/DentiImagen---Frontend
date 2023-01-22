@@ -37,7 +37,7 @@
               >
                 89
               </span>
-              <span class="text-sm text-blueGray-400">recivos</span>
+              <span class="text-sm text-blueGray-400">recibos</span>
             </div>
           </div>
         </div>
@@ -58,7 +58,7 @@
           <i class="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
           Odontologo general
         </div>
-        
+
       </div>
       <div class="mt-10 py-10 border-t border-blueGray-200 text-center">
         <div class="flex flex-wrap justify-center">

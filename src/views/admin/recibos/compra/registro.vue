@@ -13,7 +13,7 @@
                     <form>
                         <div class="flex flex-wrap justify-around">
                             <div class="w-11/12">
-                                <el-divider>Datos del basicos del recivo de compra</el-divider>
+                                <el-divider>Datos del basicos del recibo de compra</el-divider>
                             </div>
                             <div v-if="usuarios && usuarios.data" class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
@@ -91,16 +91,16 @@
                                         v-model="datosRecurso.costoD"></el-input>
                                 </label>
                             </div>
-                            
-            
+
+
                         </div>
-                    <!--    
+                    <!--
                     <div>
                         <el-table :data="datos.recurso" class="w-full">
                             <el-table-column prop="unidades" label="Nombres"></el-table-column>
                             <el-table-column prop="unidades" label="Apellidos"></el-table-column>
                             <el-table-column prop="unidades" label="Correo Electronico"></el-table-column>
-                        </el-table>                        
+                        </el-table>
 
                     </div>
 -->
@@ -239,7 +239,7 @@ export default {
                     message: 'Registrado Exitosamente',
                     type: 'success',
                 });
-                
+
             } catch (error) {
                 if (error.response) {
                     this.$message({
