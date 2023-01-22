@@ -139,7 +139,7 @@
           </li>
           <li class="items-center">
             <router-link
-              to="/admin/"
+              to="/admin/odontodiagrama/registro"
               class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
               exact-active-class="text-emerald-500 hover:text-emerald-600"
             >

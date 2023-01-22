@@ -106,23 +106,24 @@ const routes = [
         name: 'Editar Proveedores',
         component: () => import('../views/admin/proveedores/editar.vue'),
       },
-
       //recibos de compra
       {
         path: "/admin/recibo/compra",
         name: 'Agregar recibo de compra',
         component: () => import('../views/admin/recibos/compra/registro.vue'),
       },
-
       //recibos de inventario
       {
         path: "/admin/inventario",
         name: 'Listar inventario',
         component: () => import('../views/admin/inventario/listar.vue'),
       },
-
-
-
+      // Odontodiagrama
+      {
+        path: "/admin/odontodiagrama/registro",
+        name: 'Nuevo Odontodiagrama',
+        component: () => import('../views/admin/odontodiagrama/Registro.vue'),
+      },
       //fin
       {
         path: "/admin/configuraciones",
