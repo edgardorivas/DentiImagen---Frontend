@@ -94,7 +94,7 @@
                             
             
                         </div>
-                        {{ datos }}
+                    <!--    
                     <div>
                         <el-table :data="datos.recurso" class="w-full">
                             <el-table-column prop="unidades" label="Nombres"></el-table-column>
@@ -103,7 +103,7 @@
                         </el-table>                        
 
                     </div>
-
+-->
                         <div class="flex flex-wrap justify-around">
                             <div class="w-full md:w-1/2 lg:w-3/12 px-2 mb-3 py-1">
                                 <button @click="agregarRecurso(datosRecurso)" type="button"
