@@ -211,6 +211,18 @@
           </li>
           <li class="items-center">
             <router-link
+              to="/admin/recibo/compra/lista"
+              class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
+              exact-active-class="text-emerald-500 hover:text-emerald-600"
+            >
+              <i
+                class="fa-solid fa-file-invoice mr-2 text-sm"
+              ></i>
+              Lista de Recibos de Compra
+            </router-link>
+          </li>
+          <li class="items-center">
+            <router-link
               to="/admin/materiales"
               class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
               exact-active-class="text-emerald-500 hover:text-emerald-600"

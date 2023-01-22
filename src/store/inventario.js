@@ -3,40 +3,36 @@ import config from '../config.js'
 
 export default {
   state: {
-    tipoProducto: [],
-    detalleTipoProductoId: null,
+    inventario: [],
+
   },
   mutations: {
-    setTipoProducto: (state, value) => {
-      state.tipoProducto = value
+    setInventario: (state, value) => {
+      state.inventario = value
     },
-    setDetalleTipoProductoId: (state, value) => {
-      state.detalleTipoProductoId = value
-    },
+
   },
   getters: {
-    getTipoProducto: (state) => {
-      return state.tipoProducto
+    getInventario: (state) => {
+      return state.inventario
     },
-    getDetalleTipoProductoId: (state) => {
-      return state.detalleTipoProductoId
-    }
+
   },
   actions: {
-    async obtenerListaDeTipoProducto (context) {
+    async obtenerInventario (context) {
       const token = localStorage.getItem('token_acess')
       context.dispatch('getLoadingApp', true);
       try {
         const resultado = await axios({
           method: 'GET',
           baseURL: config.backend.baseURL,
-          url: '/tipo-recurso',
+          url: '/inventario',
           headers: {
             ['auth-token']: token,
           }
         });
         
-        context.commit('setTipoProducto', resultado.data)
+        context.commit('setInventario', resultado.data)
       } catch (error) {
         if (error.response) {
           this.$message({
@@ -49,40 +45,10 @@ export default {
             type: 'error'
           });
         }
-        context.commit('setTipoProducto', [])
+        context.commit('setInventario', [])
       }
       context.dispatch('getLoadingApp', false);
     },
-    async obtenerDetalleTipoProducto (context, payload = { id: String }) {
-      const token = localStorage.getItem('token_acess')
-      context.dispatch('getLoadingApp', true);
-      try {
-        const resultado = await axios({
-          method: 'POST',
-          baseURL: config.backend.baseURL,
-          url: '/tipo-recurso/filtro',
-          headers: {
-            ['auth-token']: token,
-          },
-          data: payload,
-        });
-        
-        context.commit('setDetalleTipoProductoId', resultado.data)
-      } catch (error) {
-        if (error.response) {
-          this.$message({
-            message: error,
-            type: 'error'
-          });
-        } else {
-          this.$message({
-            message: 'Error al acceder a internet',
-            type: 'error'
-          });
-        }
-        context.commit('setDetalleTipoProductoId', [])
-      }
-      context.dispatch('getLoadingApp', false);
-    }
+    
   }
 }

@@ -1,4 +1,5 @@
 <template>
+    <!-- error:despues de rellenar el formulario y enviarlo no se oculta de nueva la parte inferior del formulario-->
     <div class="flex flex-wrap mt-4">
         <div class="w-full mb-12 xl:mb-0 px-4">
             <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
@@ -10,7 +11,7 @@
                     </div>
                 </div>
                 <div class="mt-5 pb-5">
-                    <form>
+                    <form id="formulario-compra">
                         <div class="flex flex-wrap justify-around">
                             <div class="w-11/12">
                                 <el-divider>Datos del basicos del recibo de compra</el-divider>
@@ -221,6 +222,8 @@ export default {
         },
         async registrarCompra() {
             try {
+                this.agregarRecurso(this.datosRecurso)
+
                 this.$store.dispatch('getLoadingApp', true);
                 this.loading = true;
                 const token = localStorage.getItem('token_acess');
@@ -233,6 +236,7 @@ export default {
                     },
                     data: this.datos
                 });
+                console.log(request)
                 this.$store.dispatch('getLoadingApp', false);
                 this.loading = false;
                 this.$message({
