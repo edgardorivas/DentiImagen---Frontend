@@ -18,7 +18,7 @@
         class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
         to="/admin"
       >
-        Dentimagen
+        <img src="@/assets/logotipoEmpresa.png" class="w-full" alt="DENTIMAGEN LOGO">
       </router-link>
       <!-- User -->
       <ul class="md:hidden items-center flex flex-wrap list-none">
