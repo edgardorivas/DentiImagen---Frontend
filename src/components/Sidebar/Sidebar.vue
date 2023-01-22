@@ -95,26 +95,91 @@
               exact-active-class="text-emerald-500 hover:text-emerald-600"
             >
               <i
-                class="fas fa-users mr-2 text-sm"
+                class="fa-solid fa-user-nurse mr-2 text-sm"
               ></i>
               Usuarios
             </router-link>
           </li>
         </ul>
+
+        <!-- Divider -->
+        <hr class="my-4 md:min-w-full" />
+        <!-- Heading -->
+        <h6
+          class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
+        >
+          Consultas
+        </h6>
+
         <ul class="md:flex-col md:min-w-full flex flex-col list-none">
           <li class="items-center">
             <router-link
-              to="/admin/configuraciones"
+              to="/admin/"
+              class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
+              exact-active-class="text-emerald-500 hover:text-emerald-600"
+            >
+              <i class=""></i>
+              <i
+                class="fa-solid fa-hospital-user mr-2 text-sm"
+              ></i>
+              Nuevo Paciente
+            </router-link>
+          </li>
+          <li class="items-center">
+            <router-link
+              to="/admin/"
               class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
               exact-active-class="text-emerald-500 hover:text-emerald-600"
             >
               <i
-                class="fas fa-tools mr-2 text-sm"
+                class="fa-solid fa-users mr-2 text-sm"
               ></i>
-              Configuraciones
+              Lista de Pacientes
+            </router-link>
+          </li>
+          <li class="items-center">
+            <router-link
+              to="/admin/"
+              class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
+              exact-active-class="text-emerald-500 hover:text-emerald-600"
+            >
+              <i
+                class="fa-solid fa-teeth-open mr-2 text-sm"
+              ></i>
+              Nuevo Odontodiagrama
             </router-link>
           </li>
         </ul>
+
+        <!-- Divider -->
+        <hr class="my-4 md:min-w-full" />
+        <!-- Heading -->
+        <h6
+          class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
+        >
+          Ventas
+        </h6>
+        <ul class="md:flex-col md:min-w-full flex flex-col list-none">
+          <li class="items-center">
+            <router-link
+              to="/admin/"
+              class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
+              exact-active-class="text-emerald-500 hover:text-emerald-600"
+            >
+            <i class="fa-solid fa-cash-register mr-2 text-sm"></i>
+              Nueva Venta
+            </router-link>
+          </li>
+        </ul>
+
+        <!-- Divider -->
+        <hr class="my-4 md:min-w-full" />
+        <!-- Heading -->
+        <h6
+          class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
+        >
+          Insumos
+        </h6>
 
         <ul class="md:flex-col md:min-w-full flex flex-col list-none">
           <li class="items-center">
@@ -124,58 +189,46 @@
               exact-active-class="text-emerald-500 hover:text-emerald-600"
             >
               <i
-                class="fas fa-tools mr-2 text-sm"
+                class="fa-solid fa-file-invoice mr-2 text-sm"
               ></i>
-              recivo de compra
+              Generar Recibo de Compra
+            </router-link>
+          </li>
+          <li class="items-center">
+            <router-link
+              to="/admin/materiales"
+              class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
+              exact-active-class="text-emerald-500 hover:text-emerald-600"
+            >
+              <i
+                class="fa-solid fa-recycle mr-2 text-sm"
+              ></i>
+              Lista de Insumos / Materiales
+            </router-link>
+          </li>
+          <li class="items-center">
+            <router-link
+              to="/admin/tipo-materiales"
+              class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
+              exact-active-class="text-emerald-500 hover:text-emerald-600"
+            >
+              <i
+                class="fa-solid fa-pump-medical mr-2 text-sm"
+              ></i>
+              Lista de Tipos Insumos / Materiales
             </router-link>
           </li>
         </ul>
 
+        <!-- Divider -->
+        <hr class="my-4 md:min-w-full" />
+        <!-- Heading -->
+        <h6
+          class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
+        >
+          Proveedores
+        </h6>
 
-        <!--edgardo: menu desplegable-->
-        <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-          <li class="items-center"> 
-            <el-menu
-              default-active=""
-              class="el-menu-vertical-demo">
-              <el-submenu index="1">
-                
-                  <router-link slot="title"
-                  to="/admin/materiales"
-                  class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
-                  exact-active-class="text-emerald-500 hover:text-emerald-600">
-                    <i class="fa-sharp fa-solid fa-syringe"></i>
-                    Materiales
-                  </router-link>
-                
-                <el-menu-item-group >
-                  <el-menu-item index="1-1">
-                    <router-link slot="title"
-                      to="/admin/tipo-materiales"
-                      class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
-                      exact-active-class="text-emerald-500 hover:text-emerald-600">
-                        <i class="fa-sharp fa-solid fa-syringe"></i>
-                        Tipos
-                    </router-link>
-                  </el-menu-item>
-                  <!--
-                  <el-menu-item index="1-2">
-                    <router-link slot="title"
-                      to="/admin/productos"
-                      class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
-                      exact-active-class="text-emerald-500 hover:text-emerald-600">
-                        <i class="fa-sharp fa-solid fa-syringe"></i>
-                        Provedor
-                    </router-link>
-                  </el-menu-item>
-                  -->
-                </el-menu-item-group>
-                
-              </el-submenu>
-          </el-menu> 
-          </li>
-        </ul>
-    
         <!--fin-->
         <ul class="md:flex-col md:min-w-full flex flex-col list-none">
           <li class="items-center">
@@ -184,8 +237,8 @@
               class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
               exact-active-class="text-emerald-500 hover:text-emerald-600"
             >
-            <i class="fa-sharp fa-solid fa-user"></i>
-              Proveedores
+            <i class="fa-sharp fa-solid fa-user mr-2 text-sm"></i>
+              Lista de Proveedores
             </router-link>
           </li>
         </ul>
@@ -193,7 +246,7 @@
     </div>
   </nav>
 </template>
-  
+
 
 <script>
 import NotificationDropdown from "@/components/Dropdowns/NotificationDropdown.vue";
