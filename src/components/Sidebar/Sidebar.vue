@@ -188,7 +188,7 @@
               exact-active-class="text-emerald-500 hover:text-emerald-600"
             >
               <i
-                class="fas fa-tools mr-2 text-sm"
+                class="fa-solid fa-boxes-stacked mr-2 text-sm"
               ></i>
               Inventario
             </router-link>
