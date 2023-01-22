@@ -6,6 +6,8 @@ import usuarios from './usuarios';
 import productos from './productos';
 import tipoProducto from './tipoProducto';
 import proveedores from './proveedores';
+import materialesProveedor from './compra';
+
 
 Vue.use(Vuex)
 
@@ -23,6 +25,7 @@ export default new Vuex.Store({
     usuarios,
     productos,
     tipoProducto,
-    proveedores
+    proveedores,
+    materialesProveedor
   }
 })
