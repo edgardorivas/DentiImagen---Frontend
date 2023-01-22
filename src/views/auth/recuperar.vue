@@ -72,21 +72,19 @@
     // https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete // Docs para autocompletar
     // eslint-disable-next-line vue/multi-word-component-names
     name: "recuperar-auth",
-    data(){
+    data() {
       return {
         pregunta:{
-          respuesta1 : null,
-          respuesta2 : null,
-          respuesta3 : null
+          respuesta1: null,
+          respuesta2: null,
+          respuesta3: null
         },
-        claveNueva:null,
-        claveRepetida:null,
-
+        claveNueva: null,
+        claveRepetida: null,
         loading: false,
-        correo : null,
-        siguiente:false,
-        datos:null
-        
+        correo: null,
+        siguiente: false,
+        datos: null,
       }
     },
     methods: {
@@ -100,7 +98,7 @@
             data:{
               email: this.correo,
             }
-            
+
           });
           this.$message({
             message: 'correo encontrado',
@@ -109,8 +107,7 @@
           this.datos = request.data.data[0]
           this.$store.dispatch('getLoadingApp', false);
           this.siguiente = !this.siguiente;
-          return request ;
-
+          return request;
         } catch (error) {
           if (error.response) {
             this.$message({
@@ -136,7 +133,7 @@
             baseURL: config.backend.baseURL,
             url: '/login/comparar',
             data:{
-              preguntas: this.pregunta, 
+              preguntas: this.pregunta,
               respuestas: this.datos
             }
           });
@@ -146,7 +143,7 @@
           });
           this.siguiente='clave';
           this.$store.dispatch('getLoadingApp', false);
-          
+
         } catch (error) {
           console.log(error)
           this.$message({
@@ -194,16 +191,13 @@
           console.clear()
         }
       },
-      regresar: function(){
+      regresar: function() {
         this.correo = null;
         this.pregunta.respuesta1 = null;
         this.pregunta.respuesta2 = null;
         this.pregunta.respuesta3 = null;
         this.siguiente = false;
-
       },
     }
-  } 
-  
-
+  }
 </script>

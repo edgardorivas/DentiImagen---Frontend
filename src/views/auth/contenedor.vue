@@ -1,13 +1,15 @@
 <template>
-  <div class="container m-auto mt-11">
-    <div class="flex flex-row " id="container-auth">
-      <div class=" justify-center ">
-        <div class=" justify-center w-1/3 m-auto">
-          <img alt="Vue logo" width="300px" src="@/assets/logotipoEmpresa.png">
+  <div>
+    <div class="flex justify-center" id="container-auth">
+      <div class="flex flex-col h-screen">
+        <div class="md:mt-40">
+          <div class="justify-center w-1/3 m-auto">
+            <img alt="Vue logo" width="300px" src="@/assets/logotipoEmpresa.png">
+          </div>
+          <router-view />
         </div>
-        <router-view />
       </div>
-      <div class=" justify-center flex-1 ">Imagen chida central</div>
+      <div class="hidden md:inline-block justify-center flex-1 bg-gradient-to-r from-verdiAnderson to-blue-500 h-screen"></div>
     </div>
   </div>
 </template>
@@ -17,7 +19,7 @@
   }
 </script>
 <style lang="scss">
-  .container-auth {
-    height: 100vw;
+  #container-auth {
+    height: 100%;
   }
 </style>
