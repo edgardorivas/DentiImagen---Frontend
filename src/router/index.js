@@ -113,6 +113,16 @@ const routes = [
         name: 'Agregar recivo de compra',
         component: () => import('../views/admin/recibos/compra/registro.vue'),
       },
+
+      //recivos de inventario
+      {
+        path: "/admin/inventario",
+        name: 'Listar inventario',
+        component: () => import('../views/admin/inventario/listar.vue'),
+      },
+
+
+
       //fin
       {
         path: "/admin/configuraciones",
