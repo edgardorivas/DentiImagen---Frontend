@@ -8,6 +8,8 @@ import tipoProducto from './tipoProducto';
 import proveedores from './proveedores';
 import materialesProveedor from './compra';
 import inventario from './inventario';
+import pacientes from './paciente';
+
 
 
 
@@ -29,6 +31,7 @@ export default new Vuex.Store({
     tipoProducto,
     proveedores,
     materialesProveedor,
-    inventario
+    inventario,
+    pacientes
   }
 })

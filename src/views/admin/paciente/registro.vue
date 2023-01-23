@@ -251,7 +251,7 @@
                         </div>
 
                     </form>
-                    {{ nuevoHistorialPaciente }}
+                    
                 </div>
             </div>
         </div>

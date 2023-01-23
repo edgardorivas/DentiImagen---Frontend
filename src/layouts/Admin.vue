@@ -29,6 +29,8 @@ export default {
     this.$store.dispatch('obtenerListaDeproducto');
     this.$store.dispatch('obtenerTipoProducto');
     this.$store.dispatch('obtenerInventario');
+    this.$store.dispatch('obtenerListaDePacientes');
+
 
 
   }
