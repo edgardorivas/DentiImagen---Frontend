@@ -10,7 +10,7 @@
                     </div>
                 </div>
                 <div class="mt-5 pb-5">
-                    <form >
+                    <form @submit.prevent="registroPaciente()" >
 
                         <div class="flex flex-wrap justify-around" v-if="segundaParte == false">
 
@@ -21,7 +21,7 @@
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Nombre</p>
-                                    <el-input placeholder="Nombre del Paciente" auto-complete="name"
+                                    <el-input placeholder="Nombre del Paciente" 
                                         v-model="nuevoHistorialPaciente.nombre"></el-input>
                                 </label>
                             </div>
@@ -29,7 +29,7 @@
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Apellido</p>
-                                    <el-input placeholder="Apellido del Paciente" auto-complete="name"
+                                    <el-input placeholder="Apellido del Paciente" 
                                         v-model="nuevoHistorialPaciente.apellido"></el-input>
                                 </label>
                             </div>
@@ -37,7 +37,7 @@
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Edad</p>
-                                    <el-input placeholder="Edad del Paciente" auto-complete="name"
+                                    <el-input placeholder="Edad del Paciente" 
                                         v-model="nuevoHistorialPaciente.edad"></el-input>
                                 </label>
                             </div>
@@ -45,7 +45,7 @@
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Cedula</p>
-                                    <el-input placeholder="Cedula del Paciente" auto-complete="name"
+                                    <el-input placeholder="Cedula del Paciente" 
                                         v-model="nuevoHistorialPaciente.cedula"></el-input>
                                 </label>
                             </div>
@@ -53,30 +53,33 @@
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Sexo</p>
-                                    <el-input placeholder="Genero del Paciente" auto-complete="name"
+                                    <el-input placeholder="Genero del Paciente" 
                                         v-model="nuevoHistorialPaciente.genero"></el-input>
                                 </label>
                             </div>
 
+
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Telefono</p>
-                                    <el-input placeholder="Telefono del Paciente" auto-complete="name"
+                                    <el-input placeholder="Telefono del Paciente" 
                                         v-model="nuevoHistorialPaciente.telefono"></el-input>
                                 </label>
                             </div>
 
+
+
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Correo Electronico</p>
-                                    <el-input placeholder="Correo del Paciente" auto-complete="name"
+                                    <el-input placeholder="Correo del Paciente" 
                                         v-model="nuevoHistorialPaciente.correo"></el-input>
                                 </label>
                             </div>
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Referido por:</p>
-                                    <el-input placeholder="Nombre del tipo de material" auto-complete="name"
+                                    <el-input placeholder="Nombre del tipo de material" 
                                         v-model="nuevoHistorialPaciente.referidoPor"></el-input>
                                 </label>
                             </div>
@@ -85,7 +88,7 @@
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Motivo de la Consulta</p>
-                                    <el-input placeholder="Motivo de la Consulta" auto-complete="name"
+                                    <el-input placeholder="Motivo de la Consulta" 
                                         v-model="nuevoHistorialPaciente.motivoConsulta"></el-input>
                                 </label>
                             </div>
@@ -93,147 +96,145 @@
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Profesion </p>
-                                    <el-input placeholder="Profesion del Paciente" auto-complete="family-name"
+                                    <el-input placeholder="Profesion del Paciente" 
                                         v-model="nuevoHistorialPaciente.profecion"></el-input>
                                 </label>
                             </div>
+
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Direccion </p>
-                                    <el-input placeholder="Direccion del Paciente" auto-complete="family-name"
+                                    <el-input placeholder="Direccion del Paciente" 
                                         v-model="nuevoHistorialPaciente.direccion"></el-input>
+                                </label>
+                            </div>
+
+                            <div v-if="trabajadores && trabajadores.data" class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">Odontologo</p>
+                                    <el-select v-model="nuevoHistorialPaciente.trabajadorOdontologo"  placeholder="Odontologo" class="w-full">
+                                    <el-option v-for="item in trabajadores.data"  :key="item.id_recurso" :label="item.nombre" :value="item.id"></el-option>
+                                    </el-select>
                                 </label>
                             </div>
                         </div>
 
                         <div class="flex flex-wrap justify-around" v-else>
 
-                            <div class="w-full md:w-1/2 lg:w-3/12 px-2 mb-3 py-1">
+                            <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
                                 <label>
                                 <p class="ml-1">¿ Esta usted en tratamiento ?</p>
-                                <el-select v-model="nuevoHistorialPaciente.tratamiento" placeholder="Tratamiento" class="w-full">
+                                <el-select v-model="nuevoHistorialPaciente.estaTratamiento" placeholder="Tratamiento" class="w-full">
                                     <el-option label="Si" value=true></el-option>
                                     <el-option label="No" value=false></el-option>
                                 </el-select>
                                 </label>
                             </div>
 
-                            <div class="w-full md:w-1/2 lg:w-3/12 px-2 mb-3 py-1">
+                            <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
                                 <label>
                                 <p class="ml-1">¿ Alergia a algun medicamento?</p>
-                                <el-select v-model="nuevoHistorialPaciente.tratamiento" placeholder="Tratamiento" class="w-full">
+                                <el-select v-model="nuevoHistorialPaciente.alergicoAlgunMedicamento" placeholder="¿ Alergia a algun medicamento?" class="w-full">
                                     <el-option label="Si" value=true></el-option>
                                     <el-option label="No" value=false></el-option>
                                 </el-select>
                                 </label>
                             </div>
 
-                            <div class="w-full md:w-1/2 lg:w-3/12 px-2 mb-3 py-1">
+                            <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
                                 <label>
                                 <p class="ml-1">¿ Sufre de presion arterial ?</p>
-                                <el-select v-model="nuevoHistorialPaciente.tratamiento" placeholder="Tratamiento" class="w-full">
+                                <el-select v-model="nuevoHistorialPaciente.sufreTensionAlterial" placeholder="¿ Sufre de presion arterial ?" class="w-full">
                                     <el-option label="Si" value=true></el-option>
                                     <el-option label="No" value=false></el-option>
                                 </el-select>
                                 </label>
                             </div>
 
-                            <div class="w-full md:w-1/2 lg:w-3/12 px-2 mb-3 py-1">
+                            <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
                                 <label>
                                 <p class="ml-1">¿ Diabetico ?</p>
-                                <el-select v-model="nuevoHistorialPaciente.tratamiento" placeholder="Tratamiento" class="w-full">
+                                <el-select v-model="nuevoHistorialPaciente.diabetico" placeholder="¿ Diabetico ?" class="w-full">
                                     <el-option label="Si" value=true></el-option>
                                     <el-option label="No" value=false></el-option>
                                 </el-select>
                                 </label>
                             </div>
 
-                            <div class="w-full md:w-1/2 lg:w-3/12 px-2 mb-3 py-1">
+                            <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
                                 <label>
                                 <p class="ml-1">¿ Antecedentes familiares de diabetes ?</p>
-                                <el-select v-model="nuevoHistorialPaciente.tratamiento" placeholder="Tratamiento" class="w-full">
+                                <el-select v-model="nuevoHistorialPaciente.antecedentesDiabetico" placeholder="¿ Antecedentes familiares de diabetes ?" class="w-full">
                                     <el-option label="Si" value=true></el-option>
                                     <el-option label="No" value=false></el-option>
                                 </el-select>
                                 </label>
                             </div>
 
-                            <div class="w-full md:w-1/2 lg:w-3/12 px-2 mb-3 py-1">
+                            <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
                                 <label>
                                 <p class="ml-1">¿ Ha sufrido de Hepatitis ?</p>
-                                <el-select v-model="nuevoHistorialPaciente.tratamiento" placeholder="Tratamiento" class="w-full">
+                                <el-select v-model="nuevoHistorialPaciente.sufridoHepatitis" placeholder="¿ Ha sufrido de Hepatitis ?" class="w-full">
                                     <el-option label="Si" value=true></el-option>
                                     <el-option label="No" value=false></el-option>
                                 </el-select>
                                 </label>
                             </div>
 
-                            <div class="w-full md:w-1/2 lg:w-3/12 px-2 mb-3 py-1">
+                            <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
                                 <label>
                                 <p class="ml-1">¿ Ha sufrido de Herpes ?</p>
-                                <el-select v-model="nuevoHistorialPaciente.tratamiento" placeholder="Tratamiento" class="w-full">
+                                <el-select v-model="nuevoHistorialPaciente.sufridoHerpes" placeholder="¿ Ha sufrido de Herpes ?" class="w-full">
                                     <el-option label="Si" value=true></el-option>
                                     <el-option label="No" value=false></el-option>
                                 </el-select>
                                 </label>
                             </div>
 
-                            <div class="w-full md:w-1/2 lg:w-3/12 px-2 mb-3 py-1">
+                            <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
                                 <label>
                                 <p class="ml-1">¿ Ha sufrido de Afecciones cardiacas ?</p>
-                                <el-select v-model="nuevoHistorialPaciente.tratamiento" placeholder="Tratamiento" class="w-full">
+                                <el-select v-model="nuevoHistorialPaciente.efeccionesCardiacas" placeholder="Tratamiento" class="w-full">
                                     <el-option label="Si" value=true></el-option>
                                     <el-option label="No" value=false></el-option>
                                 </el-select>
                                 </label>
                             </div>
 
-                            <div class="w-full md:w-1/2 lg:w-3/12 px-2 mb-3 py-1">
+                            <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
                                 <label>
                                 <p class="ml-1">¿ Problemas con la Anestecia ?</p>
-                                <el-select v-model="nuevoHistorialPaciente.tratamiento" placeholder="Tratamiento" class="w-full">
+                                <el-select v-model="nuevoHistorialPaciente.sufridoAnestecia" placeholder="¿ Problemas con la Anestecia ?" class="w-full">
                                     <el-option label="Si" value=true></el-option>
                                     <el-option label="No" value=false></el-option>
                                 </el-select>
                                 </label>
                             </div>
 
-                            <div class="w-full md:w-1/2 lg:w-3/12 px-2 mb-3 py-1">
+                            <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
                                 <label>
                                 <p class="ml-1">¿ Es usted propenso a las Hemorragias ?</p>
-                                <el-select v-model="nuevoHistorialPaciente.tratamiento" placeholder="Tratamiento" class="w-full">
+                                <el-select v-model="nuevoHistorialPaciente.propensoHemorragias" placeholder="¿ Es usted propenso a las Hemorragias ?" class="w-full">
                                     <el-option label="Si" value=true></el-option>
                                     <el-option label="No" value=false></el-option>
                                 </el-select>
                                 </label>
                             </div>
 
-                            <div class="w-full md:w-1/2 lg:w-3/12 px-2 mb-3 py-1">
+                            <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
                                 <label>
                                 <p class="ml-1">¿ Ha convulsionado alguna vez ?</p>
-                                <el-select v-model="nuevoHistorialPaciente.tratamiento" placeholder="Tratamiento" class="w-full">
+                                <el-select v-model="nuevoHistorialPaciente.convulcionAlgunaVez" placeholder="¿ Ha convulsionado alguna vez ?" class="w-full">
                                     <el-option label="Si" value=true></el-option>
                                     <el-option label="No" value=false></el-option>
                                 </el-select>
                                 </label>
                             </div>
-
-                            
-
-
-
-
-                            
-
-
-
-
 
                         </div>
 
 
                         <br>
-
 
                         <div class="flex flex-wrap justify-around"  v-if="segundaParte == false">
                             <button @click="cambiar()" type="button"  :disabled="loading"
@@ -245,11 +246,12 @@
                             <button @click="cambiar()" type="button"   :disabled="loading"
                                 class="w-full md:w-1/3 bg-red-300 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">Atras</button>
                                 
-                            <button  type="button"   :disabled="loading"
+                            <button   :disabled="loading"
                                 class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">Guardar</button>
                         </div>
 
                     </form>
+                    {{ nuevoHistorialPaciente }}
                 </div>
             </div>
         </div>
@@ -265,6 +267,7 @@ export default {
         titleTemplate: "%s | Agregar nuevo material",
     },
     created() {
+        this.$store.dispatch('obtenerListaDeUsuarios');
         
     },
     data() {
@@ -281,8 +284,18 @@ export default {
                 genero: "",
                 motivoConsulta: "",
                 direccion: "",
-                tratamiento: null,
-
+                diabetico:  null,
+                antecedentesDiabetico: null,
+                sufridoHepatitis : null,
+                sufridoHerpes: null,
+                efeccionesCardiacas: null,
+                sufridoAnestecia : null,
+                propensoHemorragias: null,
+                convulcionAlgunaVez: null,
+                estaTratamiento: null,
+                alergicoAlgunMedicamento: null,
+                sufreTensionAlterial: null,
+                trabajadorOdontologo:null
 
             },
 
@@ -291,27 +304,29 @@ export default {
         }
     },
     methods: {
-        async registroMaterial() {
+        async registroPaciente() {
             try {
                 this.$store.dispatch('getLoadingApp', true);
                 this.loading = true;
                 const token = localStorage.getItem('token_acess');
+                console.log(this.nuevoHistorialPaciente)
                 const request = await axios({
                     method: 'POST',
                     baseURL: config.backend.baseURL,
-                    url: '/tipo-recurso',
+                    url: '/paciente/ingresar',
                     headers: {
                         ['auth-token']: token,
                     },
-                    data: this.nuevoTipoMaterial
+                    data: this.nuevoHistorialPaciente
                 });
+                console.log(request);
                 this.$store.dispatch('getLoadingApp', false);
                 this.loading = false;
                 this.$message({
                     message: 'Registrado Exitosamente',
                     type: 'success',
                 });
-                this.$router.push({ path: '/admin/tipo-materiales' });
+                this.$router.push({ path: '/admin/' });
             } catch (error) {
                 if (error.response) {
                     this.$message({
@@ -331,6 +346,11 @@ export default {
         },
         cambiar(){
             this.segundaParte = !this.segundaParte;
+        }
+    },
+    computed: {
+        trabajadores () {
+          return this.$store.getters.getusuarios;
         }
     }
 };
