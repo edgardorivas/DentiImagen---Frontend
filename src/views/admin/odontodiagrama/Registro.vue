@@ -18,9 +18,9 @@
               </div>
               <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                 <label>
-                  <p class="ml-1">Paciente | <small>No esta registrado? <router-link class="text-verdiAnderson" to="/">Registrar Paciente</router-link></small> </p>
-                  <el-select v-model="odontodiagrama.paciente" placeholder="Tipo de materia" class="w-full">
-                    <el-option label="SELECCIONE" :value="null"></el-option>
+                  <p class="ml-1">Paciente | <small>No esta registrado? <router-link class="text-verdiAnderson" to="/admin/paciente/agregar">Registrar Paciente</router-link></small> </p>
+                  <el-select v-model="odontodiagrama.paciente" filterable placeholder="Seleccione el paciente" class="w-full">
+                    <el-option v-for="paciente of pacientes" :key="paciente.id_paciente" :label="paciente.nombre_paciente + ' ' + paciente.apellido_paciente" :value="paciente.id_paciente"></el-option>
                   </el-select>
                 </label>
               </div>
@@ -194,14 +194,14 @@
                   </div>
                   <div class="w-full px-2 mb-3 py-1">
                     <label>
-                      <p class="ml-1 mb-1">Afecciones</p>
+                      <p class="ml-1 mb-1">Afecciones / Problematica del Diente</p>
                       <button @click="diente.afecciones.unshift(getNewAfeccion())" class="px-2 py-1 uppercase border border-verdiAnderson bg-verdiAnderson text-white rounded-sm">+ Agregar Afección</button>
                     </label>
                   </div>
                   <div v-for="(afeccion, index) of diente.afecciones" :key="index" class="w-full px-2 mb-3 py-1 bg-slate-100 transition-all delay-150 duration-300">
                     <div class="mb-2">
                       <label>
-                        <p class="ml-1 mb-1">Afección {{ afeccion.nombre || 'Sin Titulo' }}</p>
+                        <p class="ml-1 mb-1">Afección: <small>{{ afeccion.nombre || 'Sin Titulo' }}</small></p>
                         <el-input placeholder="Nombre de la afeccion" v-model="afeccion.nombre"></el-input>
                       </label>
                     </div>
@@ -235,132 +235,174 @@
   </div>
 </template>
 <script>
-export default {
-  name: 'odontodiagrama-registro',
-  data() {
-    return {
-      odontodiagrama: this.getObjectOdontodiagrama(),
-      modal: false,
-      diente: null,
-    }
-  },
-  methods: {
-    getObjectOdontodiagrama() {
+  import config from "../../../config";
+  import axios from "axios";
+  export default {
+    name: 'odontodiagrama-registro',
+    created() {
+      this.getPacientes(this.search);
+    },
+    data() {
       return {
-        paciente: null,
-        fechaRegistron: new Date(),
-        dientes: {
-          'C-1': {
-            _index: 1,
-            adulto: {
-              11: this.getObjectDiente(),
-              12: this.getObjectDiente(),
-              13: this.getObjectDiente(),
-              14: this.getObjectDiente(),
-              15: this.getObjectDiente(),
-              16: this.getObjectDiente(),
-              17: this.getObjectDiente(),
-              18: this.getObjectDiente(),
-            },
-            nino: {
-              51: this.getObjectDiente(),
-              52: this.getObjectDiente(),
-              53: this.getObjectDiente(),
-              54: this.getObjectDiente(),
-              55: this.getObjectDiente(),
-            },
-          },
-          'C-2': {
-            _index: 2,
-            adulto: {
-              21: this.getObjectDiente(),
-              22: this.getObjectDiente(),
-              23: this.getObjectDiente(),
-              24: this.getObjectDiente(),
-              25: this.getObjectDiente(),
-              26: this.getObjectDiente(),
-              27: this.getObjectDiente(),
-              28: this.getObjectDiente(),
-            },
-            nino: {
-              61: this.getObjectDiente(),
-              62: this.getObjectDiente(),
-              63: this.getObjectDiente(),
-              64: this.getObjectDiente(),
-              65: this.getObjectDiente(),
-            },
-          },
-          'C-3': {
-            _index: 3,
-            adulto: {
-              31: this.getObjectDiente(),
-              32: this.getObjectDiente(),
-              33: this.getObjectDiente(),
-              34: this.getObjectDiente(),
-              35: this.getObjectDiente(),
-              36: this.getObjectDiente(),
-              37: this.getObjectDiente(),
-              38: this.getObjectDiente(),
-            },
-            nino: {
-              71: this.getObjectDiente(),
-              72: this.getObjectDiente(),
-              73: this.getObjectDiente(),
-              74: this.getObjectDiente(),
-              75: this.getObjectDiente(),
-            },
-          },
-          'C-4': {
-            _index: 4,
-            adulto: {
-              41: this.getObjectDiente(),
-              42: this.getObjectDiente(),
-              43: this.getObjectDiente(),
-              44: this.getObjectDiente(),
-              45: this.getObjectDiente(),
-              46: this.getObjectDiente(),
-              47: this.getObjectDiente(),
-              48: this.getObjectDiente(),
-            },
-            nino: {
-              81: this.getObjectDiente(),
-              82: this.getObjectDiente(),
-              83: this.getObjectDiente(),
-              84: this.getObjectDiente(),
-              85: this.getObjectDiente(),
-            },
-          },
+        odontodiagrama: this.getObjectOdontodiagrama(),
+        modal: false,
+        diente: null,
+        search: {
+          cedula: '',
         },
-      };
+        pacientes: [],
+      }
     },
-    getObjectDiente() {
-      return {
-        afecciones: [],
-        sano: true,
-        ausente: false,
-      };
-    },
-    getNewAfeccion() {
-      return {
-        nombre: null,
-        completado: false,
-        descripcion: null,
-      };
-    },
-    eliminarAfeccion(value, index) {
-      value = value.splice(index, 1);
-      this.$message({
-        message: 'Eliminado',
-        type: 'success',
-      });
-    },
-    abrirModal(value) {
-      this.modal = true;
-      this.diente = value;
-    },
-    parseDate(date) {
-      return new Date(date).toLocaleString();
-    },
+    methods: {
+      getObjectOdontodiagrama() {
+        return {
+          paciente: null,
+          fechaRegistron: new Date(),
+          dientes: {
+            'C-1': {
+              _index: 1,
+              adulto: {
+                11: this.getObjectDiente(),
+                12: this.getObjectDiente(),
+                13: this.getObjectDiente(),
+                14: this.getObjectDiente(),
+                15: this.getObjectDiente(),
+                16: this.getObjectDiente(),
+                17: this.getObjectDiente(),
+                18: this.getObjectDiente(),
+              },
+              nino: {
+                51: this.getObjectDiente(),
+                52: this.getObjectDiente(),
+                53: this.getObjectDiente(),
+                54: this.getObjectDiente(),
+                55: this.getObjectDiente(),
+              },
+            },
+            'C-2': {
+              _index: 2,
+              adulto: {
+                21: this.getObjectDiente(),
+                22: this.getObjectDiente(),
+                23: this.getObjectDiente(),
+                24: this.getObjectDiente(),
+                25: this.getObjectDiente(),
+                26: this.getObjectDiente(),
+                27: this.getObjectDiente(),
+                28: this.getObjectDiente(),
+              },
+              nino: {
+                61: this.getObjectDiente(),
+                62: this.getObjectDiente(),
+                63: this.getObjectDiente(),
+                64: this.getObjectDiente(),
+                65: this.getObjectDiente(),
+              },
+            },
+            'C-3': {
+              _index: 3,
+              adulto: {
+                31: this.getObjectDiente(),
+                32: this.getObjectDiente(),
+                33: this.getObjectDiente(),
+                34: this.getObjectDiente(),
+                35: this.getObjectDiente(),
+                36: this.getObjectDiente(),
+                37: this.getObjectDiente(),
+                38: this.getObjectDiente(),
+              },
+              nino: {
+                71: this.getObjectDiente(),
+                72: this.getObjectDiente(),
+                73: this.getObjectDiente(),
+                74: this.getObjectDiente(),
+                75: this.getObjectDiente(),
+              },
+            },
+            'C-4': {
+              _index: 4,
+              adulto: {
+                41: this.getObjectDiente(),
+                42: this.getObjectDiente(),
+                43: this.getObjectDiente(),
+                44: this.getObjectDiente(),
+                45: this.getObjectDiente(),
+                46: this.getObjectDiente(),
+                47: this.getObjectDiente(),
+                48: this.getObjectDiente(),
+              },
+              nino: {
+                81: this.getObjectDiente(),
+                82: this.getObjectDiente(),
+                83: this.getObjectDiente(),
+                84: this.getObjectDiente(),
+                85: this.getObjectDiente(),
+              },
+            },
+          },
+        };
+      },
+      getObjectDiente() {
+        return {
+          afecciones: [],
+          sano: true,
+          ausente: false,
+        };
+      },
+      getNewAfeccion() {
+        return {
+          nombre: null,
+          completado: false,
+          descripcion: null,
+        };
+      },
+      eliminarAfeccion(value, index) {
+        value = value.splice(index, 1);
+        this.$message({
+          message: 'Eliminado',
+          type: 'success',
+        });
+      },
+      abrirModal(value) {
+        this.modal = true;
+        this.diente = value;
+      },
+      parseDate(date) {
+        return new Date(date).toLocaleString();
+      },
+      //// Obtener Pacientes
+      async getPacientes(search) {
+        try {
+          this.$store.dispatch('getLoadingApp', true);
+          const token = localStorage.getItem('token_acess');
+          const request = await axios({
+            method: 'POST',
+            baseURL: config.backend.baseURL,
+            url: '/paciente/filtro',
+            headers: {
+              ['auth-token']: token,
+            },
+            data: search,
+          });
+          this.$store.dispatch('getLoadingApp', false);
+          this.pacientes = request.data.data;
+        } catch (error) {
+          if (error.response) {
+            this.$message({
+              message: error.response.data.mensaje || 'Sin mensaje del servidor',
+              type: 'error',
+            });
+          } else {
+            this.$message({
+              message: 'No estas conectado a internet.',
+              type: 'error'
+            });
+          }
+          this.$store.dispatch('getLoadingApp', false);
+          this.loading = false;
+          console.clear()
+        }
+      }
+    }
   }
-}
 </script>
