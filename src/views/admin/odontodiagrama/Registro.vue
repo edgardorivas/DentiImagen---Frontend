@@ -48,10 +48,11 @@
                     <p><small><i>Sección Adultos</i></small></p>
                   </div>
                   <div v-for="(diente, key_diente) of odontodiagrama.dientes['C-1'].adulto" :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
-                    <button type="button" class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson" :class="!diente.sano ? 'border-red-500' : ''">
+                    <button @click="abrirModal(diente)" type="button" class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson" :class="!diente.sano ? 'border-red-500' : ''">
                       <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
                       <i class="fa-solid fa-tooth text-3xl"></i>
                       <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
+                      <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
                     </button>
                   </div>
                 </div>
@@ -60,10 +61,11 @@
                     <p><small><i>Sección Niños</i></small></p>
                   </div>
                   <div v-for="(diente, key_diente) of odontodiagrama.dientes['C-1'].nino" :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
-                    <button type="button" class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson" :class="!diente.sano ? 'border-red-500' : ''">
+                    <button @click="abrirModal(diente)" type="button" class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson" :class="!diente.sano ? 'border-red-500' : ''">
                       <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
                       <i class="fa-solid fa-tooth text-2xl"></i>
                       <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
+                      <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
                     </button>
                   </div>
                 </div>
@@ -78,10 +80,11 @@
                     <p class="text-end"><small><i>Sección Adultos</i></small></p>
                   </div>
                   <div v-for="(diente, key_diente) of odontodiagrama.dientes['C-2'].adulto" :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
-                    <button type="button" class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson" :class="!diente.sano ? 'border-red-500' : ''">
+                    <button @click="abrirModal(diente)" type="button" class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson" :class="!diente.sano ? 'border-red-500' : ''">
                       <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
                       <i class="fa-solid fa-tooth text-3xl"></i>
                       <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
+                      <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
                     </button>
                   </div>
                 </div>
@@ -90,10 +93,11 @@
                    <p class="text-end"><small><i>Sección Niños</i></small></p>
                   </div>
                   <div v-for="(diente, key_diente) of odontodiagrama.dientes['C-2'].nino" :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
-                    <button type="button" class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson" :class="!diente.sano ? 'border-red-500' : ''">
+                    <button @click="abrirModal(diente)" type="button" class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson" :class="!diente.sano ? 'border-red-500' : ''">
                       <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
                       <i class="fa-solid fa-tooth text-2xl"></i>
                       <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
+                      <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
                     </button>
                   </div>
                 </div>
@@ -108,10 +112,11 @@
                    <p class=""><small><i>Sección Niños</i></small></p>
                   </div>
                   <div v-for="(diente, key_diente) of odontodiagrama.dientes['C-4'].nino" :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
-                    <button type="button" class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson" :class="!diente.sano ? 'border-red-500' : ''">
+                    <button @click="abrirModal(diente)" type="button" class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson" :class="!diente.sano ? 'border-red-500' : ''">
                       <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
                       <i class="fa-solid fa-tooth text-2xl"></i>
                       <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
+                      <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
                     </button>
                   </div>
                 </div>
@@ -120,10 +125,11 @@
                     <p class=""><small><i>Sección Adultos</i></small></p>
                   </div>
                   <div v-for="(diente, key_diente) of odontodiagrama.dientes['C-4'].adulto" :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
-                    <button type="button" class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson" :class="!diente.sano ? 'border-red-500' : ''">
+                    <button @click="abrirModal(diente)" type="button" class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson" :class="!diente.sano ? 'border-red-500' : ''">
                       <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
                       <i class="fa-solid fa-tooth text-3xl"></i>
                       <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
+                      <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
                     </button>
                   </div>
                 </div>
@@ -138,10 +144,11 @@
                    <p class="text-end"><small><i>Sección Niños</i></small></p>
                   </div>
                   <div v-for="(diente, key_diente) of odontodiagrama.dientes['C-3'].nino" :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
-                    <button type="button" class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson" :class="!diente.sano ? 'border-red-500' : ''">
+                    <button @click="abrirModal(diente)" type="button" class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson" :class="!diente.sano ? 'border-red-500' : ''">
                       <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
                       <i class="fa-solid fa-tooth text-2xl"></i>
                       <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
+                      <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
                     </button>
                   </div>
                 </div>
@@ -150,10 +157,11 @@
                     <p class="text-end"><small><i>Sección Adultos</i></small></p>
                   </div>
                   <div v-for="(diente, key_diente) of odontodiagrama.dientes['C-3'].adulto" :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
-                    <button type="button" class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson" :class="!diente.sano ? 'border-red-500' : ''">
+                    <button @click="abrirModal(diente)" type="button" class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson" :class="!diente.sano ? 'border-red-500' : ''">
                       <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
                       <i class="fa-solid fa-tooth text-3xl"></i>
                       <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
+                      <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
                     </button>
                   </div>
                 </div>
@@ -166,6 +174,62 @@
             </div>
           </form>
         </div>
+        <div id="Drawer">
+          <!-- Modal Editor de Dientes -->
+          <el-drawer title="Estado del Diente" :visible.sync="modal" direction="rtl">
+            <div class="h-full" v-if="diente">
+              <div class="flex flex-col content-between justify-between h-full">
+                <div class="flex flex-col overflow-y-auto">
+                  <div class="w-full px-2 mb-3 py-1">
+                    <label>
+                      <p class="ml-1 mb-1">Diente Sano / Finalizado?</p>
+                      <el-switch class="ml-3" v-model="diente.sano" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
+                    </label>
+                  </div>
+                  <div class="w-full px-2 mb-3 py-1">
+                    <label>
+                      <p class="ml-1 mb-1">Diente Ausente?</p>
+                      <el-switch class="ml-3" v-model="diente.ausente" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
+                    </label>
+                  </div>
+                  <div class="w-full px-2 mb-3 py-1">
+                    <label>
+                      <p class="ml-1 mb-1">Afecciones</p>
+                      <button @click="diente.afecciones.unshift(getNewAfeccion())" class="px-2 py-1 uppercase border border-verdiAnderson bg-verdiAnderson text-white rounded-sm">+ Agregar Afección</button>
+                    </label>
+                  </div>
+                  <div v-for="(afeccion, index) of diente.afecciones" :key="index" class="w-full px-2 mb-3 py-1 bg-slate-100 transition-all delay-150 duration-300">
+                    <div class="mb-2">
+                      <label>
+                        <p class="ml-1 mb-1">Afección {{ afeccion.nombre || 'Sin Titulo' }}</p>
+                        <el-input placeholder="Nombre de la afeccion" v-model="afeccion.nombre"></el-input>
+                      </label>
+                    </div>
+                    <div class="mb-2">
+                      <label>
+                        <p class="ml-1 mb-1">Descripción</p>
+                        <el-input type="textarea" :rows="2" placeholder="Informacion relevante sobre el diente que estas analizando" v-model="afeccion.descripcion">
+                        </el-input>
+                      </label>
+                    </div>
+                    <div class="mb-2">
+                      <label>
+                        <p class="ml-1 mb-1">Completado</p>
+                        <el-switch class="ml-3" v-model="afeccion.completado" active-color="#13ce66" active-text="SI" inactive-color="#ff4949" inactive-text="NO"></el-switch>
+                      </label>
+                    </div>
+                    <div class="flex justify-end">
+                      <button class="text-red-500 uppercase" @click="eliminarAfeccion(diente.afecciones, index)"> <i class="fa-solid fa-xmark"></i> Eliminar</button>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <button @click="modal = false" class="w-full bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2" type="button">Cerrar</button>
+                </div>
+              </div>
+            </div>
+          </el-drawer>
+        </div>
       </div>
     </div>
   </div>
@@ -176,6 +240,8 @@ export default {
   data() {
     return {
       odontodiagrama: this.getObjectOdontodiagrama(),
+      modal: false,
+      diente: null,
     }
   },
   methods: {
@@ -279,8 +345,18 @@ export default {
         nombre: null,
         completado: false,
         descripcion: null,
-        notas: [],
       };
+    },
+    eliminarAfeccion(value, index) {
+      value = value.splice(index, 1);
+      this.$message({
+        message: 'Eliminado',
+        type: 'success',
+      });
+    },
+    abrirModal(value) {
+      this.modal = true;
+      this.diente = value;
     },
     parseDate(date) {
       return new Date(date).toLocaleString();
