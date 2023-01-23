@@ -117,12 +117,27 @@ const routes = [
         name: 'Alistar recibo de compra',
         component: () => import('../views/admin/recibos/compra/lista.vue'),
       },
-      //recibos de inventario
+      //inventario
       {
         path: "/admin/inventario",
         name: 'Listar inventario',
         component: () => import('../views/admin/inventario/listar.vue'),
       },
+
+      //recibos de ventas
+      {
+        path: "/admin/recibo/venta/agregar",
+        name: 'Agregar recibo de compra',
+        component: () => import('../views/admin/recibos/venta/registro.vue'),
+      },
+      
+      //Paciente
+      {
+        path: "/admin/paciente/agregar",
+        name: 'Agregar un nuevo paciente',
+        component: () => import('../views/admin/paciente/registro.vue'),
+      },
+
       // Odontodiagrama
       {
         path: "/admin/odontodiagrama/registro",

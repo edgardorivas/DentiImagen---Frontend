@@ -114,7 +114,7 @@
         <ul class="md:flex-col md:min-w-full flex flex-col list-none">
           <li class="items-center">
             <router-link
-              to="/admin/"
+              to="/admin/paciente/agregar"
               class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
               exact-active-class="text-emerald-500 hover:text-emerald-600"
             >
@@ -221,6 +221,19 @@
               Lista de Recibos de Compra
             </router-link>
           </li>
+
+          <li class="items-center">
+            <router-link
+              to="/admin/recibo/venta/agregar"
+              class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
+              exact-active-class="text-emerald-500 hover:text-emerald-600"
+            >
+            <i class="fa-solid fa-cash-register"></i>
+              Generar Recibo de Venta
+            </router-link>
+          </li>
+
+
           <li class="items-center">
             <router-link
               to="/admin/materiales"
