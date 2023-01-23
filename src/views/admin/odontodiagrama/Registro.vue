@@ -11,7 +11,7 @@
           </div>
         </div>
         <div id="formulario">
-          <form class="py-2 px-3">
+          <form @submit.prevent="registroOdontodiagrama" class="py-2 px-3">
             <div class="flex flex-wrap justify-around">
               <div class="w-11/12">
                 <el-divider>Paciente</el-divider>
@@ -370,7 +370,6 @@
       parseDate(date) {
         return new Date(date).toLocaleString();
       },
-      //// Obtener Pacientes
       async getPacientes(search) {
         try {
           this.$store.dispatch('getLoadingApp', true);
@@ -399,7 +398,53 @@
             });
           }
           this.$store.dispatch('getLoadingApp', false);
-          this.loading = false;
+          console.clear()
+        }
+      },
+      async registroOdontodiagrama() {
+        try {
+          if (!this.odontodiagrama.paciente) {
+            throw new Error('No puedes crear un odontodiagrama sin asignarle un paciente')
+          }
+          this.$store.dispatch('getLoadingApp', true);
+          const token = localStorage.getItem('token_acess');
+          await axios({
+            method: 'POST',
+            baseURL: config.backend.baseURL,
+            url: '/odontodiagrama',
+            headers: {
+              ['auth-token']: token,
+            },
+            data: {
+              id: this.odontodiagrama.paciente,
+              dientes: this.odontodiagrama.dientes,
+            },
+          });
+          this.$store.dispatch('getLoadingApp', false);
+          this.$message({
+            message: 'Registrado exitosamente!',
+            type: 'success',
+          });
+          this.odontodiagrama = this.getObjectOdontodiagrama();
+        } catch (error) {
+          console.log(error)
+          if (error.response) {
+            this.$message({
+              message: error.response.data.mensaje || 'Sin mensaje del servidor',
+              type: 'error',
+            });
+          } else if (error && error.message) {
+            this.$message({
+              message: error.message || 'Sin mensaje de la web',
+              type: 'error',
+            });
+          } else {
+            this.$message({
+              message: 'No estas conectado a internet.',
+              type: 'error'
+            });
+          }
+          this.$store.dispatch('getLoadingApp', false);
           console.clear()
         }
       }
