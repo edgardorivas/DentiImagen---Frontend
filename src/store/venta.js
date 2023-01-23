@@ -3,71 +3,35 @@ import config from './../config.js'
 
 export default {
   state: {
-    materialesProveedor: null,
-    listaCompra:[],
+    listaVentas:[],
   },
   mutations: {
-    setMaterialesProveedor: (state, value) => {
-      state.materialesProveedor = value
-    },
-    setListaCompra: (state, value) => {
-      state.listaCompra = value
-    },
-  },
-  getters: {
-    getMaterialesProveedor: (state) => {
-      return state.materialesProveedor
-    },
-    getListaCompra: (state) => {
-      return state.listaCompra
-    },
-  },
-  actions: {
-    async obtenerMaterialesProveedor(context, payload = { id: String }) {
-      const token = localStorage.getItem('token_acess')
-      context.dispatch('getLoadingApp', true);
-      try {
-        const resultado = await axios({
-          method: 'POST',
-          baseURL: config.backend.baseURL,
-          url: '/recurso/proveedor',
-          headers: {
-            ['auth-token']: token,
-          },
-          data: payload,
-        });
-        context.commit('setMaterialesProveedor', resultado.data)
-      } catch (error) {
-        if (error.response) {
-          this.$message({
-            message: error,
-            type: 'error'
-          });
-        } else {
-          this.$message({
-            message: 'Error al acceder a internet',
-            type: 'error'
-          });
-        }
-        context.commit('setMaterialesProveedor', [])
-      }
-      context.dispatch('getLoadingApp', false);
+    setListaVentas: (state, value) => {
+      state.listaVentas = value
     },
 
-    async obtenerListaCompra(context, payload = { id: String }) {
+  },
+  getters: {
+    getListaVentas: (state) => {
+      return state.listaVentas
+    },
+
+  },
+  actions: {
+    async obtenerListaVentas(context, payload = { id: String }) {
       const token = localStorage.getItem('token_acess')
       context.dispatch('getLoadingApp', true);
       try {
         const resultado = await axios({
           method: 'GET',
           baseURL: config.backend.baseURL,
-          url: '/compra',
+          url: '/venta',
           headers: {
             ['auth-token']: token,
           },
           data: payload,
         });
-        context.commit('setListaCompra', resultado.data)
+        context.commit('setListaVentas', resultado.data)
       } catch (error) {
         if (error.response) {
           this.$message({
@@ -80,7 +44,7 @@ export default {
             type: 'error'
           });
         }
-        context.commit('setListaCompra', [])
+        context.commit('setListaVentas', [])
       }
       context.dispatch('getLoadingApp', false);
     },

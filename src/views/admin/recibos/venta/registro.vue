@@ -6,22 +6,35 @@
                 <div class="flex justify-center">
                     <div class="rounded-t mb-0 px-4 py-3 border-0">
                         <h3 class="font-semibold text-xl text-blueGray-700 uppercase">
-                            Recibo de Compra
+                            Recibo de Venta
                         </h3>
                     </div>
                 </div>
                 <div class="mt-5 pb-5">
-                    <form id="formulario-compra">
+                    <form id="formulario-compra" @submit.prevent="registrarCompra()">
                         <div class="flex flex-wrap justify-around">
+                            
                             <div class="w-11/12">
-                                <el-divider>Datos del basicos del recibo de compra</el-divider>
+                                <el-divider>Datos del basicos del recibo de Venta</el-divider>
                             </div>
+                            
                             <div v-if="usuarios && usuarios.data" class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
-                                    <p class="ml-1">Trabajador</p>
-                                    <el-select v-model="datos.idtrabajador" placeholder="Formas de pago" class="w-full">
-                                        <el-option v-for="item in usuarios.data" :key="item.id" :label="item.nombre"
-                                            :value="item.id"></el-option>
+                                    <p class="ml-1">Odontologo</p>
+                                    <el-select v-model="datosVenta.idTrabajador" placeholder="Formas de pago" class="w-full">
+                                        <div v-for="item in usuarios.data" :key="item.id">
+                                            <el-option v-if="item.especializacion== 'Odontologo' || item.especializacion== 'dentista'" :label="item.nombre" :value="item.id"></el-option>
+                                        </div>
+                                    </el-select>
+                                </label>
+                            </div>
+
+                            <div v-if="pacientes && pacientes.data" class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">Paciente</p>
+                                    <el-select v-model="datosVenta.idPaciente" placeholder="Paciente" class="w-full">
+                                        <el-option v-for="item in pacientes.data" :key="item.id_paciente" :label="item.nombre_paciente"
+                                            :value="item.id_paciente"></el-option>
                                     </el-select>
                                 </label>
                             </div>
@@ -29,7 +42,7 @@
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Forma de pago</p>
-                                    <el-select v-model="datos.formaPago" placeholder="Formas de pago" class="w-full">
+                                    <el-select v-model="datosVenta.formaPago" placeholder="Formas de pago" class="w-full">
                                         <el-option v-for="item in opciones" :key="item.value" :label="item.label"
                                             :value="item.value"></el-option>
                                     </el-select>
@@ -38,61 +51,70 @@
 
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
-                                    <p class="ml-1">Fecha Compra</p>
-                                    <el-input placeholder="Fecha de la compra" type="date" auto-complete="tel"
-                                        v-model="datos.fechaCompra"></el-input>
+                                    <p class="ml-1">Referencia</p>
+                                    <el-input placeholder="Referencia del pago" type="text" 
+                                        v-model="datosVenta.referencia"></el-input>
                                 </label>
                             </div>
 
-                            <div v-if="proveedores && proveedores.data" class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
-                                    <p class="ml-1">Proveedor</p>
-                                    <el-select v-model="datos.idProvedor" placeholder="Formas de pago" class="w-full">
-                                        <el-option v-for="item in proveedores.data" :key="item.id_provedor"
-                                            :label="item.nombre_proveedor" :value="item.id_provedor"></el-option>
+                                    <p class="ml-1">Iva</p>
+                                    <el-input placeholder="Iva de la venta" type="number"
+                                        v-model="datosVenta.ivaVenta"></el-input>
+                                </label>
+                            </div>
+
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">Valor del Dolar</p>
+                                    <el-input placeholder="Iva de la venta" type="number"
+                                        v-model="datosVenta.precioDolar"></el-input>
+                                </label>
+                            </div>
+
+                            <div class="w-11/12">
+                                <el-divider>Datos de los servicios</el-divider>
+                            </div>
+
+                            <div v-if="producto && producto.data" class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">Servicios</p>
+                                    <el-select v-model="detallesVenta.servicio" placeholder="Servicios" class="w-full">
+                                        <div v-for="item in producto.data" :key="item.id_recurso">
+                                            <el-option v-if="item.fk_tipo_recurso==1" :label="item.nombre_recurso" :value="item.id_recurso"></el-option>
+                                        </div>
                                     </el-select>
                                 </label>
                             </div>
 
-                            <el-divider v-if="proveedorMateriales && proveedorMateriales.data">Datos del la
-                                materiacomprada</el-divider>
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">Cantidad</p>
+                                    <el-input placeholder="Cantidad" type="number"
+                                        v-model="detallesVenta.cantidad"></el-input>
+                                </label>
+                            </div>
 
-                            <div v-if="proveedorMateriales && proveedorMateriales.data"
-                                class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+
+                            <div v-if="producto && producto.data" class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Materiales</p>
-                                    <el-select v-model="datosRecurso.idRecurso" placeholder="Materiales" class="w-full">
-                                        <el-option v-for="item in proveedorMateriales.data" :key="item.id_recurso"
-                                            :label="item.nombre_recurso" :value="item.id_recurso"></el-option>
+                                    <el-select v-model="datosMateriales.id" placeholder="Materiales" class="w-full">
+                                        <div v-for="item in producto.data" :key="item.id_recurso">
+                                            <el-option v-if="item.fk_tipo_recurso !=1" :label="item.nombre_recurso" :value="item.id_recurso"></el-option>
+                                        </div>
                                     </el-select>
                                 </label>
                             </div>
 
-                            <div v-if="proveedorMateriales && proveedorMateriales.data"
-                                class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
-                                    <p class="ml-1">Unidades Compradas</p>
-                                    <el-input placeholder="Unidades compradas" type="number" auto-complete="email"
-                                        v-model="datosRecurso.unidades"></el-input>
+                                    <p class="ml-1">Cantidad Materiales</p>
+                                    <el-input placeholder="Cantidad de materiales" type="number"
+                                        v-model="datosMateriales.cantidad"></el-input>
                                 </label>
                             </div>
-                            <div v-if="proveedorMateriales && proveedorMateriales.data"
-                                class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                <label>
-                                    <p class="ml-1">Costo en Bolivares</p>
-                                    <el-input placeholder="Costo en Bolivares" type="number" auto-complete="tel"
-                                        v-model="datosRecurso.costoB"></el-input>
-                                </label>
-                            </div>
-                            <div v-if="proveedorMateriales && proveedorMateriales.data"
-                                class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                <label>
-                                    <p class="ml-1">Costo en Dolares</p>
-                                    <el-input placeholder="Costo en Dolares" type="number"
-                                        v-model="datosRecurso.costoD"></el-input>
-                                </label>
-                            </div>
-
 
                         </div>
                     <!--
@@ -105,20 +127,14 @@
 
                     </div>
 -->
-                        <div class="flex flex-wrap justify-around">
-                            <div class="w-full md:w-1/2 lg:w-3/12 px-2 mb-3 py-1">
-                                <button @click="agregarRecurso(datosRecurso)" type="button"
-                                    class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">
-                                    agregar materia
-                                </button>
-                            </div>
+                        <div class="flex flex-wrap justify-around" >
+                                
+                            <button  type="button" :disabled="loading"
+                                class="w-full md:w-1/3 bg-red-300 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">Agregar Servicios</button>
+                                    
 
-                            <div class="w-full md:w-1/2 lg:w-3/12 px-2 mb-3 py-1">
-                                <button type="button" @click="registrarCompra()"
-                                    class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">
-                                    Guardar
-                                </button>
-                            </div>
+                            <button :disabled="loading"
+                                class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">Guardar</button>
                         </div>
                     </form>
                 </div>
@@ -152,77 +168,60 @@ export default {
                     label: "Divisa",
                 },
             ],
-            datos: {
-                idtrabajador: null,
+            
+            datosVenta: {
+                idPaciente: null,
+                idTrabajador: null,
                 formaPago: null,
-                fechaCompra: null,
-                idProvedor: "",
-                recurso: [],
+                referencia: null,
+                ivaVenta: null,
+                precioDolar:null,
+                venta:[]
             },
-            datosRecurso: {
-                idRecurso: null,
-                unidades: null,
-                costoB: null,
-                costoD: null,
+            detallesVenta:{
+                servicio: null,
+                cantidad: null,
+                materiales:[]
+            },
+            datosMateriales:{
+                id: null,
+                cantidad: null
             },
 
             loading: false,
         };
     },
     created() {
-        this.$store.dispatch("obtenerListaDeproducto");
-        this.$store.dispatch("obtenerListaDeProveedores");
+
+        this.$store.dispatch('obtenerListaDeproducto');
+        
         this.$store.dispatch("obtenerListaDeUsuarios");
+
+        this.$store.dispatch("obtenerListaDePacientes");
+
     },
     methods: {
-        async buscarMaterialProveedor() {
-            try {
-                alert("entro");
-                this.$store.dispatch("getLoadingApp", true);
-                this.loading = true;
-                const token = localStorage.getItem("token_acess");
-                const request = await axios({
-                    method: "POST",
-                    baseURL: config.backend.baseURL,
-                    url: "/recurso/proveedor",
-                    headers: {
-                        ["auth-token"]: token,
-                    },
-                    data: this.datos.idProvedor,
-                });
-                this.$store.dispatch("getLoadingApp", false);
-                this.loading = false;
-                this.proveedorRecurso = request;
-            } catch (error) {
-                if (error.response) {
-                    this.$message({
-                        message: error.response.data.mensaje || "Sin mensaje del servidor",
-                        type: "error",
-                    });
-                } else {
-                    this.$message({
-                        message: "No estas conectado a internet.",
-                        type: "error",
-                    });
-                }
-                this.$store.dispatch("getLoadingApp", false);
-                this.loading = false;
-                console.clear();
-            }
-        },
-        agregarRecurso(valor) {
+        
+        agregarVenta() {
 
-            this.datos.recurso.push(valor)
-            this.datosRecurso = {
-                idRecurso: null,
-                unidades: null,
-                costoB: null,
-                costoD: null,
+            this.detallesVenta.materiales.push(this.datosMateriales);
+            this.datosVenta.venta.push(this.detallesVenta);
+
+            this.datosMateriales={
+                id: null,
+                cantidad: null
             }
+
+            this.detallesVenta={
+                servicio: null,
+                cantidad: null,
+                materiales:[]
+            }
+
         },
         async registrarCompra() {
             try {
-                this.agregarRecurso(this.datosRecurso)
+                this.agregarVenta(this.datosRecurso)
 
                 this.$store.dispatch('getLoadingApp', true);
                 this.loading = true;
@@ -230,11 +229,11 @@ export default {
                 const request = await axios({
                     method: 'POST',
                     baseURL: config.backend.baseURL,
-                    url: '/compra',
+                    url: '/venta',
                     headers: {
                         ['auth-token']: token,
                     },
-                    data: this.datos
+                    data: this.datosVenta
                 });
                 console.log(request)
                 this.$store.dispatch('getLoadingApp', false);
@@ -258,30 +257,22 @@ export default {
                 }
                 this.$store.dispatch('getLoadingApp', false);
                 this.loading = false;
-                console.clear()
+            
             }
         },
     },
     computed: {
-        materiales() {
-            return this.$store.getters.getproducto;
-        },
-        proveedorMateriales: function () {
-            return this.$store.getters.getMaterialesProveedor;
-        },
-        proveedores() {
-            return this.$store.getters.getProveedores;
-        },
+       
         usuarios() {
             return this.$store.getters.getusuarios;
         },
-    },
-    watch: {
-        "datos.idProvedor"(newValue) {
-            this.$store.dispatch("obtenerMaterialesProveedor", {
-                id_proveedor: newValue,
-            });
+        pacientes() {
+            return this.$store.getters.getPacientes;
+        },
+        producto () {
+           return this.$store.getters.getproducto;
         },
     },
+    
 };
 </script>

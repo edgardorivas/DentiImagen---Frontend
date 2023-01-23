@@ -120,7 +120,7 @@ const routes = [
       //inventario
       {
         path: "/admin/inventario",
-        name: 'Listar inventario',
+        name: 'Alistar inventario',
         component: () => import('../views/admin/inventario/listar.vue'),
       },
 
@@ -130,7 +130,11 @@ const routes = [
         name: 'Agregar recibo de compra',
         component: () => import('../views/admin/recibos/venta/registro.vue'),
       },
-      
+      {
+        path: "/admin/recibo/venta/lista",
+        name: 'Alistar recibo de compra',
+        component: () => import('../views/admin/recibos/venta/lista.vue'),
+      },
       //Paciente
       {
         path: "/admin/paciente/agregar",
