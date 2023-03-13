@@ -21,7 +21,7 @@
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Nombre</p>
-                                    <el-input placeholder="Nombre del Paciente" 
+                                    <el-input placeholder="Nombre del Paciente"
                                         v-model="nuevoHistorialPaciente.nombre"></el-input>
                                 </label>
                             </div>
@@ -29,7 +29,7 @@
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Apellido</p>
-                                    <el-input placeholder="Apellido del Paciente" 
+                                    <el-input placeholder="Apellido del Paciente"
                                         v-model="nuevoHistorialPaciente.apellido"></el-input>
                                 </label>
                             </div>
@@ -37,7 +37,7 @@
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Edad</p>
-                                    <el-input placeholder="Edad del Paciente" 
+                                    <el-input placeholder="Edad del Paciente"
                                         v-model="nuevoHistorialPaciente.edad"></el-input>
                                 </label>
                             </div>
@@ -45,7 +45,7 @@
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Cedula</p>
-                                    <el-input placeholder="Cedula del Paciente" 
+                                    <el-input placeholder="Cedula del Paciente"
                                         v-model="nuevoHistorialPaciente.cedula"></el-input>
                                 </label>
                             </div>
@@ -53,7 +53,7 @@
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Sexo</p>
-                                    <el-input placeholder="Genero del Paciente" 
+                                    <el-input placeholder="Genero del Paciente"
                                         v-model="nuevoHistorialPaciente.genero"></el-input>
                                 </label>
                             </div>
@@ -62,7 +62,7 @@
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Telefono</p>
-                                    <el-input placeholder="Telefono del Paciente" 
+                                    <el-input placeholder="Telefono del Paciente"
                                         v-model="nuevoHistorialPaciente.telefono"></el-input>
                                 </label>
                             </div>
@@ -72,23 +72,23 @@
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Correo Electronico</p>
-                                    <el-input placeholder="Correo del Paciente" 
+                                    <el-input placeholder="Correo del Paciente"
                                         v-model="nuevoHistorialPaciente.correo"></el-input>
                                 </label>
                             </div>
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Referido por:</p>
-                                    <el-input placeholder="Nombre del tipo de material" 
+                                    <el-input placeholder="Nombre del tipo de material"
                                         v-model="nuevoHistorialPaciente.referidoPor"></el-input>
                                 </label>
                             </div>
-                           
+
 
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Motivo de la Consulta</p>
-                                    <el-input placeholder="Motivo de la Consulta" 
+                                    <el-input placeholder="Motivo de la Consulta"
                                         v-model="nuevoHistorialPaciente.motivoConsulta"></el-input>
                                 </label>
                             </div>
@@ -96,7 +96,7 @@
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Profesion </p>
-                                    <el-input placeholder="Profesion del Paciente" 
+                                    <el-input placeholder="Profesion del Paciente"
                                         v-model="nuevoHistorialPaciente.profecion"></el-input>
                                 </label>
                             </div>
@@ -104,17 +104,16 @@
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Direccion </p>
-                                    <el-input placeholder="Direccion del Paciente" 
+                                    <el-input placeholder="Direccion del Paciente"
                                         v-model="nuevoHistorialPaciente.direccion"></el-input>
                                 </label>
                             </div>
 
-                            <div v-if="trabajadores && trabajadores.data" class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
-                                    <p class="ml-1">Odontologo</p>
-                                    <el-select v-model="nuevoHistorialPaciente.trabajadorOdontologo"  placeholder="Odontologo" class="w-full">
-                                    <el-option v-for="item in trabajadores.data"  :key="item.id_recurso" :label="item.nombre" :value="item.id"></el-option>
-                                    </el-select>
+                                    <p class="ml-1">Odontologo Referido</p>
+                                    <el-input placeholder="Indique el nombre del doctor referido"
+                                        v-model="nuevoHistorialPaciente.trabajadorOdontologo"></el-input>
                                 </label>
                             </div>
                         </div>
@@ -242,16 +241,16 @@
                         </div>
 
                         <div class="flex flex-wrap justify-around" v-else>
-                                
+
                             <button @click="cambiar()" type="button"   :disabled="loading"
                                 class="w-full md:w-1/3 bg-red-300 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">Atras</button>
-                                
+
                             <button   :disabled="loading"
                                 class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">Guardar</button>
                         </div>
 
                     </form>
-                    
+
                 </div>
             </div>
         </div>
@@ -264,11 +263,7 @@ export default {
     name: "typeProduct-add",
     metaInfo: {
         title: config.frontend.title,
-        titleTemplate: "%s | Agregar nuevo material",
-    },
-    created() {
-        this.$store.dispatch('obtenerListaDeUsuarios');
-        
+        titleTemplate: "%s | Agregar nuevo Paciente",
     },
     data() {
         return {
@@ -348,10 +343,5 @@ export default {
             this.segundaParte = !this.segundaParte;
         }
     },
-    computed: {
-        trabajadores () {
-          return this.$store.getters.getusuarios;
-        }
-    }
 };
 </script>

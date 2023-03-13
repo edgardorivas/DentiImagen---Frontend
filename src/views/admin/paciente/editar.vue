@@ -11,7 +11,6 @@
         </div>
         <div class="mt-5 pb-5">
           <form v-if="paciente" @submit.prevent="actualizacionPaciente">
-            {{paciente}}
             <div class="flex flex-wrap justify-around">
               <div class="w-11/12">
                 <el-divider>Datos del Paciente</el-divider>
@@ -76,18 +75,10 @@
                   <el-input placeholder="Profesion del Paciente" v-model="paciente.profecion"></el-input>
                 </label>
               </div>
-              <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+              <div class="w-full md:w-1/2 lg:w-4/5 px-2 mb-3 py-1">
                 <label>
                   <p class="ml-1">Dirección</p>
                   <el-input placeholder="Direccion del Paciente" v-model="paciente.direccion_paciente"></el-input>
-                </label>
-              </div>
-              <div v-if="trabajadores && trabajadores.data" class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                <label>
-                  <p class="ml-1">Odontologo Preferencial</p>
-                  <el-select v-model="paciente.trabajadorOdontologo" placeholder="Odontologo" class="w-full" >
-                    <el-option v-for="item in trabajadores.data" :key="item.id_recurso" :label="item.nombre" :value="item.id"></el-option>
-                  </el-select>
                 </label>
               </div>
               <div class="w-11/12">
@@ -96,27 +87,27 @@
               <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
                 <label>
                   <p class="ml-1">¿ Esta usted en tratamiento ?</p>
-                  <el-select v-model="paciente.estaTratamiento" placeholder="Tratamiento" class="w-full">
-                    <el-option label="Si" value="true"></el-option>
-                    <el-option label="No" value="false"></el-option>
+                  <el-select v-model="paciente.esta_tratamiento" placeholder="Tratamiento" class="w-full">
+                    <el-option label="Si" :value="true"></el-option>
+                    <el-option label="No" :value="false"></el-option>
                   </el-select>
                 </label>
               </div>
               <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
                 <label>
                   <p class="ml-1">¿Posee Alergia a algun medicamento?</p>
-                  <el-select v-model="paciente.alergicoAlgunMedicamento" placeholder="¿ Alergia a algun medicamento?" class="w-full">
-                    <el-option label="Si" value="true"></el-option>
-                    <el-option label="No" value="false"></el-option>
+                  <el-select v-model="paciente.alergico_algun_tratamiento" placeholder="¿ Alergia a algun medicamento?" class="w-full">
+                    <el-option label="Si" :value="true"></el-option>
+                    <el-option label="No" :value="false"></el-option>
                   </el-select>
                 </label>
               </div>
               <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
                 <label>
                   <p class="ml-1">¿ Sufre de presion arterial ?</p>
-                  <el-select v-model="paciente.sufreTensionAlterial" placeholder="¿ Sufre de presion arterial ?" class="w-full">
-                    <el-option label="Si" value="true"></el-option>
-                    <el-option label="No" value="false"></el-option>
+                  <el-select v-model="paciente.suefre_presion_alterial" placeholder="¿ Sufre de presion arterial ?" class="w-full">
+                    <el-option label="Si" :value="true"></el-option>
+                    <el-option label="No" :value="false"></el-option>
                   </el-select>
                 </label>
               </div>
@@ -124,71 +115,71 @@
                 <label>
                   <p class="ml-1">¿ Diabetico ?</p>
                   <el-select v-model="paciente.diabetico" placeholder="¿ Diabetico ?" class="w-full">
-                    <el-option label="Si" value="true"></el-option>
-                    <el-option label="No" value="false"></el-option>
+                    <el-option label="Si" :value="true"></el-option>
+                    <el-option label="No" :value="false"></el-option>
                   </el-select>
                 </label>
               </div>
               <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
                 <label>
                   <p class="ml-1">¿ Antecedentes familiares de diabetes ?</p>
-                  <el-select v-model="paciente.antecedentesDiabetico" placeholder="¿ Antecedentes familiares de diabetes ?" class="w-full">
-                    <el-option label="Si" value="true"></el-option>
-                    <el-option label="No" value="false"></el-option>
+                  <el-select v-model="paciente.antecedentes_diabetico" placeholder="¿ Antecedentes familiares de diabetes ?" class="w-full">
+                    <el-option label="Si" :value="true"></el-option>
+                    <el-option label="No" :value="false"></el-option>
                   </el-select>
                 </label>
               </div>
               <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
                 <label>
                   <p class="ml-1">¿ Ha sufrido de Hepatitis ?</p>
-                  <el-select v-model="paciente.sufridoHepatitis" placeholder="¿ Ha sufrido de Hepatitis ?" class="w-full">
-                    <el-option label="Si" value="true"></el-option>
-                    <el-option label="No" value="false"></el-option>
+                  <el-select v-model="paciente.ha_sufrido_hepatitis" placeholder="¿ Ha sufrido de Hepatitis ?" class="w-full">
+                    <el-option label="Si" :value="true"></el-option>
+                    <el-option label="No" :value="false"></el-option>
                   </el-select>
                 </label>
               </div>
               <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
                 <label>
                   <p class="ml-1">¿ Ha sufrido de Herpes ?</p>
-                  <el-select v-model="paciente.sufridoHerpes" placeholder="¿ Ha sufrido de Herpes ?" class="w-full">
-                    <el-option label="Si" value="true"></el-option>
-                    <el-option label="No" value="false"></el-option>
+                  <el-select v-model="paciente.ha_sufrido_herpes" placeholder="¿ Ha sufrido de Herpes ?" class="w-full">
+                    <el-option label="Si" :value="true"></el-option>
+                    <el-option label="No" :value="false"></el-option>
                   </el-select>
                 </label>
               </div>
               <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
                 <label>
                   <p class="ml-1">¿ Ha sufrido de Afecciones cardiacas ?</p>
-                  <el-select v-model="paciente.efeccionesCardiacas" placeholder="Tratamiento" class="w-full">
-                    <el-option label="Si" value="true"></el-option>
-                    <el-option label="No" value="false"></el-option>
+                  <el-select v-model="paciente.ha_sufrido_efecciones_cardiacas" placeholder="Tratamiento" class="w-full">
+                    <el-option label="Si" :value="true"></el-option>
+                    <el-option label="No" :value="false"></el-option>
                   </el-select>
                 </label>
               </div>
               <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
                 <label>
                   <p class="ml-1">¿ Problemas con la Anestecia ?</p>
-                  <el-select v-model="paciente.sufridoAnestecia" placeholder="¿ Problemas con la Anestecia ?" class="w-full">
-                    <el-option label="Si" value="true"></el-option>
-                    <el-option label="No" value="false"></el-option>
+                  <el-select v-model="paciente.ha_sufrido_con_anestecia" placeholder="¿ Problemas con la Anestecia ?" class="w-full">
+                    <el-option label="Si" :value="true"></el-option>
+                    <el-option label="No" :value="false"></el-option>
                   </el-select>
                 </label>
               </div>
               <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
                 <label>
                   <p class="ml-1">¿ Es usted propenso a las Hemorragias ?</p>
-                  <el-select v-model="paciente.propensoHemorragias" placeholder="¿ Es usted propenso a las Hemorragias ?" class="w-full">
-                    <el-option label="Si" value="true"></el-option>
-                    <el-option label="No" value="false"></el-option>
+                  <el-select v-model="paciente.propenso_horragia" placeholder="¿ Es usted propenso a las Hemorragias ?" class="w-full">
+                    <el-option label="Si" :value="true"></el-option>
+                    <el-option label="No" :value="false"></el-option>
                   </el-select>
                 </label>
               </div>
               <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
                 <label>
                   <p class="ml-1">¿ Ha convulsionado alguna vez ?</p>
-                  <el-select v-model="paciente.convulcionAlgunaVez" placeholder="¿ Ha convulsionado alguna vez ?" class="w-full">
-                    <el-option label="Si" value="true"></el-option>
-                    <el-option label="No" value="false"></el-option>
+                  <el-select v-model="paciente.convulcion_alguna_vez" placeholder="¿ Ha convulsionado alguna vez ?" class="w-full">
+                    <el-option label="Si" :value="true"></el-option>
+                    <el-option label="No" :value="false"></el-option>
                   </el-select>
                 </label>
               </div>
@@ -221,7 +212,6 @@
       titleTemplate: "%s | Detalles del Paciente",
     },
     created() {
-      this.$store.dispatch("obtenerListaDeUsuarios");
       this.obtenerDatosPaciente(this.$route.params.ID);
     },
     data() {
@@ -280,9 +270,6 @@
       }
     },
     computed: {
-      trabajadores() {
-        return this.$store.getters.getusuarios;
-      },
       paciente() {
         return this.$store.getters.getPaciente;
       }
