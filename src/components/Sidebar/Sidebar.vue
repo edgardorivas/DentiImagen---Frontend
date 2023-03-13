@@ -59,7 +59,7 @@
           <li class="items-center">
             <router-link to="/admin/usuarios" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
               <i class="fa-solid fa-user-nurse mr-2 text-sm"></i>
-              Usuarios
+              Usuarios | Trabajadores
             </router-link>
           </li>
         </ul>
