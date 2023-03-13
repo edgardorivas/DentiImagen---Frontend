@@ -114,25 +114,25 @@ const routes = [
       },
       {
         path: "/admin/recibo/compra/lista",
-        name: 'Alistar recibo de compra',
+        name: 'Listar recibos de compra',
         component: () => import('../views/admin/recibos/compra/lista.vue'),
       },
       //inventario
       {
         path: "/admin/inventario",
-        name: 'Alistar inventario',
+        name: 'Lista de inventario',
         component: () => import('../views/admin/inventario/listar.vue'),
       },
 
       //recibos de ventas
       {
         path: "/admin/recibo/venta/agregar",
-        name: 'Agregar recibo de compra',
+        name: 'Agregar recibo de Venta',
         component: () => import('../views/admin/recibos/venta/registro.vue'),
       },
       {
         path: "/admin/recibo/venta/lista",
-        name: 'Alistar recibo de compra',
+        name: 'Listar recibos de Venta',
         component: () => import('../views/admin/recibos/venta/lista.vue'),
       },
       //Paciente
@@ -149,6 +149,7 @@ const routes = [
       {
         path: "/admin/paciente/id/:ID",
         name: 'Detalles del Paciente',
+        component: () => import('../views/admin/paciente/editar.vue'),
       },
       // Odontodiagrama
       {
