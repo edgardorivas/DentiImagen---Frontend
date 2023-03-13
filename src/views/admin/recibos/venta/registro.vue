@@ -71,61 +71,97 @@
                 <el-divider>Datos de los servicios</el-divider>
               </div>
 
-              <div v-if="servicios && servicios.data" class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                <label>
-                  <p class="ml-1">Servicios</p>
-                  <el-select v-model="detallesVenta.servicio" placeholder="Servicios" class="w-full">
-                    <div v-for="item in servicios.data" :key="item.id">
-                      <el-option :label="item.nombre" :value="item.id"></el-option>
-                    </div>
-                  </el-select>
-                </label>
-              </div>
-
-              <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                <label>
-                  <p class="ml-1">Cantidad</p>
-                  <el-input placeholder="Cantidad" type="number" v-model="detallesVenta.cantidad"></el-input>
-                </label>
-              </div>
-
-              <div v-if="producto && producto.data" class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                <label>
-                  <p class="ml-1">Materiales</p>
-                  <el-select v-model="datosMateriales.id" placeholder="Materiales" class="w-full">
-                    <div v-for="item in producto.data" :key="item.id">
-                      <el-option :label="item.nombre" :value="item.id"></el-option>
-                    </div>
-                  </el-select>
-                </label>
-              </div>
-
-              <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                <label>
-                  <p class="ml-1">Cantidad Materiales</p>
-                  <el-input placeholder="Cantidad de materiales" type="number" v-model="datosMateriales.cantidad"></el-input>
-                </label>
+              <div class="w-11/12 m-0 p-0">
+                <div class="flex flex-row-reverse my-2 mr-5">
+                  <button type="button" class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
+                    Agregar Item
+                  </button>
+                </div>
+                <el-table :data="datosVenta.venta" class="w-full">
+                  <el-table-column prop="Servicio" label="Servicio"></el-table-column>
+                  <el-table-column prop="Servicio" label="Cantidad de Servicio"></el-table-column>
+                  <el-table-column prop="Servicio" label="Materiales"></el-table-column>
+                  <el-table-column prop="Servicio" label="Cantidad de Materiales"></el-table-column>
+                  <el-table-column fixed="right" label="Operaciones" width="170">
+                    <template>
+                      <p class="text-center">
+                        Eliminar
+                      </p>
+                    </template>
+                  </el-table-column>
+                </el-table>
               </div>
             </div>
 
-            <!-- <div>
-              <el-table :data="datos.recurso" class="w-full">
-                <el-table-column prop="unidades" label="Nombres"></el-table-column>
-                <el-table-column prop="unidades" label="Apellidos"></el-table-column>
-                <el-table-column prop="unidades" label="Correo Electronico"></el-table-column>
-              </el-table>
-            </div> -->
-
-            <div class="flex flex-wrap justify-around">
-              <button v-on:click="agregarVenta()" type="button" :disabled="loading" class="w-full md:w-1/3 bg-red-300 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">
-                Agregar Servicios
-              </button>
-
+            <div class="flex flex-wrap justify-around mt-5">
               <button :disabled="loading" class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">
                 Guardar
               </button>
             </div>
           </form>
+          <!-- Modal para agregar Servicio -->
+          <el-drawer title="Agregando Servicio" :visible.sync="modal" direction="rtl" :before-close="handleClose">
+            <div v-if="servicios && servicios.data" class="h-full">
+              <div class="flex flex-col content-between justify-between h-full">
+                <div class="flex flex-col">
+                  <!-- Contenido -->
+                  <div class="w-full px-2 mb-3 py-1">
+                    <label>
+                      <p class="ml-1 mb-1">Seleccione el Servicio</p>
+                      <el-select v-model="detallesVenta.servicio" placeholder="Seleccione el servicio" class="w-full">
+                        <el-option v-for="servicio of servicios.data" :key="servicio.id" :label="`${servicio.nombre} - Costo: $${servicio.costo}`" :value="servicio.id"></el-option>
+                      </el-select>
+                    </label>
+                  </div>
+                  <div class="w-full px-2 mb-3 py-1">
+                    <label>
+                      <p class="ml-1 mb-1">Cantidades del Servicio</p>
+                      <el-input-number class="w-full" v-model="detallesVenta.cantidad" min="1"></el-input-number>
+                    </label>
+                  </div>
+                  <div class="w-full px-2 mb-3 py-1">
+                    <el-divider>Materiales / Productos</el-divider>
+                  </div>
+                  <div v-if="detallesVenta.materiales.length" class="w-full px-2 mb-3 py-1">
+                    <ul class="ml-3">
+                      <li v-for="(item, index) of detallesVenta.materiales" :key="index">
+                        <div class="flex flex-wrap justify-around">
+                          <div class="uppercase">☑️ {{item.nombreMaterial}} | Cantidad: {{item.cantidad}}</div>
+                          <button type="button" @click="eliminarDetalleMaterial(index)" class="bg-red-500 text-white active:bg-red-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">Eliminar</button>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="w-full px-2 mb-3 py-1">
+                    <label>
+                      <p class="ml-1 mb-1">Seleccione el Material / Producto</p>
+                      <el-select v-model="datosMateriales.id" placeholder="Seleccione el material / producto" class="w-full">
+                        <el-option v-for="material of producto.data" :key="material.id" :label="`${material.nombre} - Costo: $${material.costo}`" :value="material.id"></el-option>
+                      </el-select>
+                    </label>
+                  </div>
+                  <div class="w-full px-2 mb-3 py-1">
+                    <label>
+                      <p class="ml-1 mb-1">Cantidades del Material / Producto</p>
+                      <el-input-number class="w-full" size="small" v-model="datosMateriales.cantidad" min="1"></el-input-number>
+                    </label>
+                  </div>
+                  <div class="w-full px-2 mb-3 py-1 flex justify-center">
+                    <button @click="agregarDetalleMaterial" type="button" class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
+                      Agregar Material al Servicio
+                    </button>
+                  </div>
+
+                  <!-- Fin del contenido -->
+                </div>
+                <div>
+                  <button @click="agregarDetalleVenta" class="w-full bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2" type="button">
+                    Agregar a Venta
+                  </button>
+                </div>
+              </div>
+            </div>
+          </el-drawer>
         </div>
       </div>
     </div>
@@ -140,6 +176,12 @@ export default {
     title: config.frontend.title,
     titleTemplate: "%s | Agregar nuevo usuario",
   },
+  created() {
+    this.$store.dispatch("obtenerListaDeproducto");
+    this.$store.dispatch("obtenerListaDeServicios");
+    this.$store.dispatch("obtenerListaDeUsuarios");
+    this.$store.dispatch("obtenerListaDePacientes");
+  },
   data() {
     return {
       datosVenta: {
@@ -151,24 +193,11 @@ export default {
         precioDolar: null,
         venta: [],
       },
-      detallesVenta: {
-        servicio: null,
-        cantidad: null,
-        materiales: [],
-      },
-      datosMateriales: {
-        id: null,
-        cantidad: null,
-      },
-
+      detallesVenta: this.getDetallesVenta(),
+      datosMateriales: this.getDetallesMateriales(),
+      modal: true,
       loading: false,
     };
-  },
-  created() {
-    this.$store.dispatch("obtenerListaDeproducto");
-    this.$store.dispatch("obtenerListaDeServicios");
-    this.$store.dispatch("obtenerListaDeUsuarios");
-    this.$store.dispatch("obtenerListaDePacientes");
   },
   methods: {
     agregarVenta() {
@@ -224,6 +253,59 @@ export default {
         this.$store.dispatch("getLoadingApp", false);
         this.loading = false;
       }
+    },
+    handleClose() {
+      this.modal = false;
+    },
+    getDetallesVenta() {
+      return {
+        servicio: null,
+        nombreServicio: null,
+        cantidad: null,
+        materiales: [],
+      };
+    },
+    agregarDetalleVenta() {
+      const detalleVenta = this.detallesVenta;
+      if (!detalleVenta || !detalleVenta.servicio) {
+        return this.$message({
+          message: "No puedes agregar este item hasta que selecciones el servicio",
+          type: "error",
+        });
+      }
+      if (!detalleVenta.materiales.length) {
+        return this.$message({
+          message: "Debes agregar los materiales que usaste",
+          type: "error",
+        });
+      }
+      this.datosVenta.venta.push(detalleVenta);
+      this.detallesVenta = this.getDetallesVenta();
+      this.datosMateriales = this.getDetallesMateriales();
+      this.modal = false;
+    },
+    getDetallesMateriales() {
+      return {
+        id: null,
+        nombreMaterial: null,
+        cantidad: null,
+      }
+    },
+    agregarDetalleMaterial() {
+      const detalleMaterial = this.datosMateriales;
+      if (!detalleMaterial || !detalleMaterial.id) {
+        return this.$message({
+          message: "No puedes agregar este item hasta que selecciones el material",
+          type: "error",
+        });
+      }
+      const material = this.producto.data.filter(item => item.id == detalleMaterial.id);
+      detalleMaterial.nombreMaterial = material[0].nombre;
+      this.detallesVenta.materiales.push(detalleMaterial);
+      this.datosMateriales = this.getDetallesMateriales();
+    },
+    eliminarDetalleMaterial(index) {
+      this.detallesVenta.materiales.splice(index, 1)
     },
   },
   computed: {
