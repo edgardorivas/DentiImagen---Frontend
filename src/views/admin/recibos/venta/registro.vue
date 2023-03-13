@@ -81,7 +81,6 @@
                   <el-table-column prop="Servicio" label="Servicio"></el-table-column>
                   <el-table-column prop="Servicio" label="Cantidad de Servicio"></el-table-column>
                   <el-table-column prop="Servicio" label="Materiales"></el-table-column>
-                  <el-table-column prop="Servicio" label="Cantidad de Materiales"></el-table-column>
                   <el-table-column fixed="right" label="Operaciones" width="170">
                     <template>
                       <p class="text-center">
