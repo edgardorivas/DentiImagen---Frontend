@@ -28,14 +28,14 @@
               <div v-if="producto && producto.data">
               <el-table :data="producto.data"  class="w-full">
                 
-                <el-table-column fixed prop="nombre_recurso" label="Nombre" width="190">
+                <el-table-column fixed prop="nombre" label="Nombre" width="190">
                   <template slot-scope="scope">
                     <router-link :to="`/admin/materiales/${scope.row.id_recurso}`" class="uppercase text-verdiAnderson">
-                      @{{scope.row.nombre_recurso}}
+                      @{{scope.row.nombre}}
                     </router-link>
                   </template>
                 </el-table-column>
-                <el-table-column prop="descripcion_recurso" label="Descripcion"></el-table-column>
+                <el-table-column prop="descripcion" label="Descripcion"></el-table-column>
                 
                 <el-table-column
                   fixed="right"

@@ -4,6 +4,7 @@ import config from './../config.js'
 export default {
   state: {
     producto: [],
+    servicios: [],
     detalleProductoId: null,
     tipoMaterial: [],
   },
@@ -17,6 +18,9 @@ export default {
     setTipoMaterial: (state, value) => {
       state.tipoMaterial = value
     },
+    setServicios: (state, value) => {
+      state.servicios = value
+    },
   },
   getters: {
     getproducto: (state) => {
@@ -27,6 +31,9 @@ export default {
     },
     getTipoMaterial: (state) => {
       return state.tipoMaterial
+    },
+    getServicios: (state) => {
+      return state.servicios
     },
   },
   actions: {
@@ -59,6 +66,39 @@ export default {
       }
       context.dispatch('getLoadingApp', false);
     },
+    async obtenerListaDeServicios (context) {
+      const token = localStorage.getItem('token_acess')
+      context.dispatch('getLoadingApp', true);
+      try {
+        const resultado = await axios({
+          method: 'GET',
+          baseURL: config.backend.baseURL,
+          url: '/recurso/servicios',
+          headers: {
+            ['auth-token']: token,
+          }
+        });
+        context.commit('setServicios', resultado.data)
+      } catch (error) {
+        if (error.response) {
+          this.$message({
+            message: error,
+            type: 'error'
+          });
+        } else {
+          this.$message({
+            message: 'Error al acceder a internet',
+            type: 'error'
+          });
+        }
+        context.commit('setServicios', [])
+      }
+      context.dispatch('getLoadingApp', false);
+    },
+
+
+
+
     async obtenerDetalleProducto (context, payload = { id: String }) {
       const token = localStorage.getItem('token_acess')
       context.dispatch('getLoadingApp', true);

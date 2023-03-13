@@ -77,12 +77,12 @@
                                 <el-divider>Datos de los servicios</el-divider>
                             </div>
 
-                            <div v-if="producto && producto.data" class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                            <div v-if="servicios && servicios.data" class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Servicios</p>
                                     <el-select v-model="detallesVenta.servicio" placeholder="Servicios" class="w-full">
-                                        <div v-for="item in producto.data" :key="item.id_recurso">
-                                            <el-option v-if="item.fk_tipo_recurso==1" :label="item.nombre_recurso" :value="item.id_recurso"></el-option>
+                                        <div v-for="item in servicios.data" :key="item.id">
+                                            <el-option :label="item.nombre" :value="item.id"></el-option>
                                         </div>
                                     </el-select>
                                 </label>
@@ -101,8 +101,8 @@
                                 <label>
                                     <p class="ml-1">Materiales</p>
                                     <el-select v-model="datosMateriales.id" placeholder="Materiales" class="w-full">
-                                        <div v-for="item in producto.data" :key="item.id_recurso">
-                                            <el-option v-if="item.fk_tipo_recurso !=1" :label="item.nombre_recurso" :value="item.id_recurso"></el-option>
+                                        <div v-for="item in producto.data" :key="item.id">
+                                            <el-option :label="item.nombre" :value="item.id"></el-option>
                                         </div>
                                     </el-select>
                                 </label>
@@ -115,7 +115,6 @@
                                         v-model="datosMateriales.cantidad"></el-input>
                                 </label>
                             </div>
-
                         </div>
                     <!--
                     <div>
@@ -129,7 +128,7 @@
 -->
                         <div class="flex flex-wrap justify-around" >
                                 
-                            <button  type="button" :disabled="loading"
+                            <button v-on:click="agregarVenta()"  type="button" :disabled="loading"
                                 class="w-full md:w-1/3 bg-red-300 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">Agregar Servicios</button>
                                     
 
@@ -194,6 +193,8 @@ export default {
     created() {
 
         this.$store.dispatch('obtenerListaDeproducto');
+
+        this.$store.dispatch('obtenerListaDeServicios');
         
         this.$store.dispatch("obtenerListaDeUsuarios");
 
@@ -271,6 +272,9 @@ export default {
         },
         producto () {
            return this.$store.getters.getproducto;
+        },
+        servicios () {
+           return this.$store.getters.getServicios;
         },
     },
     
