@@ -75,37 +75,37 @@
                 <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                   <label>
                     <p class="ml-1">Pregunta</p>
-                    <el-input placeholder="Pregunta de Seguridad" v-model="usuarioDetalle.data[0].pregunta1"></el-input>
+                    <el-input placeholder="Pregunta de Seguridad" v-model="usuarioDetalle.data[0].pregunta_uno"></el-input>
                   </label>
                 </div>
                 <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                   <label>
                     <p class="ml-1">Respuesta</p>
-                    <el-input placeholder="Respuesta de Seguridad" v-model="usuarioDetalle.data[0].respuesta1"></el-input>
+                    <el-input placeholder="Respuesta de Seguridad" v-model="usuarioDetalle.data[0].respuesta_uno"></el-input>
                   </label>
                 </div>
                 <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                   <label>
                     <p class="ml-1">Pregunta</p>
-                    <el-input placeholder="Pregunta de Seguridad" v-model="usuarioDetalle.data[0].pregunta2"></el-input>
+                    <el-input placeholder="Pregunta de Seguridad" v-model="usuarioDetalle.data[0].pregunta_dos"></el-input>
                   </label>
                 </div>
                 <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                   <label>
                     <p class="ml-1">Respuesta</p>
-                    <el-input placeholder="Respuesta de Seguridad" v-model="usuarioDetalle.data[0].respuesta2"></el-input>
+                    <el-input placeholder="Respuesta de Seguridad" v-model="usuarioDetalle.data[0].respuesta_dos"></el-input>
                   </label>
                 </div>
                 <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                   <label>
                     <p class="ml-1">Pregunta</p>
-                    <el-input placeholder="Pregunta de Seguridad" v-model="usuarioDetalle.data[0].pregunta3"></el-input>
+                    <el-input placeholder="Pregunta de Seguridad" v-model="usuarioDetalle.data[0].pregunta_tres"></el-input>
                   </label>
                 </div>
                 <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                   <label>
                     <p class="ml-1">Respuesta</p>
-                    <el-input placeholder="Respuesta de Seguridad" v-model="usuarioDetalle.data[0].respuesta3"></el-input>
+                    <el-input placeholder="Respuesta de Seguridad" v-model="usuarioDetalle.data[0].respuesta_tres"></el-input>
                   </label>
                 </div>
               </div>
