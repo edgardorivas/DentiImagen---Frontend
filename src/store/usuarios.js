@@ -1,5 +1,6 @@
 import axios from 'axios'
 import config from './../config.js'
+import { Notification } from 'element-ui'
 
 export default {
   state: {
@@ -45,15 +46,17 @@ export default {
         context.commit('setusuarios', resultado.data)
       } catch (error) {
         if (error.response) {
-          this.$message({
+          Notification({
+            title: config.frontend.title,
             message: error,
             type: 'error'
-          });
+          })
         } else {
-          this.$message({
+          Notification({
+            title: config.frontend.title,
             message: 'Error al acceder a internet',
             type: 'error'
-          });
+          })
         }
         context.commit('setusuarios', [])
       }
@@ -75,15 +78,17 @@ export default {
         context.commit('setdetalleUsuarioId', resultado.data)
       } catch (error) {
         if (error.response) {
-          this.$message({
+          Notification({
+            title: config.frontend.title,
             message: error,
             type: 'error'
-          });
+          })
         } else {
-          this.$message({
+          Notification({
+            title: config.frontend.title,
             message: 'Error al acceder a internet',
             type: 'error'
-          });
+          })
         }
         context.commit('setdetalleUsuarioId', [])
       }
@@ -104,15 +109,17 @@ export default {
         context.commit('setnivelesUsuarios', resultado.data)
       } catch (error) {
         if (error.response) {
-          this.$message({
+          Notification({
+            title: config.frontend.title,
             message: error,
             type: 'error'
-          });
+          })
         } else {
-          this.$message({
+          Notification({
+            title: config.frontend.title,
             message: 'Error al acceder a internet',
             type: 'error'
-          });
+          })
         }
         context.commit('setnivelesUsuarios', [])
       }

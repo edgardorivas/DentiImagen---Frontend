@@ -1,22 +1,20 @@
 import axios from 'axios'
 import config from '../config.js'
+import { Notification } from 'element-ui'
 
 export default {
   state: {
     inventario: [],
-
   },
   mutations: {
     setInventario: (state, value) => {
       state.inventario = value
     },
-
   },
   getters: {
     getInventario: (state) => {
       return state.inventario
     },
-
   },
   actions: {
     async obtenerInventario (context) {
@@ -31,24 +29,25 @@ export default {
             ['auth-token']: token,
           }
         });
-        
+
         context.commit('setInventario', resultado.data)
       } catch (error) {
         if (error.response) {
-          this.$message({
+          Notification({
+            title: config.frontend.title,
             message: error,
             type: 'error'
-          });
+          })
         } else {
-          this.$message({
+          Notification({
+            title: config.frontend.title,
             message: 'Error al acceder a internet',
             type: 'error'
-          });
+          })
         }
         context.commit('setInventario', [])
       }
       context.dispatch('getLoadingApp', false);
     },
-    
   }
 }

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import config from './../config.js'
+import { Notification } from 'element-ui'
 
 export default {
   state: {
@@ -52,15 +53,17 @@ export default {
         context.commit('setProducto', resultado.data)
       } catch (error) {
         if (error.response) {
-          this.$message({
+          Notification({
+            title: config.frontend.title,
             message: error,
             type: 'error'
-          });
+          })
         } else {
-          this.$message({
+          Notification({
+            title: config.frontend.title,
             message: 'Error al acceder a internet',
             type: 'error'
-          });
+          })
         }
         context.commit('setProducto', [])
       }
@@ -81,24 +84,22 @@ export default {
         context.commit('setServicios', resultado.data)
       } catch (error) {
         if (error.response) {
-          this.$message({
+          Notification({
+            title: config.frontend.title,
             message: error,
             type: 'error'
-          });
+          })
         } else {
-          this.$message({
+          Notification({
+            title: config.frontend.title,
             message: 'Error al acceder a internet',
             type: 'error'
-          });
+          })
         }
         context.commit('setServicios', [])
       }
       context.dispatch('getLoadingApp', false);
     },
-
-
-
-
     async obtenerDetalleProducto (context, payload = { id: String }) {
       const token = localStorage.getItem('token_acess')
       context.dispatch('getLoadingApp', true);
@@ -115,15 +116,17 @@ export default {
         context.commit('setDetalleProductoId', resultado.data)
       } catch (error) {
         if (error.response) {
-          this.$message({
+          Notification({
+            title: config.frontend.title,
             message: error,
             type: 'error'
-          });
+          })
         } else {
-          this.$message({
+          Notification({
+            title: config.frontend.title,
             message: 'Error al acceder a internet',
             type: 'error'
-          });
+          })
         }
         context.commit('setdetalleProductoId', [])
       }
@@ -144,15 +147,17 @@ export default {
         context.commit('setTipoMaterial', resultado.data)
       } catch (error) {
         if (error.response) {
-          this.$message({
+          Notification({
+            title: config.frontend.title,
             message: error,
             type: 'error'
-          });
+          })
         } else {
-          this.$message({
+          Notification({
+            title: config.frontend.title,
             message: 'Error al acceder a internet',
             type: 'error'
-          });
+          })
         }
         context.commit('setTipoMaterial', [])
       }

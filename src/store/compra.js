@@ -1,5 +1,6 @@
 import axios from 'axios'
 import config from './../config.js'
+import { Notification } from 'element-ui'
 
 export default {
   state: {
@@ -39,23 +40,22 @@ export default {
         context.commit('setMaterialesProveedor', resultado.data)
       } catch (error) {
         if (error.response) {
-          this.$message({
+          Notification({
+            title: config.frontend.title,
             message: error,
             type: 'error'
-          });
+          })
         } else {
-          this.$message({
+          Notification({
+            title: config.frontend.title,
             message: 'Error al acceder a internet',
             type: 'error'
-          });
+          })
         }
         context.commit('setMaterialesProveedor', [])
       }
       context.dispatch('getLoadingApp', false);
     },
-
-
-
     async obtenerListaCompra(context, payload = { id: String }) {
       const token = localStorage.getItem('token_acess')
       context.dispatch('getLoadingApp', true);
@@ -72,25 +72,21 @@ export default {
         context.commit('setListaCompra', resultado.data)
       } catch (error) {
         if (error.response) {
-          this.$message({
+          Notification({
+            title: config.frontend.title,
             message: error,
             type: 'error'
-          });
+          })
         } else {
-          this.$message({
+          Notification({
+            title: config.frontend.title,
             message: 'Error al acceder a internet',
             type: 'error'
-          });
+          })
         }
         context.commit('setListaCompra', [])
       }
       context.dispatch('getLoadingApp', false);
     },
-
-
-
-
-
-   
   }
 }

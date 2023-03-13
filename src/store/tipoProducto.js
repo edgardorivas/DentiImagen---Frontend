@@ -1,5 +1,6 @@
 import axios from 'axios'
 import config from '../config.js'
+import { Notification } from 'element-ui'
 
 export default {
   state: {
@@ -35,19 +36,21 @@ export default {
             ['auth-token']: token,
           }
         });
-        
+
         context.commit('setTipoProducto', resultado.data)
       } catch (error) {
         if (error.response) {
-          this.$message({
+          Notification({
+            title: config.frontend.title,
             message: error,
             type: 'error'
-          });
+          })
         } else {
-          this.$message({
+          Notification({
+            title: config.frontend.title,
             message: 'Error al acceder a internet',
             type: 'error'
-          });
+          })
         }
         context.commit('setTipoProducto', [])
       }
@@ -66,19 +69,21 @@ export default {
           },
           data: payload,
         });
-        
+
         context.commit('setDetalleTipoProductoId', resultado.data)
       } catch (error) {
         if (error.response) {
-          this.$message({
+          Notification({
+            title: config.frontend.title,
             message: error,
             type: 'error'
-          });
+          })
         } else {
-          this.$message({
+          Notification({
+            title: config.frontend.title,
             message: 'Error al acceder a internet',
             type: 'error'
-          });
+          })
         }
         context.commit('setDetalleTipoProductoId', [])
       }
