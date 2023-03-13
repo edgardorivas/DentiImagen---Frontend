@@ -10,7 +10,7 @@
           </div>
         </div>
         <div class="mt-5 pb-5">
-          <form v-if="paciente" @submit.prevent="actualizacionPaciente">
+          <form v-if="paciente" @submit.prevent="actualizacionPaciente(paciente)">
             <div class="flex flex-wrap justify-around">
               <div class="w-11/12">
                 <el-divider>Datos del Paciente</el-divider>
@@ -220,29 +220,29 @@
       };
     },
     methods: {
-      async actualizacionPaciente() {
+      async actualizacionPaciente(pacienteDatos) {
         try {
           this.$store.dispatch("getLoadingApp", true);
           this.loading = true;
           const token = localStorage.getItem("token_acess");
-          console.log(this.paciente);
+
           const request = await axios({
-            method: "POST",
+            method: "PATCH",
             baseURL: config.backend.baseURL,
-            url: "/paciente/ingresar",
+            url: "/paciente/" + pacienteDatos.id_paciente,
             headers: {
               ["auth-token"]: token,
             },
-            data: this.paciente,
+            data: pacienteDatos,
           });
-          console.log(request);
+
           this.$store.dispatch("getLoadingApp", false);
           this.loading = false;
           this.$message({
-            message: "Registrado Exitosamente",
+            message: "Actualizado Exitosamente",
             type: "success",
           });
-          this.$router.push({ path: "/admin/" });
+          this.$router.push({ path: "/admin/paciente/lista" });
         } catch (error) {
           if (error.response) {
             this.$message({
@@ -259,9 +259,6 @@
           this.loading = false;
           console.clear();
         }
-      },
-      cambiar() {
-        this.segundaParte = !this.segundaParte;
       },
       obtenerDatosPaciente(ID) {
         this.$store.dispatch("obtenerPacienteId", {
