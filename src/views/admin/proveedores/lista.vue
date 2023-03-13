@@ -1,170 +1,226 @@
 <template>
-    <div class="flex flex-wrap mt-4">
-      <div class="w-full mb-12 xl:mb-0 px-4">
-        <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
-          <div class="rounded-t mb-0 px-4 py-3 border-0">
-            <div class="flex flex-wrap items-center">
-              <div class="relative w-full px-4 max-w-full flex-grow flex-1">
-                <h3 class="font-semibold text-base text-blueGray-700">
-                  Lista de Proveedores
-                </h3>
-              </div>
-              <div
-                class="relative w-full px-4 max-w-full flex-grow flex-1 text-right"
+  <div class="flex flex-wrap mt-4">
+    <div class="w-full mb-12 xl:mb-0 px-4">
+      <div
+        class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
+      >
+        <div class="rounded-t mb-0 px-4 py-3 border-0">
+          <div class="flex flex-wrap items-center">
+            <div class="relative w-full px-4 max-w-full flex-grow flex-1">
+              <h3 class="font-semibold text-base text-blueGray-700">
+                Lista de Proveedores
+              </h3>
+            </div>
+            <div
+              class="relative w-full px-4 max-w-full flex-grow flex-1 text-right"
+            >
+              <router-link
+                to="/admin/proveedores/agregar"
+                class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
               >
-                <router-link to="/admin/proveedores/agregar" class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 ">
-                  Agregar nuevo
-                </router-link>
-              </div>
+                Agregar nuevo
+              </router-link>
             </div>
           </div>
-                  
-            <div class="px-5 mt-3 flex justify-start">
-            <button @click="modal = true" class="bg-verdiAnderson text-white py-2 px-3 rounded-md uppercase">
-              Busqueda Avanzada
-            </button>
-          </div>
+        </div>
 
+        <div class="px-5 mt-3 flex justify-start">
+          <button
+            @click="modal = true"
+            class="bg-verdiAnderson text-white py-2 px-3 rounded-md uppercase"
+          >
+            Busqueda Avanzada
+          </button>
+        </div>
 
-          <div class="mt-5">
-            <div v-if="proveedores && proveedores.data">
-              <!--tabla-->
-              <el-table :data="proveedores.data" class="w-full">
-                <el-table-column fixed prop="nombre_proveedor" label="Nombre" width="190">
-                  <template slot-scope="scope">
-                    <router-link :to="`/admin/proveedores/${scope.row.id_provedor}`" class="uppercase text-verdiAnderson">
-                      @{{scope.row.nombre_proveedor}}
-                    </router-link>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="correo_proveedor" label="Correo Electronico"></el-table-column>
-                <el-table-column prop="telefono_proveedor" label="Telefon"></el-table-column>
-                <el-table-column prop="rif_provedor" label="RIF"></el-table-column>
+        <div class="mt-5">
+          <div v-if="proveedores && proveedores.data">
+            <!--tabla-->
+            <el-table :data="proveedores.data" class="w-full">
+              <el-table-column
+                fixed
+                prop="nombre_proveedor"
+                label="Nombre"
+                width="190"
+              >
+                <template slot-scope="scope">
+                  <router-link
+                    :to="`/admin/proveedores/${scope.row.id_provedor}`"
+                    class="uppercase text-verdiAnderson"
+                  >
+                    @{{ scope.row.nombre_proveedor }}
+                  </router-link>
+                </template>
+              </el-table-column>
+              <el-table-column
+                prop="correo_proveedor"
+                label="Correo Electronico"
+              ></el-table-column>
+              <el-table-column
+                prop="telefono_proveedor"
+                label="Telefon"
+              ></el-table-column>
+              <el-table-column
+                prop="rif_provedor"
+                label="RIF"
+              ></el-table-column>
               <!--fin tabla-->
 
-                
-                <el-table-column
-                  fixed="right"
-                  label="Operaciones"
-                  width="170">
-                  <template slot-scope="scope">
-                    <p class="text-center">
-                      <router-link :to="`/admin/proveedores/${scope.row.id_provedor}`" class="text-verdiAnderson text-xs w-full">
-                        Editar
-                      </router-link>
-                    </p>
-                  </template>
-                </el-table-column>
-              </el-table>
+              <el-table-column fixed="right" label="Operaciones" width="170">
+                <template slot-scope="scope">
+                  <p class="text-center">
+                    <router-link
+                      :to="`/admin/proveedores/${scope.row.id_provedor}`"
+                      class="text-verdiAnderson text-xs w-full"
+                    >
+                      Editar
+                    </router-link>
+                  </p>
+                </template>
+              </el-table-column>
+            </el-table>
 
-
-              <!-- Modales de busqueda--> 
-              <el-drawer title="Busqueda Avanzada" :visible.sync="modal" direction="rtl" :before-close="handleClose">
-                <form class="h-full" @submit.prevent="aplicarFiltro">
-                  <div class="flex flex-col content-between justify-between h-full">
-                    <div class="flex flex-col">
-                     <!--  Contenido --> 
-                      <div class="w-full px-2 mb-3 py-1">
-                        <label>
-                          <p class="ml-1 mb-1">Nombre</p>
-                          <el-input placeholder="Nombre del Trabajador" v-model="search.nombre"></el-input>
-                        </label>
-                      </div>
-                      <div class="w-full px-2 mb-3 py-1">
-                        <label>
-                          <p class="ml-1 mb-1">Usuario</p>
-                          <el-input placeholder="Usuario del Trabajador" v-model="search.usuario"></el-input>
-                        </label>
-                      </div>
-                      <div class="w-full px-2 mb-3 py-1">
-                        <label>
-                          <p class="ml-1 mb-1">Especializacion</p>
-                          <el-input placeholder="Especializacion del Trabajador" v-model="search.especializacion"></el-input>
-                        </label>
-                      </div>
-                      <div class="w-full px-2 mb-3 py-1">
-                        <label>
-                          <p class="ml-1 mb-1">Fecha</p>
-                          <el-date-picker v-model="search.fecha" type="date" placeholder="Selecciona una fecha"></el-date-picker>
-                        </label>
-                      </div>
-                      <div v-if="nivelesUsuario && nivelesUsuario.data" class="w-full px-2 mb-3 py-1">
-                        <label>
-                          <p class="ml-1">Nivel / Rol</p>
-                          <el-select v-model="search.nivel" placeholder="Nivel del trabajador" class="w-full">
-                            <el-option label="Ninguno" :value="null"></el-option>
-                            <el-option v-for="item in nivelesUsuario.data" :key="item.id_nivel_usuario" :label="item.nombre_nivel_usuario" :value="item.id_nivel_usuario"></el-option>
-                          </el-select>
-                        </label>
-                      </div>
-                       <!-- Fin del contenido --> 
+            <!-- Modales de busqueda-->
+            <el-drawer
+              title="Busqueda Avanzada"
+              :visible.sync="modal"
+              direction="rtl"
+              :before-close="handleClose"
+            >
+              <form class="h-full" @submit.prevent="aplicarFiltro">
+                <div
+                  class="flex flex-col content-between justify-between h-full"
+                >
+                  <div class="flex flex-col">
+                    <!--  Contenido -->
+                    <div class="w-full px-2 mb-3 py-1">
+                      <label>
+                        <p class="ml-1 mb-1">Nombre</p>
+                        <el-input
+                          placeholder="Nombre del Trabajador"
+                          v-model="search.nombre"
+                        ></el-input>
+                      </label>
                     </div>
-                    <div>
-                      <button class="w-full bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2" type="submit">Buscar</button>
+                    <div class="w-full px-2 mb-3 py-1">
+                      <label>
+                        <p class="ml-1 mb-1">Usuario</p>
+                        <el-input
+                          placeholder="Usuario del Trabajador"
+                          v-model="search.usuario"
+                        ></el-input>
+                      </label>
                     </div>
+                    <div class="w-full px-2 mb-3 py-1">
+                      <label>
+                        <p class="ml-1 mb-1">Especializacion</p>
+                        <el-input
+                          placeholder="Especializacion del Trabajador"
+                          v-model="search.especializacion"
+                        ></el-input>
+                      </label>
+                    </div>
+                    <div class="w-full px-2 mb-3 py-1">
+                      <label>
+                        <p class="ml-1 mb-1">Fecha</p>
+                        <el-date-picker
+                          v-model="search.fecha"
+                          type="date"
+                          placeholder="Selecciona una fecha"
+                        ></el-date-picker>
+                      </label>
+                    </div>
+                    <div
+                      v-if="nivelesUsuario && nivelesUsuario.data"
+                      class="w-full px-2 mb-3 py-1"
+                    >
+                      <label>
+                        <p class="ml-1">Nivel / Rol</p>
+                        <el-select
+                          v-model="search.nivel"
+                          placeholder="Nivel del trabajador"
+                          class="w-full"
+                        >
+                          <el-option label="Ninguno" :value="null"></el-option>
+                          <el-option
+                            v-for="item in nivelesUsuario.data"
+                            :key="item.id_nivel_usuario"
+                            :label="item.nombre_nivel_usuario"
+                            :value="item.id_nivel_usuario"
+                          ></el-option>
+                        </el-select>
+                      </label>
+                    </div>
+                    <!-- Fin del contenido -->
                   </div>
-                </form>
-              </el-drawer>
-
-
-            </div>
+                  <div>
+                    <button
+                      class="w-full bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2"
+                      type="submit"
+                    >
+                      Buscar
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </el-drawer>
           </div>
         </div>
       </div>
     </div>
-  </template>
-  <script>
-    import config from '../../../config';
-    export default {
-      name: 'proveedores-list',
-      metaInfo: {
-        title: config.frontend.title,
-        titleTemplate: '%s | Lista de Proveedores',
-      },
-      created() {
-        this.$store.dispatch('obtenerListaDeProveedores')
-        this.aplicarFiltro();
-      },
-      data() {
-        return {
-          modal: false,
-          search: {
-            nombre: "",
-            usuario: "",
-            fecha: "",
-            especializacion: "",
-            nivel: "",
-          },
-        }
-      },
-      methods: {
-        parseDate(date) {
-          return new Date(date).toLocaleString();
+  </div>
+</template>
+<script>
+  import config from "../../../config";
+  export default {
+    name: "proveedores-list",
+    metaInfo: {
+      title: config.frontend.title,
+      titleTemplate: "%s | Lista de Proveedores",
+    },
+    created() {
+      this.$store.dispatch("obtenerListaDeProveedores");
+      this.aplicarFiltro();
+    },
+    data() {
+      return {
+        modal: false,
+        search: {
+          nombre: "",
+          usuario: "",
+          fecha: "",
+          especializacion: "",
+          nivel: "",
         },
-        handleClose() {
-          this.modal = false;
-        },
-        aplicarFiltro() {
-          this.$store.dispatch('obtenerDetalleProveedor', this.search);
-        }
+      };
+    },
+    methods: {
+      parseDate(date) {
+        return new Date(date).toLocaleString();
       },
-      computed: {
-        // usuarios () {
-        //   return this.$store.getters.getusuarios;
-        // },
-        proveedores () {
-          console.log(this.$store.getters.getProveedores)
-          return this.$store.getters.getProveedores;
-        },
-        //nivelesUsuario () {
-         // return this.$store.getters.getnivelesUsuarios;
-        //},
-      }
-    }
-  </script>
-  <style lang="scss">
-    .el-date-editor {
-      width: 100% !important;
-    }
-  </style>
-  
+      handleClose() {
+        this.modal = false;
+      },
+      aplicarFiltro() {
+        this.$store.dispatch("obtenerDetalleProveedor", this.search);
+      },
+    },
+    computed: {
+      // usuarios () {
+      //   return this.$store.getters.getusuarios;
+      // },
+      proveedores() {
+        console.log(this.$store.getters.getProveedores);
+        return this.$store.getters.getProveedores;
+      },
+      nivelesUsuario () {
+        return this.$store.getters.getnivelesUsuarios;
+      },
+    },
+  };
+</script>
+<style lang="scss">
+  .el-date-editor {
+    width: 100% !important;
+  }
+</style>
