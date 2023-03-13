@@ -7,7 +7,7 @@
                     <div class="flex flex-wrap items-center">
                         <div class="relative w-full px-4 max-w-full flex-grow flex-1">
                             <h3 class="font-semibold text-base text-blueGray-700">
-                                Lista de Recibos de Compra
+                                Lista de Recibos de Venta
                             </h3>
                         </div>
                         <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
@@ -24,10 +24,10 @@
                     </button>
                 </div>
                 <div class="mt-5">
-                    
+
                     <div v-if="Ventas && Ventas.data">
                         <el-table :data="Ventas.data" class="w-full">
-                           
+
                             <el-table-column fixed prop="paciente" label="Paciente" width="190">
                                 <template slot-scope="scope">
                                     <router-link :to="`/admin/usuarios/${scope.row.id}`"
@@ -55,13 +55,13 @@
                                 </template>
                             </el-table-column>
                         </el-table>
-                        <!-- Modales de busqueda 
+                        <!-- Modales de busqueda
                         <el-drawer title="Busqueda Avanzada" :visible.sync="modal" direction="rtl"
                             :before-close="handleClose">
                             <form class="h-full" @submit.prevent="aplicarFiltro">
                                 <div class="flex flex-col content-between justify-between h-full">
                                     <div class="flex flex-col">
-                                         Contenido 
+                                         Contenido
                                         <div class="w-full px-2 mb-3 py-1">
                                             <label>
                                                 <p class="ml-1 mb-1">Nombre</p>
