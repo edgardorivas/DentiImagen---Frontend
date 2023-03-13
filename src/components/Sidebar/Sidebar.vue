@@ -177,6 +177,12 @@
               Lista de Proveedores
             </router-link>
           </li>
+          <li class="items-center">
+            <router-link to="/admin/proveedores/agregar" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
+            <i class="fa-sharp fa-solid fa-user mr-2 text-sm"></i>
+              Agregar Proveedor
+            </router-link>
+          </li>
         </ul>
 
       </div>
