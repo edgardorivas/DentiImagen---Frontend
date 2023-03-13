@@ -42,7 +42,17 @@
               <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                 <label>
                   <p class="ml-1">Especialización</p>
-                  <el-input placeholder="Especialización del trabajador" v-model="nuevoUsuario.especializacion"></el-input>
+                  <el-select v-model="nuevoUsuario.especializacion" placeholder="Selecciona tu Especialización" allow-create filterable class="w-full">
+                    <el-option label="Odontologo" value="Odontologo"></el-option>
+                    <el-option label="Programador" value="Desarrollador"></el-option>
+                    <el-option label="Administrador" value="Administrador"></el-option>
+                    <el-option label="Secretaria" value="Secretaria"></el-option>
+                    <el-option label="Vendedor" value="Vendedor"></el-option>
+                    <el-option label="Comprador" value="Comprador"></el-option>
+                    <el-option label="Director" value="Director"></el-option>
+                    <el-option label="Director Medico" value="Director Medico"></el-option>
+                    <el-option label="Mantenimiento" value="Mantenimiento"></el-option>
+                  </el-select>
                 </label>
               </div>
               <div class="w-11/12">
