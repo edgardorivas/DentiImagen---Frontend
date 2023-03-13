@@ -143,10 +143,13 @@ const routes = [
       },
       {
         path: "/admin/paciente/lista",
-        name: 'Agregar un nuevo paciente',
+        name: 'Lista de Pacientes',
         component: () => import('../views/admin/paciente/lista.vue'),
       },
-
+      {
+        path: "/admin/paciente/id/:ID",
+        name: 'Detalles del Paciente',
+      },
       // Odontodiagrama
       {
         path: "/admin/odontodiagrama/registro",
