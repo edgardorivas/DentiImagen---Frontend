@@ -12,13 +12,13 @@
                 <div class="mt-5 pb-5">
                     <form @submit.prevent="registroPaciente()" >
 
-                        <div class="flex flex-wrap justify-around" v-if="segundaParte == false">
+                        <div class="flex flex-wrap justify-around" >
 
                             <div class="w-11/12">
                                 <el-divider>Datos del Paciente</el-divider>
                             </div>
 
-                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 ml-2 py-1">
                                 <label>
                                     <p class="ml-1">Nombre</p>
                                     <el-input placeholder="Nombre del Paciente"
@@ -116,135 +116,162 @@
                                         v-model="nuevoHistorialPaciente.trabajadorOdontologo"></el-input>
                                 </label>
                             </div>
+
+                            <div class="w-11/12">
+                                <el-divider>Datos historicos de padecimientos</el-divider>
+                            </div>
+
+                            <!--Se muestra los selects-->
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                    <label>
+                                    <p class="ml-1">¿ Esta usted en tratamiento ?</p>
+                                    <div class="flex items-center mb-4">
+                                        <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">si</label>
+                                        
+                                        <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="ml-5 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">no</label>
+                                    </div>
+                                    </label>
+                                </div>
+    
+                                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                    <label>
+                                    <p class="ml-1">¿ Alergia a algun medicamento?</p>
+                                    <div class="flex items-center mb-4">
+                                        <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">si</label>
+                                        
+                                        <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="ml-5 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">no</label>
+                                    </div>
+                                    </label>
+                                </div>
+    
+                                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                    <label>
+                                    <p class="ml-1">¿ Sufre de presion arterial ?</p>
+                                    <div class="flex items-center mb-4">
+                                        <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">si</label>
+                                        
+                                        <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="ml-5 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">no</label>
+                                    </div>
+                                    </label>
+                                </div>
+    
+                                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                    <label>
+                                    <p class="ml-1">¿ Diabetico ?</p>
+                                    <div class="flex items-center mb-4">
+                                        <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">si</label>
+                                        
+                                        <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="ml-5 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">no</label>
+                                    </div>
+                                    </label>
+                                </div>
+    
+                                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                    <label>
+                                    <p class="ml-1">¿ Antecedentes familiares de diabetes ?</p>
+                                    <div class="flex items-center mb-4">
+                                        <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">si</label>
+                                        
+                                        <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="ml-5 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">no</label>
+                                    </div>
+                                    </label>
+                                </div>
+    
+                                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                    <label>
+                                    <p class="ml-1">¿ Ha sufrido de Hepatitis ?</p>
+                                    <div class="flex items-center mb-4">
+                                        <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">si</label>
+                                        
+                                        <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="ml-5 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">no</label>
+                                    </div>
+                                    </label>
+                                </div>
+    
+                                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                    <label>
+                                    <p class="ml-1">¿ Ha sufrido de Herpes ?</p>
+                                    <div class="flex items-center mb-4">
+                                        <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">si</label>
+                                        
+                                        <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="ml-5 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">no</label>
+                                    </div>
+                                    </label>
+                                </div>
+    
+                                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                    <label>
+                                    <p class="ml-1">¿ Ha sufrido de Afecciones cardiacas ?</p>
+                                    <div class="flex items-center mb-4">
+                                        <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">si</label>
+                                        
+                                        <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="ml-5 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">no</label>
+                                    </div>
+                                    </label>
+                                </div>
+    
+                                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                    <label>
+                                    <p class="ml-1">¿ Problemas con la Anestecia ?</p>
+                                    <div class="flex items-center mb-4">
+                                        <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">si</label>
+                                        
+                                        <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="ml-5 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">no</label>
+                                    </div>
+                                    </label>
+                                </div>
+    
+                                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                    <label>
+                                    <p class="ml-1">¿ Es usted propenso a las Hemorragias ?</p>
+                                    <div class="flex items-center mb-4">
+                                        <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">si</label>
+                                        
+                                        <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="ml-5 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">no</label>
+                                    </div>
+                                    </label>
+                                </div>
+    
+                                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                    <label>
+                                    <p class="ml-1">¿ Ha convulsionado alguna vez ?</p>
+                                    <div class="flex items-center mb-4">
+                                        <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">si</label>
+                                        
+                                        <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="ml-5 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">no</label>
+                                    </div>
+                                    </label>
+                                </div>
                         </div>
-
-                        <div class="flex flex-wrap justify-around" v-else>
-
-                            <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
-                                <label>
-                                <p class="ml-1">¿ Esta usted en tratamiento ?</p>
-                                <el-select v-model="nuevoHistorialPaciente.estaTratamiento" placeholder="Tratamiento" class="w-full">
-                                    <el-option label="Si" value=true></el-option>
-                                    <el-option label="No" value=false></el-option>
-                                </el-select>
-                                </label>
-                            </div>
-
-                            <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
-                                <label>
-                                <p class="ml-1">¿ Alergia a algun medicamento?</p>
-                                <el-select v-model="nuevoHistorialPaciente.alergicoAlgunMedicamento" placeholder="¿ Alergia a algun medicamento?" class="w-full">
-                                    <el-option label="Si" value=true></el-option>
-                                    <el-option label="No" value=false></el-option>
-                                </el-select>
-                                </label>
-                            </div>
-
-                            <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
-                                <label>
-                                <p class="ml-1">¿ Sufre de presion arterial ?</p>
-                                <el-select v-model="nuevoHistorialPaciente.sufreTensionAlterial" placeholder="¿ Sufre de presion arterial ?" class="w-full">
-                                    <el-option label="Si" value=true></el-option>
-                                    <el-option label="No" value=false></el-option>
-                                </el-select>
-                                </label>
-                            </div>
-
-                            <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
-                                <label>
-                                <p class="ml-1">¿ Diabetico ?</p>
-                                <el-select v-model="nuevoHistorialPaciente.diabetico" placeholder="¿ Diabetico ?" class="w-full">
-                                    <el-option label="Si" value=true></el-option>
-                                    <el-option label="No" value=false></el-option>
-                                </el-select>
-                                </label>
-                            </div>
-
-                            <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
-                                <label>
-                                <p class="ml-1">¿ Antecedentes familiares de diabetes ?</p>
-                                <el-select v-model="nuevoHistorialPaciente.antecedentesDiabetico" placeholder="¿ Antecedentes familiares de diabetes ?" class="w-full">
-                                    <el-option label="Si" value=true></el-option>
-                                    <el-option label="No" value=false></el-option>
-                                </el-select>
-                                </label>
-                            </div>
-
-                            <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
-                                <label>
-                                <p class="ml-1">¿ Ha sufrido de Hepatitis ?</p>
-                                <el-select v-model="nuevoHistorialPaciente.sufridoHepatitis" placeholder="¿ Ha sufrido de Hepatitis ?" class="w-full">
-                                    <el-option label="Si" value=true></el-option>
-                                    <el-option label="No" value=false></el-option>
-                                </el-select>
-                                </label>
-                            </div>
-
-                            <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
-                                <label>
-                                <p class="ml-1">¿ Ha sufrido de Herpes ?</p>
-                                <el-select v-model="nuevoHistorialPaciente.sufridoHerpes" placeholder="¿ Ha sufrido de Herpes ?" class="w-full">
-                                    <el-option label="Si" value=true></el-option>
-                                    <el-option label="No" value=false></el-option>
-                                </el-select>
-                                </label>
-                            </div>
-
-                            <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
-                                <label>
-                                <p class="ml-1">¿ Ha sufrido de Afecciones cardiacas ?</p>
-                                <el-select v-model="nuevoHistorialPaciente.efeccionesCardiacas" placeholder="Tratamiento" class="w-full">
-                                    <el-option label="Si" value=true></el-option>
-                                    <el-option label="No" value=false></el-option>
-                                </el-select>
-                                </label>
-                            </div>
-
-                            <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
-                                <label>
-                                <p class="ml-1">¿ Problemas con la Anestecia ?</p>
-                                <el-select v-model="nuevoHistorialPaciente.sufridoAnestecia" placeholder="¿ Problemas con la Anestecia ?" class="w-full">
-                                    <el-option label="Si" value=true></el-option>
-                                    <el-option label="No" value=false></el-option>
-                                </el-select>
-                                </label>
-                            </div>
-
-                            <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
-                                <label>
-                                <p class="ml-1">¿ Es usted propenso a las Hemorragias ?</p>
-                                <el-select v-model="nuevoHistorialPaciente.propensoHemorragias" placeholder="¿ Es usted propenso a las Hemorragias ?" class="w-full">
-                                    <el-option label="Si" value=true></el-option>
-                                    <el-option label="No" value=false></el-option>
-                                </el-select>
-                                </label>
-                            </div>
-
-                            <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
-                                <label>
-                                <p class="ml-1">¿ Ha convulsionado alguna vez ?</p>
-                                <el-select v-model="nuevoHistorialPaciente.convulcionAlgunaVez" placeholder="¿ Ha convulsionado alguna vez ?" class="w-full">
-                                    <el-option label="Si" value=true></el-option>
-                                    <el-option label="No" value=false></el-option>
-                                </el-select>
-                                </label>
-                            </div>
-
-                        </div>
+                        
 
 
                         <br>
 
-                        <div class="flex flex-wrap justify-around"  v-if="segundaParte == false">
-                            <button @click="cambiar()" type="button"  :disabled="loading"
-                                class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">Continuar</button>
-                        </div>
 
-                        <div class="flex flex-wrap justify-around" v-else>
-
-                            <button @click="cambiar()" type="button"   :disabled="loading"
-                                class="w-full md:w-1/3 bg-red-300 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">Atras</button>
-
+                        <div class="flex flex-wrap justify-around">
                             <button   :disabled="loading"
                                 class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">Guardar</button>
                         </div>

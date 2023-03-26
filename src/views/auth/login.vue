@@ -7,14 +7,14 @@
     <br />
     <form class="flex flex-wrap mx-5"  @submit.prevent="loginUsuario">
       <div class="w-full mb-3">
-        <input class="block w-full px-3 py-2.5 rounded-lg border" required v-model="auth.usuario" type="text" placeholder="Usuario" autocomplete="user">
+        <input class="block w-full px-3 py-2.5 rounded-lg border" required v-model="auth.usuario" type="text" placeholder="Usuario" >
       </div>
       <div class="w-full">
-        <input class="block w-full px-3 py-2.5 rounded-lg border" required v-model="auth.contrasena" type="password" placeholder="Contraseña" autocomplete="password">
+        <input class="block w-full px-3 py-2.5 rounded-lg border" required v-model="auth.contrasena" type="password" placeholder="Contraseña">
       </div>
       <br />
       <div class="w-full mt-12">
-        <button class="block w-full py-3 rounded-lg bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100">Iniciar sesión</button>
+        <button  class="block w-full py-3 rounded-lg bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100">Iniciar sesión</button>
       </div>
     </form>
     <br />
