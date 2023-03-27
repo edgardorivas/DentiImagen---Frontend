@@ -75,25 +75,8 @@
                   <el-input placeholder="Profesion del Paciente" v-model="paciente.profecion"></el-input>
                 </label>
               </div>
-              <div class="w-full md:w-1/2 lg:w-4/5 px-2 mb-3 py-1">
-                <label>
-                  <p class="ml-1">Dirección</p>
-                  <el-input placeholder="Direccion del Paciente" v-model="paciente.direccion_paciente"></el-input>
-                </label>
-              </div>
-              <div class="w-11/12">
-                <el-divider>Datos Adicionales</el-divider>
-              </div>
-              <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
-                <label>
-                  <p class="ml-1">¿ Esta usted en tratamiento ?</p>
-                  <el-select v-model="paciente.esta_tratamiento" placeholder="Tratamiento" class="w-full">
-                    <el-option label="Si" :value="true"></el-option>
-                    <el-option label="No" :value="false"></el-option>
-                  </el-select>
-                </label>
-              </div>
-              <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
+
+              <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                 <label>
                   <p class="ml-1">¿Posee Alergia a algun medicamento?</p>
                   <el-select v-model="paciente.alergico_algun_tratamiento" placeholder="¿ Alergia a algun medicamento?" class="w-full">
@@ -102,85 +85,85 @@
                   </el-select>
                 </label>
               </div>
-              <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
+
+              <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                <label>
+                  <p class="ml-1">Dirección</p>
+                  <el-input placeholder="Direccion del Paciente" v-model="paciente.direccion_paciente"></el-input>
+                </label>
+              </div>
+              <div class="w-11/12">
+                <el-divider>Datos Adicionales</el-divider>
+              </div>
+              <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                <label>
+                  <p class="ml-1">¿ Esta usted en tratamiento ?</p>
+                    <el-radio v-model="paciente.esta_tratamiento" label="true">SI</el-radio>
+                     <el-radio v-model="paciente.esta_tratamiento" label="false">NO</el-radio>
+                </label>
+              </div>
+              
+              <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                 <label>
                   <p class="ml-1">¿ Sufre de presion arterial ?</p>
-                  <el-select v-model="paciente.suefre_presion_alterial" placeholder="¿ Sufre de presion arterial ?" class="w-full">
-                    <el-option label="Si" :value="true"></el-option>
-                    <el-option label="No" :value="false"></el-option>
-                  </el-select>
+                    <el-radio v-model="paciente.suefre_presion_alterial" :label=true>SI</el-radio>
+                    <el-radio v-model="paciente.suefre_presion_alterial" :label=false>NO</el-radio>
                 </label>
               </div>
-              <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
+              <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                 <label>
                   <p class="ml-1">¿ Diabetico ?</p>
-                  <el-select v-model="paciente.diabetico" placeholder="¿ Diabetico ?" class="w-full">
-                    <el-option label="Si" :value="true"></el-option>
-                    <el-option label="No" :value="false"></el-option>
-                  </el-select>
+                    <el-radio v-model="paciente.diabetico" :label=true>SI</el-radio>
+                    <el-radio v-model="paciente.diabetico" :label=false>NO</el-radio>
                 </label>
               </div>
-              <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
+              <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                 <label>
                   <p class="ml-1">¿ Antecedentes familiares de diabetes ?</p>
-                  <el-select v-model="paciente.antecedentes_diabetico" placeholder="¿ Antecedentes familiares de diabetes ?" class="w-full">
-                    <el-option label="Si" :value="true"></el-option>
-                    <el-option label="No" :value="false"></el-option>
-                  </el-select>
+                    <el-radio v-model="paciente.antecedentes_diabetico" :label=true>SI</el-radio>
+                    <el-radio v-model="paciente.antecedentes_diabetico" :label=false>NO</el-radio>
                 </label>
               </div>
-              <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
+              <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                 <label>
                   <p class="ml-1">¿ Ha sufrido de Hepatitis ?</p>
-                  <el-select v-model="paciente.ha_sufrido_hepatitis" placeholder="¿ Ha sufrido de Hepatitis ?" class="w-full">
-                    <el-option label="Si" :value="true"></el-option>
-                    <el-option label="No" :value="false"></el-option>
-                  </el-select>
+                    <el-radio v-model="paciente.ha_sufrido_hepatitis" :label=true>SI</el-radio>
+                    <el-radio v-model="paciente.ha_sufrido_hepatitis" :label=false>NO</el-radio>
                 </label>
               </div>
-              <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
+              <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                 <label>
                   <p class="ml-1">¿ Ha sufrido de Herpes ?</p>
-                  <el-select v-model="paciente.ha_sufrido_herpes" placeholder="¿ Ha sufrido de Herpes ?" class="w-full">
-                    <el-option label="Si" :value="true"></el-option>
-                    <el-option label="No" :value="false"></el-option>
-                  </el-select>
+                    <el-radio v-model="paciente.ha_sufrido_herpes" :label=true>SI</el-radio>
+                    <el-radio v-model="paciente.ha_sufrido_herpes" :label=false>NO</el-radio>
                 </label>
               </div>
-              <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
+              <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                 <label>
                   <p class="ml-1">¿ Ha sufrido de Afecciones cardiacas ?</p>
-                  <el-select v-model="paciente.ha_sufrido_efecciones_cardiacas" placeholder="Tratamiento" class="w-full">
-                    <el-option label="Si" :value="true"></el-option>
-                    <el-option label="No" :value="false"></el-option>
-                  </el-select>
+                    <el-radio v-model="paciente.ha_sufrido_efecciones_cardiacas" :label=true>SI</el-radio>
+                    <el-radio v-model="paciente.ha_sufrido_efecciones_cardiacas" :label=false>NO</el-radio>
                 </label>
               </div>
-              <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
+              <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                 <label>
                   <p class="ml-1">¿ Problemas con la Anestecia ?</p>
-                  <el-select v-model="paciente.ha_sufrido_con_anestecia" placeholder="¿ Problemas con la Anestecia ?" class="w-full">
-                    <el-option label="Si" :value="true"></el-option>
-                    <el-option label="No" :value="false"></el-option>
-                  </el-select>
+                    <el-radio v-model="paciente.ha_sufrido_con_anestecia" :label=true>SI</el-radio>
+                    <el-radio v-model="paciente.ha_sufrido_con_anestecia" :label=false>NO</el-radio>
                 </label>
               </div>
-              <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
+              <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                 <label>
                   <p class="ml-1">¿ Es usted propenso a las Hemorragias ?</p>
-                  <el-select v-model="paciente.propenso_horragia" placeholder="¿ Es usted propenso a las Hemorragias ?" class="w-full">
-                    <el-option label="Si" :value="true"></el-option>
-                    <el-option label="No" :value="false"></el-option>
-                  </el-select>
+                    <el-radio v-model="paciente.propenso_horragia" :label=true>SI</el-radio>
+                    <el-radio v-model="paciente.propenso_horragia" :label=false>NO</el-radio>
                 </label>
               </div>
-              <div class="w-full md:w-1/4 lg:w-3/12 px-2 mb-3 py-1">
+              <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                 <label>
                   <p class="ml-1">¿ Ha convulsionado alguna vez ?</p>
-                  <el-select v-model="paciente.convulcion_alguna_vez" placeholder="¿ Ha convulsionado alguna vez ?" class="w-full">
-                    <el-option label="Si" :value="true"></el-option>
-                    <el-option label="No" :value="false"></el-option>
-                  </el-select>
+                    <el-radio v-model="paciente.convulcion_alguna_vez" :label=true>SI</el-radio>
+                    <el-radio v-model="paciente.convulcion_alguna_vez" :label=false>NO</el-radio>
                 </label>
               </div>
             </div>

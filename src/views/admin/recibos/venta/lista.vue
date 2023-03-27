@@ -30,7 +30,7 @@
 
                             <el-table-column fixed prop="paciente" label="Paciente" width="190">
                                 <template slot-scope="scope">
-                                    <router-link :to="`/admin/usuarios/${scope.row.id}`"
+                                    <router-link :to="`/admin/paciente/id/${scope.row.id_pacinte}`"
                                         class="uppercase text-verdiAnderson">
                                         @{{ scope.row.paciente }}
                                     </router-link>
@@ -129,7 +129,7 @@ export default {
     created() {
         // this.$store.dispatch('obtenerListaDeUsuarios')
         this.aplicarFiltro();
-        this.$store.dispatch('obtenerListaCompra');
+        this.$store.dispatch('obtenerListaVentas');
 
     },
     data() {

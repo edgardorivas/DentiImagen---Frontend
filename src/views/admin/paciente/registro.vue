@@ -53,8 +53,18 @@
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Sexo</p>
-                                    <el-input placeholder="Genero del Paciente"
-                                        v-model="nuevoHistorialPaciente.genero"></el-input>
+                                    <el-select v-model="nuevoHistorialPaciente.genero" size="large" placeholder="Genero del Paciente">
+                                        <el-option
+                                        key="Masculino"
+                                        label="Masculino"
+                                        value="Masculino">
+                                        </el-option>
+                                        <el-option
+                                        key="Femenino"
+                                        label="Femenino"
+                                        value="Femenino">
+                                        </el-option>
+                                    </el-select>
                                 </label>
                             </div>
 
@@ -67,8 +77,6 @@
                                 </label>
                             </div>
 
-
-
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Correo Electronico</p>
@@ -76,14 +84,6 @@
                                         v-model="nuevoHistorialPaciente.correo"></el-input>
                                 </label>
                             </div>
-                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                <label>
-                                    <p class="ml-1">Referido por:</p>
-                                    <el-input placeholder="Nombre del tipo de material"
-                                        v-model="nuevoHistorialPaciente.referidoPor"></el-input>
-                                </label>
-                            </div>
-
 
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
@@ -108,11 +108,18 @@
                                         v-model="nuevoHistorialPaciente.direccion"></el-input>
                                 </label>
                             </div>
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                    <label>
+                                    <p class="ml-1">¿ Alergia a algun medicamento?</p>
+                                    <el-input placeholder="Indique el nombre del medicamento"
+                                        v-model="nuevoHistorialPaciente.alergicoAlgunMedicamento"></el-input>
+                                    </label>
+                                </div>
 
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
-                                    <p class="ml-1">Odontologo Referido</p>
-                                    <el-input placeholder="Indique el nombre del doctor referido"
+                                    <p class="ml-1">Odontologo</p>
+                                    <el-input  placeholder="Indique el nombre del doctor referido"
                                         v-model="nuevoHistorialPaciente.trabajadorOdontologo"></el-input>
                                 </label>
                             </div>
@@ -125,151 +132,84 @@
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                     <label>
                                     <p class="ml-1">¿ Esta usted en tratamiento ?</p>
-                                    <div class="flex items-center mb-4">
-                                        <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">si</label>
-                                        
-                                        <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="ml-5 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">no</label>
-                                    </div>
+                                    <el-radio v-model="nuevoHistorialPaciente.estaTratamiento" label="1">SI</el-radio>
+                                    <el-radio v-model="nuevoHistorialPaciente.estaTratamiento" label="0">NO</el-radio>
                                     </label>
                                 </div>
-    
-                                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                    <label>
-                                    <p class="ml-1">¿ Alergia a algun medicamento?</p>
-                                    <div class="flex items-center mb-4">
-                                        <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">si</label>
-                                        
-                                        <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="ml-5 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">no</label>
-                                    </div>
-                                    </label>
-                                </div>
-    
+
                                 <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                     <label>
                                     <p class="ml-1">¿ Sufre de presion arterial ?</p>
-                                    <div class="flex items-center mb-4">
-                                        <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">si</label>
-                                        
-                                        <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="ml-5 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">no</label>
-                                    </div>
+                                    <el-radio v-model="nuevoHistorialPaciente.sufreTensionAlterial" label="1">SI</el-radio>
+                                    <el-radio v-model="nuevoHistorialPaciente.sufreTensionAlterial" label="0">NO</el-radio>
                                     </label>
                                 </div>
     
                                 <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                     <label>
                                     <p class="ml-1">¿ Diabetico ?</p>
-                                    <div class="flex items-center mb-4">
-                                        <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">si</label>
-                                        
-                                        <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="ml-5 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">no</label>
-                                    </div>
+                                    <el-radio v-model="nuevoHistorialPaciente.diabetico" label="1">SI</el-radio>
+                                    <el-radio v-model="nuevoHistorialPaciente.diabetico" label="0">NO</el-radio>
                                     </label>
                                 </div>
     
                                 <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                     <label>
                                     <p class="ml-1">¿ Antecedentes familiares de diabetes ?</p>
-                                    <div class="flex items-center mb-4">
-                                        <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">si</label>
-                                        
-                                        <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="ml-5 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">no</label>
-                                    </div>
+                                    <el-radio v-model="nuevoHistorialPaciente.antecedentesDiabetico" label="1">SI</el-radio>
+                                    <el-radio v-model="nuevoHistorialPaciente.antecedentesDiabetico" label="0">NO</el-radio>
                                     </label>
                                 </div>
     
                                 <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                     <label>
                                     <p class="ml-1">¿ Ha sufrido de Hepatitis ?</p>
-                                    <div class="flex items-center mb-4">
-                                        <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">si</label>
-                                        
-                                        <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="ml-5 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">no</label>
-                                    </div>
+                                    <el-radio v-model="nuevoHistorialPaciente.sufridoHepatitis" label="1">SI</el-radio>
+                                    <el-radio v-model="nuevoHistorialPaciente.sufridoHepatitis" label="0">NO</el-radio>
                                     </label>
                                 </div>
     
                                 <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                     <label>
                                     <p class="ml-1">¿ Ha sufrido de Herpes ?</p>
-                                    <div class="flex items-center mb-4">
-                                        <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">si</label>
-                                        
-                                        <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="ml-5 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">no</label>
-                                    </div>
+                                    <el-radio v-model="nuevoHistorialPaciente.sufridoHerpes" label="1">SI</el-radio>
+                                    <el-radio v-model="nuevoHistorialPaciente.sufridoHerpes" label="0">NO</el-radio>
                                     </label>
                                 </div>
     
                                 <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                     <label>
                                     <p class="ml-1">¿ Ha sufrido de Afecciones cardiacas ?</p>
-                                    <div class="flex items-center mb-4">
-                                        <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">si</label>
-                                        
-                                        <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="ml-5 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">no</label>
-                                    </div>
+                                    <el-radio v-model="nuevoHistorialPaciente.efeccionesCardiacas" label="1">SI</el-radio>
+                                    <el-radio v-model="nuevoHistorialPaciente.efeccionesCardiacas" label="0">NO</el-radio>
                                     </label>
                                 </div>
     
                                 <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                     <label>
                                     <p class="ml-1">¿ Problemas con la Anestecia ?</p>
-                                    <div class="flex items-center mb-4">
-                                        <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">si</label>
-                                        
-                                        <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="ml-5 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">no</label>
-                                    </div>
+                                    <el-radio v-model="nuevoHistorialPaciente.sufridoAnestecia" label="1">SI</el-radio>
+                                    <el-radio v-model="nuevoHistorialPaciente.sufridoAnestecia" label="0">NO</el-radio>
                                     </label>
                                 </div>
     
                                 <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                     <label>
                                     <p class="ml-1">¿ Es usted propenso a las Hemorragias ?</p>
-                                    <div class="flex items-center mb-4">
-                                        <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">si</label>
-                                        
-                                        <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="ml-5 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">no</label>
-                                    </div>
+                                    <el-radio v-model="nuevoHistorialPaciente.propensoHemorragias" label="1">SI</el-radio>
+                                    <el-radio v-model="nuevoHistorialPaciente.propensoHemorragias" label="0">NO</el-radio>
                                     </label>
                                 </div>
     
                                 <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                     <label>
                                     <p class="ml-1">¿ Ha convulsionado alguna vez ?</p>
-                                    <div class="flex items-center mb-4">
-                                        <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">si</label>
-                                        
-                                        <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="ml-5 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">no</label>
-                                    </div>
+                                    <el-radio v-model="nuevoHistorialPaciente.convulcionAlgunaVez" label="1">SI</el-radio>
+                                    <el-radio v-model="nuevoHistorialPaciente.convulcionAlgunaVez" label="0">NO</el-radio>
                                     </label>
                                 </div>
                         </div>
-                        
-
-
                         <br>
-
 
                         <div class="flex flex-wrap justify-around">
                             <button   :disabled="loading"
@@ -315,13 +255,11 @@ export default {
                 propensoHemorragias: null,
                 convulcionAlgunaVez: null,
                 estaTratamiento: null,
-                alergicoAlgunMedicamento: null,
+                alergicoAlgunMedicamento: true,
                 sufreTensionAlterial: null,
                 trabajadorOdontologo:null
 
             },
-
-            segundaParte:false,
             loading: false,
         }
     },
@@ -332,23 +270,25 @@ export default {
                 this.loading = true;
                 const token = localStorage.getItem('token_acess');
                 console.log(this.nuevoHistorialPaciente)
-                const request = await axios({
-                    method: 'POST',
-                    baseURL: config.backend.baseURL,
-                    url: '/paciente/ingresar',
-                    headers: {
-                        ['auth-token']: token,
-                    },
-                    data: this.nuevoHistorialPaciente
-                });
-                console.log(request);
-                this.$store.dispatch('getLoadingApp', false);
-                this.loading = false;
-                this.$message({
-                    message: 'Registrado Exitosamente',
-                    type: 'success',
-                });
-                this.$router.push({ path: '/admin/' });
+               
+                    const request = await axios({
+                        method: 'POST',
+                        baseURL: config.backend.baseURL,
+                        url: '/paciente/ingresar',
+                        headers: {
+                            ['auth-token']: token,
+                        },
+                        data: this.nuevoHistorialPaciente
+                    });
+                    console.log(request);
+                    this.$store.dispatch('getLoadingApp', false);
+                    this.loading = false;
+                    this.$message({
+                        message: 'Registrado Exitosamente',
+                        type: 'success',
+                    });
+                    this.$router.push({ path: '/admin/' });
+                
             } catch (error) {
                 if (error.response) {
                     this.$message({
@@ -363,7 +303,7 @@ export default {
                 }
                 this.$store.dispatch('getLoadingApp', false);
                 this.loading = false;
-                console.clear()
+                //console.clear()
             }
         },
         cambiar(){
