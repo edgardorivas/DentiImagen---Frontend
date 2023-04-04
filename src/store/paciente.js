@@ -1,11 +1,12 @@
 import axios from 'axios'
 import config from '../config.js'
 import { Notification } from 'element-ui'
-
+//trabajadorOdontologo
 export default {
   state: {
     pacientes: [],
     paciente: {},
+    usuariosOdontologicos:[]
   },
   mutations: {
     setPacientes: (state, value) => {
@@ -13,6 +14,9 @@ export default {
     },
     setPaciente: (state, value) => {
       state.paciente = value
+    },
+    setUsuariosOdontologicos: (state, value) => {
+      state.usuariosOdontologicos = value
     }
   },
   getters: {
@@ -21,6 +25,9 @@ export default {
     },
     getPaciente: (state) => {
       return state.paciente
+    },
+    getUsuariosOdontologicos: (state) => {
+      return state.usuariosOdontologicos
     }
   },
   actions: {
@@ -91,6 +98,38 @@ export default {
         commit('setPaciente', null)
       }
       dispatch('getLoadingApp', false);
-    }
+    },
+    async obtenerListaDeTrabajadoresRol (context) {
+      const token = localStorage.getItem('token_acess')
+      context.dispatch('getLoadingApp', true);
+      try {
+        const resultado = await axios({
+          method: 'GET',
+          baseURL: config.backend.baseURL,
+          url: '/trabajadorRol',
+          headers: {
+            ['auth-token']: token,
+          }
+        });
+
+        context.commit('setUsuariosOdontologicos', resultado.data)
+      } catch (error) {
+        if (error.response) {
+          Notification({
+            title: config.frontend.title,
+            message: error,
+            type: 'error'
+          })
+        } else {
+          Notification({
+            title: config.frontend.title,
+            message: 'Error al acceder a internet',
+            type: 'error'
+          })
+        }
+        context.commit('setUsuariosOdontologicos', [])
+      }
+      context.dispatch('getLoadingApp', false);
+    },
   }
 }

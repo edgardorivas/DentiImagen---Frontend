@@ -116,18 +116,32 @@
                                     </label>
                                 </div>
 
+
+
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label v-if="trabajadoresOdontologicos && trabajadoresOdontologicos.data">
+                                    <p class="ml-1">Odontologo Asignado</p>
+                                    <el-select v-model="nuevoHistorialPaciente.trabajadorOdontologo" size="large" placeholder="Genero del Paciente">
+                                        <el-option v-for=" trabajador in trabajadoresOdontologicos.data "
+                                        :key="trabajador.id_trabajador"
+                                        :label= "trabajador.nombre + ' - ' +trabajador.especializacion"
+                                        :value="trabajador.id_trabajador">
+                                        </el-option>
+                                    </el-select>
+                                </label>
+                            </div>
+                            
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
-                                    <p class="ml-1">Odontologo</p>
+                                    <p class="ml-1">Odontologo Referido</p>
                                     <el-input  placeholder="Indique el nombre del doctor referido"
-                                        v-model="nuevoHistorialPaciente.trabajadorOdontologo"></el-input>
+                                        v-model="nuevoHistorialPaciente.referidoPor"></el-input>
                                 </label>
                             </div>
 
                             <div class="w-11/12">
                                 <el-divider>Datos historicos de padecimientos</el-divider>
                             </div>
-
                             <!--Se muestra los selects-->
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                     <label>
@@ -232,6 +246,9 @@ export default {
         title: config.frontend.title,
         titleTemplate: "%s | Agregar nuevo Paciente",
     },
+    created() {
+      this.mostrarTrabajadoresRol();
+    },
     data() {
         return {
             nuevoHistorialPaciente:{
@@ -255,7 +272,7 @@ export default {
                 propensoHemorragias: null,
                 convulcionAlgunaVez: null,
                 estaTratamiento: null,
-                alergicoAlgunMedicamento: true,
+                alergicoAlgunMedicamento: '',
                 sufreTensionAlterial: null,
                 trabajadorOdontologo:null
 
@@ -308,7 +325,15 @@ export default {
         },
         cambiar(){
             this.segundaParte = !this.segundaParte;
-        }
+        },
+        mostrarTrabajadoresRol() {
+            this.$store.dispatch("obtenerListaDeTrabajadoresRol");
+        },
+    },
+    computed: {
+      trabajadoresOdontologicos() {
+        return this.$store.getters.getUsuariosOdontologicos;
+      },
     },
 };
 </script>
