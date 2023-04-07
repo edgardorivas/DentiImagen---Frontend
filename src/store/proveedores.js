@@ -41,8 +41,8 @@ export default {
         if (error.response) {
           Notification({
             title: config.frontend.title,
-            message: error,
-            type: 'error'
+            message: error.response.data.mensaje,
+            type: 'warning'
           })
         } else {
           Notification({
@@ -73,7 +73,7 @@ export default {
         if (error.response) {
           Notification({
             title: config.frontend.title,
-            message: error,
+            message: error.response.data.mensaje,
             type: 'error'
           })
         } else {

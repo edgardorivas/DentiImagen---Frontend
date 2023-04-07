@@ -119,15 +119,18 @@
 
 
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                <label v-if="trabajadoresOdontologicos && trabajadoresOdontologicos.data">
+                                <label v-if="trabajadoresOdontologicos">
                                     <p class="ml-1">Odontologo Asignado</p>
                                     <el-select v-model="nuevoHistorialPaciente.trabajadorOdontologo" size="large" placeholder="Genero del Paciente">
-                                        <el-option v-for=" trabajador in trabajadoresOdontologicos.data "
+                                        <el-option v-for=" trabajador in trabajadoresOdontologicos" 
                                         :key="trabajador.id_trabajador"
                                         :label= "trabajador.nombre + ' - ' +trabajador.especializacion"
                                         :value="trabajador.id_trabajador">
                                         </el-option>
                                     </el-select>
+                                </label>
+                                <label v-else>
+                                    <h4>No hay odontologos registrados</h4>
                                 </label>
                             </div>
                             
@@ -332,7 +335,9 @@ export default {
     },
     computed: {
       trabajadoresOdontologicos() {
-        return this.$store.getters.getUsuariosOdontologicos;
+        let trabajadoresRol = this.$store.getters.getUsuariosOdontologicos;
+        let trabajadoresRolOdontologo= trabajadoresRol.data.filter(datosTrabajador => datosTrabajador.id_rol == 3);
+        return trabajadoresRolOdontologo;
       },
     },
 };

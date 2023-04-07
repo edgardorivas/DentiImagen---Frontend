@@ -168,7 +168,7 @@
           const request = await axios({
             method: 'PATCH',
             baseURL: config.backend.baseURL,
-            url: '/usuario/' + payload.id,
+            url: '/usuario/' + payload.id_usuario,
             headers: {
               ['auth-token']: token,
             },
@@ -200,13 +200,14 @@
       },
       async eliminarUsuario(payload) {
         try {
+          console.log(payload)
           this.$store.dispatch('getLoadingApp', true);
           this.loading = true;
           const token = localStorage.getItem('token_acess');
           const request = await axios({
             method: 'DELETE',
             baseURL: config.backend.baseURL,
-            url: '/usuario/' + payload.id,
+            url: '/usuario/' + payload.id_usuario,
             headers: {
               ['auth-token']: token,
             },

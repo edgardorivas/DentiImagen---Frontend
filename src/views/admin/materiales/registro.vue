@@ -76,6 +76,10 @@
         title: config.frontend.title,
         titleTemplate: "%s | Agregar nuevo material",
       },
+      created(){
+        this.$store.dispatch('obtenerTipoProducto');
+
+      },
       data() {
         return {
           nuevoMaterial: {
@@ -131,7 +135,9 @@
       },
       computed: {
         tipoMaterial () {
-          return this.$store.getters.getTipoMaterial;
+          let tipoMaterial = this.$store.getters.getTipoMaterial;
+          console.log(tipoMaterial)
+          return tipoMaterial;
         }
       }
     };

@@ -33,7 +33,7 @@
           </button>
         </div>
 
-        <div class="mt-5">
+        <div class="mt-5 ">
           <div v-if="proveedores && proveedores.data">
             <!--tabla-->
             <el-table :data="proveedores.data" class="w-full">
@@ -164,6 +164,10 @@
                 </div>
               </form>
             </el-drawer>
+
+          </div>
+          <div v-else class=" mb-5 ml-3">
+            <h3>No existen registros de proveedores</h3>
           </div>
         </div>
       </div>
@@ -180,7 +184,7 @@
     },
     created() {
       this.$store.dispatch("obtenerListaDeProveedores");
-      this.aplicarFiltro();
+      //this.aplicarFiltro();
     },
     data() {
       return {

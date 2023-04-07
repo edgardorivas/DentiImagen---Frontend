@@ -25,7 +25,7 @@
           </div>
           <div class="mt-5">
             
-              <div v-if="producto && producto.data">
+            <div v-if="producto && producto.data">
               <el-table :data="producto.data"  class="w-full">
                 
                 <el-table-column fixed prop="nombre" label="Nombre" width="190">
@@ -98,6 +98,11 @@
                   </div>
                 </form>
               </el-drawer>
+            </div>
+            <div v-else>
+              <h3 class="mb-3 ml-3">
+                No hay registro de materiales
+              </h3>
             </div>
           </div>
         </div>
