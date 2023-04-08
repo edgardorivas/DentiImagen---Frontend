@@ -33,11 +33,12 @@ export default {
         context.commit('setInventario', resultado.data)
       } catch (error) {
         if (error.response) {
-          Notification({
+          return false
+          /*Notification({
             title: config.frontend.title,
             message: error.response.data.mensaje,
             type: 'warning'
-          })
+          })*/
         } else {
           Notification({
             title: config.frontend.title,

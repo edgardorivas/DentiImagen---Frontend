@@ -10,9 +10,9 @@
                     </div>
                 </div>
                 <div class="mt-5 pb-5">
-                    <form @submit.prevent="registroPaciente()" >
+                    <form @submit.prevent="registroPaciente()">
 
-                        <div class="flex flex-wrap justify-around" >
+                        <div class="flex flex-wrap justify-around">
 
                             <div class="w-11/12">
                                 <el-divider>Datos del Paciente</el-divider>
@@ -53,16 +53,11 @@
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Sexo</p>
-                                    <el-select v-model="nuevoHistorialPaciente.genero" size="large" placeholder="Genero del Paciente">
-                                        <el-option
-                                        key="Masculino"
-                                        label="Masculino"
-                                        value="Masculino">
+                                    <el-select v-model="nuevoHistorialPaciente.genero" style="width: 100%;" size="large"
+                                        placeholder="Genero del Paciente">
+                                        <el-option key="Masculino" label="Masculino" value="Masculino">
                                         </el-option>
-                                        <el-option
-                                        key="Femenino"
-                                        label="Femenino"
-                                        value="Femenino">
+                                        <el-option key="Femenino" label="Femenino" value="Femenino">
                                         </el-option>
                                     </el-select>
                                 </label>
@@ -109,23 +104,24 @@
                                 </label>
                             </div>
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                    <label>
+                                <label>
                                     <p class="ml-1">¿ Alergia a algun medicamento?</p>
                                     <el-input placeholder="Indique el nombre del medicamento"
                                         v-model="nuevoHistorialPaciente.alergicoAlgunMedicamento"></el-input>
-                                    </label>
-                                </div>
+                                </label>
+                            </div>
 
 
 
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label v-if="trabajadoresOdontologicos">
                                     <p class="ml-1">Odontologo Asignado</p>
-                                    <el-select v-model="nuevoHistorialPaciente.trabajadorOdontologo" size="large" placeholder="Genero del Paciente">
-                                        <el-option v-for=" trabajador in trabajadoresOdontologicos" 
-                                        :key="trabajador.id_trabajador"
-                                        :label= "trabajador.nombre + ' - ' +trabajador.especializacion"
-                                        :value="trabajador.id_trabajador">
+                                    <el-select v-model="nuevoHistorialPaciente.trabajadorOdontologo" style="width: 100%;"
+                                        size="large" placeholder="Genero del Paciente">
+                                        <el-option v-for=" trabajador in trabajadoresOdontologicos"
+                                            :key="trabajador.id_trabajador"
+                                            :label="trabajador.nombre + ' - ' + trabajador.especializacion"
+                                            :value="trabajador.id_trabajador">
                                         </el-option>
                                     </el-select>
                                 </label>
@@ -133,12 +129,19 @@
                                     <h4>No hay odontologos registrados</h4>
                                 </label>
                             </div>
-                            
+
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Odontologo Referido</p>
-                                    <el-input  placeholder="Indique el nombre del doctor referido"
+                                    <el-input placeholder="Indique el nombre del doctor referido"
                                         v-model="nuevoHistorialPaciente.referidoPor"></el-input>
+                                </label>
+                            </div>
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">¿ Esta usted en tratamiento ?</p>
+                                    <el-input placeholder="E paciente esta en tratamiento"
+                                        v-model="nuevoHistorialPaciente.estaTratamiento"></el-input>
                                 </label>
                             </div>
 
@@ -146,90 +149,84 @@
                                 <el-divider>Datos historicos de padecimientos</el-divider>
                             </div>
                             <!--Se muestra los selects-->
-                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                    <label>
-                                    <p class="ml-1">¿ Esta usted en tratamiento ?</p>
-                                    <el-radio v-model="nuevoHistorialPaciente.estaTratamiento" label="1">SI</el-radio>
-                                    <el-radio v-model="nuevoHistorialPaciente.estaTratamiento" label="0">NO</el-radio>
-                                    </label>
-                                </div>
 
-                                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                    <label>
+
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
                                     <p class="ml-1">¿ Sufre de presion arterial ?</p>
                                     <el-radio v-model="nuevoHistorialPaciente.sufreTensionAlterial" label="1">SI</el-radio>
                                     <el-radio v-model="nuevoHistorialPaciente.sufreTensionAlterial" label="0">NO</el-radio>
-                                    </label>
-                                </div>
-    
-                                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                    <label>
+                                </label>
+                            </div>
+
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
                                     <p class="ml-1">¿ Diabetico ?</p>
                                     <el-radio v-model="nuevoHistorialPaciente.diabetico" label="1">SI</el-radio>
                                     <el-radio v-model="nuevoHistorialPaciente.diabetico" label="0">NO</el-radio>
-                                    </label>
-                                </div>
-    
-                                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                    <label>
+                                </label>
+                            </div>
+
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
                                     <p class="ml-1">¿ Antecedentes familiares de diabetes ?</p>
                                     <el-radio v-model="nuevoHistorialPaciente.antecedentesDiabetico" label="1">SI</el-radio>
                                     <el-radio v-model="nuevoHistorialPaciente.antecedentesDiabetico" label="0">NO</el-radio>
-                                    </label>
-                                </div>
-    
-                                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                    <label>
+                                </label>
+                            </div>
+
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
                                     <p class="ml-1">¿ Ha sufrido de Hepatitis ?</p>
                                     <el-radio v-model="nuevoHistorialPaciente.sufridoHepatitis" label="1">SI</el-radio>
                                     <el-radio v-model="nuevoHistorialPaciente.sufridoHepatitis" label="0">NO</el-radio>
-                                    </label>
-                                </div>
-    
-                                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                    <label>
+                                </label>
+                            </div>
+
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
                                     <p class="ml-1">¿ Ha sufrido de Herpes ?</p>
                                     <el-radio v-model="nuevoHistorialPaciente.sufridoHerpes" label="1">SI</el-radio>
                                     <el-radio v-model="nuevoHistorialPaciente.sufridoHerpes" label="0">NO</el-radio>
-                                    </label>
-                                </div>
-    
-                                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                    <label>
+                                </label>
+                            </div>
+
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
                                     <p class="ml-1">¿ Ha sufrido de Afecciones cardiacas ?</p>
                                     <el-radio v-model="nuevoHistorialPaciente.efeccionesCardiacas" label="1">SI</el-radio>
                                     <el-radio v-model="nuevoHistorialPaciente.efeccionesCardiacas" label="0">NO</el-radio>
-                                    </label>
-                                </div>
-    
-                                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                    <label>
+                                </label>
+                            </div>
+
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
                                     <p class="ml-1">¿ Problemas con la Anestecia ?</p>
                                     <el-radio v-model="nuevoHistorialPaciente.sufridoAnestecia" label="1">SI</el-radio>
                                     <el-radio v-model="nuevoHistorialPaciente.sufridoAnestecia" label="0">NO</el-radio>
-                                    </label>
-                                </div>
-    
-                                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                    <label>
+                                </label>
+                            </div>
+
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
                                     <p class="ml-1">¿ Es usted propenso a las Hemorragias ?</p>
                                     <el-radio v-model="nuevoHistorialPaciente.propensoHemorragias" label="1">SI</el-radio>
                                     <el-radio v-model="nuevoHistorialPaciente.propensoHemorragias" label="0">NO</el-radio>
-                                    </label>
-                                </div>
-    
-                                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                    <label>
+                                </label>
+                            </div>
+
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
                                     <p class="ml-1">¿ Ha convulsionado alguna vez ?</p>
                                     <el-radio v-model="nuevoHistorialPaciente.convulcionAlgunaVez" label="1">SI</el-radio>
                                     <el-radio v-model="nuevoHistorialPaciente.convulcionAlgunaVez" label="0">NO</el-radio>
-                                    </label>
-                                </div>
+                                </label>
+                            </div>
                         </div>
                         <br>
 
                         <div class="flex flex-wrap justify-around">
-                            <button   :disabled="loading"
+                            <button :disabled="loading"
                                 class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">Guardar</button>
                         </div>
 
@@ -250,34 +247,34 @@ export default {
         titleTemplate: "%s | Agregar nuevo Paciente",
     },
     created() {
-      this.mostrarTrabajadoresRol();
+        this.mostrarTrabajadoresRol();
     },
     data() {
         return {
-            nuevoHistorialPaciente:{
-                nombre : "",
-                apellido : "",
+            nuevoHistorialPaciente: {
+                nombre: "",
+                apellido: "",
                 edad: "",
                 cedula: "",
                 telefono: "",
-                correo : "",
+                correo: "",
                 referidoPor: "",
                 profecion: "",
                 genero: "",
                 motivoConsulta: "",
                 direccion: "",
-                diabetico:  null,
+                diabetico: null,
                 antecedentesDiabetico: null,
-                sufridoHepatitis : null,
+                sufridoHepatitis: null,
                 sufridoHerpes: null,
                 efeccionesCardiacas: null,
-                sufridoAnestecia : null,
+                sufridoAnestecia: null,
                 propensoHemorragias: null,
                 convulcionAlgunaVez: null,
                 estaTratamiento: null,
                 alergicoAlgunMedicamento: '',
                 sufreTensionAlterial: null,
-                trabajadorOdontologo:null
+                trabajadorOdontologo: null
 
             },
             loading: false,
@@ -290,25 +287,25 @@ export default {
                 this.loading = true;
                 const token = localStorage.getItem('token_acess');
                 console.log(this.nuevoHistorialPaciente)
-               
-                    const request = await axios({
-                        method: 'POST',
-                        baseURL: config.backend.baseURL,
-                        url: '/paciente/ingresar',
-                        headers: {
-                            ['auth-token']: token,
-                        },
-                        data: this.nuevoHistorialPaciente
-                    });
-                    console.log(request);
-                    this.$store.dispatch('getLoadingApp', false);
-                    this.loading = false;
-                    this.$message({
-                        message: 'Registrado Exitosamente',
-                        type: 'success',
-                    });
-                    this.$router.push({ path: '/admin/' });
-                
+
+                const request = await axios({
+                    method: 'POST',
+                    baseURL: config.backend.baseURL,
+                    url: '/paciente/ingresar',
+                    headers: {
+                        ['auth-token']: token,
+                    },
+                    data: this.nuevoHistorialPaciente
+                });
+                console.log(request);
+                this.$store.dispatch('getLoadingApp', false);
+                this.loading = false;
+                this.$message({
+                    message: 'Registrado Exitosamente',
+                    type: 'success',
+                });
+                this.$router.push({ path: '/admin/paciente/lista' });
+
             } catch (error) {
                 if (error.response) {
                     this.$message({
@@ -326,7 +323,7 @@ export default {
                 //console.clear()
             }
         },
-        cambiar(){
+        cambiar() {
             this.segundaParte = !this.segundaParte;
         },
         mostrarTrabajadoresRol() {
@@ -334,11 +331,15 @@ export default {
         },
     },
     computed: {
-      trabajadoresOdontologicos() {
-        let trabajadoresRol = this.$store.getters.getUsuariosOdontologicos;
-        let trabajadoresRolOdontologo= trabajadoresRol.data.filter(datosTrabajador => datosTrabajador.id_rol == 3);
-        return trabajadoresRolOdontologo;
-      },
+        trabajadoresOdontologicos() {
+            let trabajadoresRol = this.$store.getters.getUsuariosOdontologicos;
+
+            if (typeof trabajadoresRol.data !== "undefined") {
+                let trabajadoresRolOdontologo = trabajadoresRol.data.filter(datosTrabajador => datosTrabajador.id_rol == 3);
+                return trabajadoresRolOdontologo;
+            }
+            return false
+        },
     },
 };
 </script>

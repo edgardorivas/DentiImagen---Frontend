@@ -5,7 +5,9 @@ import { Notification } from 'element-ui'
 export default {
   state: {
     proveedores: [],
-    detalleProveedoresId: null,
+    detalleProveedoresId: [],
+    recursosProveedor: [],
+
   },
   mutations: {
     setProveedores: (state, value) => {
@@ -14,6 +16,9 @@ export default {
     setDetalleProveedoresId: (state, value) => {
       state.detalleProveedoresId = value
     },
+    setRecursosProveedor: (state, value) => {
+      state.recursosProveedor = value
+    },
   },
   getters: {
     getProveedores: (state) => {
@@ -21,6 +26,9 @@ export default {
     },
     getDetalleProveedoresId: (state) => {
       return state.detalleProveedoresId
+    },
+    getRecursosProveedor: (state) => {
+      return state.recursosProveedor
     }
   },
   actions: {
@@ -84,6 +92,38 @@ export default {
           })
         }
         context.commit('setDetalleProveedoresId', [])
+      }
+      context.dispatch('getLoadingApp', false);
+    },
+    async obtenerRecursosProveedor (context, payload = { id: String }) {
+      const token = localStorage.getItem('token_acess')
+      context.dispatch('getLoadingApp', true);
+      try {
+        const resultado = await axios({
+          method: 'POST',
+          baseURL: config.backend.baseURL,
+          url: '/recurso/proveedor/'+payload.id,
+          headers: {
+            ['auth-token']: token,
+          },
+          data: payload,
+        });
+        context.commit('setRecursosProveedor', resultado.data)
+      } catch (error) {
+        if (error.response) {
+          Notification({
+            title: config.frontend.title,
+            message: error.response.data.mensaje,
+            type: 'error'
+          })
+        } else {
+          Notification({
+            title: config.frontend.title,
+            message: 'Error al acceder a internet',
+            type: 'error'
+          })
+        }
+        context.commit('setRecursosProveedor', [])
       }
       context.dispatch('getLoadingApp', false);
     },

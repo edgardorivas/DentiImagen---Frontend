@@ -40,11 +40,12 @@ export default {
         context.commit('setTipoProducto', resultado.data)
       } catch (error) {
         if (error.response) {
-          Notification({
+          return error.response.data
+          /*Notification({
             title: config.frontend.title,
             message: error,
             type: 'error'
-          })
+          })*/
         } else {
           Notification({
             title: config.frontend.title,
@@ -73,11 +74,12 @@ export default {
         context.commit('setDetalleTipoProductoId', resultado.data)
       } catch (error) {
         if (error.response) {
-          Notification({
+          return error.response.data
+          /*Notification({
             title: config.frontend.title,
             message: error,
             type: 'error'
-          })
+          })*/
         } else {
           Notification({
             title: config.frontend.title,
