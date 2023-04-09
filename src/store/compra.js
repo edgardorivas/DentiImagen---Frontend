@@ -31,7 +31,7 @@ export default {
         const resultado = await axios({
           method: 'POST',
           baseURL: config.backend.baseURL,
-          url: '/recurso/proveedor',
+          url: `/recurso/proveedor/${payload.id}`,
           headers: {
             ['auth-token']: token,
           },

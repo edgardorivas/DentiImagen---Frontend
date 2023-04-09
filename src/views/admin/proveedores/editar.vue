@@ -52,6 +52,7 @@
                                             v-model="proveedorDetalles.data[0].rif_provedor"></el-input>
                                     </label>
                                 </div>
+                                
                                 <!--visualizar los items del proveedor-->
                                 <div class="w-11/12 m-0 mt-2">
                                     <el-divider>Lista de materiales del proveedor</el-divider>
@@ -100,7 +101,7 @@
                                                 <template slot-scope="scope">
                                                     <el-popconfirm confirm-button-text='Si, Eliminar' confirm-button-type="danger"
                                                         cancel-button-text='No, Cancelar' icon="el-icon-info" icon-color="red"
-                                                        :title="`Estas seguro de eliminar el material?`"
+                                                        :title="`Estas seguro de eliminar el material ${materialesProveedor.data[scope.$index].nombre_recurso} asociado al proveedor ${proveedorDetalles.data[0].nombre_proveedor} ?`"
                                                         class="w-full md:w-1/3" @confirm="eliminarAsociacionItemProveedor(proveedorDetalles.data[0].id_provedor, scope.$index,materialesProveedor.data)">
 
                                                         <button slot="reference" :disabled="loading"
@@ -158,7 +159,7 @@
 
                                 <button :disabled="loading"
                                     class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
-                                    type="button">Guardar</button>
+                                    type="button" v-on:click="modificarProveedor(proveedorDetalles.data[0])">Guardar</button>
                             </div>
                         </form>
                     </div>
@@ -273,7 +274,6 @@ export default {
             }
         },
         async agregarItemsProveedor(id){
-            console.log('---------entro----------')
             try {
                 this.$store.dispatch('getLoadingApp', true);
                 this.loading = true;
