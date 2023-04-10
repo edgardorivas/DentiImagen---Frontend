@@ -2,7 +2,7 @@
     <div class="flex flex-wrap mt-4">
         <div class="w-full mb-12 xl:mb-0 px-4">
             <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
-                
+
                 <div class="flex justify-center">
                     <div class="rounded-t mb-0 px-3 py-3 border-0">
                         <h3 class="font-semibold text-xl text-blueGray-700 uppercase">
@@ -14,14 +14,9 @@
                 <div >
                     <el-steps align-center :active="active" finish-status="success">
                         <el-step title="Datos basicos"></el-step>
-
                         <el-step title="Servicios aplicados"></el-step>
-                        
                         <el-step title="Materiales invertidos"></el-step>
-
                         <el-step title="Vista previa"></el-step>
-
-                        
                     </el-steps>
                 </div>
 
@@ -87,7 +82,7 @@
                         </div>
 
                         <div v-if="active == 2"  class="my-10 flex flex-wrap justify-around  " >
-                            
+
                             <div v-if="servicios && servicios.data"  class=" md:w-1/2 lg:w-3/6 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Servicios</p>
@@ -115,7 +110,7 @@
                                         v-model="serviciosIngresados.costoServicio"></el-input>
                                 </label>
                             </div>
-                            
+
                             <div class="md:w-1/2 lg:w-3/6 px-2 mb-3 pt-7">
                                 <button type="button"
                                     class="  md:w-1/2 py-2 text-white bg-verdiAnderson transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase rounded-md" @click="asociarServiciosIngresados(serviciosIngresados)">
@@ -123,45 +118,18 @@
                                 </button>
                             </div>
 
-                            
+
 
                             <!-- Se agrega la tabla para los items -->
                             <div v-if="datosServicioTabla.length" class="w-11/12 mt-10  m-0 p-0">
                                 <div class="w-11/12">
                                     <el-divider>Servicios aplicados</el-divider>
                                 </div>
-                                
-                                <!-- <div class="  flex flex-row-reverse my-2 mr-5">
-                                    <button @click="centerDialogVisible = true"
-                                        class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                        type="button">
-                                        Agregar Materiales usados
-                                    </button>
-                                </div> -->
-    
-                                <!-- <div v-if="aviso" class=" w-1/3 justify-center flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-                                    <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
-                                    <span class="sr-only">Danger</span>
-                                    <div>
-                                        <span class="font-medium">Consideraciones para registrar un pago</span>
-                                        <ul class="mt-1.5 ml-4 list-disc list-inside">
-                                            <li>Se tiene que tener servicios registrados</li>
-                                            <li>Mantener al dia el inventario</li>
-                                            <li>A ver registrado el paciente previamente</li>
-                                        </ul>
-                                    </div>
-                                </div> -->
-    
+
                                 <!-- tabla -->
                                 <el-table :data="datosVenta.servicios" class="w-full mt-10 ">
                                     <el-table-column prop="idServicio" label="Id"></el-table-column>
-                                    <el-table-column v-for="dato in datosServicioTabla" :key="dato.id_servicio" class="text-center" label="Operaciones" >
-                                        <template  >
-                                            <p >
-                                                {{ dato.nombre_servicio }}
-                                            </p>
-                                        </template>
-                                    </el-table-column>
+                                    <el-table-column prop="nombre_servicio" label="Servicio"></el-table-column>
                                     <el-table-column prop="costoServicio" label="Costo"></el-table-column>
                                     <el-table-column prop="cantidadRealizadas" label="Repeticiones"></el-table-column>
 
@@ -171,12 +139,12 @@
                                              @click="eliminarAsociacion(datosVenta.servicios[scope.$index].idServicio)">
                                                 Eliminar
                                             </button>
-                                            
+
                                         </template>
                                     </el-table-column>
-                                </el-table> 
-                                
-    
+                                </el-table>
+
+
                             </div>
 
                         </div>
@@ -185,7 +153,7 @@
 
 
                             <div class="w-11/12 mt-10  m-0 p-0">
-                                
+
                                 <div class="  flex flex-row-reverse my-2 mr-5">
                                     <button @click="centerDialogVisible = true"
                                         class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -222,18 +190,18 @@
 
                                         </template>
                                     </el-table-column>
-                                </el-table> 
+                                </el-table>
                             </div>
 
-                            
+
 
                         </div>
 
                         <div v-if="active== 4" class="flex flex-wrap justify-around mt-5">
                             <div class="w-11/12 mt-10 ml-48  m-0 p-0">
-                                
-                                <div class="block w-7/8 mb-10  p-6 bg-white border border-gray-200 rounded-lg shadow-md  dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"> 
-                                    
+
+                                <div class="block w-7/8 mb-10  p-6 bg-white border border-gray-200 rounded-lg shadow-md">
+
                                     <div class="flex justify-center">
                                         <div class="rounded-t mb-0 px-4 py-3 border-0">
                                             <p  class="font-semibold text-lg text-verdiAnderson uppercase">
@@ -241,24 +209,24 @@
                                             </p>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="flex mt-9 flex-wrap justify-around">
-                                        
+
                                         <div class="w-1/3">
                                             <p class=" mb-3 font-normal text-center text-gray-700 dark:text-gray-400">
-                                               <b>Datos de la clinica </b> 
+                                               <b>Datos de la clinica </b>
                                             </p>
 
                                             <p class="font-normal text-gray-700 dark:text-gray-400">
                                                <b>Nombre: </b> DENTIMAGEN C.A.
                                             </p>
                                             <p class="font-normal text-gray-700 dark:text-gray-400">
-                                               <b>Direccion: </b>Santiago mariño,turmero 
+                                               <b>Direccion: </b>Santiago mariño,turmero
                                             </p>
                                             <p class="font-normal text-gray-700 dark:text-gray-400">
                                                <b>Telefono: </b> 04126533015
                                             </p>
-                                            
+
                                         </div>
 
 
@@ -293,7 +261,7 @@
 
                                     <div v-for="paciente in pacientes.data" :key="paciente.id_paciente" class="flex mt-9 pl-20 flex-wrap justify-start">
                                         <div v-if="paciente.id_paciente == datosVenta.idPaciente" class="w-11/12">
-                                            
+
                                             <p class="border  p-2 font-normal text-gray-700 dark:text-gray-400">
                                                 <b>Nombres: </b> {{ paciente.nombre_paciente }}
                                             </p>
@@ -343,7 +311,7 @@
                                             </el-table-column>
                                             <el-table-column prop="costoServicio" label="Costo"></el-table-column>
                                             <el-table-column prop="cantidadRealizadas" label="Cantidad"></el-table-column>
-                                        </el-table> 
+                                        </el-table>
                                     </div>
 
                                     <div class="  flex flex-row-reverse my-2 mt-2 mr-5">
@@ -353,22 +321,22 @@
                                             Calcular precio de pago
                                         </button>
                                     </div>
-            
+
                                     <div v-if="totalSuma != 0" class="border mt-10 flex flex-wrap  border-solid border-gray-400 my-10 p-5">
                                         <p class=" text-verdiAnderson w-1/2 pl-5 text-2xl">Total</p>
                                         <p class="w-1/2 text-right text-2xl pl-5">{{ totalSuma }}</p>
-                                        
+
                                     </div>
                                     <br>
                                     <div class="flex flex-wrap justify-around">
-                                        
+
                                         <!-- <button :disabled="loading"
                                             class="w-full md:w-1/3 bg-red-600 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
                                             type="submit">Descargar PDF</button> -->
                                     </div>
                                 </div>
-                                
-    
+
+
                             </div>
 
                             <button :disabled="loading" v-on:click="ingresarVenta()"
@@ -379,10 +347,14 @@
                         </div>
 
 
-                        <div class="flex flex-wrap  justify-end my-5">
+                        <div class="flex flex-wrap justify-around my-5">
+                            <button type="button"
+                                class="w-full bg-none md:w-1/3  text-verdiAnderson transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md" @click="prev">
+                                Anterior
+                            </button>
                             <button type="button"
                                 class="w-full bg-none md:w-1/3  text-verdiAnderson transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md" @click="next">
-                                Siguiente ->
+                                Siguiente
                             </button>
                         </div>
 
@@ -427,83 +399,9 @@
                         </div>
 
                     </el-dialog>
-
-
-
-                    <!-- <el-drawer title="Agregando Servicio" :visible.sync="modal" direction="rtl" :before-close="handleClose">
-                        <div v-if="servicios && servicios.data" class="h-full">
-                            <div class="flex flex-col content-between justify-between h-full">
-                                <div class="flex flex-col">
-                                    <div class="w-full px-2 mb-3 py-1">
-                                        <label>
-                                            <p class="ml-1 mb-1">Seleccione el Servicio</p>
-                                            <el-select v-model="detallesVenta.servicio" placeholder="Seleccione el servicio"
-                                                class="w-full">
-                                                <el-option v-for="servicio of servicios.data" :key="servicio.id"
-                                                    :label="`${servicio.nombre} - Costo: $${servicio.costo}`"
-                                                    :value="servicio.id"></el-option>
-                                            </el-select>
-                                        </label>
-                                    </div>
-                                    <div class="w-full px-2 mb-3 py-1">
-                                        <label>
-                                            <p class="ml-1 mb-1">Cantidades del Servicio</p>
-                                            <el-input-number class="w-full" v-model="detallesVenta.cantidad"
-                                                min="1"></el-input-number>
-                                        </label>
-                                    </div>
-                                    <div class="w-full px-2 mb-3 py-1">
-                                        <el-divider>Materiales / Productos</el-divider>
-                                    </div>
-                                    <div v-if="detallesVenta.materiales.length" class="w-full px-2 mb-3 py-1">
-                                        <ul class="ml-3">
-                                            <li v-for="(item, index) of detallesVenta.materiales" :key="index">
-                                                <div class="flex flex-wrap justify-around">
-                                                    <div class="uppercase">☑️ {{ item.nombreMaterial }} | Cantidad:
-                                                        {{ item.cantidad }}</div>
-                                                    <button type="button" @click="eliminarDetalleMaterial(index)"
-                                                        class="bg-red-500 text-white active:bg-red-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">Eliminar</button>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="w-full px-2 mb-3 py-1">
-                                        <label>
-                                            <p class="ml-1 mb-1">Seleccione el Material / Producto</p>
-                                            <el-select v-model="datosMateriales.id"
-                                                placeholder="Seleccione el material / producto" class="w-full">
-                                                <el-option v-for="material of producto.data" :key="material.id"
-                                                    :label="`${material.nombre} - Costo: $${material.costo}`"
-                                                    :value="material.id"></el-option>
-                                            </el-select>
-                                        </label>
-                                    </div>
-                                    <div class="w-full px-2 mb-3 py-1">
-                                        <label>
-                                            <p class="ml-1 mb-1">Cantidades del Material / Producto</p>
-                                            <el-input-number class="w-full" size="small" v-model="datosMateriales.cantidad"
-                                                min="1"></el-input-number>
-                                        </label>
-                                    </div>
-                                    <div class="w-full px-2 mb-3 py-1 flex justify-center">
-                                        <button @click="agregarDetalleMaterial" type="button"
-                                            class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
-                                            Agregar Material al Servicio
-                                        </button>
-                                    </div>
-
-                                </div>
-                                <div>
-                                    <button @click="agregarDetalleVenta"
-                                        class="w-full bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2"
-                                        type="button">
-                                        Agregar a Venta
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </el-drawer> -->
                 </div>
+                {{datosVenta}}
+                {{datosServicioTabla}}
             </div>
         </div>
     </div>
@@ -512,7 +410,7 @@
 import config from "../../../../config";
 import axios from "axios";
 export default {
-    name: "users-add",
+    name: "ventas-registro",
     metaInfo: {
         title: config.frontend.title,
         titleTemplate: "%s | Agregar nuevo usuario",
@@ -534,14 +432,14 @@ export default {
                 idTrabajador: null,
                 formaPago: null,
                 ivaVenta: "12",
-                precioDolar: null,
+                precioDolar: "25",
                 servicios:[],
                 materiales:[]
             },
             serviciosIngresados:{
                 idServicio: null,
-                costoServicio: null,
-                cantidadRealizadas: null
+                costoServicio: 1,
+                cantidadRealizadas: 1
             },
             materialesIngresados:{
                 idMaterial:null,
@@ -557,21 +455,93 @@ export default {
     },
     methods: {
         next() {
-            if (this.active++ > 3) this.active = 1;
+          switch (this.active) {
+            case 1 || '1': {
+              if (!this.datosVenta.idTrabajador) {
+                this.$message({
+                  message: 'Debes seleccionar el odontologo',
+                  type: 'error',
+                });
+                return false;
+              }
+              if (!this.datosVenta.idPaciente) {
+                this.$message({
+                  message: 'Debes seleccionar el paciente',
+                  type: 'error',
+                });
+                return false;
+              }
+              if (!this.datosVenta.formaPago) {
+                this.$message({
+                  message: 'Debes seleccionar la forma de pago',
+                  type: 'error',
+                });
+                return false;
+              }
+              let iva = Number(this.datosVenta.ivaVenta);
+              if (iva < 1 || iva > 99) {
+                this.$message({
+                  message: 'Debes ingresar el iva correctamente',
+                  type: 'error',
+                });
+                return false;
+              }
+              let dolar = Number(this.datosVenta.precioDolar);
+              if (dolar < 1) {
+                this.$message({
+                  message: 'Debes ingresar el precio del dolar correctamente',
+                  type: 'error',
+                });
+                return false;
+              }
+              break;
+            }
+            case 2 || '2': {
+              if (!this.datosVenta.servicios.length) {
+                this.$message({
+                  message: 'Debes ingresar almenos un servicio',
+                  type: 'error',
+                });
+                return false;
+              }
+              break;
+            }
+            default: {
+              break;
+            }
+          }
+          if (this.active < 4) {
+            this.active++;
+          }
+        },
+        prev() {
+          if (this.active > 1) {
+            this.active--;
+          }
         },
         asociarServiciosIngresados(datos){
+            const producto = this.producto.data.filter(item => item.id_recurso == datos.idMaterial)[0];
+            if (!datos.idServicio) {
+              this.$message({
+                message: 'Debes seleccionar el servicio',
+                type: 'error',
+              });
+              return false;
+            }
             this.datosVenta.servicios.push(datos);
             this.serviciosIngresados= {
                 idServicio: null,
-                costoServicio: null,
-                cantidadRealizadas: null
+                costoServicio: 1,
+                cantidadRealizadas: 1
             }
-            
+
             this.datosServicioTabla.push( this.servicios.data.filter(item => item.id_servicio == datos.idServicio)[0])
             console.log("Asociada",this.datosServicioTabla[0])
         },
         asociarMaterialesIngresados(datos){
-            this.datosVenta.materiales.push(datos);
+            const producto = this.producto.data.filter(item => item.id_recurso == datos.idMaterial)[0];
+            datos['nombre_servicio'] = producto['nombre_servicio'];
+            this.datosVenta.materiales.push(Object.assign({}, datos));
 
             this.materialesIngresados={
                 idMaterial:null,
@@ -580,13 +550,15 @@ export default {
             // console.log("datos enviados-------------------",datos)
             // console.log("datos guardados-------------------",this.datosVenta)
             // console.log("datos materia---------------",this.producto.data)
-            
-            this.datosMaterialesTabla.push( this.producto.data.filter(item => item.id_recurso == datos.idMaterial)[0] )
+
+
+            this.datosMaterialesTabla.push(producto)
             console.log("datos materia---------------",this.datosMaterialesTabla)
             this.centerDialogVisible = false
         },
-        eliminarAsociacion(datos){
-            console.log(datos)
+        eliminarAsociacion(id){
+          this.datosVenta.servicios = this.datosVenta.servicios.filter(item => item.idServicio != id);
+          this.datosServicioTabla = this.datosServicioTabla.filter(item => item.id_servicio != id);
         },
         eliminarAsociacionMaterial(datos){
             this.datosVenta.materiales = this.datosVenta.materiales.filter(materiales => materiales.idServicio != datos)
@@ -600,7 +572,7 @@ export default {
             }
             let iva = this.sumaTodoServicio * (parseInt(this.datosVenta.ivaVenta )/ 100);
             this.totalSuma = this.sumaTodoServicio + iva;
-             
+
         },
         async ingresarVenta(){
             try {
@@ -640,7 +612,7 @@ export default {
                 this.loading = false;
             }
         }
-        
+
     },
     computed: {
         usuarios() {

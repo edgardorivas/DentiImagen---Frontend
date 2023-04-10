@@ -10,9 +10,7 @@ import materialesProveedor from './compra';
 import inventario from './inventario';
 import pacientes from './paciente';
 import venta from './venta';
-
-
-
+import presupuestos from './presupuestos';
 
 
 Vue.use(Vuex)
@@ -35,6 +33,7 @@ export default new Vuex.Store({
     materialesProveedor,
     inventario,
     pacientes,
+    presupuestos,
     venta
   }
 })

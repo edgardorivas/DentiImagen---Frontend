@@ -95,7 +95,7 @@
         <hr class="my-4 md:min-w-full" />
         <!-- Heading -->
         <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-          Ventas
+          Ventas a Clientes
         </h6>
         <ul class="md:flex-col md:min-w-full flex flex-col list-none">
           <li class="items-center">
@@ -106,7 +106,7 @@
           </li>
           <li class="items-center">
             <router-link to="/admin/recibo/venta/lista" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
-            <i class="fa-solid fa-cash-register mr-2 text-sm"></i>
+            <i class="fa-solid fa-money-bills mr-2 text-sm"></i>
               Listar Ventas
             </router-link>
           </li>
@@ -116,7 +116,28 @@
         <hr class="my-4 md:min-w-full" />
         <!-- Heading -->
         <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-          Compras
+          Presupuestos a Clientes
+        </h6>
+        <ul class="md:flex-col md:min-w-full flex flex-col list-none">
+          <li class="items-center">
+            <router-link to="/admin/presupuesto/venta/agregar" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
+            <i class="fa-solid fa-wallet mr-2 text-sm"></i>
+              Nuevo Presupuesto
+            </router-link>
+          </li>
+          <li class="items-center">
+            <router-link to="/admin/presupuesto/venta/lista" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
+            <i class="fa-solid fa-money-bills mr-2 text-sm"></i>
+              Listar Presupuestos
+            </router-link>
+          </li>
+        </ul>
+
+        <!-- Divider -->
+        <hr class="my-4 md:min-w-full" />
+        <!-- Heading -->
+        <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+          Compras a Proveedores
         </h6>
         <ul class="md:flex-col md:min-w-full flex flex-col list-none">
           <li class="items-center">

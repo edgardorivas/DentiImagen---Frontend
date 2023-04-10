@@ -120,7 +120,7 @@
 <script>
 import config from '../../../../config';
 export default {
-    name: 'users-list',
+    name: 'ventas-lista',
     metaInfo: {
         title: config.frontend.title,
         titleTemplate: '%s | Lista de Usuarios',

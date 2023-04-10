@@ -56,8 +56,6 @@ const routes = [
         name: 'Editar Usuario',
         component: () => import('../views/admin/Usuarios/Editar.vue'),
       },
-      //edgardo
-
       //materiales
       {
         path: "/admin/materiales",
@@ -128,7 +126,6 @@ const routes = [
         name: 'Lista de inventario',
         component: () => import('../views/admin/inventario/listar.vue'),
       },
-
       //recibos de ventas
       {
         path: "/admin/recibo/venta/agregar",
@@ -139,6 +136,17 @@ const routes = [
         path: "/admin/recibo/venta/lista",
         name: 'Listar recibos de Venta',
         component: () => import('../views/admin/recibos/venta/lista.vue'),
+      },
+      //presupuesto de ventas
+      {
+        path: "/admin/presupuesto/venta/agregar",
+        name: 'Agregar presupuesto de Venta',
+        component: () => import('../views/admin/recibos/presupuestoVenta/presupuesto.vue'),
+      },
+      {
+        path: "/admin/presupuesto/venta/lista",
+        name: 'Listar presupuesto de Venta',
+        component: () => import('../views/admin/recibos/presupuestoVenta/lista.vue'),
       },
       //Paciente
       {
