@@ -39,13 +39,12 @@
                             <el-table-column prop="apellidos" label="Apellido"></el-table-column>
                             <el-table-column prop="cedula" label="Cedula"></el-table-column>
                             <el-table-column prop="trabajador" label="Odontologo"></el-table-column>
-                            <el-table-column prop="total_bs" label="Total Bs"></el-table-column>
-                            <el-table-column prop="total_dolares" label="Total $"></el-table-column>
+                            <el-table-column prop="monto_dolares" label="Total $"></el-table-column>
                             <el-table-column prop="precio_impuesto" label="Precio Impuesto"></el-table-column>
                             <el-table-column prop="precio_unitario" label="Presio Unitario"></el-table-column>
 
                             <el-table-column prop="iva" label="Iva"></el-table-column>
-                            <el-table-column prop="pago" label="Tipo de pago"></el-table-column>
+                            <el-table-column prop="forma_pago" label="Forma de pago"></el-table-column>
 
 
 
@@ -128,7 +127,6 @@ export default {
     },
     created() {
         // this.$store.dispatch('obtenerListaDeUsuarios')
-        this.aplicarFiltro();
         this.$store.dispatch('obtenerListaVentas');
 
     },
@@ -151,9 +149,7 @@ export default {
         handleClose() {
             this.modal = false;
         },
-        aplicarFiltro() {
-            this.$store.dispatch('obtenerListaVentas', this.search);
-        }
+       
     },
     computed: {
         // usuarios () {
@@ -161,13 +157,7 @@ export default {
         // },
         Ventas() {
             return this.$store.getters.getListaVentas;
-        },
-        usuarios() {
-            return this.$store.getters.getdetalleUsuarioId;
-        },
-        nivelesUsuario() {
-            return this.$store.getters.getnivelesUsuarios;
-        },
+        }
     }
 }
 </script>

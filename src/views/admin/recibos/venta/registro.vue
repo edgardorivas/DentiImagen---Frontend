@@ -362,16 +362,16 @@
                                     <br>
                                     <div class="flex flex-wrap justify-around">
                                         
-                                        <button :disabled="loading"
+                                        <!-- <button :disabled="loading"
                                             class="w-full md:w-1/3 bg-red-600 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
-                                            type="submit">Descargar PDF</button>
+                                            type="submit">Descargar PDF</button> -->
                                     </div>
                                 </div>
                                 
     
                             </div>
 
-                            <button :disabled="loading"
+                            <button :disabled="loading" v-on:click="ingresarVenta()"
                                 class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">
                                 Guardar
                             </button>
@@ -601,6 +601,44 @@ export default {
             let iva = this.sumaTodoServicio * (parseInt(this.datosVenta.ivaVenta )/ 100);
             this.totalSuma = this.sumaTodoServicio + iva;
              
+        },
+        async ingresarVenta(){
+            try {
+                this.$store.dispatch('getLoadingApp', true);
+                this.loading = true;
+                const token = localStorage.getItem('token_acess');
+                const request = await axios({
+                    method: 'POST',
+                    baseURL: config.backend.baseURL,
+                    url: '/venta',
+                    headers: {
+                        ['auth-token']: token,
+                    },
+                    data: this.datosVenta
+                });
+                console.log(request)
+                this.$store.dispatch('getLoadingApp', false);
+                this.loading = false;
+                this.$message({
+                    message: request.data.mensaje,
+                    type: 'success',
+                });
+
+            } catch (error) {
+                if (error.response) {
+                    this.$message({
+                        message: error.response.data.mensaje || 'Sin mensaje del servidor',
+                        type: 'error',
+                    });
+                } else {
+                    this.$message({
+                        message: 'No estas conectado a internet.',
+                        type: 'error'
+                    });
+                }
+                this.$store.dispatch('getLoadingApp', false);
+                this.loading = false;
+            }
         }
         
     },
