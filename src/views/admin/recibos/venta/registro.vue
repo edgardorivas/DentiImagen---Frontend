@@ -23,8 +23,9 @@
                 </div>
 
                 <div class="flex justify-center w-full sm:px-5 md:px-20 lg:px-36">
-                    <form class="w-full" @submit.prevent="registrarCompra()">
+                    <form class="w-full">
 
+                    <!-- <form class="w-full" @submit.prevent="registrarCompra()"> -->
                         <div v-if="active == 1" class="my-10 flex flex-wrap justify-around">
 
                             <div v-if="usuarios && usuarios.data" class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
@@ -32,10 +33,10 @@
                                     <p class="ml-1">Odontologo</p>
                                     <el-select v-model="datosVenta.idTrabajador" placeholder="Seleccione el Odontologo"
                                         class="w-full">
-                                        <div v-for="item in usuarios.data" :key="item.id">
+                                        <div v-for="item in usuarios.data" :key="item.id_trabajador">
                                             <el-option v-if="item.rol == 'Odontologo'"
                                                 :label="`${item.nombre} - ${item.especializacion}`"
-                                                :value="item.id"></el-option>
+                                                :value="item.id_trabajador"></el-option>
                                         </div>
                                     </el-select>
                                 </label>
@@ -83,40 +84,46 @@
                         </div>
 
                         <div v-if="active == 2"  class="my-10 flex flex-wrap justify-around  " >
-
                             
-                            <div  class=" md:w-1/2 lg:w-3/6 px-2 mb-3 py-1">
+                            <div v-if="servicios && servicios.data"  class=" md:w-1/2 lg:w-3/6 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Servicios</p>
-                                    <el-select v-model="serviciosIngresados" placeholder="Seleccione el Odontologo" class="w-full">
-                                        
-                                        <el-option 
-                                            label="`${item.nombre} - ${item.especializacion}`"
-                                            value="1">
+                                    <el-select v-model="serviciosIngresados.idServicio" placeholder="Seleccione el Odontologo" class="w-full">
+                                        <el-option  v-for="servicio in servicios.data" :key="servicio.id_servicio"
+                                            :label="servicio.nombre_servicio"
+                                            :value="servicio.id_servicio">
                                         </el-option>
-                                        
                                     </el-select>
                                 </label>
                             </div>
 
-                            
                             <div class="md:w-1/2 lg:w-3/6 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">Veces realizadas</p>
+                                    <el-input placeholder="Costo del servicio" type="number"
+                                        v-model="serviciosIngresados.cantidadRealizadas"></el-input>
+                                </label>
+                            </div>
+
+                            <div class="md:w-1/2 lg:w-3/6 px-2 mb-3 pt-1">
                                 <label>
                                     <p class="ml-1">Costo del servicio</p>
                                     <el-input placeholder="Costo del servicio" type="number"
-                                        v-model="datosVenta.ivaVenta"></el-input>
+                                        v-model="serviciosIngresados.costoServicio"></el-input>
                                 </label>
                             </div>
- 
-                            <button type="button"
-                                class="  md:w-1/5 py-2 text-white bg-verdiAnderson transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase rounded-md" @click="next">
-                                Ingresar
-                            </button>
+                            
+                            <div class="md:w-1/2 lg:w-3/6 px-2 mb-3 pt-7">
+                                <button type="button"
+                                    class="  md:w-1/2 py-2 text-white bg-verdiAnderson transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase rounded-md" @click="asociarServiciosIngresados(serviciosIngresados)">
+                                    Ingresar
+                                </button>
+                            </div>
 
                             
 
                             <!-- Se agrega la tabla para los items -->
-                            <div v-if="serviciosIngresados.length" class="w-11/12 mt-10  m-0 p-0">
+                            <div v-if="datosServicioTabla.length" class="w-11/12 mt-10  m-0 p-0">
                                 <div class="w-11/12">
                                     <el-divider>Servicios aplicados</el-divider>
                                 </div>
@@ -142,26 +149,33 @@
                                     </div>
                                 </div> -->
     
-                                <el-table :data="datosVenta.venta" class="w-full mt-10 ">
-                                     <el-table-column prop="Servicio" label="Servicio"></el-table-column>
-                                     <el-table-column prop="Servicio" label="Cantidad de Servicio"></el-table-column>
-                                     <el-table-column prop="Servicio" label="Materiales"></el-table-column>
-                                     <el-table-column fixed="right" label="Operaciones" width="170">
-                                         <template>
-                                             <p class="text-center">
-                                                 Eliminar
-                                             </p>
-                                         </template>
-                                     </el-table-column>
+                                <el-table :data="datosVenta.servicios" class="w-full mt-10 ">
+                                    <el-table-column prop="idServicio" label="Id"></el-table-column>
+                                    <el-table-column v-for="dato in datosServicioTabla" :key="dato.id_servicio" class="text-center" label="Operaciones" >
+                                        <template  >
+                                            <p >
+                                                {{ dato.nombre_servicio }}
+                                            </p>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column prop="costoServicio" label="Costo"></el-table-column>
+                                    <el-table-column prop="cantidadRealizadas" label="Repeticiones"></el-table-column>
+
+                                    <el-table-column  label="Operaciones" width="170">
+                                        <template slot-scope="scope">
+                                            <button type="button" class="w-full text-center bg-none text-red-600 uppercase rounded-md"
+                                             @click="eliminarAsociacion(datosVenta.servicios[scope.$index].idServicio)">
+                                                Eliminar
+                                            </button>
+                                            
+                                        </template>
+                                    </el-table-column>
                                 </el-table> 
                                 
     
                             </div>
 
                         </div>
-
-
-
 
                         <div v-if="active== 3" class="flex flex-wrap justify-around mt-5">
 
@@ -175,16 +189,23 @@
                                         Agregar Materiales usados
                                     </button>
                                 </div>
-                                <el-table :data="datosVenta.venta" class="w-full mt-10 mb-10 ">
-                                     <el-table-column prop="Servicio" label="Servicio"></el-table-column>
-                                     <el-table-column prop="Servicio" label="Cantidad de Servicio"></el-table-column>
-                                     <el-table-column prop="Servicio" label="Materiales"></el-table-column>
+
+                                <el-table v-if="datosMaterialesTabla.length" :data="datosMaterialesTabla" class="w-full mt-10 mb-10 ">
+                                     <el-table-column prop="id_recurso" label="Id"></el-table-column>
+                                     <el-table-column prop="nombre" label="Nombre "></el-table-column>
+                                     <el-table-column prop="descripcion" label="Descripcion "></el-table-column>
+                                     <el-table-column prop="disponible" label="Cantidad Disponible"></el-table-column>
                                      <el-table-column fixed="right" label="Operaciones" width="170">
+
                                          <template>
-                                             <p class="text-center">
-                                                 Eliminar
-                                             </p>
+
+                                            <button type="button"
+                                                class="  md:w-1/2 py-2 text-red-600 bg-none transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase rounded-md" @click="asociarServiciosIngresados(serviciosIngresados)">
+                                                    eliminar
+                                            </button>
+
                                          </template>
+
                                      </el-table-column>
                                 </el-table> 
                                 
@@ -197,6 +218,7 @@
                             </button>
 
                         </div>
+
                         <div class="flex flex-wrap  justify-end my-5">
                             <button type="button"
                                 class="w-full bg-none md:w-1/3  text-verdiAnderson transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md" @click="next">
@@ -204,32 +226,32 @@
                             </button>
                         </div>
 
-
+{{ datosMaterialesTabla }}
 
                     </form>
                     <!-- Modal para agregar Servicio -->
 
                     <el-dialog title="Agregar los datos de los materiales" :visible.sync="centerDialogVisible" width="30%" center>
                         <div class="flex flex-wrap justify-around">
-
-                            <div class="w-full md:w-1/2  px-2 mb-3 py-1">
+                            <div v-if="producto && producto.data"  class=" md:w-1/2 lg:w-3/6 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Material</p>
-                                    <el-input placeholder="Unidades compradas" type="number"
-                                        auto-complete="email"></el-input>
+                                    <el-select v-model="materialesIngresados.idMaterial" placeholder="Seleccione el Material" class="w-full">
+                                        <el-option  v-for="producto in producto.data" :key="producto.id_servicio"
+                                            :label="producto.nombre"
+                                            :value="producto.id_recurso">
+                                        </el-option>
+                                    </el-select>
                                 </label>
                             </div>
 
                             <div class="w-full md:w-1/2  px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Unidades Utilizadas</p>
-                                    <el-input placeholder="Unidades compradas" type="number"
-                                        auto-complete="email"></el-input>
+                                    <el-input placeholder="Unidades compradas" v-model="materialesIngresados.cantidadMaterial" type="number"
+                                        ></el-input>
                                 </label>
                             </div>
-
-                            
-
                         </div>
 
 
@@ -238,6 +260,11 @@
                                 class="w-full md:w-1/3 bg-red-600 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
                                 @click="centerDialogVisible = false" type="button">
                                 Cerrar
+                            </button>
+                            <button slot="reference" :disabled="loading"
+                                class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
+                                @click="asociarMaterialesIngresados(materialesIngresados)" type="button">
+                                Ingresar
                             </button>
                         </div>
 
@@ -334,7 +361,8 @@ export default {
     },
     created() {
         this.$store.dispatch("obtenerListaDeproducto");
-        this.$store.dispatch("obtenerListaDeServicios");
+
+        this.$store.dispatch("obtenerListaServiciosTabla");
         this.$store.dispatch("obtenerListaDeUsuarios");
         this.$store.dispatch("obtenerListaDePacientes");
     },
@@ -343,18 +371,26 @@ export default {
             activeName: '1',
             aviso: true,
             active: 1,
-            serviciosIngresados:[],
-
             datosVenta: {
                 idPaciente: null,
                 idTrabajador: null,
                 formaPago: null,
-                referencia: null,
                 ivaVenta: "12",
                 precioDolar: null,
-                servicios:[]
+                servicios:[],
+                materiales:[]
             },
-
+            serviciosIngresados:{
+                idServicio: null,
+                costoServicio: null,
+                cantidadRealizadas: null
+            },
+            materialesIngresados:{
+                idMaterial:null,
+                cantidadMaterial: null
+            },
+            datosServicioTabla:[],
+            datosMaterialesTabla:[],
             centerDialogVisible: false,
             loading: false,
         };
@@ -362,6 +398,35 @@ export default {
     methods: {
         next() {
             if (this.active++ > 2) this.active = 1;
+        },
+        asociarServiciosIngresados(datos){
+            this.datosVenta.servicios.push(datos);
+            this.serviciosIngresados= {
+                idServicio: null,
+                costoServicio: null,
+                cantidadRealizadas: null
+            }
+            
+            this.datosServicioTabla.push( this.servicios.data.filter(item => item.id_servicio == datos.idServicio)[0])
+            console.log("Asociada",this.datosServicioTabla[0])
+        },
+        asociarMaterialesIngresados(datos){
+            this.datosVenta.materiales.push(datos);
+
+            this.materialesIngresados={
+                idMaterial:null,
+                cantidadMaterial: null
+            }
+            // console.log("datos enviados-------------------",datos)
+            // console.log("datos guardados-------------------",this.datosVenta)
+            // console.log("datos materia---------------",this.producto.data)
+            
+            this.datosMaterialesTabla.push( this.producto.data.filter(item => item.id_recurso == datos.idMaterial)[0] )
+            console.log("datos materia---------------",this.datosMaterialesTabla)
+            this.centerDialogVisible = false
+        },
+        eliminarAsociacion(datos){
+            console.log(datos)
         }
     },
     computed: {
@@ -375,8 +440,9 @@ export default {
             return this.$store.getters.getproducto;
         },
         servicios() {
-            return this.$store.getters.getServicios;
-        },
+            return this.$store.getters.getListaServicios;
+        }
     },
+    
 };
 </script>
