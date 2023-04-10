@@ -1,4 +1,4 @@
-// import axios from 'axios'
+import axios from 'axios'
 import config from './../config.js'
 import { Notification } from 'element-ui'
 
@@ -17,20 +17,20 @@ export default {
     },
   },
   actions: {
-    async getListaPresupuestos(context, payload = { id: String }) {
+    async listaPresupuestos(context, payload = { id: String }) {
       const token = localStorage.getItem('token_acess')
       context.dispatch('getLoadingApp', true);
       try {
-        // const resultado = await axios({
-        //   method: 'GET',
-        //   baseURL: config.backend.baseURL,
-        //   url: '/venta',
-        //   headers: {
-        //     ['auth-token']: token,
-        //   },
-        //   data: payload,
-        // });
-        context.commit('setListaPresupuestos', [])
+        const resultado = await axios({
+          method: 'GET',
+          baseURL: config.backend.baseURL,
+          url: '/presupuesto',
+          headers: {
+            ['auth-token']: token,
+          },
+          data: payload,
+        });
+        context.commit('setListaPresupuestos', resultado.data)
       } catch (error) {
         if (error.response) {
           Notification({

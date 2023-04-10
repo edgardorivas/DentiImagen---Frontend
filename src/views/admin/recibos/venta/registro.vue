@@ -400,8 +400,6 @@
 
                     </el-dialog>
                 </div>
-                {{datosVenta}}
-                {{datosServicioTabla}}
             </div>
         </div>
     </div>
