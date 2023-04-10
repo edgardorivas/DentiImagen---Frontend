@@ -2,7 +2,7 @@
     <div class="flex flex-wrap mt-4">
         <div class="w-full mb-12 xl:mb-0 px-4">
             <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
-                
+
                 <div class="flex justify-center">
                     <div class="rounded-t mb-0 px-3 py-3 border-0">
                         <h3 class="font-semibold text-xl text-blueGray-700 uppercase">
@@ -16,9 +16,9 @@
                         <el-step title="Datos basicos"></el-step>
 
                         <el-step title="Servicios aplicados"></el-step>
-                        
+
                         <el-step title="Materiales invertidos"></el-step>
-                        
+
                     </el-steps>
                 </div>
 
@@ -84,22 +84,22 @@
 
                         <div v-if="active == 2"  class="my-10 flex flex-wrap justify-around  " >
 
-                            
+
                             <div  class=" md:w-1/2 lg:w-3/6 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Servicios</p>
                                     <el-select v-model="serviciosIngresados" placeholder="Seleccione el Odontologo" class="w-full">
-                                        
-                                        <el-option 
+
+                                        <el-option
                                             label="`${item.nombre} - ${item.especializacion}`"
                                             value="1">
                                         </el-option>
-                                        
+
                                     </el-select>
                                 </label>
                             </div>
 
-                            
+
                             <div class="md:w-1/2 lg:w-3/6 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Costo del servicio</p>
@@ -107,20 +107,20 @@
                                         v-model="datosVenta.ivaVenta"></el-input>
                                 </label>
                             </div>
- 
+
                             <button type="button"
                                 class="  md:w-1/5 py-2 text-white bg-verdiAnderson transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase rounded-md" @click="next">
                                 Ingresar
                             </button>
 
-                            
+
 
                             <!-- Se agrega la tabla para los items -->
                             <div v-if="serviciosIngresados.length" class="w-11/12 mt-10  m-0 p-0">
                                 <div class="w-11/12">
                                     <el-divider>Servicios aplicados</el-divider>
                                 </div>
-                                
+
                                 <!-- <div class="  flex flex-row-reverse my-2 mr-5">
                                     <button @click="centerDialogVisible = true"
                                         class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -128,7 +128,7 @@
                                         Agregar Materiales usados
                                     </button>
                                 </div> -->
-    
+
                                 <!-- <div v-if="aviso" class=" w-1/3 justify-center flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
                                     <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
                                     <span class="sr-only">Danger</span>
@@ -141,7 +141,7 @@
                                         </ul>
                                     </div>
                                 </div> -->
-    
+
                                 <el-table :data="datosVenta.venta" class="w-full mt-10 ">
                                      <el-table-column prop="Servicio" label="Servicio"></el-table-column>
                                      <el-table-column prop="Servicio" label="Cantidad de Servicio"></el-table-column>
@@ -153,9 +153,9 @@
                                              </p>
                                          </template>
                                      </el-table-column>
-                                </el-table> 
-                                
-    
+                                </el-table>
+
+
                             </div>
 
                         </div>
@@ -167,7 +167,7 @@
 
 
                             <div class="w-11/12 mt-10  m-0 p-0">
-                                
+
                                 <div class="  flex flex-row-reverse my-2 mr-5">
                                     <button @click="centerDialogVisible = true"
                                         class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -186,9 +186,9 @@
                                              </p>
                                          </template>
                                      </el-table-column>
-                                </el-table> 
-                                
-    
+                                </el-table>
+
+
                             </div>
 
                             <button :disabled="loading"
@@ -228,7 +228,7 @@
                                 </label>
                             </div>
 
-                            
+
 
                         </div>
 
@@ -327,7 +327,7 @@
 import config from "../../../../config";
 import axios from "axios";
 export default {
-    name: "users-add",
+    name: "ventas-registro",
     metaInfo: {
         title: config.frontend.title,
         titleTemplate: "%s | Agregar nuevo usuario",
