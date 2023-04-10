@@ -65,7 +65,9 @@
       title: config.frontend.title,
       titleTemplate: "%s | Lista de Presupuestos",
     },
-    created() {},
+    async created() {
+      await this.aplicarFiltro();
+    },
     data() {
       return {
         modal: false,
