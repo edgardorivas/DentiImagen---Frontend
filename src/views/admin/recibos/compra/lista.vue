@@ -23,89 +23,61 @@
                         Busqueda Avanzada
                     </button>
                 </div>
-                <div class="mt-5">
+                <div class="mt-5 ">
                     <div v-if="compras && compras.data">
-                        <el-table :data="compras.data" class="w-full">
-                           
-                            <el-table-column fixed prop="usuario" label="Usuario" width="190">
+                        <!--tabla-->
+                        <el-table :data="compras.data" class="w-full mb-8">
+                            <el-table-column fixed prop="usuario" label="Compra recivida por" width="190">
                                 <template slot-scope="scope">
-                                    <router-link :to="`/admin/usuarios/${scope.row.id}`"
+                                    <router-link :to="`/admin/usuarios/${scope.row.id_trabajador}`"
                                         class="uppercase text-verdiAnderson">
                                         @{{ scope.row.nombre_trabajador }}
                                     </router-link>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="telefono_trabajador" label="Telefono del Usuaio"></el-table-column>
+                            <el-table-column prop="telefono_trabajador" label="Telefono del Usuario"></el-table-column>
+
+                            <el-table-column fixed prop="usuario" label="Compra recivida por" width="190">
+                                <template slot-scope="scope">
+                                    <router-link :to="`/admin/proveedores/${scope.row.id_proveedor}`"
+                                        class="uppercase text-verdiAnderson">
+                                        @{{ scope.row.nombre_proveedor }}
+                                    </router-link>
+                                </template>
+                            </el-table-column>
+                            
+                            <el-table-column prop="nombre_proveedor" label="Proveedor"></el-table-column>
+                            <el-table-column prop="monto_total" label="Monto total"></el-table-column>
                             <el-table-column prop="forma_pago" label="Forma de Pago"></el-table-column>
-                            <el-table-column prop="nombre_recurso" label="Material"></el-table-column>
-                            <el-table-column prop="unidades_compradas" label="Unidades Compradas"></el-table-column>
-                            <el-table-column prop="costo_dolares" label="Costos $"></el-table-column>
+                            <el-table-column prop="referencias" label="Referencia del Pago"></el-table-column>
 
                             <el-table-column prop="fecha" label="Creado">
                                 <template slot-scope="scope">
                                     <p class="">{{ parseDate(scope.row.fecha_compra) }}</p>
                                 </template>
                             </el-table-column>
+                            <!--fin tabla-->
+
+                            <el-table-column fixed="right" label="Operaciones" width="170">
+                                <template slot-scope="scope">
+                                    <p class="text-left">
+                                        <router-link :to="`/admin/recibo/compra/detalles/${scope.row.id_compra}`"
+                                            class="text-red-600 text-xs w-full">
+                                            <p class="text-sm">Ver detalles</p>
+                                            
+                                        </router-link>
+                                    </p>
+                                </template>
+                            </el-table-column>
                         </el-table>
-                        <!-- Modales de busqueda 
-                        <el-drawer title="Busqueda Avanzada" :visible.sync="modal" direction="rtl"
-                            :before-close="handleClose">
-                            <form class="h-full" @submit.prevent="aplicarFiltro">
-                                <div class="flex flex-col content-between justify-between h-full">
-                                    <div class="flex flex-col">
-                                         Contenido 
-                                        <div class="w-full px-2 mb-3 py-1">
-                                            <label>
-                                                <p class="ml-1 mb-1">Nombre</p>
-                                                <el-input placeholder="Nombre del Trabajador"
-                                                    v-model="search.nombre"></el-input>
-                                            </label>
-                                        </div>
-                                        <div class="w-full px-2 mb-3 py-1">
-                                            <label>
-                                                <p class="ml-1 mb-1">Usuario</p>
-                                                <el-input placeholder="Usuario del Trabajador"
-                                                    v-model="search.usuario"></el-input>
-                                            </label>
-                                        </div>
-                                        <div class="w-full px-2 mb-3 py-1">
-                                            <label>
-                                                <p class="ml-1 mb-1">Especializacion</p>
-                                                <el-input placeholder="Especializacion del Trabajador"
-                                                    v-model="search.especializacion"></el-input>
-                                            </label>
-                                        </div>
-                                        <div class="w-full px-2 mb-3 py-1">
-                                            <label>
-                                                <p class="ml-1 mb-1">Fecha</p>
-                                                <el-date-picker v-model="search.fecha" type="date"
-                                                    placeholder="Selecciona una fecha"></el-date-picker>
-                                            </label>
-                                        </div>
-                                        <div v-if="nivelesUsuario && nivelesUsuario.data" class="w-full px-2 mb-3 py-1">
-                                            <label>
-                                                <p class="ml-1">Nivel / Rol</p>
-                                                <el-select v-model="search.nivel" placeholder="Nivel del trabajador"
-                                                    class="w-full">
-                                                    <el-option label="Ninguno" :value="null"></el-option>
-                                                    <el-option v-for="item in nivelesUsuario.data"
-                                                        :key="item.id_nivel_usuario" :label="item.nombre_nivel_usuario"
-                                                        :value="item.id_nivel_usuario"></el-option>
-                                                </el-select>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <button
-                                        class="w-full bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2"
-                                        type="submit">Buscar</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </el-drawer>
-                        Fin del contenido -->
+                    </div>
+
+                    <div v-else class=" mb-5 ml-3">
+                        <h3>No existen registros de Compras</h3>
                     </div>
                 </div>
+
+
             </div>
         </div>
     </div>
@@ -134,6 +106,7 @@ export default {
                 especializacion: "",
                 nivel: "",
             },
+
         }
     },
     methods: {
@@ -166,5 +139,9 @@ export default {
 <style lang="scss">
 .el-date-editor {
     width: 100% !important;
+}
+th {
+    --tw-bg-opacity: 1;
+    color: rgb(0 200 165 / var(--tw-bg-opacity));
 }
 </style>

@@ -33,6 +33,8 @@ export default {
         context.commit('setInventario', resultado.data)
       } catch (error) {
         if (error.response) {
+          context.dispatch('getLoadingApp', false);
+
           return false
           /*Notification({
             title: config.frontend.title,

@@ -111,11 +111,14 @@ export default {
         context.commit('setRecursosProveedor', resultado.data)
       } catch (error) {
         if (error.response) {
-          Notification({
-            title: config.frontend.title,
-            message: error.response.data.mensaje,
-            type: 'error'
-          })
+          // Notification({
+          //   title: config.frontend.title,
+          //   message: error.response.data.mensaje,
+          //   type: 'error'
+          // })
+          context.dispatch('getLoadingApp', false);
+
+          return false
         } else {
           Notification({
             title: config.frontend.title,

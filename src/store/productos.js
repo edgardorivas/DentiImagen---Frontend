@@ -53,6 +53,8 @@ export default {
                 context.commit('setProducto', resultado.data)
             } catch (error) {
                 if (error.response) {
+                    context.dispatch('getLoadingApp', false);
+
                     return false
                     /*Notification({
                       title: config.frontend.title,

@@ -21,7 +21,7 @@
                                     <p class="ml-1">Trabajador que recibe la compra</p>
                                     <el-select v-model="datos.idtrabajador"  placeholder="Trabajadores" class="w-full">
                                         <el-option v-for="item in usuarios.data"  :key="item.id" :label="`${item.nombre} - ${item.rol}`"
-                                            :value="item.id"></el-option>
+                                            :value="item.id_trabajador"></el-option>
                                     </el-select>
                                 </label>
                             </div>
@@ -98,6 +98,7 @@
                                     </div>
                                 </div>
                             </div>
+                            
                             <div v-else class="w-11/12 m-0 p-0">
                                 <el-table :data="datos.recurso" class="w-full">
                                     <!-- {{ scope.$index, tableData}} -->
@@ -180,11 +181,8 @@
                                         type="button" v-on:click="agregarRecurso(datosRecurso)">Guardar</button>
                                 </div>
     
-    
                             </el-dialog>
-    {{ datos }}
                             
-
                         </div> 
                     <!--
                     <div>
@@ -196,17 +194,10 @@
 
                     </div>
 -->
-                        <div class="flex flex-wrap justify-around">
-                            <div class="w-full md:w-1/2 lg:w-3/12 px-2 mb-3 py-1">
-                                <button @click="agregarRecurso(datosRecurso)" type="button"
-                                    class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">
-                                    agregar materia
-                                </button>
-                            </div>
-
-                            <div class="w-full md:w-1/2 lg:w-3/12 px-2 mb-3 py-1">
+                        <div class="flex flex-wrap mt-4 justify-around">
+                            <div class="w-full md:w-2/2 lg:w-3/12 px-2 mb-3 py-1">
                                 <button type="button" @click="registrarCompra()"
-                                    class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">
+                                    class="w-full md:w-2/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">
                                     Guardar
                                 </button>
                             </div>
@@ -246,9 +237,9 @@ export default {
                 },
             ],
             datos: {
-                idtrabajador: null,
-                formaPago: null,
-                fechaCompra: null,
+                idtrabajador: "",
+                formaPago: "",
+                fechaCompra: "",
                 idProvedor: "",
                 recurso: [],
                 referencia:'',
@@ -281,8 +272,6 @@ export default {
             }
             this.aviso = false
             this.centerDialogVisible= false
-
-            console.log(this.proveedorMateriales.data.filter(item => item.id_recurso == valor.idRecurso)[0])
             this.datosMaterialesSinModificar.push(this.proveedorMateriales.data.filter(item => item.id_recurso == valor.idRecurso)[0])
 
             this.proveedorMateriales.data = this.proveedorMateriales.data.filter(item => item.id_recurso != valor.idRecurso);
@@ -305,10 +294,19 @@ export default {
                     data: this.datos
                 });
                 console.log(request)
+                this.datos= {
+                    idtrabajador: "",
+                    formaPago: "",
+                    fechaCompra: "",
+                    idProvedor: "",
+                    recurso: [],
+                    referencia:'',
+                    montoTotal:"",
+                },
                 this.$store.dispatch('getLoadingApp', false);
                 this.loading = false;
                 this.$message({
-                    message: 'Registrado Exitosamente',
+                    message: request.data.mensaje,
                     type: 'success',
                 });
 
@@ -330,7 +328,6 @@ export default {
             }
         },
         eliminarItemArray(id){
-            console.log(id)
             if(this.datos.recurso.length == 1){
                 this.$message({
                     message: 'Se tiene que tener como minimo 1 material registrado',

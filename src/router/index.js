@@ -117,6 +117,11 @@ const routes = [
         name: 'Listar recibos de compra',
         component: () => import('../views/admin/recibos/compra/lista.vue'),
       },
+      {
+        path: "/admin/recibo/compra/detalles/:ID",
+        name: 'Detalles del recibos de compra',
+        component: () => import('../views/admin/recibos/compra/detallesCompra.vue'),
+      },
       //inventario
       {
         path: "/admin/inventario",
