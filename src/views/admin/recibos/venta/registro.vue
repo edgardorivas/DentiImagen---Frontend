@@ -324,7 +324,7 @@
 
                                     <div v-if="totalSuma != 0" class="border mt-10 flex flex-wrap  border-solid border-gray-400 my-10 p-5">
                                         <p class=" text-verdiAnderson w-1/2 pl-5 text-2xl">Total</p>
-                                        <p class="w-1/2 text-right text-2xl pl-5">{{ totalSuma }}</p>
+                                        <p class="w-1/2 text-right text-2xl pl-5">{{ totalSuma }} $</p>
 
                                     </div>
                                     <br>
@@ -443,7 +443,7 @@ export default {
             },
             materialesIngresados:{
                 idMaterial:null,
-                cantidadMaterial: null
+                cantidadMaterial: 1
             },
             sumaTodoServicio : 0,
             totalSuma: 0,
@@ -520,7 +520,6 @@ export default {
           }
         },
         asociarServiciosIngresados(datos){
-            const producto = this.producto.data.filter(item => item.id_recurso == datos.idMaterial)[0];
             if (!datos.idServicio) {
               this.$message({
                 message: 'Debes seleccionar el servicio',
@@ -528,32 +527,38 @@ export default {
               });
               return false;
             }
-            this.datosVenta.servicios.push(datos);
+            const producto = this.servicios.data.filter(item => item.id_servicio == datos.idServicio)[0];
+            datos['nombre_servicio'] = producto['nombre_servicio'];
+            this.datosVenta.servicios.push(Object.assign({}, datos));
             this.serviciosIngresados= {
                 idServicio: null,
                 costoServicio: 1,
                 cantidadRealizadas: 1
             }
 
-            this.datosServicioTabla.push( this.servicios.data.filter(item => item.id_servicio == datos.idServicio)[0])
-            console.log("Asociada",this.datosServicioTabla[0])
+            this.datosServicioTabla.push(Object.assign({}, producto));
         },
         asociarMaterialesIngresados(datos){
-            const producto = this.producto.data.filter(item => item.id_recurso == datos.idMaterial)[0];
-            datos['nombre_servicio'] = producto['nombre_servicio'];
-            this.datosVenta.materiales.push(Object.assign({}, datos));
+            if (!datos.idMaterial) {
+              this.$message({
+                message: 'Debes seleccionar el material',
+                type: 'error',
+              });
+              return false;
+            }
+            const recurso = this.producto.data.filter(item => item.id_recurso == datos.idMaterial)[0];
+            this.datosVenta.materiales.push(datos);
 
             this.materialesIngresados={
                 idMaterial:null,
-                cantidadMaterial: null
+                cantidadMaterial: 1
             }
             // console.log("datos enviados-------------------",datos)
             // console.log("datos guardados-------------------",this.datosVenta)
             // console.log("datos materia---------------",this.producto.data)
 
 
-            this.datosMaterialesTabla.push(producto)
-            console.log("datos materia---------------",this.datosMaterialesTabla)
+            this.datosMaterialesTabla.push(recurso)
             this.centerDialogVisible = false
         },
         eliminarAsociacion(id){
@@ -595,7 +600,7 @@ export default {
                     message: request.data.mensaje,
                     type: 'success',
                 });
-
+                this.$router.push({ path: '/admin/recibo/venta/lista' });
             } catch (error) {
                 if (error.response) {
                     this.$message({
