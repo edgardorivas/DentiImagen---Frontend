@@ -91,6 +91,37 @@
           </li>
         </ul>
 
+
+        <!-- Divider -->
+        <hr class="my-4 md:min-w-full" />
+        <!-- Heading -->
+        <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+          Servicios
+        </h6>
+        <ul class="md:flex-col md:min-w-full flex flex-col list-none">
+          <li class="items-center">
+            <router-link to="/admin/servicios/agregar" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
+              <i class="fa-solid fa-hospital-user mr-2 text-sm"></i>
+              Nuevo Servicio
+            </router-link>
+          </li>
+          <li class="items-center">
+            <router-link to="/admin/servicios" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
+              <i class="fa-solid fa-users mr-2 text-sm"></i>
+              Lista de Servicios
+            </router-link>
+          </li>
+        </ul>
+
+
+
+
+
+
+
+
+
+
         <!-- Divider -->
         <hr class="my-4 md:min-w-full" />
         <!-- Heading -->

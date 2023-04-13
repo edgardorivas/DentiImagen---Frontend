@@ -47,11 +47,13 @@ export default {
         context.commit('setPacientes', resultado.data)
       } catch (error) {
         if (error.response) {
-          Notification({
-            title: config.frontend.title,
-            message: error.response.data.mensaje,
-            type: 'warning'
-          })
+          context.dispatch('getLoadingApp', false);
+          return false
+          // Notification({
+          //   title: config.frontend.title,
+          //   message: error.response.data.mensaje,
+          //   type: 'warning'
+          // })
         } else {
           Notification({
             title: config.frontend.title,

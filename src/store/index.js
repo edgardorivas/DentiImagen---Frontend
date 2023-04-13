@@ -11,6 +11,8 @@ import inventario from './inventario';
 import pacientes from './paciente';
 import venta from './venta';
 import presupuestos from './presupuestos';
+import servicios from './servicios';
+
 
 
 Vue.use(Vuex)
@@ -34,6 +36,7 @@ export default new Vuex.Store({
     inventario,
     pacientes,
     presupuestos,
-    venta
+    venta,
+    servicios
   }
 })

@@ -104,6 +104,25 @@ const routes = [
         name: 'Editar Proveedores',
         component: () => import('../views/admin/proveedores/editar.vue'),
       },
+
+      // servicios
+
+      {
+        path: "/admin/servicios",
+        name: 'Lista de servicios',
+        component: () => import('../views/admin/servicios/listar.vue'),
+      },
+      {
+        path: "/admin/servicios/agregar",
+        name: 'Agregar Servicios',
+        component: () => import('../views/admin/servicios/registrar.vue'),
+      },
+      {
+        path: "/admin/servicios/:ID",
+        name: 'Editar servicios',
+        component: () => import('../views/admin/servicios/editar.vue'),
+      },
+
       //recibos de compra
       {
         path: "/admin/recibo/compra/agregar",
@@ -136,6 +155,11 @@ const routes = [
         path: "/admin/recibo/venta/lista",
         name: 'Listar recibos de Venta',
         component: () => import('../views/admin/recibos/venta/lista.vue'),
+      },
+      {
+        path: "/admin/recibo/venta/detalles/:ID",
+        name: 'Detalles del recibos de venta',
+        component: () => import('../views/admin/recibos/venta/detallesVenta.vue'),
       },
       //presupuesto de ventas
       {

@@ -11,7 +11,7 @@
                             </h3>
                         </div>
                         <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-                            <router-link to="/admin/recibo/venta/agregar"
+                            <router-link to="/admin/recibo/compra/agregar"
                                 class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 ">
                                 Agregar nuevo
                             </router-link>
@@ -24,7 +24,7 @@
                     </button>
                 </div>
                 <div class="mt-5">
-                    {{ Ventas.data }}
+
                     <div v-if="Ventas && Ventas.data">
                         <el-table :data="Ventas.data" class="w-full">
 
@@ -53,19 +53,6 @@
                                     <p class="">{{ parseDate(scope.row.fecha) }}</p>
                                 </template>
                             </el-table-column>
-
-                            <el-table-column fixed="right" label="Operaciones" width="170">
-                                <template slot-scope="scope">
-                                    <p class="text-left">
-                                        <router-link :to="`/admin/recibo/venta/detalles/${scope.row.id_venta}`"
-                                            class="text-red-600 text-xs w-full">
-                                            <p class="text-sm">Ver detalles</p>
-                                            
-                                        </router-link>
-                                    </p>
-                                </template>
-                            </el-table-column>
-
                         </el-table>
                         <!-- Modales de busqueda
                         <el-drawer title="Busqueda Avanzada" :visible.sync="modal" direction="rtl"

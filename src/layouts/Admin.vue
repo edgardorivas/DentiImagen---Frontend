@@ -30,6 +30,8 @@ export default {
     this.$store.dispatch('obtenerTipoProducto');
     this.$store.dispatch('obtenerInventario');
     this.$store.dispatch('obtenerListaDePacientes');
+    this.$store.dispatch('obtenerServicios');
+
 
 
 
