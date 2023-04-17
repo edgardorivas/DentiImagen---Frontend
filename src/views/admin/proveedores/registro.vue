@@ -18,21 +18,21 @@
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Nombre</p>
-                                    <el-input placeholder="Nombre del proveedor" auto-complete="family-name"
+                                    <el-input placeholder="Nombre del proveedor"
                                         v-model="nuevoProveedor.nombre"></el-input>
                                 </label>
                             </div>
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Correo</p>
-                                    <el-input placeholder="Correo del proveedor" type="email" auto-complete="email"
+                                    <el-input placeholder="Correo del proveedor" type="email" 
                                         v-model="nuevoProveedor.correo"></el-input>
                                 </label>
                             </div>
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Telefono</p>
-                                    <el-input placeholder="Telefono del proveedor" type="tel" auto-complete="tel"
+                                    <el-input placeholder="Telefono del proveedor" type="tel" 
                                         v-model="nuevoProveedor.telefono"></el-input>
                                 </label>
                             </div>
@@ -45,7 +45,7 @@
                             <div v-if="materiales && materiales.data" class="w-full md:w-1/2 lg:w-3/12 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Materiales posibles</p>
-                                    <el-select v-model="nuevoProveedor.recursos" multiple placeholder="Nivel del trabajador"
+                                    <el-select v-model="nuevoProveedor.recursos" multiple placeholder="Materiales"
                                         class="w-full">
                                         <el-option v-for="item in materiales.data" :key="item.id" :label="item.nombre"
                                             :value="item.id"></el-option>

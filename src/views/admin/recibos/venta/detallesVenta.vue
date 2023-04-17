@@ -2,117 +2,161 @@
     <!-- se mejorara la presentacion de los recibos , y se mostraran como tajetas-->
     <div class="flex flex-wrap mt-4">
         <div class="w-full mb-12 xl:mb-0 px-4">
-            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
-                <div class="rounded-t mb-0 px-4 py-3 border-0">
-                    <div class="flex flex-wrap items-center">
-                        <div class="relative w-full px-4 max-w-full flex-grow flex-1">
-                            <h3 class="font-semibold text-base text-blueGray-700">
-                                Lista de Recibos de Venta
-                            </h3>
-                        </div>
-                        <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-                            <router-link to="/admin/recibo/compra/agregar"
-                                class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 ">
-                                Agregar nuevo
-                            </router-link>
-                        </div>
+            <div v-if="detallesCompra && detallesCompra.data"  class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+                <div class="flex justify-center">
+                    <div class="rounded-t mb-0 px-4 py-3 border-0">
+                        <h3 
+                            class="font-semibold text-xl text-blueGray-700 uppercase">
+                            Detalles del recivo de venta
+                        </h3>
                     </div>
                 </div>
-                <div class="px-5 mt-3 flex justify-start">
-                    <button @click="modal = true" class="bg-verdiAnderson text-white py-2 px-3 rounded-md uppercase">
-                        Busqueda Avanzada
-                    </button>
-                </div>
-                <div class="mt-5">
+                
+                <div class="mt-5 pb-5">
+                    <div >
+                        <form >
+                            <div class="flex flex-wrap justify-around">
 
-                    <div v-if="Ventas && Ventas.data">
-                        <el-table :data="Ventas.data" class="w-full">
-
-                            <el-table-column fixed prop="paciente" label="Paciente" width="190">
-                                <template slot-scope="scope">
-                                    <router-link :to="`/admin/paciente/id/${scope.row.id_pacinte}`"
-                                        class="uppercase text-verdiAnderson">
-                                        @{{ scope.row.paciente }}
-                                    </router-link>
-                                </template>
-                            </el-table-column>
-                            <el-table-column prop="apellidos" label="Apellido"></el-table-column>
-                            <el-table-column prop="cedula" label="Cedula"></el-table-column>
-                            <el-table-column prop="trabajador" label="Odontologo"></el-table-column>
-                            <el-table-column prop="monto_dolares" label="Total $"></el-table-column>
-                            <el-table-column prop="precio_impuesto" label="Precio Impuesto"></el-table-column>
-                            <el-table-column prop="precio_unitario" label="Presio Unitario"></el-table-column>
-
-                            <el-table-column prop="iva" label="Iva"></el-table-column>
-                            <el-table-column prop="forma_pago" label="Forma de pago"></el-table-column>
-
-
-
-                            <el-table-column prop="fecha" label="Creado">
-                                <template slot-scope="scope">
-                                    <p class="">{{ parseDate(scope.row.fecha) }}</p>
-                                </template>
-                            </el-table-column>
-                        </el-table>
-                        <!-- Modales de busqueda
-                        <el-drawer title="Busqueda Avanzada" :visible.sync="modal" direction="rtl"
-                            :before-close="handleClose">
-                            <form class="h-full" @submit.prevent="aplicarFiltro">
-                                <div class="flex flex-col content-between justify-between h-full">
-                                    <div class="flex flex-col">
-                                         Contenido
-                                        <div class="w-full px-2 mb-3 py-1">
-                                            <label>
-                                                <p class="ml-1 mb-1">Nombre</p>
-                                                <el-input placeholder="Nombre del Trabajador"
-                                                    v-model="search.nombre"></el-input>
-                                            </label>
-                                        </div>
-                                        <div class="w-full px-2 mb-3 py-1">
-                                            <label>
-                                                <p class="ml-1 mb-1">Usuario</p>
-                                                <el-input placeholder="Usuario del Trabajador"
-                                                    v-model="search.usuario"></el-input>
-                                            </label>
-                                        </div>
-                                        <div class="w-full px-2 mb-3 py-1">
-                                            <label>
-                                                <p class="ml-1 mb-1">Especializacion</p>
-                                                <el-input placeholder="Especializacion del Trabajador"
-                                                    v-model="search.especializacion"></el-input>
-                                            </label>
-                                        </div>
-                                        <div class="w-full px-2 mb-3 py-1">
-                                            <label>
-                                                <p class="ml-1 mb-1">Fecha</p>
-                                                <el-date-picker v-model="search.fecha" type="date"
-                                                    placeholder="Selecciona una fecha"></el-date-picker>
-                                            </label>
-                                        </div>
-                                        <div v-if="nivelesUsuario && nivelesUsuario.data" class="w-full px-2 mb-3 py-1">
-                                            <label>
-                                                <p class="ml-1">Nivel / Rol</p>
-                                                <el-select v-model="search.nivel" placeholder="Nivel del trabajador"
-                                                    class="w-full">
-                                                    <el-option label="Ninguno" :value="null"></el-option>
-                                                    <el-option v-for="item in nivelesUsuario.data"
-                                                        :key="item.id_nivel_usuario" :label="item.nombre_nivel_usuario"
-                                                        :value="item.id_nivel_usuario"></el-option>
-                                                </el-select>
-                                            </label>
+                                <div class="block w-2/3 mb-10  p-6 bg-white border border-gray-200 rounded-lg shadow-md  dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"> 
+                                    
+                                    <div class="flex justify-center">
+                                        <div class="rounded-t mb-0 px-4 py-3 border-0">
+                                            <p 
+                                                class="font-semibold text-lg text-verdiAnderson uppercase">
+                                                Detalles de la  compra N-<span class="text-verdiAnderson">{{ detallesCompra.data[0].id_compra }} </span>
+                                            </p>
                                         </div>
                                     </div>
-                                    <div>
-                                        <button
-                                        class="w-full bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2"
-                                        type="submit">Buscar</button>
+                                    
+                                    <div class="flex mt-9 flex-wrap justify-around">
+                                        
+                                        <div class="w-1/3">
+                                            <p class=" mb-3 font-normal text-center text-gray-700 dark:text-gray-400">
+                                               <b>Datos de la clinica </b> 
+                                            </p>
+
+                                            <p class="font-normal text-gray-700 dark:text-gray-400">
+                                               <b>Nombre: </b> DENTIMAGEN C.A.
+                                            </p>
+                                            <p class="font-normal text-gray-700 dark:text-gray-400">
+                                               <b>Direccion: </b>Santiago mariño,turmero 
+                                            </p>
+                                            <p class="font-normal text-gray-700 dark:text-gray-400">
+                                               <b>Telefono: </b> 04126533015
+                                            </p>
+                                            
+                                        </div>
+
+
+                                        <div class="w-4/12 border-l-2 border-verdiAnderson pl-10">
+                                            <p class="font-normal mb-3 text-gray-700 dark:text-gray-400">
+                                                <b>Datos del Trabajador </b>
+                                            </p>
+                                            <p class="font-normal text-gray-700 dark:text-gray-400">
+                                                <b>Nombres: </b> {{ detallesCompra.data[0].nombre_trabajador }}
+                                            </p>
+                                            <p class="font-normal text-gray-700 dark:text-gray-400">
+                                                <b>Apellido: </b> {{ detallesCompra.data[0].apellido_trabajador }}
+                                            </p>
+                                            <p class="font-normal text-gray-700 dark:text-gray-400">
+                                                <b>telefono: </b> {{ detallesCompra.data[0].telefono_trabajador}}
+                                            </p>
+                                           
+                                        </div>
+                                    </div>
+
+                                    <div class="w-11/12">
+                                        <el-divider>Datos de la compra</el-divider>
+                                    </div>
+
+                                    <div class="flex mt-9 pl-20 flex-wrap justify-start">
+
+                                        <div class="w-11/12">
+                                            <p  class="border font-normal p-2 text-gray-700 dark:text-gray-400">
+                                                <b >Nombre del Proveedor: </b> {{ detallesCompra.data[0].nombre_proveedor }}
+                                            </p>
+                                            <p class="border font-normal p-2 text-gray-700 dark:text-gray-400">
+                                                <b>Metodo de pago: </b>{{ detallesCompra.data[0].forma_pago }}
+                                            </p>
+                                            <p class="border font-normal p-2 text-gray-700 dark:text-gray-400">
+                                                <b>Referencia: </b>{{ detallesCompra.data[0].referencias }}
+                                            </p>
+                                            <p class="border font-normal p-2 text-gray-700 dark:text-gray-400">
+                                                <b>Fecha de compra: </b> {{ parseDate(detallesCompra.data[0].fecha_compra) }}
+                                            </p>
+                                            
+                                        </div>
+                                    </div>
+
+                                    <div class="w-11/12">
+                                        <el-divider>Detalles de la  Compra</el-divider>
+                                    </div>
+
+
+
+                                    <!-- tabla -->
+                                    <div class="relative overflow-x-auto mt-10">
+                                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                                <tr>
+                                                    <th scope="col" class="px-6 text-sm py-3 text-verdiAnderson">
+                                                        Material
+                                                    </th>
+                                                    <th scope="col" class="px-6 text-sm py-3 text-verdiAnderson">
+                                                        Unidades Compradas
+                                                    </th>
+                                                    <th scope="col" class="px-6 text-sm py-3 text-verdiAnderson">
+                                                        Tipo de moneda
+                                                    </th>
+                                                    <th scope="col" class="px-6 text-sm py-3 text-verdiAnderson">
+                                                        Costo 
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody v-if="detallesCompraMateriales && detallesCompraMateriales.data">
+                                                <tr v-for="material in detallesCompraMateriales.data" :key="material.id_recurso" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                    
+                                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        {{  material.nombre_recurso}}
+                                                    </th>
+
+                                                    <td class="px-6 py-4">
+                                                        {{ material.unidades_compradas }}
+                                                    </td>
+
+                                                    <td class="px-6 py-4">
+                                                        {{ material.tipo_moneda }}
+                                                    </td>
+                                                    
+                                                    <td class="px-6 py-4">
+                                                        {{ material.costo_unidad }}
+                                                    </td>
+                                                </tr>
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+
+                                    <div class="border flex flex-wrap  border-solid border-gray-400 my-10 p-5">
+                                        <p class=" text-verdiAnderson w-1/2 pl-5 text-2xl">Total</p>
+                                        <p class="w-1/2 text-right text-2xl pl-5">{{ detallesCompra.data[0].monto_total }}</p>
+                                        
+                                    </div>
+                                    <br>
+                                    <div class="flex flex-wrap justify-around">
+                                        
+                                        <button :disabled="loading"
+                                            class="w-full md:w-1/3 bg-red-600 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
+                                            type="submit">Descargar PDF</button>
                                     </div>
                                 </div>
-                            </form>
-                        </el-drawer>
-                        Fin del contenido -->
+                                
+                            </div>
+                        </form>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -120,44 +164,34 @@
 <script>
 import config from '../../../../config';
 export default {
-    name: 'ventas-lista',
+    name: 'users-list',
     metaInfo: {
         title: config.frontend.title,
-        titleTemplate: '%s | Lista de Usuarios',
+        titleTemplate: '%s | Detalles de la venta',
     },
     created() {
-        // this.$store.dispatch('obtenerListaDeUsuarios')
-        this.$store.dispatch('obtenerListaVentas');
+        this.$store.dispatch('obtenerDetallesCompras', { id: this.$route.params.ID });
+        this.$store.dispatch('obtenerDetallesCompraMateriales', { id: this.$route.params.ID });
 
     },
     data() {
         return {
-            modal: false,
-            search: {
-                nombre: "",
-                usuario: "",
-                fecha: "",
-                especializacion: "",
-                nivel: "",
-            },
+            loading: false,
         }
     },
     methods: {
         parseDate(date) {
             return new Date(date).toLocaleString();
-        },
-        handleClose() {
-            this.modal = false;
-        },
-       
+        }
     },
     computed: {
-        // usuarios () {
-        //   return this.$store.getters.getusuarios;
-        // },
-        Ventas() {
-            return this.$store.getters.getListaVentas;
-        }
+        detallesCompra () {
+          return this.$store.getters.getDetallesCompra;
+        },
+        detallesCompraMateriales () {
+          return this.$store.getters.getDetallesCompraMateriales;
+        },
+       
     }
 }
 </script>

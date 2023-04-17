@@ -40,6 +40,8 @@ export default {
         context.commit('setTipoProducto', resultado.data)
       } catch (error) {
         if (error.response) {
+          context.dispatch('getLoadingApp', false);
+          console.log("entro")
           return error.response.data
           /*Notification({
             title: config.frontend.title,
@@ -73,7 +75,10 @@ export default {
 
         context.commit('setDetalleTipoProductoId', resultado.data)
       } catch (error) {
+
         if (error.response) {
+          context.dispatch('getLoadingApp', false);
+
           return error.response.data
           /*Notification({
             title: config.frontend.title,

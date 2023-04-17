@@ -57,26 +57,16 @@
                                     class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                     <label>
                                         <p class="ml-1">Tipo</p>
-                                        <el-select v-model="materialDetalles.data[0].tipo_recurso"
-                                            placeholder="Tipo de materia" class="w-full">
+                                        <el-select v-model="materialDetalles.data[0].tipo_recurso"  class="w-full">
                                             <el-option
-                                                :selected="materialDetalles.data[0].id_tipo_recurso === item.id_tipo_recurso"
                                                 v-for="item in tipoMaterial.data" :key="item.id_tipo_recurso"
+                                                :selected="materialDetalles.data[0].id_tipo_recurso == item.id_tipo_recurso"
                                                 :label="item.nombre_tipo_recurso" :value="item.id_tipo_recurso"></el-option>
                                         </el-select>
                                     </label>
                                 </div>
                                 <div v-else>
                                     <h3 class="mb-3 ml-3">No existen tipos de materiales</h3>
-                                </div>
-
-                                <div v-if="materialDetalles.data[0].tipo_recurso === 1"
-                                    class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                    <label>
-                                        <p class="ml-1">Costo</p>
-                                        <el-input placeholder="Costo del servicio" type="number"
-                                            v-model="materialDetalles.data[0].costo"></el-input>
-                                    </label>
                                 </div>
 
 
@@ -90,13 +80,12 @@
                     </label>
                   </div>
                 -->
-
                             </div>
                             <br>
                             <div class="flex flex-wrap justify-around">
                                 <el-popconfirm confirm-button-text='Si, Eliminar' confirm-button-type="danger"
                                     cancel-button-text='No, Cancelar' icon="el-icon-info" icon-color="red"
-                                    :title="`Estas seguro de eliminar el material ${materialDetalles.data[0].nombre_recurso}?`"
+                                    :title="`Estas seguro de eliminar el material ${materialDetalles.data[0].nombre}?`"
                                     class="w-full md:w-1/3" @confirm="eliminarMaterial(materialDetalles.data[0])">
                                     <button slot="reference" :disabled="loading"
                                         class="w-full bg-red-600 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"

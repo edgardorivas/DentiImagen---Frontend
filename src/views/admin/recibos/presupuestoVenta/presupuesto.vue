@@ -15,7 +15,6 @@
                   <el-steps align-center :active="active" finish-status="success">
                       <el-step title="Datos basicos"></el-step>
                       <el-step title="Servicios aplicados"></el-step>
-                      <el-step title="Materiales invertidos"></el-step>
                       <el-step title="Vista previa"></el-step>
                   </el-steps>
               </div>
@@ -103,13 +102,7 @@
                               </label>
                           </div>
 
-                          <div class="md:w-1/2 lg:w-3/6 px-2 mb-3 pt-1">
-                              <label>
-                                  <p class="ml-1">Costo del servicio</p>
-                                  <el-input placeholder="Costo del servicio" type="number"
-                                      v-model="serviciosIngresados.costoServicio"></el-input>
-                              </label>
-                          </div>
+                         
 
                           <div class="md:w-1/2 lg:w-3/6 px-2 mb-3 pt-7">
                               <button type="button"
@@ -129,8 +122,28 @@
                               <!-- tabla -->
                               <el-table :data="datosVenta.servicios" class="w-full mt-10 ">
                                   <el-table-column prop="idServicio" label="Id"></el-table-column>
-                                  <el-table-column prop="nombre_servicio" label="Servicio"></el-table-column>
-                                  <el-table-column prop="costoServicio" label="Costo"></el-table-column>
+
+                                    <el-table-column  label="Nombre del servicio" >
+                                        <template slot-scope="scope">
+                                            <div v-for="item in servicios.data" :key="item.id_servicio">
+                                                <p v-if="item.id_servicio == scope.row.idServicio">
+                                                    {{ item.nombre_servicio}}
+                                                </p>
+                                            </div>
+                                        </template>
+                                    </el-table-column>
+
+
+                                    <el-table-column  label="Costo del servicio" >
+                                        <template slot-scope="scope">
+                                            <div v-for="item in servicios.data" :key="item.id_servicio">
+                                                <p v-if="item.id_servicio == scope.row.idServicio">
+                                                    {{ item.costo_dolares }}
+                                                </p>
+                                            </div>
+                                        </template>
+                                    </el-table-column>
+
                                   <el-table-column prop="cantidadRealizadas" label="Repeticiones"></el-table-column>
 
                                   <el-table-column  label="Operaciones" width="170">
@@ -148,7 +161,7 @@
                           </div>
 
                       </div>
-
+<!-- 
                       <div v-if="active== 3" class="flex flex-wrap justify-around mt-5">
 
 
@@ -191,13 +204,28 @@
                                       </template>
                                   </el-table-column>
                               </el-table>
+
+                              <div v-else class=" w-1/2 sm:ml-32 md:ml-36 lg:ml-96 mb-20">
+                                    <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                                        <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                                        <span class="sr-only">Danger</span>
+                                        <div>
+                                            <span class="font-medium">Consideraciones para registrar los materiales de la Venta</span>
+                                            <ul class="mt-1.5 ml-4 list-disc list-inside">
+                                                <li>Tener registrados previamente los materiales</li>
+                                                <li>Asociar los materiales al proveedor previamente selecionado</li>
+                                                <li>Mantener la infomacion actualizada de los materiales que maneja cada proveedor</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
                           </div>
 
 
 
-                      </div>
+                      </div> -->
 
-                      <div v-if="active== 4" class="flex flex-wrap justify-around mt-5">
+                      <div v-if="active== 3" class="flex flex-wrap justify-around mt-5">
                           <div class="w-11/12 mt-10 ml-48  m-0 p-0">
 
                               <div class="block w-7/8 mb-10  p-6 bg-white border border-gray-200 rounded-lg shadow-md">
@@ -309,7 +337,17 @@
                                                   </p>
                                               </template>
                                           </el-table-column>
-                                          <el-table-column prop="costoServicio" label="Costo"></el-table-column>
+
+                                          <el-table-column  label="Costo del servicio" >
+                                                <template slot-scope="scope">
+                                                    <div v-for="item in servicios.data" :key="item.id_servicio">
+                                                        <p v-if="item.id_servicio == scope.row.idServicio">
+                                                            {{ item.costo_dolares }}
+                                                        </p>
+                                                    </div>
+                                                </template>
+                                            </el-table-column>
+
                                           <el-table-column prop="cantidadRealizadas" label="Cantidad"></el-table-column>
                                       </el-table>
                                   </div>
@@ -508,7 +546,7 @@ export default {
             break;
           }
         }
-        if (this.active < 4) {
+        if (this.active < 3) {
           this.active++;
         }
       },
@@ -565,11 +603,24 @@ export default {
           console.log(datos)
       },
       calculosRapidos(){
-          for (let index = 0; index < this.datosVenta.servicios.length; index++) {
-              this.sumaTodoServicio += (Number(this.datosVenta.servicios[index].costoServicio) * parseInt(this.datosVenta.servicios[index].cantidadRealizadas))
-          }
-          let iva = this.sumaTodoServicio * (parseInt(this.datosVenta.ivaVenta )/ 100);
-          this.totalSuma = this.sumaTodoServicio + iva;
+            this.sumaTodoServicio = 0;
+            this.totalSuma =
+
+            this.datosVenta.servicios.forEach((servicioSeleccionado,indice)=>{
+
+                return this.servicios.data.forEach(servicioGuardados => {
+                    if(servicioSeleccionado.idServicio == servicioGuardados.id_servicio){
+                        this.datosVenta.servicios[indice].costoServicio =servicioGuardados.costo_dolares;
+                    }
+                } )
+            })
+            console.log(this.datosVenta)
+
+            for (let index = 0; index < this.datosVenta.servicios.length; index++) {
+                this.sumaTodoServicio += (Number(this.datosVenta.servicios[index].costoServicio) * parseInt(this.datosVenta.servicios[index].cantidadRealizadas))
+            }
+            let iva = this.sumaTodoServicio * (parseInt(this.datosVenta.ivaVenta )/ 100);
+            this.totalSuma = this.sumaTodoServicio + iva;
 
       },
       async ingresarVenta(){
@@ -593,6 +644,7 @@ export default {
                   message: request.data.mensaje,
                   type: 'success',
               });
+              this.$router.push({ path: '/admin/presupuesto/venta/lista' });
 
           } catch (error) {
               if (error.response) {

@@ -23,11 +23,10 @@
                     </button>
                 </div>
                 <div class="mt-5">
-
                     <div v-if="producto && producto.data">
                         <el-table :data="producto.data" class="w-full">
 
-                            <el-table-column fixed prop="nombre" label="Nombre" width="190">
+                            <el-table-column fixed prop="nombre" label="Nombre">
                                 <template slot-scope="scope">
                                     <router-link :to="`/admin/materiales/${scope.row.id_recurso}`"
                                         class="uppercase text-verdiAnderson">
@@ -36,6 +35,8 @@
                                 </template>
                             </el-table-column>
                             <el-table-column prop="descripcion" label="Descripcion"></el-table-column>
+                            <el-table-column prop="tipo" label="Tipo de Material"></el-table-column>
+
 
                             <el-table-column fixed="right" label="Operaciones" width="170">
                                 <template slot-scope="scope">

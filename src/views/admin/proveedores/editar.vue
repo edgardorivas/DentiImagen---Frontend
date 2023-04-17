@@ -122,11 +122,10 @@
                             <!-- Modal para agregar nuevos material al provedor-->
                             <el-dialog title="Agregar mas items al poveedor" :visible.sync="centerDialogVisible" width="30%" center>
                                 <p class="px-2 mb-3 text-center">Seleccione los materiales </p>
-                                
                                 <div v-if="materiales" class="w-full md:w-1/2 lg:w-3/12 px-2 mb-3 py-1">
                                     <label>
                                         <el-select v-model="nuevosItems.materiales"  multiple placeholder="Materiales disponibles" class="w-96 ml-24">
-                                        <el-option v-for="item in materiales" :key="item.id" :label="item.nombre"  :value="item.id"></el-option>
+                                            <el-option v-for="item in materiales" :key="item.id" :label="item.nombre"  :value="item.id"></el-option>
                                         </el-select>
                                     </label>
                                 </div>
@@ -138,10 +137,11 @@
                                         type="button">Cerrar</button>
 
                                     <button :disabled="loading"
-                                        class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
-                                        
-                                        v-on:click="agregarItemsProveedor(proveedorDetalles.data[0].id_provedor)"
-                                        type="button">Guardar</button>
+                                    class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
+                                    v-on:click="agregarItemsProveedor(proveedorDetalles.data[0].id_provedor)"
+                                    type="button">
+                                        Guardar
+                                    </button>
                                 </div>
                             </el-dialog>
 
@@ -322,9 +322,11 @@ export default {
 
         },
         async eliminarAsociacionItemProveedor(idProveedor,indiceArray,arrayMateriales){
-            console.log("-------",idProveedor,"---------------",indiceArray,'------------------',arrayMateriales[indiceArray].id_recurso)
             let idMaterial= arrayMateriales[indiceArray].id_recurso
             try {
+                if(this.materialesProveedor.data.length <= 1){
+                    throw new Error("El proveedor tiene que tener como minimo un material asociado")
+                }
                 this.$store.dispatch('getLoadingApp', true);
                 this.loading = true;
                 const token = localStorage.getItem('token_acess');
@@ -353,7 +355,13 @@ export default {
                         message: error.response.data.mensaje || 'Sin mensaje del servidor',
                         type: 'error',
                     });
-                } else {
+                }else if(error.message){
+                    this.$message({
+                        message: error.message || 'Sin mensaje del servidor',
+                        type: 'error',
+                    });
+                } 
+                else {
                     this.$message({
                         message: 'No estas conectado a internet.',
                         type: 'error'
@@ -362,6 +370,7 @@ export default {
                 this.$store.dispatch('getLoadingApp', false);
                 this.loading = false;
             }
+            
 
         }
         // mostrarMaterialesProveedor() {
@@ -386,18 +395,19 @@ export default {
             let res = [];
             let materialesAsociadosProveedor = this.materialesProveedor.data;
             
-            if(typeof materialesAsociadosProveedor != "undefined"){
+            if(typeof materialesAsociadosProveedor != "undefined" &&  !(materialesAsociadosProveedor instanceof Error)){
                 let materiales = this.$store.getters.getproducto;
                 console.log(materiales)
 
                 res = materiales.data.filter(item => {
                     return !materialesAsociadosProveedor.filter(x => item.id_recurso == x.id_recurso).length > 0 
                 });
+                console.log(res)
               
                 return res;
                 
             }
-            return this.$store.getters.getproducto
+            return this.$store.getters.getproducto.data
             
         }
     }

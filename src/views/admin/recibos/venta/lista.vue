@@ -24,33 +24,30 @@
                     </button>
                 </div>
                 <div class="mt-5">
-                    {{ Ventas.data }}
                     <div v-if="Ventas && Ventas.data">
                         <el-table :data="Ventas.data" class="w-full">
-
                             <el-table-column fixed prop="paciente" label="Paciente" width="190">
                                 <template slot-scope="scope">
                                     <router-link :to="`/admin/paciente/id/${scope.row.id_pacinte}`"
                                         class="uppercase text-verdiAnderson">
-                                        @{{ scope.row.paciente }}
+                                        @{{ scope.row.nombre_paciente }}
                                     </router-link>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="apellidos" label="Apellido"></el-table-column>
-                            <el-table-column prop="cedula" label="Cedula"></el-table-column>
-                            <el-table-column prop="trabajador" label="Odontologo"></el-table-column>
-                            <el-table-column prop="monto_dolares" label="Total $"></el-table-column>
-                            <el-table-column prop="precio_impuesto" label="Precio Impuesto"></el-table-column>
-                            <el-table-column prop="precio_unitario" label="Presio Unitario"></el-table-column>
+                            <el-table-column prop="apellido_paciente" label="Apellido"></el-table-column>
+                            <el-table-column prop="edad_paciente" label="Edad"></el-table-column>
 
-                            <el-table-column prop="iva" label="Iva"></el-table-column>
+                            <el-table-column prop="cedula_paciente" label="Cedula"></el-table-column>
+                            <el-table-column prop="nombre_trabajador" label="Odontologo"></el-table-column>
+                            <el-table-column prop="precio_total" label="Total $"></el-table-column>
+                            <el-table-column prop="iva_venta" label="Iva"></el-table-column>
                             <el-table-column prop="forma_pago" label="Forma de pago"></el-table-column>
 
 
 
                             <el-table-column prop="fecha" label="Creado">
                                 <template slot-scope="scope">
-                                    <p class="">{{ parseDate(scope.row.fecha) }}</p>
+                                    <p class="">{{ parseDate(scope.row.fecha_venta) }}</p>
                                 </template>
                             </el-table-column>
 

@@ -34,7 +34,7 @@
                             <el-table-column   label="Operaciones" >
                                 <template slot-scope="scope">
                                     <p class="text-left ml-8">
-                                        <router-link :to="`admin/servicios/${scope.row.id_servicio}`"
+                                        <router-link :to="`/admin/servicios/${scope.row.id_servicio}`"
                                             class="text-verdiAnderson text-xs w-full">
                                             Editar
                                         </router-link>
@@ -42,6 +42,9 @@
                                 </template>
                             </el-table-column>
                         </el-table>
+                    </div>
+                    <div v-else>
+                        <h3> No Exisiten servicios registrados</h3>
                     </div>
                 </div>
             </div>

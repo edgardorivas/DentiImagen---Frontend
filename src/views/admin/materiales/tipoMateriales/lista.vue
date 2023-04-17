@@ -68,7 +68,7 @@ export default {
         titleTemplate: '%s | Lista de tipos de Materia',
     },
     created() {
-        this.aplicarFiltro();
+        this.$store.dispatch('obtenerListaDeTipoProducto');
     },
     data() {
         return {
@@ -86,9 +86,7 @@ export default {
         handleClose() {
             this.modal = false;
         },
-        aplicarFiltro() {
-            this.$store.dispatch('obtenerListaDeTipoProducto');
-        }
+        
     },
     computed: {
         tipoProducto() {
