@@ -11,7 +11,7 @@
                             </h3>
                         </div>
                         <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-                            <router-link to="/admin/recibo/compra/agregar"
+                            <router-link to="/admin/presupuesto/venta/agregar"
                                 class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 ">
                                 Agregar nuevo
                             </router-link>
@@ -31,18 +31,17 @@
                                 <template slot-scope="scope">
                                     <router-link :to="`/admin/paciente/id/${scope.row.id_pacinte}`"
                                         class="uppercase text-verdiAnderson">
-                                        @{{ scope.row.paciente }}
+                                        @{{ scope.row.nombre_paciente }}
                                     </router-link>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="apellidos" label="Apellido"></el-table-column>
-                            <el-table-column prop="cedula" label="Cedula"></el-table-column>
-                            <el-table-column prop="trabajador" label="Odontologo"></el-table-column>
-                            <el-table-column prop="monto_dolares" label="Total $"></el-table-column>
-                            <el-table-column prop="precio_impuesto" label="Precio Impuesto"></el-table-column>
-                            <el-table-column prop="precio_unitario" label="Presio Unitario"></el-table-column>
+                            <el-table-column prop="apellido_paciente" label="Apellido"></el-table-column>
+                            <el-table-column prop="cedula_paciente" label="Cedula"></el-table-column>
+                            <el-table-column prop="nombre_trabajador" label="Odontologo"></el-table-column>
+                            <el-table-column prop="presio_dolar" label="Valor del $"></el-table-column>
+                            <el-table-column prop="precio_total" label="Precio Impuesto"></el-table-column>
 
-                            <el-table-column prop="iva" label="Iva"></el-table-column>
+                            <el-table-column prop="iva_presupuesto" label="Iva"></el-table-column>
                             <el-table-column prop="forma_pago" label="Forma de pago"></el-table-column>
 
 
@@ -50,6 +49,17 @@
                             <el-table-column prop="fecha" label="Creado">
                                 <template slot-scope="scope">
                                     <p class="">{{ parseDate(scope.row.fecha) }}</p>
+                                </template>
+                            </el-table-column>
+                            <el-table-column fixed="right" label="Operaciones" width="170">
+                                <template slot-scope="scope">
+                                    <p class="text-left">
+                                        <router-link :to="`/admin/presupuesto/venta/detalles/${scope.row.id_presupuesto}`"
+                                            class="text-red-600 text-xs w-full">
+                                            <p class="text-sm">Ver detalles</p>
+                                            
+                                        </router-link>
+                                    </p>
                                 </template>
                             </el-table-column>
                         </el-table>
@@ -110,6 +120,9 @@
                           </form>
                       </el-drawer>
                       Fin del contenido -->
+                    </div>
+                    <div v-else>
+                        <h3>No existe ningun presupuesto registrado</h3>
                     </div>
                 </div>
             </div>

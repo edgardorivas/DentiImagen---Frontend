@@ -55,6 +55,9 @@
               </el-table-column>
             </el-table>
           </div>
+          <div v-else>
+              <h3>No existe registro de pacientes</h3>
+          </div>
         </div>
       </div>
     </div>
@@ -69,7 +72,8 @@
       titleTemplate: "%s | Lista de Pacientes",
     },
     created() {
-      this.aplicarFiltro();
+      this.$store.dispatch("obtenerListaDePacientes");
+
     },
     data() {
       return {
@@ -86,9 +90,7 @@
       handleClose() {
         this.modal = false;
       },
-      aplicarFiltro() {
-        this.$store.dispatch("obtenerListaDePacientes");
-      },
+
     },
     computed: {
       pacientes() {

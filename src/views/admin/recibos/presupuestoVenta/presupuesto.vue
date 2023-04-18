@@ -324,19 +324,29 @@
                                       <el-divider>Servicio</el-divider>
                                   </div>
 
-
-
                                   <!-- tabla -->
                                   <div class="relative overflow-x-auto mt-10">
+
                                       <el-table :data="datosVenta.servicios" class="w-full mt-10 ">
                                           <el-table-column prop="idServicio" label="Id"></el-table-column>
-                                          <el-table-column v-for="dato in datosServicioTabla" :key="dato.id_servicio" class="text-center" label="Operaciones" >
+                                          
+                                          <!-- <el-table-column v-for="dato in datosServicioTabla" :key="dato.id_servicio" class="text-center" label="Operaciones" >
                                               <template  >
                                                   <p >
                                                       {{ dato.nombre_servicio }}
                                                   </p>
                                               </template>
-                                          </el-table-column>
+                                          </el-table-column> -->
+
+                                          <el-table-column  class="text-center" label="Operaciones" >
+                                                <template slot-scope="scope" >
+                                                    <div v-for="dato in datosServicioTabla" :key="dato.id_servicio">
+                                                        <p v-if="dato.id_servicio == scope.row.idServicio">
+                                                            {{ dato.nombre_servicio }}
+                                                        </p>
+                                                    </div>
+                                                </template>
+                                            </el-table-column>
 
                                           <el-table-column  label="Costo del servicio" >
                                                 <template slot-scope="scope">
@@ -347,6 +357,7 @@
                                                     </div>
                                                 </template>
                                             </el-table-column>
+
 
                                           <el-table-column prop="cantidadRealizadas" label="Cantidad"></el-table-column>
                                       </el-table>
@@ -361,8 +372,11 @@
                                   </div>
 
                                   <div v-if="totalSuma != 0" class="border mt-10 flex flex-wrap  border-solid border-gray-400 my-10 p-5">
-                                      <p class=" text-verdiAnderson w-1/2 pl-5 text-2xl">Total</p>
-                                      <p class="w-1/2 text-right text-2xl pl-5">{{ totalSuma }}</p>
+                                    <p class=" text-verdiAnderson w-1/2 pl-5 text-xl"> Iva : </p>
+                                    <p class="w-1/2 text-right text-xl pl-5">{{ datosVenta.ivaVenta }}%</p>
+
+                                    <p class=" text-verdiAnderson w-1/2 pl-5 text-2xl">Total</p>
+                                    <p class="w-1/2 text-right text-2xl pl-5">{{ totalSuma }}</p>
 
                                   </div>
                                   <br>

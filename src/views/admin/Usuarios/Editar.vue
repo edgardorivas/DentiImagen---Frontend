@@ -194,8 +194,6 @@ export default {
         async modificarUsuario(payload) {
             try {
                 console.log(typeof payload.clave)
-                
-                
 
                 if((typeof payload.clave !== 'undefined' || typeof payload.claveRecuperacion !== 'undefined') && 
                 payload.clave != payload.claveRecuperacion){

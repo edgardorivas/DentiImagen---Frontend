@@ -172,6 +172,16 @@ const routes = [
         name: 'Listar presupuesto de Venta',
         component: () => import('../views/admin/recibos/presupuestoVenta/lista.vue'),
       },
+      {
+        path: "/admin/presupuesto/venta/detalles/:ID",
+        name: 'Detalles del presupuesto',
+        component: () => import('../views/admin/recibos/presupuestoVenta/detallesPresupuesto.vue'),
+      },
+      {
+        path: "/admin/presupuesto/convertir/venta/:ID",
+        name: 'Realizar Venta',
+        component: () => import('../views/admin/recibos/presupuestoVenta/detallesPresupuesto.vue'),
+      },
       //Paciente
       {
         path: "/admin/paciente/agregar",

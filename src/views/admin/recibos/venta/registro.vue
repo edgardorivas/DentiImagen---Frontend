@@ -321,11 +321,13 @@
                                         <el-table :data="datosVenta.servicios" class="w-full mt-10 ">
                                             <el-table-column prop="idServicio" label="Id"></el-table-column>
                                             
-                                            <el-table-column v-for="dato in datosServicioTabla" :key="dato.id_servicio" class="text-center" label="Operaciones" >
-                                                <template  >
-                                                    <p >
-                                                        {{ dato.nombre_servicio }}
-                                                    </p>
+                                            <el-table-column  class="text-center" label="Operaciones" >
+                                                <template slot-scope="scope" >
+                                                    <div v-for="dato in datosServicioTabla" :key="dato.id_servicio">
+                                                        <p v-if="dato.id_servicio == scope.row.idServicio">
+                                                            {{ dato.nombre_servicio }}
+                                                        </p>
+                                                    </div>
                                                 </template>
                                             </el-table-column>
 

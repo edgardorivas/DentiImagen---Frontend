@@ -24,7 +24,6 @@
           </button>
         </div>
         <div class="mt-5">
-          
           <div v-if="usuarios && usuarios.data">
             <el-table :data="usuarios.data" class="w-full">
               <el-table-column fixed prop="usuario" label="Usuario" width="190">
@@ -58,7 +57,7 @@
                 width="170">
                 <template slot-scope="scope">
                   <p class="text-center">
-                    <router-link :to="`/admin/usuarios/${scope.row.id}`" class="text-verdiAnderson text-xs w-full">
+                    <router-link :to="`/admin/usuarios/${scope.row.id_usuario}`" class="text-verdiAnderson text-xs w-full">
                       Editar
                     </router-link>
                   </p>

@@ -41,8 +41,8 @@ export default {
       } catch (error) {
         if (error.response) {
           context.dispatch('getLoadingApp', false);
-          console.log("entro")
-          return error.response.data
+          console.log("entro tipo")
+          return error.response
           /*Notification({
             title: config.frontend.title,
             message: error,
