@@ -2,7 +2,7 @@
     <!-- se mejorara la presentacion de los recibos , y se mostraran como tajetas-->
     <div class="flex flex-wrap mt-4">
         <div class="w-full mb-12 xl:mb-0 px-4">
-            <div v-if="detallesCompra && detallesCompra.data"  class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+            <div v-if="venta && venta.data"  class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
                 <div class="flex justify-center">
                     <div class="rounded-t mb-0 px-4 py-3 border-0">
                         <h3 
@@ -11,19 +11,17 @@
                         </h3>
                     </div>
                 </div>
-                
                 <div class="mt-5 pb-5">
                     <div >
                         <form >
                             <div class="flex flex-wrap justify-around">
-
                                 <div class="block w-2/3 mb-10  p-6 bg-white border border-gray-200 rounded-lg shadow-md  dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"> 
                                     
                                     <div class="flex justify-center">
                                         <div class="rounded-t mb-0 px-4 py-3 border-0">
                                             <p 
                                                 class="font-semibold text-lg text-verdiAnderson uppercase">
-                                                Detalles de la  compra N-<span class="text-verdiAnderson">{{ detallesCompra.data[0].id_compra }} </span>
+                                                Detalles de la  venta N-<span class="text-verdiAnderson">{{ detallesVenta.data[0].id_venta }} </span>
                                             </p>
                                         </div>
                                     </div>
@@ -53,84 +51,88 @@
                                                 <b>Datos del Trabajador </b>
                                             </p>
                                             <p class="font-normal text-gray-700 dark:text-gray-400">
-                                                <b>Nombres: </b> {{ detallesCompra.data[0].nombre_trabajador }}
+                                                <b>Nombres: </b> {{ venta.data[0].nombre_trabajador }}
                                             </p>
                                             <p class="font-normal text-gray-700 dark:text-gray-400">
-                                                <b>Apellido: </b> {{ detallesCompra.data[0].apellido_trabajador }}
+                                                <b>Apellido: </b> {{ venta.data[0].apellido_trabajador }}
                                             </p>
                                             <p class="font-normal text-gray-700 dark:text-gray-400">
-                                                <b>telefono: </b> {{ detallesCompra.data[0].telefono_trabajador}}
+                                                <b>Especializacion: </b> {{ venta.data[0].especializacion_trabajador}}
                                             </p>
                                            
                                         </div>
                                     </div>
 
                                     <div class="w-11/12">
-                                        <el-divider>Datos de la compra</el-divider>
+                                        <el-divider>Datos del Paciente</el-divider>
                                     </div>
 
                                     <div class="flex mt-9 pl-20 flex-wrap justify-start">
 
                                         <div class="w-11/12">
                                             <p  class="border font-normal p-2 text-gray-700 dark:text-gray-400">
-                                                <b >Nombre del Proveedor: </b> {{ detallesCompra.data[0].nombre_proveedor }}
+                                                <b >Nombres: </b> {{ venta.data[0].nombre_paciente }}
                                             </p>
                                             <p class="border font-normal p-2 text-gray-700 dark:text-gray-400">
-                                                <b>Metodo de pago: </b>{{ detallesCompra.data[0].forma_pago }}
+                                                <b>Apellidos: </b>{{ venta.data[0].apellido_paciente }}
                                             </p>
                                             <p class="border font-normal p-2 text-gray-700 dark:text-gray-400">
-                                                <b>Referencia: </b>{{ detallesCompra.data[0].referencias }}
+                                                <b>Edad: </b>{{ venta.data[0].edad_paciente }}
                                             </p>
                                             <p class="border font-normal p-2 text-gray-700 dark:text-gray-400">
-                                                <b>Fecha de compra: </b> {{ parseDate(detallesCompra.data[0].fecha_compra) }}
+                                                <b>Genero: </b>{{ venta.data[0].genero_paciente }}
+                                            </p>
+                                            <p class="border font-normal p-2 text-gray-700 dark:text-gray-400">
+                                                <b>Cedula: </b>{{ venta.data[0].cedula_paciente }}
+                                            </p>
+                                            <p class="border font-normal p-2 text-gray-700 dark:text-gray-400">
+                                                <b>Fecha de la venta: </b> {{ parseDate(venta.data[0].fecha_venta) }}
+                                            </p>
+                                            <p class="border font-normal p-2 text-gray-700 dark:text-gray-400">
+                                                <b>Forma de pago: </b>{{ venta.data[0].forma_pago }}
                                             </p>
                                             
                                         </div>
                                     </div>
 
                                     <div class="w-11/12">
-                                        <el-divider>Detalles de la  Compra</el-divider>
+                                        <el-divider>Detalles de la  Venta</el-divider>
                                     </div>
 
 
 
                                     <!-- tabla -->
-                                    <div class="relative overflow-x-auto mt-10">
+                                    <div v-if="detallesVenta && detallesVenta.data" class="relative overflow-x-auto mt-10">
                                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                                 <tr>
                                                     <th scope="col" class="px-6 text-sm py-3 text-verdiAnderson">
-                                                        Material
+                                                        Servicio
                                                     </th>
                                                     <th scope="col" class="px-6 text-sm py-3 text-verdiAnderson">
-                                                        Unidades Compradas
+                                                        Valor del servicio
                                                     </th>
                                                     <th scope="col" class="px-6 text-sm py-3 text-verdiAnderson">
-                                                        Tipo de moneda
+                                                        Cantidad de veces aplicada
                                                     </th>
-                                                    <th scope="col" class="px-6 text-sm py-3 text-verdiAnderson">
-                                                        Costo 
-                                                    </th>
+                                                    
                                                 </tr>
                                             </thead>
-                                            <tbody v-if="detallesCompraMateriales && detallesCompraMateriales.data">
-                                                <tr v-for="material in detallesCompraMateriales.data" :key="material.id_recurso" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                            <tbody >
+                                                <tr v-for="servicio in detallesVenta.data" :key="servicio.id_detalles_servicios" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                     
                                                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                        {{  material.nombre_recurso}}
+                                                        {{  servicio.nombre_servicio}}
                                                     </th>
 
                                                     <td class="px-6 py-4">
-                                                        {{ material.unidades_compradas }}
+                                                        {{ servicio.presio_servicio }}
                                                     </td>
 
                                                     <td class="px-6 py-4">
-                                                        {{ material.tipo_moneda }}
+                                                        {{ servicio.cantidad }}
                                                     </td>
                                                     
-                                                    <td class="px-6 py-4">
-                                                        {{ material.costo_unidad }}
-                                                    </td>
                                                 </tr>
                                                 
                                             </tbody>
@@ -139,8 +141,12 @@
 
 
                                     <div class="border flex flex-wrap  border-solid border-gray-400 my-10 p-5">
+
+                                        <p class=" text-verdiAnderson w-1/2 pl-5 text-xl">Iva</p>
+                                        <p class="w-1/2 text-right text-xl pl-5">{{ venta.data[0].iva_venta }} %</p>
+
                                         <p class=" text-verdiAnderson w-1/2 pl-5 text-2xl">Total</p>
-                                        <p class="w-1/2 text-right text-2xl pl-5">{{ detallesCompra.data[0].monto_total }}</p>
+                                        <p class="w-1/2 text-right text-2xl pl-5">{{ venta.data[0].precio_total }}</p>
                                         
                                     </div>
                                     <br>
@@ -170,8 +176,8 @@ export default {
         titleTemplate: '%s | Detalles de la venta',
     },
     created() {
-        this.$store.dispatch('obtenerDetallesCompras', { id: this.$route.params.ID });
-        this.$store.dispatch('obtenerDetallesCompraMateriales', { id: this.$route.params.ID });
+        this.$store.dispatch('obtenerVenta', { id: this.$route.params.ID });
+        this.$store.dispatch('obtenerDetallesVenta', { id: this.$route.params.ID });
 
     },
     data() {
@@ -185,11 +191,11 @@ export default {
         }
     },
     computed: {
-        detallesCompra () {
-          return this.$store.getters.getDetallesCompra;
+        detallesVenta () {
+          return this.$store.getters.getDetallesVenta;
         },
-        detallesCompraMateriales () {
-          return this.$store.getters.getDetallesCompraMateriales;
+        venta () {
+          return this.$store.getters.getVentas;
         },
        
     }

@@ -6,6 +6,9 @@ export default {
     state: {
         listaVentas: [],
         listaServicios: [],
+        venta: [],
+        detallesVenta: []
+
     },
     mutations: {
         setListaVentas: (state, value) => {
@@ -15,6 +18,13 @@ export default {
             state.listaServicios = value
         },
 
+        setVentas: (state, value) => {
+            state.venta = value
+        },
+        setDetallesVenta: (state, value) => {
+            state.detallesVenta = value
+        },
+
     },
     getters: {
         getListaVentas: (state) => {
@@ -22,6 +32,13 @@ export default {
         },
         getListaServicios: (state) => {
             return state.listaServicios
+        },
+
+        getVentas: (state) => {
+            return state.venta
+        },
+        getDetallesVenta: (state) => {
+            return state.detallesVenta
         },
 
     },
@@ -84,6 +101,65 @@ export default {
                     })
                 }
                 context.commit('setListaServicios', [])
+            }
+            context.dispatch('getLoadingApp', false);
+        },
+
+        async obtenerVenta(context, payload = { id: String }) {
+            const token = localStorage.getItem('token_acess')
+            context.dispatch('getLoadingApp', true);
+            try {
+                const resultado = await axios({
+                    method: 'GET',
+                    baseURL: config.backend.baseURL,
+                    url: `/venta/${payload.id}`,
+                    headers: {
+                        ['auth-token']: token,
+                    },
+                    data: payload,
+                });
+                context.commit('setVentas', resultado.data)
+            } catch (error) {
+                if (error.response) {
+                    context.dispatch('getLoadingApp', false);
+                    return false
+                } else {
+                    Notification({
+                        title: config.frontend.title,
+                        message: 'Error al acceder a internet',
+                        type: 'error'
+                    })
+                }
+                context.commit('setVentas', [])
+            }
+            context.dispatch('getLoadingApp', false);
+        },
+        async obtenerDetallesVenta(context, payload = { id: String }) {
+            const token = localStorage.getItem('token_acess')
+            context.dispatch('getLoadingApp', true);
+            try {
+                const resultado = await axios({
+                    method: 'GET',
+                    baseURL: config.backend.baseURL,
+                    url: `/venta/detalles/${payload.id}`,
+                    headers: {
+                        ['auth-token']: token,
+                    },
+                    data: payload,
+                });
+                context.commit('setDetallesVenta', resultado.data)
+            } catch (error) {
+                if (error.response) {
+                    context.dispatch('getLoadingApp', false);
+                    return false
+                } else {
+                    Notification({
+                        title: config.frontend.title,
+                        message: 'Error al acceder a internet',
+                        type: 'error'
+                    })
+                }
+                context.commit('setDetallesVenta', [])
             }
             context.dispatch('getLoadingApp', false);
         },
