@@ -22,7 +22,7 @@
                                     <p class="ml-1">Paciente | <small>No esta registrado? <router-link
                                                 class="text-verdiAnderson" to="/admin/paciente/agregar">Registrar
                                                 Paciente</router-link></small> </p>
-                                                
+
                                     <el-select v-model="odontodiagrama.paciente" filterable
                                         placeholder="Seleccione el paciente" class="w-full">
                                         <el-option v-for="paciente in pacientesData.data" :key="paciente.id_paciente"
@@ -41,7 +41,7 @@
                                     </el-date-picker>
                                 </label>
                             </div>
-                            
+
                             <div class="w-11/12">
                                 <el-divider>Odontodiagrama</el-divider>
                             </div>
@@ -479,6 +479,7 @@ export default {
                     data: {
                         id: this.odontodiagrama.paciente,
                         dientes: this.odontodiagrama.dientes,
+                        fecha: this.fechaRegistron
                     },
                 });
                 this.$store.dispatch('getLoadingApp', false);
