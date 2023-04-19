@@ -2,7 +2,6 @@
     <div class="flex flex-wrap mt-4">
         <div class="w-full mb-12 xl:mb-0 px-4">
             <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
-                {{ odontodiagramaPaciente }}
                 <div class="flex justify-center">
                     <div class="rounded-t mb-0 px-4 py-3 border-0">
                         <h3 class="font-semibold text-xl text-blueGray-700 uppercase">
@@ -11,7 +10,7 @@
                     </div>
                 </div>
                 <div class="mt-5 pb-5">
-                    <form v-if="paciente" @submit.prevent="actualizacionPaciente(paciente)">
+                    <form v-if="paciente" @submit.prevent="false">
                         <div class="flex flex-wrap justify-around">
                             <div class="w-11/12">
                                 <el-divider>Datos del Paciente</el-divider>
@@ -179,40 +178,26 @@
                                 </label>
                             </div>
                         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        <div v-if="odontodiagramaPaciente && odontodiagramaPaciente.dientes" class="flex flex-wrap justify-around">
-                            
+                        <div v-if="odontodiagramaPaciente && odontodiagramaPaciente.length" class="flex flex-wrap justify-around mt-5">
                             <div class="w-11/12">
                                 <el-divider>Odontodiagrama</el-divider>
+                            </div>
+                            <div class="w-11/12 text-center">
+                                <br>
+                                <h3>Fecha: {{parseDate(odontodiagramaPaciente[posicion].fecha_registro)}}</h3>
+                                <br><br>
                             </div>
                             <!-- c-1 -->
                             <div
                                 class="w-full md:w-1/2 lg:w-6/12 px-2 mb-3 py-1 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-200">
                                 <p class="text-center">Punto de Referencia <b class="text-verdiAnderson">
-                                        C-{{ odontodiagrama.dientes['C-1']._index }}</b></p>
+                                        C-{{ odontodiagramaPaciente[posicion].dientes['C-1']._index }}</b></p>
                                 <br>
                                 <div class="flex flex-wrap justify-start flex-row-reverse">
                                     <div class="w-full">
                                         <p><small><i>Sección Adultos</i></small></p>
                                     </div>
-                                    <div v-for="(diente, key_diente) of odontodiagrama.dientes['C-1'].adulto"
+                                    <div v-for="(diente, key_diente) of odontodiagramaPaciente[posicion].dientes['C-1'].adulto"
                                         :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
                                         <button @click="abrirModal(diente)" type="button"
                                             class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
@@ -228,7 +213,7 @@
                                     <div class="w-full">
                                         <p><small><i>Sección Niños</i></small></p>
                                     </div>
-                                    <div v-for="(diente, key_diente) of odontodiagrama.dientes['C-1'].nino"
+                                    <div v-for="(diente, key_diente) of odontodiagramaPaciente[posicion].dientes['C-1'].nino"
                                         :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
                                         <button @click="abrirModal(diente)" type="button"
                                             class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
@@ -246,13 +231,13 @@
                             <div
                                 class="w-full md:w-1/2 lg:w-6/12 px-2 mb-3 py-1 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-200">
                                 <p class="text-center">Punto de Referencia <b class="text-verdiAnderson">
-                                        C-{{ odontodiagrama.dientes['C-2']._index }}</b></p>
+                                        C-{{ odontodiagramaPaciente[posicion].dientes['C-2']._index }}</b></p>
                                 <br>
                                 <div class="flex flex-wrap justify-start">
                                     <div class="w-full">
                                         <p class="text-end"><small><i>Sección Adultos</i></small></p>
                                     </div>
-                                    <div v-for="(diente, key_diente) of odontodiagrama.dientes['C-2'].adulto"
+                                    <div v-for="(diente, key_diente) of odontodiagramaPaciente[posicion].dientes['C-2'].adulto"
                                         :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
                                         <button @click="abrirModal(diente)" type="button"
                                             class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
@@ -268,7 +253,7 @@
                                     <div class="w-full">
                                         <p class="text-end"><small><i>Sección Niños</i></small></p>
                                     </div>
-                                    <div v-for="(diente, key_diente) of odontodiagrama.dientes['C-2'].nino"
+                                    <div v-for="(diente, key_diente) of odontodiagramaPaciente[posicion].dientes['C-2'].nino"
                                         :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
                                         <button @click="abrirModal(diente)" type="button"
                                             class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
@@ -286,13 +271,13 @@
                             <div
                                 class="w-full md:w-1/2 lg:w-6/12 px-2 mb-3 py-1 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-200">
                                 <p class="text-center">Punto de Referencia <b class="text-verdiAnderson">
-                                        C-{{ odontodiagrama.dientes['C-4']._index }}</b></p>
+                                        C-{{ odontodiagramaPaciente[posicion].dientes['C-4']._index }}</b></p>
                                 <br>
                                 <div class="flex flex-wrap justify-start flex-row-reverse mt-2">
                                     <div class="w-full">
                                         <p class=""><small><i>Sección Niños</i></small></p>
                                     </div>
-                                    <div v-for="(diente, key_diente) of odontodiagrama.dientes['C-4'].nino"
+                                    <div v-for="(diente, key_diente) of odontodiagramaPaciente[posicion].dientes['C-4'].nino"
                                         :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
                                         <button @click="abrirModal(diente)" type="button"
                                             class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
@@ -308,7 +293,7 @@
                                     <div class="w-full">
                                         <p class=""><small><i>Sección Adultos</i></small></p>
                                     </div>
-                                    <div v-for="(diente, key_diente) of odontodiagrama.dientes['C-4'].adulto"
+                                    <div v-for="(diente, key_diente) of odontodiagramaPaciente[posicion].dientes['C-4'].adulto"
                                         :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
                                         <button @click="abrirModal(diente)" type="button"
                                             class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
@@ -326,13 +311,13 @@
                             <div
                                 class="w-full md:w-1/2 lg:w-6/12 px-2 mb-3 py-1 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-200">
                                 <p class="text-center">Punto de Referencia <b class="text-verdiAnderson">
-                                        C-{{ odontodiagrama.dientes['C-3']._index }}</b></p>
+                                        C-{{ odontodiagramaPaciente[posicion].dientes['C-3']._index }}</b></p>
                                 <br>
                                 <div class="flex flex-wrap justify-start mt-2">
                                     <div class="w-full">
                                         <p class="text-end"><small><i>Sección Niños</i></small></p>
                                     </div>
-                                    <div v-for="(diente, key_diente) of odontodiagrama.dientes['C-3'].nino"
+                                    <div v-for="(diente, key_diente) of odontodiagramaPaciente[posicion].dientes['C-3'].nino"
                                         :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
                                         <button @click="abrirModal(diente)" type="button"
                                             class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
@@ -348,7 +333,7 @@
                                     <div class="w-full">
                                         <p class="text-end"><small><i>Sección Adultos</i></small></p>
                                     </div>
-                                    <div v-for="(diente, key_diente) of odontodiagrama.dientes['C-3'].adulto"
+                                    <div v-for="(diente, key_diente) of odontodiagramaPaciente[posicion].dientes['C-3'].adulto"
                                         :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
                                         <button @click="abrirModal(diente)" type="button"
                                             class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
@@ -448,80 +433,20 @@
                                 </div>
                             </el-drawer>
                         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                        <br>
                         <br>
                         <div class="flex flex-wrap justify-around">
-                            <button type="submit" :disabled="loading"
+                            <button type="button" @click="anterior"
+                                class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">
+                                Anterior
+                            </button>
+                            <p class="py-1 px-0 m-0">Pagina {{posicion + 1}}</p>
+                            <button type="button" @click="siguiente"
                                 class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">
                                 Siguiente
                             </button>
                         </div>
+                        <br><br>
                     </form>
                     <div v-else>
                         <div class="text-center mt-5 py-5">
@@ -545,150 +470,21 @@ export default {
         titleTemplate: "%s | historial del paciente",
     },
     created() {
-        
-        this.$store.dispatch('obtenerOdontodiagramaIdPaciente', { id: this.$route.params.ID });
         this.obtenerDatosPaciente(this.$route.params.ID);
-
     },
     data() {
         return {
             loading: false,
             diente: null,
-            odontodiagrama: this.getObjectOdontodiagrama(),
+            odontodiagrama: [],
             modal: false,
-
+            posicion: 0,
         };
     },
     methods: {
-        async actualizacionPaciente(pacienteDatos) {
-            try {
-                this.$store.dispatch("getLoadingApp", true);
-                this.loading = true;
-                const token = localStorage.getItem("token_acess");
-
-                const request = await axios({
-                    method: "PATCH",
-                    baseURL: config.backend.baseURL,
-                    url: "/paciente/" + pacienteDatos.id_paciente,
-                    headers: {
-                        ["auth-token"]: token,
-                    },
-                    data: pacienteDatos,
-                });
-
-                this.$store.dispatch("getLoadingApp", false);
-                this.loading = false;
-                this.$message({
-                    message: "Actualizado Exitosamente",
-                    type: "success",
-                });
-                this.$router.push({ path: "/admin/paciente/lista" });
-            } catch (error) {
-                if (error.response) {
-                    this.$message({
-                        message: error.response.data.mensaje || "Sin mensaje del servidor",
-                        type: "error",
-                    });
-                } else {
-                    this.$message({
-                        message: "No estas conectado a internet.",
-                        type: "error",
-                    });
-                }
-                this.$store.dispatch("getLoadingApp", false);
-                this.loading = false;
-                console.clear();
-            }
-        },
         obtenerDatosPaciente(ID) {
+            this.$store.dispatch('obtenerOdontodiagramaIdPaciente', { id: ID });
             this.$store.dispatch("obtenerPacienteId", {id: ID,});
-        },
-
-        getObjectOdontodiagrama() {
-            return {
-                dientes: {
-                    'C-1': {
-                        _index: 1,
-                        adulto: {
-                            11: this.getObjectDiente(),
-                            12: this.getObjectDiente(),
-                            13: this.getObjectDiente(),
-                            14: this.getObjectDiente(),
-                            15: this.getObjectDiente(),
-                            16: this.getObjectDiente(),
-                            17: this.getObjectDiente(),
-                            18: this.getObjectDiente(),
-                        },
-                        nino: {
-                            51: this.getObjectDiente(),
-                            52: this.getObjectDiente(),
-                            53: this.getObjectDiente(),
-                            54: this.getObjectDiente(),
-                            55: this.getObjectDiente(),
-                        },
-                    },
-                    'C-2': {
-                        _index: 2,
-                        adulto: {
-                            21: this.getObjectDiente(),
-                            22: this.getObjectDiente(),
-                            23: this.getObjectDiente(),
-                            24: this.getObjectDiente(),
-                            25: this.getObjectDiente(),
-                            26: this.getObjectDiente(),
-                            27: this.getObjectDiente(),
-                            28: this.getObjectDiente(),
-                        },
-                        nino: {
-                            61: this.getObjectDiente(),
-                            62: this.getObjectDiente(),
-                            63: this.getObjectDiente(),
-                            64: this.getObjectDiente(),
-                            65: this.getObjectDiente(),
-                        },
-                    },
-                    'C-3': {
-                        _index: 3,
-                        adulto: {
-                            31: this.getObjectDiente(),
-                            32: this.getObjectDiente(),
-                            33: this.getObjectDiente(),
-                            34: this.getObjectDiente(),
-                            35: this.getObjectDiente(),
-                            36: this.getObjectDiente(),
-                            37: this.getObjectDiente(),
-                            38: this.getObjectDiente(),
-                        },
-                        nino: {
-                            71: this.getObjectDiente(),
-                            72: this.getObjectDiente(),
-                            73: this.getObjectDiente(),
-                            74: this.getObjectDiente(),
-                            75: this.getObjectDiente(),
-                        },
-                    },
-                    'C-4': {
-                        _index: 4,
-                        adulto: {
-                            41: this.getObjectDiente(),
-                            42: this.getObjectDiente(),
-                            43: this.getObjectDiente(),
-                            44: this.getObjectDiente(),
-                            45: this.getObjectDiente(),
-                            46: this.getObjectDiente(),
-                            47: this.getObjectDiente(),
-                            48: this.getObjectDiente(),
-                        },
-                        nino: {
-                            81: this.getObjectDiente(),
-                            82: this.getObjectDiente(),
-                            83: this.getObjectDiente(),
-                            84: this.getObjectDiente(),
-                            85: this.getObjectDiente(),
-                        },
-                    },
-                },
-            };
         },
         getObjectDiente() {
             return {
@@ -704,11 +500,49 @@ export default {
                 descripcion: null,
             };
         },
-
         abrirModal(value) {
             this.modal = true;
             this.diente = value;
         },
+        parseDate(date) {
+            return new Date(date).toLocaleString();
+        },
+        siguiente() {
+            const copiaDatos = this.odontodiagramaPaciente;
+            if (copiaDatos.length == 0) {
+                this.$message({
+                    message: 'No puedes dar siguiente a un elemento sin datos',
+                    type: 'error'
+                });
+                return false;
+            }
+            if (this.posicion == (copiaDatos.length - 1)) {
+                this.$message({
+                    message: 'Final de la pagina',
+                    type: 'warning'
+                });
+                return false;
+            }
+            this.posicion++;
+        },
+        anterior() {
+            const copiaDatos = this.odontodiagramaPaciente;
+            if (copiaDatos.length == 0) {
+                this.$message({
+                    message: 'No puedes dar anterior a un elemento sin datos',
+                    type: 'error'
+                });
+                return false;
+            }
+            if (this.posicion == 0) {
+                this.$message({
+                    message: 'Ya estas al inicio de la pagina',
+                    type: 'warning'
+                });
+                return false;
+            }
+            this.posicion--;
+        }
     },
     computed: {
         paciente() {
@@ -716,7 +550,6 @@ export default {
         },
         odontodiagramaPaciente(){
             return this.$store.getters.getOdontodiagramaIdPaciente;
-
         }
     },
 };
