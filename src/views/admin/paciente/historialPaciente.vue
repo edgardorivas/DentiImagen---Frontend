@@ -197,7 +197,7 @@
 
 
 
-                        <div v-if="!odontodiagramaPaciente && !odontodiagramaPaciente.dientes" class="flex flex-wrap justify-around">
+                        <div v-if="odontodiagramaPaciente && odontodiagramaPaciente.dientes" class="flex flex-wrap justify-around">
                             
                             <div class="w-11/12">
                                 <el-divider>Odontodiagrama</el-divider>
