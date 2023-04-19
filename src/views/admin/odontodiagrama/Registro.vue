@@ -41,6 +41,7 @@
                                     </el-date-picker>
                                 </label>
                             </div>
+                            
                             <div class="w-11/12">
                                 <el-divider>Odontodiagrama</el-divider>
                             </div>
@@ -205,6 +206,7 @@
                             </div>
 
                         </div>
+
                         <br>
                         <div class="flex flex-wrap justify-around">
                             <button type="submit"

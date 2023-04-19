@@ -44,11 +44,17 @@
                   <p class="">{{ parseDate(scope.row.fecha_creacion) }}</p>
                 </template>
               </el-table-column>
-              <el-table-column fixed="right" label="Operaciones" width="170">
+              <el-table-column label="Operaciones" width="170">
                 <template slot-scope="scope">
                   <p class="text-center">
                     <router-link :to="`/admin/paciente/id/${scope.row.id_paciente}`" class="text-verdiAnderson text-xs w-full">
                       Editar
+                    </router-link>
+                  </p>
+
+                  <p class="text-center">
+                    <router-link :to="`/admin/paciente/historial/${scope.row.id_paciente}`" class="text-indigo-600 text-xs w-full">
+                      Historial
                     </router-link>
                   </p>
                 </template>

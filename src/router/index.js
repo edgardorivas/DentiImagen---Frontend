@@ -198,6 +198,11 @@ const routes = [
         name: 'Detalles del Paciente',
         component: () => import('../views/admin/paciente/editar.vue'),
       },
+      {
+        path: "/admin/paciente/historial/:ID",
+        name: 'historial del Paciente',
+        component: () => import('../views/admin/paciente/historialPaciente.vue'),
+      },
       // Odontodiagrama
       {
         path: "/admin/odontodiagrama/registro",
