@@ -48,7 +48,7 @@
 
                             <el-table-column prop="fecha" label="Creado">
                                 <template slot-scope="scope">
-                                    <p class="">{{ parseDate(scope.row.fecha) }}</p>
+                                    <p class="">{{ parseDate(scope.row.fecha_presupuesto) }}</p>
                                 </template>
                             </el-table-column>
                             <el-table-column fixed="right" label="Operaciones" width="170">

@@ -180,7 +180,7 @@ const routes = [
       {
         path: "/admin/presupuesto/convertir/venta/:ID",
         name: 'Realizar Venta',
-        component: () => import('../views/admin/recibos/presupuestoVenta/detallesPresupuesto.vue'),
+        component: () => import('../views/admin/recibos/presupuestoVenta/convertirPresupuestoHaVenta.vue'),
       },
       //Paciente
       {

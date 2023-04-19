@@ -45,7 +45,6 @@
                                             
                                         </div>
 
-
                                         <div class="w-4/12 border-l-2 border-indigo-600 pl-10">
                                             <p class="font-normal mb-3 text-gray-700 dark:text-gray-400">
                                                 <b>Datos del Trabajador </b>
@@ -201,10 +200,10 @@ export default {
     },
     computed: {
         detallesPresupuesto () {
-          return this.$store.getters.getDetallesPresupuestos;
+            return this.$store.getters.getDetallesPresupuestos;
         },
         presupuesto () {
-          return this.$store.getters.getPresupuestos;
+            return this.$store.getters.getPresupuestos;
         },
        
     }
