@@ -158,7 +158,7 @@ export default {
                     },
                 });
                 if (resultado.data.data.length) {
-                    commit('setOdontodiagramaIdPaciente', resultado.data.data[0])
+                    commit('setOdontodiagramaIdPaciente', resultado.data.data)
                 } else {
                     commit('setOdontodiagramaIdPaciente', null)
                 }
