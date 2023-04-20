@@ -7,6 +7,7 @@ export default {
     usuarios: [],
     detalleUsuarioId: null,
     nivelesUsuarios: null,
+    miUsuario: null,
   },
   mutations: {
     setusuarios: (state, value) => {
@@ -18,6 +19,9 @@ export default {
     setnivelesUsuarios: (state, value) => {
       state.nivelesUsuarios = value
     },
+    setmiUsuario: (state, value) => {
+        state.miUsuario = value
+    },
   },
   getters: {
     getusuarios: (state) => {
@@ -28,6 +32,9 @@ export default {
     },
     getnivelesUsuarios: (state) => {
       return state.nivelesUsuarios
+    },
+    getmiUsuario: (state) => {
+        return state.miUsuario
     },
   },
   actions: {
@@ -125,5 +132,36 @@ export default {
       }
       context.dispatch('getLoadingApp', false);
     },
+    async obtenerMiUsuario(context) {
+        const token = localStorage.getItem('token_acess')
+        context.dispatch('getLoadingApp', true);
+        try {
+            const resultado = await axios({
+                method: 'GET',
+                baseURL: config.backend.baseURL,
+                url: '/usuario/miPerfil',
+                headers: {
+                    ['auth-token']: token,
+                },
+            });
+            context.commit('setmiUsuario', resultado.data.data)
+        } catch (error) {
+            if (error.response) {
+            Notification({
+                title: config.frontend.title,
+                message: error,
+                type: 'error'
+            })
+            } else {
+            Notification({
+                title: config.frontend.title,
+                message: 'Error al acceder a internet',
+                type: 'error'
+            })
+            }
+            context.commit('setmiUsuario', null)
+        }
+        context.dispatch('getLoadingApp', false);
+    }
   }
 }
