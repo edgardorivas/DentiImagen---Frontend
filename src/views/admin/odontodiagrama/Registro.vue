@@ -479,7 +479,7 @@ export default {
                     data: {
                         id: this.odontodiagrama.paciente,
                         dientes: this.odontodiagrama.dientes,
-                        fecha: this.fechaRegistron
+                        fecha: this.odontodiagrama.fechaRegistron
                     },
                 });
                 this.$store.dispatch('getLoadingApp', false);
