@@ -183,8 +183,13 @@
                                 <el-divider>Odontodiagrama</el-divider>
                             </div>
                             <div class="w-11/12 text-center">
+                                <div class="flex flex-wrap justify-around">
+                                  <h3>Fecha: {{parseDate(odontodiagramaPaciente[posicion].fecha_registro)}}</h3>
+                                  <button type="button" @click="centerDialogVisible = true" class="bg-verdiAnderson px-3 rounded-sm text-white text-lg">
+                                    Abrir Estadisticas
+                                  </button>
+                                </div>
                                 <br>
-                                <h3>Fecha: {{parseDate(odontodiagramaPaciente[posicion].fecha_registro)}}</h3>
                                 <br><br>
                             </div>
                             <!-- c-1 -->
@@ -447,6 +452,14 @@
                             </button>
                         </div>
                         <br><br>
+                        <el-dialog title="Estadisticas" :visible.sync="centerDialogVisible" width="80%" center>
+                          <div v-if="estadisticas && estadisticas.datos.length">
+                            <highcharts :options="returnEstadisticasPaciente(estadisticas)"></highcharts>
+                          </div>
+                          <span slot="footer" class="dialog-footer">
+                            <el-button @click="centerDialogVisible = false">Cerrar</el-button>
+                          </span>
+                        </el-dialog>
                     </form>
                     <div v-else>
                         <div class="text-center mt-5 py-5">
@@ -471,6 +484,7 @@ export default {
     },
     created() {
         this.obtenerDatosPaciente(this.$route.params.ID);
+        this.obtenerEstadisticas();
     },
     data() {
         return {
@@ -479,6 +493,8 @@ export default {
             odontodiagrama: [],
             modal: false,
             posicion: 0,
+            estadisticas: null,
+            centerDialogVisible: false,
         };
     },
     methods: {
@@ -542,6 +558,73 @@ export default {
                 return false;
             }
             this.posicion--;
+        },
+        async obtenerEstadisticas() {
+            try {
+                this.$store.dispatch("getLoadingApp", true);
+                const token = localStorage.getItem("token_acess");
+                const request = await axios({
+                    method: "GET",
+                    baseURL: config.backend.baseURL,
+                    url: "/odontodiagrama/paciente/estadisticas/" + this.$route.params.ID,
+                    headers: {
+                        ["auth-token"]: token,
+                    },
+                });
+
+                this.$store.dispatch("getLoadingApp", false);
+                this.estadisticas = request.data.data;
+            } catch (error) {
+                if (error.response) {
+                    this.$message({
+                        message: error.response.data.mensaje || "Sin mensaje del servidor",
+                        type: "error",
+                    });
+                } else {
+                    this.$message({
+                        message: "No estas conectado a internet.",
+                        type: "error",
+                    });
+                }
+                this.$store.dispatch("getLoadingApp", false);
+                this.loading = false;
+                console.clear();
+            }
+        },
+        returnEstadisticasPaciente(payload) {
+          const resultado = {
+            title: { text: `Promedio de Estadisticas del Paciente` },
+            legend: {
+              enabled: true,
+            },
+            credits: { enabled: true },
+            plotOptions: {
+              line: {
+                dataLabels: { enabled: true },
+                enableMouseTracking: true,
+              },
+            },
+            xAxis: {
+              categories: ['Afecciones Curadas', 'Afecciones NO Curadas', 'Sanos', 'NO Sanos', 'Ausentes', 'NO Ausentes'],
+            },
+            series: [
+              {
+                data: [payload.afeccionesCuradas, payload.afeccionesNoCuradas, payload.sanos, payload.noSanos, payload.ausentes, payload.noAusentes],
+                name: "Promedios Actuales",
+                label: "Actual"
+              },
+            ],
+          };
+          for (const odontoviejo of payload.datos) {
+            if (odontoviejo.dientes.sanos) {
+              const objetoSeries = {
+                name: `Estadistica #${odontoviejo.fecha_registro.split('T')[0]}`,
+                data: [odontoviejo.dientes.afeccionesCuradas, odontoviejo.dientes.afeccionesNoCuradas, odontoviejo.dientes.sanos, odontoviejo.dientes.noSanos, odontoviejo.dientes.ausentes, odontoviejo.dientes.noAusentes],
+              }
+              resultado.series.push(objetoSeries);
+            }
+          }
+          return resultado;
         }
     },
     computed: {
