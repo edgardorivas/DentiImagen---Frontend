@@ -28,7 +28,6 @@ export default {
             const token = localStorage.getItem('token_acess')
             context.dispatch('getLoadingApp', true);
             try {
-                console.log("entro");
                 const resultado = await axios({
                     method: 'GET',
                     baseURL: config.backend.baseURL,
@@ -64,7 +63,6 @@ export default {
             const token = localStorage.getItem('token_acess')
             context.dispatch('getLoadingApp', true);
             try {
-                console.log("entro");
                 const resultado = await axios({
                     method: 'GET',
                     baseURL: config.backend.baseURL,

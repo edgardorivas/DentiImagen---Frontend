@@ -33,7 +33,7 @@ export default {
         getTipoMaterial: (state) => {
             return state.tipoMaterial
         },
-        getServicios: (state) => {
+        getServiciosProducto: (state) => {
             return state.servicios
         },
     },
