@@ -25,16 +25,13 @@ export default {
     FooterAdmin,
   },
   created() {
+    this.$store.dispatch('obtenerMiUsuario');
     this.$store.dispatch('obtenerRoles');
     this.$store.dispatch('obtenerListaDeproducto');
     this.$store.dispatch('obtenerTipoProducto');
     this.$store.dispatch('obtenerInventario');
     this.$store.dispatch('obtenerListaDePacientes');
     this.$store.dispatch('obtenerServicios');
-
-
-
-
   }
 };
 </script>
