@@ -23,7 +23,7 @@
                                                 class="text-verdiAnderson" to="/admin/paciente/agregar">Registrar
                                                 Paciente</router-link></small> </p>
 
-                                    <el-select v-model="odontodiagrama.paciente" filterable
+                                    <el-select v-model="odontodiagrama.paciente" filterable @change="actualizarUltimoOdontodiagrama"
                                         placeholder="Seleccione el paciente" class="w-full">
                                         <el-option v-for="paciente in pacientesData.data" :key="paciente.id_paciente"
                                             :label="paciente.nombre_paciente + ' ' + paciente.apellido_paciente"
@@ -297,8 +297,6 @@ export default {
     created() {
         this.getPacientes(this.search);
         this.$store.dispatch('obtenerListaDePacientes');
-
-
     },
     data() {
         return {
@@ -509,6 +507,28 @@ export default {
                 this.$store.dispatch('getLoadingApp', false);
                 console.clear()
             }
+        },
+        async actualizarUltimoOdontodiagrama(evento) {
+          try {
+            this.$store.dispatch('getLoadingApp', true);
+            const token = localStorage.getItem('token_acess');
+            const resultado = await axios({
+                method: 'GET',
+                baseURL: config.backend.baseURL,
+                url: '/odontodiagrama/paciente/ultimo/' + evento,
+                headers: {
+                    ['auth-token']: token,
+                }
+            });
+            if (resultado.data.data) {
+              resultado.data.data.paciente = resultado.data.data.fk_historial_paciente;
+              resultado.data.data.fechaRegistron = new Date();
+              this.odontodiagrama = resultado.data.data;
+            }
+          } catch (error) {
+            console.log(error)
+          }
+          this.$store.dispatch('getLoadingApp', false);
         }
     },
     computed: {
@@ -517,7 +537,7 @@ export default {
         // },
         pacientesData() {
             return this.$store.getters.getPacientes;
-        }
+        },
     }
 }
 </script>

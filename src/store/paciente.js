@@ -8,6 +8,7 @@ export default {
         paciente: {},
         usuariosOdontologicos: [],
         odontodiagramaIdPaciente: [],
+        ultimoOdontodiagramaPaciente: null,
     },
     mutations: {
         setPacientes: (state, value) => {
@@ -21,7 +22,10 @@ export default {
         },
         setOdontodiagramaIdPaciente: (state, value) => {
             state.odontodiagramaIdPaciente = value
-        }
+        },
+        setUltimoOdontodiagramaPaciente: (state, value) => {
+            state.ultimoOdontodiagramaPaciente = value
+        },
     },
     getters: {
         getPacientes: (state) => {
@@ -35,7 +39,10 @@ export default {
         },
         getOdontodiagramaIdPaciente: (state) => {
             return state.odontodiagramaIdPaciente
-        }
+        },
+        getUltimoOdontodiagramaPaciente: (state) => {
+            return state.ultimoOdontodiagramaPaciente
+        },
     },
     actions: {
         async obtenerListaDePacientes(context) {
@@ -181,6 +188,37 @@ export default {
                 commit('setOdontodiagramaIdPaciente', null)
             }
             dispatch('getLoadingApp', false);
+        },
+        async obtenerUltimoOdontodiagrama({ dispatch, commit }, payload = { id: String }) {
+          const token = localStorage.getItem('token_acess')
+          dispatch('getLoadingApp', true);
+          try {
+            const resultado = await axios({
+                method: 'GET',
+                baseURL: config.backend.baseURL,
+                url: '/odontodiagrama/paciente/ultimo/'+ payload.id,
+                headers: {
+                    ['auth-token']: token,
+                }
+            });
+            commit('setUltimoOdontodiagramaPaciente', resultado.data.data)
+          } catch (error) {
+              if (error.response) {
+                  Notification({
+                    title: config.frontend.title,
+                    message: error.response.data.mensaje,
+                    type: 'warning'
+                  })
+              } else {
+                  Notification({
+                      title: config.frontend.title,
+                      message: 'Error al acceder a internet',
+                      type: 'error'
+                  })
+              }
+            commit('setUltimoOdontodiagramaPaciente', null)
+          }
+          dispatch('getLoadingApp', false);
         },
     }
 }
