@@ -144,7 +144,7 @@ export default {
                     ['auth-token']: token,
                 },
             });
-            context.commit('setmiUsuario', resultado.data.data)
+            context.commit('setmiUsuario', resultado.data.data[0])
         } catch (error) {
             if (error.response) {
             Notification({

@@ -1,5 +1,5 @@
 <template>
-  <nav class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6">
+  <nav v-if="getmiUsuario && getmiUsuario.id_usuario" class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6">
     <div class="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
       <!-- Toggler -->
       <button class="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent" type="button" v-on:click="toggleCollapseShow('bg-white m-2 py-3 px-6')">
@@ -45,7 +45,7 @@
             />
           </div>
         </form>
-
+        <p class="uppercase text-center text-xs">{{getmiUsuario.rol}}</p>
         <!-- Divider -->
         <hr class="my-4 md:min-w-full" />
         <!-- Navigation -->
@@ -56,7 +56,7 @@
               Inicio
             </router-link>
           </li>
-          <li class="items-center">
+          <li v-if="getmiUsuario.rol != ('Odontologo', 'Secretaria')" class="items-center">
             <router-link to="/admin/usuarios" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
               <i class="fa-solid fa-user-nurse mr-2 text-sm"></i>
               Usuarios | Trabajadores
@@ -83,7 +83,7 @@
               Lista de Pacientes
             </router-link>
           </li>
-          <li class="items-center">
+          <li v-if="getmiUsuario.rol != ('Administrador', 'Secretaria')" class="items-center">
             <router-link to="/admin/odontodiagrama/registro" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
               <i class="fa-solid fa-teeth-open mr-2 text-sm"></i>
               Nuevo Odontodiagrama
@@ -91,151 +91,153 @@
           </li>
         </ul>
 
+        <div v-if="getmiUsuario.rol != ('Odontologo')">
+            <!-- Divider -->
+            <hr class="my-4 md:min-w-full" />
+            <!-- Heading -->
+            <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+                Ventas a Clientes
+            </h6>
+            <ul class="md:flex-col md:min-w-full flex flex-col list-none">
+                <li class="items-center">
+                    <router-link to="/admin/recibo/venta/agregar" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
+                        <i class="fa-solid fa-cash-register mr-2 text-sm"></i>
+                        Nueva Venta
+                    </router-link>
+                </li>
+                <li class="items-center">
+                    <router-link to="/admin/recibo/venta/lista" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
+                        <i class="fa-solid fa-money-bills mr-2 text-sm"></i>
+                        Listar Ventas
+                    </router-link>
+                </li>
+            </ul>
+        </div>
 
-        <!-- Divider -->
-        <hr class="my-4 md:min-w-full" />
-        <!-- Heading -->
-        <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-          Servicios
-        </h6>
-        <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-          <li class="items-center">
-            <router-link to="/admin/servicios/agregar" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
-              <i class="fa-solid fa-hospital-user mr-2 text-sm"></i>
-              Nuevo Servicio
-            </router-link>
-          </li>
-          <li class="items-center">
-            <router-link to="/admin/servicios" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
-              <i class="fa-solid fa-users mr-2 text-sm"></i>
-              Lista de Servicios
-            </router-link>
-          </li>
-        </ul>
+        <div v-if="getmiUsuario.rol != ('Odontologo')">
+            <!-- Divider -->
+            <hr class="my-4 md:min-w-full" />
+            <!-- Heading -->
+            <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+                Presupuestos a Clientes
+            </h6>
+            <ul class="md:flex-col md:min-w-full flex flex-col list-none">
+                <li class="items-center">
+                    <router-link to="/admin/presupuesto/venta/agregar" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
+                        <i class="fa-solid fa-wallet mr-2 text-sm"></i>
+                        Nuevo Presupuesto
+                    </router-link>
+                </li>
+                <li class="items-center">
+                    <router-link to="/admin/presupuesto/venta/lista" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
+                        <i class="fa-solid fa-money-bills mr-2 text-sm"></i>
+                        Listar Presupuestos
+                    </router-link>
+                </li>
+            </ul>
+        </div>
 
+        <div v-if="getmiUsuario.rol != ('Odontologo', 'Secretaria')">
+            <!-- Divider -->
+            <hr class="my-4 md:min-w-full" />
+            <!-- Heading -->
+            <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+                Compras a Proveedores
+            </h6>
+            <ul class="md:flex-col md:min-w-full flex flex-col list-none">
+                <li class="items-center">
+                    <router-link to="/admin/recibo/compra/agregar" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
+                        <i class="fa-solid fa-cash-register mr-2 text-sm"></i>
+                        Nueva Compra
+                    </router-link>
+                </li>
+            </ul>
+            <ul class="md:flex-col md:min-w-full flex flex-col list-none">
+                <li class="items-center">
+                    <router-link to="/admin/recibo/compra/lista" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
+                        <i class="fa-solid fa-cash-register mr-2 text-sm"></i>
+                        Listar Compras
+                    </router-link>
+                </li>
+            </ul>
+        </div>
 
+        <div v-if="getmiUsuario.rol != ('Odontologo', 'Secretaria')">
+            <!-- Divider -->
+            <hr class="my-4 md:min-w-full" />
+            <!-- Heading -->
+            <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+                Insumos
+            </h6>
+            <ul class="md:flex-col md:min-w-full flex flex-col list-none">
+                <li class="items-center">
+                    <router-link to="/admin/inventario" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
+                        <i class="fa-solid fa-boxes-stacked mr-2 text-sm"></i>
+                        Inventario
+                    </router-link>
+                </li>
+            </ul>
+            <ul class="md:flex-col md:min-w-full flex flex-col list-none">
+                <li class="items-center">
+                    <router-link to="/admin/materiales" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
+                        <i class="fa-solid fa-recycle mr-2 text-sm"></i>
+                        Lista de Insumos / Materiales
+                    </router-link>
+                </li>
+                <li class="items-center">
+                    <router-link to="/admin/tipo-materiales" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
+                        <i class="fa-solid fa-pump-medical mr-2 text-sm"></i>
+                        Lista de Tipos Insumos / Materiales
+                    </router-link>
+                </li>
+            </ul>
+        </div>
 
+        <div v-if="getmiUsuario.rol != ('Odontologo', 'Secretaria')">
+            <!-- Divider -->
+            <hr class="my-4 md:min-w-full" />
+            <!-- Heading -->
+            <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+                Servicios
+            </h6>
+            <ul class="md:flex-col md:min-w-full flex flex-col list-none">
+                <li class="items-center">
+                    <router-link to="/admin/servicios/agregar" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
+                        <i class="fa-solid fa-hospital-user mr-2 text-sm"></i>
+                        Nuevo Servicio
+                    </router-link>
+                </li>
+                <li class="items-center">
+                    <router-link to="/admin/servicios" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
+                        <i class="fa-solid fa-users mr-2 text-sm"></i>
+                        Lista de Servicios
+                    </router-link>
+                </li>
+            </ul>
+        </div>
 
-
-
-
-
-
-
-        <!-- Divider -->
-        <hr class="my-4 md:min-w-full" />
-        <!-- Heading -->
-        <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-          Ventas a Clientes
-        </h6>
-        <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-          <li class="items-center">
-            <router-link to="/admin/recibo/venta/agregar" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
-            <i class="fa-solid fa-cash-register mr-2 text-sm"></i>
-              Nueva Venta
-            </router-link>
-          </li>
-          <li class="items-center">
-            <router-link to="/admin/recibo/venta/lista" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
-            <i class="fa-solid fa-money-bills mr-2 text-sm"></i>
-              Listar Ventas
-            </router-link>
-          </li>
-        </ul>
-
-        <!-- Divider -->
-        <hr class="my-4 md:min-w-full" />
-        <!-- Heading -->
-        <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-          Presupuestos a Clientes
-        </h6>
-        <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-          <li class="items-center">
-            <router-link to="/admin/presupuesto/venta/agregar" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
-            <i class="fa-solid fa-wallet mr-2 text-sm"></i>
-              Nuevo Presupuesto
-            </router-link>
-          </li>
-          <li class="items-center">
-            <router-link to="/admin/presupuesto/venta/lista" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
-            <i class="fa-solid fa-money-bills mr-2 text-sm"></i>
-              Listar Presupuestos
-            </router-link>
-          </li>
-        </ul>
-
-        <!-- Divider -->
-        <hr class="my-4 md:min-w-full" />
-        <!-- Heading -->
-        <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-          Compras a Proveedores
-        </h6>
-        <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-          <li class="items-center">
-            <router-link to="/admin/recibo/compra/agregar" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
-            <i class="fa-solid fa-cash-register mr-2 text-sm"></i>
-              Nueva Compra
-            </router-link>
-          </li>
-        </ul>
-        <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-          <li class="items-center">
-            <router-link to="/admin/recibo/compra/lista" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
-            <i class="fa-solid fa-cash-register mr-2 text-sm"></i>
-              Listar Compras
-            </router-link>
-          </li>
-        </ul>
-
-        <!-- Divider -->
-        <hr class="my-4 md:min-w-full" />
-        <!-- Heading -->
-        <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-          Insumos
-        </h6>
-        <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-          <li class="items-center">
-            <router-link to="/admin/inventario" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
-              <i class="fa-solid fa-boxes-stacked mr-2 text-sm"></i>
-              Inventario
-            </router-link>
-          </li>
-        </ul>
-        <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-          <li class="items-center">
-            <router-link to="/admin/materiales" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
-              <i class="fa-solid fa-recycle mr-2 text-sm"></i>
-              Lista de Insumos / Materiales
-            </router-link>
-          </li>
-          <li class="items-center">
-            <router-link to="/admin/tipo-materiales" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
-              <i class="fa-solid fa-pump-medical mr-2 text-sm"></i>
-              Lista de Tipos Insumos / Materiales
-            </router-link>
-          </li>
-        </ul>
-
-        <!-- Divider -->
-        <hr class="my-4 md:min-w-full" />
-        <!-- Heading -->
-        <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-          Proveedores
-        </h6>
-        <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-          <li class="items-center">
-            <router-link to="/admin/proveedores" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
-            <i class="fa-sharp fa-solid fa-user mr-2 text-sm"></i>
-              Lista de Proveedores
-            </router-link>
-          </li>
-          <li class="items-center">
-            <router-link to="/admin/proveedores/agregar" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
-            <i class="fa-sharp fa-solid fa-user mr-2 text-sm"></i>
-              Agregar Proveedor
-            </router-link>
-          </li>
-        </ul>
+        <div v-if="getmiUsuario.rol != ('Odontologo', 'Secretaria')">
+            <!-- Divider -->
+            <hr class="my-4 md:min-w-full" />
+            <!-- Heading -->
+            <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+                Proveedores
+            </h6>
+            <ul class="md:flex-col md:min-w-full flex flex-col list-none">
+                <li class="items-center">
+                    <router-link to="/admin/proveedores" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
+                        <i class="fa-sharp fa-solid fa-user mr-2 text-sm"></i>
+                        Lista de Proveedores
+                    </router-link>
+                </li>
+                <li class="items-center">
+                    <router-link to="/admin/proveedores/agregar" class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500" exact-active-class="text-emerald-500 hover:text-emerald-600">
+                        <i class="fa-sharp fa-solid fa-user mr-2 text-sm"></i>
+                        Agregar Proveedor
+                    </router-link>
+                </li>
+            </ul>
+        </div>
 
       </div>
     </div>
@@ -260,6 +262,11 @@
       NotificationDropdown,
       UserDropdown,
     },
+    computed: {
+        getmiUsuario() {
+            return this.$store.getters.getmiUsuario;
+        }
+    }
   };
 </script>
 <style>
