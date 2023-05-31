@@ -9,8 +9,8 @@
           <router-view />
         </div>
       </div>
-      <div class="hidden md:inline-block justify-center max-w-md bg-gradient-to-r from-verdiAnderson to-blue-500 h-auto">
-        <div class="flex h-screen justify-center items-center">
+      <div class="hidden md:inline-block justify-end  bg-gradient-to-r from-verdiAnderson to-blue-500 h-auto">
+        <div class="flex h-screen justify-center ">
           <img src="../../assets/img/dentistas.svg" alt="dentistas">
         </div>
       </div>

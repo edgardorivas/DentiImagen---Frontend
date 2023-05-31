@@ -13,6 +13,7 @@
                 </div>
                 <div class="mt-5 pb-5">
                     <div v-if="usuarioDetalle && usuarioDetalle.data">
+                        
                         <form @submit.prevent="modificarUsuario(usuarioDetalle.data[0])">
                             <div class="flex flex-wrap justify-around">
                                 <div class="w-11/12">
