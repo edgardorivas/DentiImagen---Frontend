@@ -10,7 +10,74 @@
                     </div>
                 </div>
                 <div class="mt-5 pb-5">
-                    <form @submit.prevent="registrarProveedor">
+                    <el-form label-position="top" :model="nuevoProveedor" :rules="rules"  ref="registrarProvedor" label-width="120px" class="demo-ruleForm">
+                        <div class="flex flex-wrap justify-around">
+                            <div class="w-11/12">
+                                <el-divider>Datos del proveedor</el-divider>
+                            </div>
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">Nombre</p>
+									<el-form-item prop="nombre">
+                                        <el-input placeholder="Nombre del proveedor"
+                                            v-model="nuevoProveedor.nombre"></el-input>
+									</el-form-item>
+
+                                </label>
+                            </div>
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">Correo</p>
+									<el-form-item prop="correo">
+                                        <el-input placeholder="Correo del proveedor" type="email" 
+                                            v-model="nuevoProveedor.correo"></el-input>
+									</el-form-item>
+
+                                </label>
+                            </div>
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">Telefono</p>
+									<el-form-item prop="telefono">
+                                        <el-input placeholder="Telefono del proveedor" type="number" 
+                                            v-model="nuevoProveedor.telefono"></el-input>
+									</el-form-item>
+
+                                </label>
+                            </div>
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">Rif</p>
+									<el-form-item prop="rif">
+                                        <el-input placeholder="RIF del proveedor" v-model="nuevoProveedor.rif"></el-input>
+									</el-form-item>
+
+                                </label>
+                            </div>
+                            <div v-if="materiales && materiales.data" class="w-full md:w-1/2 lg:w-3/12 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">Materiales posibles</p>
+									<el-form-item prop="recursos">
+                                        <el-select v-model="nuevoProveedor.recursos" multiple placeholder="Materiales"
+                                            class="w-full">
+                                            <el-option v-for="item in materiales.data" :key="item.id" :label="item.nombre"
+                                                :value="item.id"></el-option>
+                                        </el-select>
+									</el-form-item>
+
+                                </label>
+                            </div>
+
+                        </div>
+
+                        <br>
+                        <div class="flex flex-wrap justify-around">
+                            <button :disabled="loading" type="button" v-on:click="registrarProveedor"
+                                class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">Guardar</button>
+                        </div>
+                    </el-form>
+
+                    <!-- <form @submit.prevent="registrarProveedor">
                         <div class="flex flex-wrap justify-around">
                             <div class="w-11/12">
                                 <el-divider>Datos del proveedor</el-divider>
@@ -60,7 +127,7 @@
                             <button :disabled="loading"
                                 class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">Guardar</button>
                         </div>
-                    </form>
+                    </form> -->
                 </div>
             </div>
         </div>
@@ -84,6 +151,26 @@ export default {
                 rif: null,
                 recursos: [],
             },
+            rules: {
+                nombre: [
+                    { required: true, message: 'Es necesario ingresar el nombre del proveedor', trigger: 'change' },
+                    { min: 2,  message: 'El nombre del proveedor tiene que ser como minimo 2 caracteres', trigger: 'change' }
+                ],
+                correo: [
+                    { type:"email" ,required: true, message: 'Es necesario ingresar el correo electronico del proveedor', trigger: 'change' },
+                ],
+                telefono: [
+                    { required: true, message: 'Es necesario ingresar el numero telefonico del proveedor', trigger: 'change' },
+                    { length:11,  message: 'Se tiene que escribir los 11 digitos de un numero celular', trigger: 'change' }
+                ],
+                rif: [
+                    { required: true, message: 'Es necesario ingresar el RIF del proveedor', trigger: 'change' },
+                    { length: 10,  message: 'Se tiene que escribir los 10 digitos del RIF', trigger: 'change' }
+                ],
+                recursos: [
+                    { type: 'array', required: true, message: 'Es necesario ingresar los materiales que maneja este proveedor', trigger: 'change' },
+                ],
+            },
             loading: false,
         }
     }, created() {
@@ -91,42 +178,46 @@ export default {
     },
     methods: {
         async registrarProveedor() {
-            try {
-                this.$store.dispatch('getLoadingApp', true);
-                this.loading = true;
-                const token = localStorage.getItem('token_acess');
-                const request = await axios({
-                    method: 'POST',
-                    baseURL: config.backend.baseURL,
-                    url: '/provedor',
-                    headers: {
-                        ['auth-token']: token,
-                    },
-                    data: this.nuevoProveedor
-                });
-                this.$store.dispatch('getLoadingApp', false);
-                this.loading = false;
-                this.$message({
-                    message: 'Registrado Exitosamente',
-                    type: 'success',
-                });
-                this.$router.push({ path: '/admin/proveedores' });
-            } catch (error) {
-                if (error.response) {
-                    this.$message({
-                        message: error.response.data.mensaje || 'Sin mensaje del servidor',
-                        type: 'error',
-                    });
-                } else {
-                    this.$message({
-                        message: 'No estas conectado a internet.',
-                        type: 'error'
-                    });
+            this.$refs['registrarProvedor'].validate(async (valid) => {
+                if(valid){
+                    try {
+                        this.$store.dispatch('getLoadingApp', true);
+                        this.loading = true;
+                        const token = localStorage.getItem('token_acess');
+                        const request = await axios({
+                            method: 'POST',
+                            baseURL: config.backend.baseURL,
+                            url: '/provedor',
+                            headers: {
+                                ['auth-token']: token,
+                            },
+                            data: this.nuevoProveedor
+                        });
+                        this.$store.dispatch('getLoadingApp', false);
+                        this.loading = false;
+                        this.$message({
+                            message: 'Registrado Exitosamente',
+                            type: 'success',
+                        });
+                        this.$router.push({ path: '/admin/proveedores' });
+                    } catch (error) {
+                        if (error.response) {
+                            this.$message({
+                                message: error.response.data.mensaje || 'Sin mensaje del servidor',
+                                type: 'error',
+                            });
+                        } else {
+                            this.$message({
+                                message: 'No estas conectado a internet.',
+                                type: 'error'
+                            });
+                        }
+                        this.$store.dispatch('getLoadingApp', false);
+                        this.loading = false;
+                        console.clear()
+                    }
                 }
-                this.$store.dispatch('getLoadingApp', false);
-                this.loading = false;
-                console.clear()
-            }
+			});
         },
     },
     computed: {
