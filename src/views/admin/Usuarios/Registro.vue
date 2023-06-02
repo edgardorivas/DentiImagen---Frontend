@@ -10,7 +10,9 @@
                     </div>
                 </div>
                 <div class="mt-5 pb-5">
+
                     <el-form label-position="top" :model="nuevoUsuario" :rules="rules"  ref="nuevoUsuario" label-width="120px" class="demo-ruleForm">
+                        
                         <div class="flex flex-wrap justify-around">
                             <div class="w-11/12">
                                 <el-divider>Datos del Trabajador</el-divider>
@@ -59,9 +61,10 @@
                                 <label>
                                     <p class="ml-1">Telefono</p>
                                     <el-form-item prop="telefono">
-                                        <el-input placeholder="Telefono del trabajador" type="tel" v-model="nuevoUsuario.telefono"></el-input>
+                                        <el-input placeholder="Telefono del trabajador" type="number" v-model="nuevoUsuario.telefono"></el-input>
                                     </el-form-item>
                                 </label>
+                                
                             </div>
 
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
@@ -333,6 +336,7 @@
 <script>
 import config from "../../../config";
 import axios from "axios";
+import usuarios from '@/store/usuarios';
 export default {
     name: "users-add",
     metaInfo: {
@@ -371,14 +375,11 @@ export default {
                 ],
                 correo: [
                     { type: 'email', required: true, message: 'Ingrese un correo electronico valido', trigger: 'change',
-                    transform(value) {
-                        return value + this.selectMail;
-                    }, 
                 }
                 ],
                 telefono: [
-                    { type: 'integer', required: true, message: 'Es obligatorio el numero de telefono ', trigger: 'change' },
-                    { min: 11,max:11,  message: 'El numero telefonico tiene que contener 11 digitos', trigger: 'blur' }
+                    { type: 'string',required: true, message: 'Es obligatorio el numero de telefono ', trigger: 'change' },
+                    { length:11,  message: 'El numero telefonico tiene que contener 11 digitos', trigger: 'blur'}
 
                 ],
                 especializacion: [
