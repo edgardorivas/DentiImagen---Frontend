@@ -14,7 +14,92 @@
                 <div class="mt-5 pb-5">
 
                     <div v-if="materialDetalles && materialDetalles.data">
-                        <form @submit.prevent="modificarMaterial(materialDetalles.data[0])">
+
+                        <el-form label-position="top" :model="materialDetalles.data[0]" :rules="rules"  ref="editarMaterial" label-width="120px" class="demo-ruleForm">
+                            <div class="flex flex-wrap justify-around">
+                                <div class="w-11/12">
+                                    <el-divider>Datos de la materia</el-divider>
+                                </div>
+                                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                    <label>
+                                        <p class="ml-1">Nombres</p>
+                                        <el-form-item prop="nombre">
+                                            <el-input placeholder="Nombres de la materia" type="text" auto-complete="name"
+                                                v-model="materialDetalles.data[0].nombre"></el-input>
+                                        </el-form-item>
+                                    </label>
+
+                                </div>
+                                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                    <label>
+                                        <p class="ml-1">Descripcion</p>
+                                        <el-form-item prop="descripcion">
+
+                                            <el-input placeholder="Descripcion del material" type="text"
+                                                v-model="materialDetalles.data[0].descripcion"></el-input>
+                                        </el-form-item>
+
+                                    </label>
+                                </div>
+
+                                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                    <label>
+                                        <p class="ml-1">Cantidad disponible</p>
+                                        <el-form-item prop="disponible">
+                                            <el-input placeholder="Cantidad disponible del material" type="number"
+                                                v-model="materialDetalles.data[0].disponible"></el-input>
+                                        </el-form-item>
+
+                                    </label>
+                                </div>
+
+                                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                    <label>
+                                        <p class="ml-1">cantidad minima</p>
+                                        <el-form-item prop="minimo">
+                                            <el-input placeholder="cantidad minima del material" type="number"
+                                                v-model="materialDetalles.data[0].minimo"></el-input>
+                                        </el-form-item>
+
+                                    </label>
+                                </div>
+
+                                <div v-if="tipoMaterial && tipoMaterial.data"
+                                    class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                    <label>
+                                        <p class="ml-1">Tipo</p>
+                                        <el-form-item prop="id_tipo_recurso">
+                                            <el-select v-model="materialDetalles.data[0].id_tipo_recurso"  class="w-full">
+                                                <el-option
+                                                    v-for="item in tipoMaterial.data" :key="item.id_tipo_recurso"
+                                                    :label="item.nombre_tipo_recurso" :value="item.id_tipo_recurso"></el-option>
+                                            </el-select>
+                                        </el-form-item>
+
+                                    </label>
+                                </div>
+                                <div v-else>
+                                    <h3 class="mb-3 ml-3">No existen tipos de materiales</h3>
+                                </div>
+
+                            </div>
+                            <br>
+                            <div class="flex flex-wrap justify-around">
+                                <el-popconfirm confirm-button-text='Si, Eliminar' confirm-button-type="danger"
+                                    cancel-button-text='No, Cancelar' icon="el-icon-info" icon-color="red"
+                                    :title="`Estas seguro de eliminar el material ${materialDetalles.data[0].nombre}?`"
+                                    class="w-full md:w-1/3" @confirm="eliminarMaterial(materialDetalles.data[0])">
+                                    <button slot="reference" :disabled="loading"
+                                        class="w-full bg-red-600 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
+                                        type="button">Eliminar</button>
+                                </el-popconfirm>
+                                <button :disabled="loading"
+                                    class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
+                                    type="button" v-on:click="modificarMaterial(materialDetalles.data[0])">Guardar</button>
+                            </div>
+                        </el-form>
+
+                        <!-- <form @submit.prevent="modificarMaterial(materialDetalles.data[0])">
                             <div class="flex flex-wrap justify-around">
                                 <div class="w-11/12">
                                     <el-divider>Datos de la materia</el-divider>
@@ -69,17 +154,6 @@
                                     <h3 class="mb-3 ml-3">No existen tipos de materiales</h3>
                                 </div>
 
-
-                                <!--
-                  <div v-if="nivelesUsuario && nivelesUsuario.data" class="w-full md:w-1/2 lg:w-3/12 px-2 mb-3 py-1">
-                    <label>
-                      <p class="ml-1">Nivel / Rol</p>
-                      <el-select v-model="usuarioDetalle.data[0].nivel" placeholder="Nivel del trabajador" class="w-full">
-                        <el-option v-for="item in nivelesUsuario.data" :key="item.id_nivel_usuario" :label="item.nombre_nivel_usuario" :value="item.id_nivel_usuario"></el-option>
-                      </el-select>
-                    </label>
-                  </div>
-                -->
                             </div>
                             <br>
                             <div class="flex flex-wrap justify-around">
@@ -95,7 +169,7 @@
                                     class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
                                     type="submit">Guardar</button>
                             </div>
-                        </form>
+                        </form> -->
                     </div>
                 </div>
             </div>
@@ -117,46 +191,73 @@ export default {
     data() {
         return {
             loading: false,
+            rules: {
+                nombre: [
+                    { required: true, message: 'Es necesario ingresar los nombre del material', trigger: 'change' },
+                    { min: 2,  message: 'Los nombre tiene que tener mas de 5 caracteres', trigger: 'change' }
+                ],
+                descripcion: [
+                    { required: true, message: 'Es necesario ingresar los apellido del paciente', trigger: 'change' },
+                    { min: 5,  message: 'La descripcion tiene que ser mayor a  5 caracteres', trigger: 'change' }
+                ],
+                disponible: [
+                    { required: true, message: 'Es necesario ingresar la cantidad disponible actualmente', trigger: 'change' },
+                    { min: 1, message: 'La cantidad disponible tiene que tener como minimo un digito ', trigger: 'change' }
+                ],
+                minimo: [
+                    { required: true, message: 'Es necesario ingresar la cantidad minima permitida', trigger: 'change' },
+                    { min: 1,  message: 'La cantidad minima permitida tiene que tener como minimo un digito', trigger: 'change' }
+                ],
+                id_tipo_recurso: [
+                    { required: true, message: 'Es obligatorio seleccionar un tipo de material', trigger: 'change'}
+                ],
+                
+            },
         }
     },
     methods: {
         async modificarMaterial(payload) {
-            try {
-                this.$store.dispatch('getLoadingApp', true);
-                this.loading = true;
-                const token = localStorage.getItem('token_acess');
-                const request = await axios({
-                    method: 'PATCH',
-                    baseURL: config.backend.baseURL,
-                    url: '/recurso/' + payload.id_recurso,
-                    headers: {
-                        ['auth-token']: token,
-                    },
-                    data: payload
-                });
-                this.$store.dispatch('getLoadingApp', false);
-                this.loading = false;
-                this.$message({
-                    message: 'Modificado Exitosamente',
-                    type: 'success',
-                });
-                this.$router.push({ path: '/admin/materiales' });
-            } catch (error) {
-                if (error.response) {
-                    this.$message({
-                        message: error.response.data.mensaje || 'Sin mensaje del servidor',
-                        type: 'error',
-                    });
-                } else {
-                    this.$message({
-                        message: 'No estas conectado a internet.',
-                        type: 'error'
-                    });
+            this.$refs['editarMaterial'].validate(async (valid) => {
+                if(valid){
+                    try {
+                        this.$store.dispatch('getLoadingApp', true);
+                        this.loading = true;
+                        const token = localStorage.getItem('token_acess');
+                        const request = await axios({
+                            method: 'PATCH',
+                            baseURL: config.backend.baseURL,
+                            url: '/recurso/' + payload.id_recurso,
+                            headers: {
+                                ['auth-token']: token,
+                            },
+                            data: payload
+                        });
+                        this.$store.dispatch('getLoadingApp', false);
+                        this.loading = false;
+                        this.$message({
+                            message: 'Modificado Exitosamente',
+                            type: 'success',
+                        });
+                        this.$router.push({ path: '/admin/materiales' });
+                    } catch (error) {
+                        if (error.response) {
+                            this.$message({
+                                message: error.response.data.mensaje || 'Sin mensaje del servidor',
+                                type: 'error',
+                            });
+                        } else {
+                            this.$message({
+                                message: 'No estas conectado a internet.',
+                                type: 'error'
+                            });
+                        }
+                        this.$store.dispatch('getLoadingApp', false);
+                        this.loading = false;
+                        console.clear()
+                    }
                 }
-                this.$store.dispatch('getLoadingApp', false);
-                this.loading = false;
-                console.clear()
-            }
+            });
+
         },
         async eliminarMaterial(payload) {
             console.log(payload.id)

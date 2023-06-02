@@ -1,104 +1,156 @@
 <template>
-    <div class="flex flex-wrap mt-4">
-      <div class="w-full mb-12 xl:mb-0 px-4">
-        <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
-          <div class="flex justify-center">
-            <div class="rounded-t mb-0 px-4 py-3 border-0">
-              <h3 class="font-semibold text-xl text-blueGray-700 uppercase">
-                Registro de Tipo Materiales
-              </h3>
-            </div>
-          </div>
-          <div class="mt-5 pb-5">
-            <form @submit.prevent="registroMaterial">
-              <div class="flex flex-wrap justify-around">
-                <div class="w-11/12">
-                  <el-divider>Datos del tipo de materia</el-divider>
-                </div>
-                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                  <label>
-                    <p class="ml-1">Nombre</p>
-                    <el-input placeholder="Nombre del tipo de material" auto-complete="name" v-model="nuevoTipoMaterial.nombre"></el-input>
-                  </label>
-                </div>
-                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                  <label>
-                    <p class="ml-1">Descripcion</p>
-                    <el-input placeholder="Descripcion del tipo material" auto-complete="family-name" v-model="nuevoTipoMaterial.descripcion"></el-input>
-                  </label>
-                </div>
-              </div>
-              <br>
-              <div class="flex flex-wrap justify-around">
-                <button :disabled="loading" class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">Guardar</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </template>
-  <script>
-    import config from "../../../../config";
-    import axios from "axios";
-    export default {
-      name: "typeProduct-add",
-      metaInfo: {
-        title: config.frontend.title,
-        titleTemplate: "%s | Agregar nuevo material",
-      },
-      created() {
-        console.log("que paso")
-      },
-      data() {
-        return {
-          nuevoTipoMaterial: {
-            nombre: null,
-            descripcion: null,
-          },
-          loading: false,
-        }
-      },
-      methods: {
-        async registroMaterial() {
-          try {
-            this.$store.dispatch('getLoadingApp', true);
-            this.loading = true;
-            const token = localStorage.getItem('token_acess');
-            const request = await axios({
-              method: 'POST',
-              baseURL: config.backend.baseURL,
-              url: '/tipo-recurso',
-              headers: {
-                ['auth-token']: token,
-              },
-              data: this.nuevoTipoMaterial
-            });
-            this.$store.dispatch('getLoadingApp', false);
-            this.loading = false;
-            this.$message({
-              message: 'Registrado Exitosamente',
-              type: 'success',
-            });
-            this.$router.push({ path: '/admin/tipo-materiales' });
-          } catch (error) {
-            if (error.response) {
-              this.$message({
-                message: error.response.data.mensaje || 'Sin mensaje del servidor',
-                type: 'error',
-              });
-            } else {
-              this.$message({
-                message: 'No estas conectado a internet.',
-                type: 'error'
-              });
-            }
-            this.$store.dispatch('getLoadingApp', false);
-            this.loading = false;
-            console.clear()
-          }
-        },
-      }
-    };
-  </script>
+	<div class="flex flex-wrap mt-4">
+		<div class="w-full mb-12 xl:mb-0 px-4">
+			<div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+				<div class="flex justify-center">
+					<div class="rounded-t mb-0 px-4 py-3 border-0">
+						<h3 class="font-semibold text-xl text-blueGray-700 uppercase">
+							Registro de Tipo Materiales
+						</h3>
+					</div>
+				</div>
+				<div class="mt-5 pb-5">
+                    <el-form label-position="top" :model="nuevoTipoMaterial" :rules="rules"  ref="registroTipoMaterial" label-width="120px" class="demo-ruleForm">
+						<div class="flex flex-wrap justify-around">
+							<div class="w-11/12">
+								<el-divider>Datos del tipo de materia</el-divider>
+							</div>
+							<div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+								<label>
+									<p class="ml-1">Nombre</p>
+                                    <el-form-item prop="nombre">
+										<el-input placeholder="Nombre del tipo de material" 
+											v-model="nuevoTipoMaterial.nombre"></el-input>
+                                    </el-form-item>
+
+								</label>
+							</div>
+							<div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+								<label>
+									<p class="ml-1">Descripcion</p>
+                                    <el-form-item prop="descripcion">
+										<el-input placeholder="Descripcion del tipo material" 
+											v-model="nuevoTipoMaterial.descripcion"></el-input>
+                                    </el-form-item>
+
+								</label>
+							</div>
+						</div>
+						<br>
+						<div class="flex flex-wrap justify-around">
+							<button :disabled="loading" v-on:click="registroTipoMaterial" type="button"
+								class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">Guardar</button>
+						</div>
+					</el-form>
+
+					<!-- <form @submit.prevent="registroMaterial">
+						<div class="flex flex-wrap justify-around">
+							<div class="w-11/12">
+								<el-divider>Datos del tipo de materia</el-divider>
+							</div>
+							<div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+								<label>
+									<p class="ml-1">Nombre</p>
+									<el-input placeholder="Nombre del tipo de material" auto-complete="name"
+										v-model="nuevoTipoMaterial.nombre"></el-input>
+								</label>
+							</div>
+							<div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+								<label>
+									<p class="ml-1">Descripcion</p>
+									<el-input placeholder="Descripcion del tipo material" auto-complete="family-name"
+										v-model="nuevoTipoMaterial.descripcion"></el-input>
+								</label>
+							</div>
+						</div>
+						<br>
+						<div class="flex flex-wrap justify-around">
+							<button :disabled="loading"
+								class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">Guardar</button>
+						</div>
+					</form> -->
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+<script>
+import config from "../../../../config";
+import axios from "axios";
+export default {
+	name: "typeProduct-add",
+	metaInfo: {
+		title: config.frontend.title,
+		titleTemplate: "%s | Agregar nuevo material",
+	},
+	created() {
+		console.log("que paso")
+	},
+	data() {
+		return {
+			nuevoTipoMaterial: {
+				nombre: null,
+				descripcion: null,
+			},
+			loading: false,
+			rules: {
+                nombre: [
+                    { required: true, message: 'Es necesario ingresar el nombre del tipo de material', trigger: 'change' },
+                    { min: 2,  message: 'el nombre del tipo de material tiene que ser como minimo 2 caracteres', trigger: 'change' }
+                ],
+                descripcion: [
+                    { required: true, message: 'Es necesario ingresar la descripcion del tipo de material', trigger: 'change' },
+                    { min: 5,  message: 'La descripcion tiene que ser mayor a  5 caracteres', trigger: 'change' }
+                ]
+                
+            },
+		}
+	},
+	methods: {
+		async registroTipoMaterial() {
+            this.$refs['registroTipoMaterial'].validate(async (valid) => {
+				if(valid){
+					try {
+						this.$store.dispatch('getLoadingApp', true);
+						this.loading = true;
+						const token = localStorage.getItem('token_acess');
+						const request = await axios({
+							method: 'POST',
+							baseURL: config.backend.baseURL,
+							url: '/tipo-recurso',
+							headers: {
+								['auth-token']: token,
+							},
+							data: this.nuevoTipoMaterial
+						});
+						this.$store.dispatch('getLoadingApp', false);
+						this.loading = false;
+						this.$message({
+							message: 'Registrado Exitosamente',
+							type: 'success',
+						});
+						this.$router.push({ path: '/admin/tipo-materiales' });
+					} catch (error) {
+						if (error.response) {
+							this.$message({
+								message: error.response.data.mensaje || 'Sin mensaje del servidor',
+								type: 'error',
+							});
+						} else {
+							this.$message({
+								message: 'No estas conectado a internet.',
+								type: 'error'
+							});
+						}
+						this.$store.dispatch('getLoadingApp', false);
+						this.loading = false;
+						console.clear()
+					}
+				}
+			});
+
+		},
+	}
+};
+</script>
   
