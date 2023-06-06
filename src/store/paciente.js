@@ -204,11 +204,14 @@ export default {
             commit('setUltimoOdontodiagramaPaciente', resultado.data.data)
           } catch (error) {
               if (error.response) {
-                  Notification({
-                    title: config.frontend.title,
-                    message: error.response.data.mensaje,
-                    type: 'warning'
-                  })
+                    dispatch('getLoadingApp', false);
+
+                    return error.response;
+                    //   Notification({
+                    //     title: config.frontend.title,
+                    //     message: error.response.data.mensaje,
+                    //     type: 'warning'
+                    //   })
               } else {
                   Notification({
                       title: config.frontend.title,

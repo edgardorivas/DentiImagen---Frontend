@@ -120,11 +120,14 @@ export default {
                 context.commit('setDetalleProductoId', resultado.data)
             } catch (error) {
                 if (error.response) {
-                    Notification({
-                        title: config.frontend.title,
-                        message: error,
-                        type: 'error'
-                    })
+                    context.dispatch('getLoadingApp', false);
+
+                    return error.response
+                    // Notification({
+                    //     title: config.frontend.title,
+                    //     message: error,
+                    //     type: 'error'
+                    // })
                 } else {
                     Notification({
                         title: config.frontend.title,
@@ -151,11 +154,14 @@ export default {
                 context.commit('setTipoMaterial', resultado.data)
             } catch (error) {
                 if (error.response) {
-                    Notification({
-                        title: config.frontend.title,
-                        message: error,
-                        type: 'error'
-                    })
+                    // Notification({
+                    //     title: config.frontend.title,
+                    //     message: error,
+                    //     type: 'error'
+                    // })
+                    context.dispatch('getLoadingApp', false);
+
+                    return error.response
                 } else {
                     Notification({
                         title: config.frontend.title,

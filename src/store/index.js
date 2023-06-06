@@ -12,6 +12,8 @@ import pacientes from './paciente';
 import venta from './venta';
 import presupuestos from './presupuestos';
 import servicios from './servicios';
+import configuraciones from './configuraciones';
+
 
 
 
@@ -37,6 +39,7 @@ export default new Vuex.Store({
     pacientes,
     presupuestos,
     venta,
-    servicios
+    servicios,
+    configuraciones
   }
 })

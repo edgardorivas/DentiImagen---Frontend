@@ -78,7 +78,7 @@ export default {
         if (error.response) {
           context.dispatch('getLoadingApp', false);
 
-          return error.response.data
+          return error.response
           /*Notification({
             title: config.frontend.title,
             message: error,

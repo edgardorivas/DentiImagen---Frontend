@@ -141,21 +141,24 @@
 
                                     <div class="border flex flex-wrap  border-solid border-gray-400 my-10 p-5">
 
-                                        <p class=" text-indigo-600  w-1/2 pl-5 text-xl">Iva</p>
-                                        <p class="w-1/2 text-right text-xl pl-5">{{ presupuesto.data[0].iva_presupuesto }}%</p>
+                                        <p class=" text-indigo-600  w-1/2 pl-5 text-xl">Precio del dolar</p>
+                                        <p class="w-1/2 text-right text-xl pl-5">{{ presupuesto.data[0].presio_dolar }}$</p>
 
-                                        <p class=" text-indigo-600  w-1/2 pl-5 text-2xl">Total</p>
+                                        <p class=" text-indigo-600  w-1/2 pl-5 text-xl">Precio bolivares</p>
+                                        <p class="w-1/2 text-right text-xl pl-5">{{ presupuesto.data[0].precio_total * presupuesto.data[0].presio_dolar }} Bs</p>
+
+                                        <p class=" text-indigo-600  w-1/2 pl-5 text-2xl">Precio total en dolares</p>
                                         <p class="w-1/2 text-right text-2xl pl-5">{{ presupuesto.data[0].precio_total }}</p>
                                         
                                     </div>
                                     <br>
                                     <div class="flex flex-wrap justify-around">
                                         
-                                        <button :disabled="loading"
+                                        <!-- <button :disabled="loading"
                                             class="w-full md:w-1/3 bg-red-600 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
                                             type="button">
                                                 Descargar PDF
-                                        </button>
+                                        </button> -->
                                         
                                         <button :disabled="loading" class="w-full md:w-1/3 bg-indigo-600  text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
                                             type="button">
