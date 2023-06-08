@@ -85,9 +85,9 @@
                                 </label>
                             </div>
 
-                            <div class="md:w-1/2 lg:w-3/6 px-2 mb-3 pt-7">
+                            <div class="md:w-8/12 lg:w-10/12 w-12/12 px-2 mb-3 pt-7">
                                 <button type="button"
-                                    class="  md:w-1/2 py-2 text-white bg-verdiAnderson transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase rounded-md"
+                                    class=" mr-40 md:w-1/2 py-2 text-white bg-verdiAnderson transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase rounded-md"
                                     @click="asociarServiciosIngresados(serviciosIngresados)">
                                     Ingresar
                                 </button>
@@ -96,19 +96,20 @@
 
 
                             <!-- Se agrega la tabla para los items -->
-                            
-{{ datosVenta.servicios }}
-                            <div v-if="datosServicioTabla.length" class="w-11/12 mt-10  m-0 p-0">
+
+                            <div v-if="datosVenta.servicios.length" :class="datosVenta.serviciosNuevos.servicios.length > 0 ? 'w-5/12 mt-10   m-0 p-0':  'w-11/12 mt-10  m-0 p-0'">
                                 <div class="w-11/12">
                                     <el-divider>Servicios Solicitados</el-divider>
                                 </div>
 
                                 <!-- tabla -->
-                                <el-table :data="datosVenta.servicios" class="w-full mt-10 ">
+                                <el-table :border="datosVenta.serviciosNuevos.servicios.length > 0 ? true :false" :data="datosVenta.servicios" class="w-full mt-10 ">
                                     <el-table-column prop="id_servicio" label="Id"></el-table-column>
                                     <el-table-column prop="nombre_servicio" label="Servicio"></el-table-column>
+                                    
+                                    
 
-                                    <el-table-column label="Costo del servicio">
+                                    <el-table-column label="Costo">
                                         <template slot-scope="scope">
                                             <div v-for="item in servicios.data" :key="item.id_servicio">
                                                 <p v-if="item.id_servicio == scope.row.id_servicio">
@@ -118,13 +119,56 @@
                                         </template>
                                     </el-table-column>
 
-                                    <el-table-column prop="cantidad" label="Repeticiones"></el-table-column>
+                                    <el-table-column prop="cantidad" label="consumida"></el-table-column>
 
-                                    <el-table-column label="Operaciones" width="170">
+                                    <el-table-column label="opcion" >
                                         <template slot-scope="scope">
                                             <button type="button"
                                                 class="w-full text-center bg-none text-red-600 uppercase rounded-md"
-                                                @click="eliminarAsociacion(scope.row.id_servicio)">
+                                                @click="eliminarAsociacion(scope.row.id_servicio,'anterior')">
+                                                Eliminar
+                                            </button>
+                                            
+                                        </template>
+                                    </el-table-column>
+                                </el-table>
+
+
+                            </div>
+
+                            <div v-if="datosVenta.serviciosNuevos.servicios.length" :class="datosVenta.servicios.length > 0 ? 'w-5/12 mt-10  m-0 p-0':  'w-11/12 mt-10  m-0 p-0'">
+                                <div class="w-11/12">
+                                    <el-divider>Nuevos Servicios </el-divider>
+                                </div>
+
+                                <!-- tabla -->
+                                <el-table :data="datosVenta.serviciosNuevos.servicios" :border="datosVenta.servicios.length > 0 ? true :false" class="w-full mt-10 ">
+                                    <el-table-column prop="idServicio" label="Id"></el-table-column>
+                                    <el-table-column prop="nombre_servicio" label="Servicio"></el-table-column>
+
+                                    <el-table-column label="Costo">
+                                        <template slot-scope="scope">
+                                            <div v-for="item in servicios.data" :key="item.id_servicio">
+                                                <p v-if="item.id_servicio == scope.row.idServicio">
+                                                    {{ item.costo_dolares }}
+                                                </p>
+                                            </div>
+                                        </template>
+                                    </el-table-column>
+
+                                    <el-table-column prop="cantidadRealizadas" label="consumida"></el-table-column>
+                                    
+                                    <el-table-column label="Dolar">
+                                        <template >
+                                            {{ datosVenta.serviciosNuevos.precioDolar }}
+                                        </template>
+                                    </el-table-column>
+
+                                    <el-table-column label="opcion">
+                                        <template slot-scope="scope">
+                                            <button type="button"
+                                                class="w-full text-center bg-none text-red-600 uppercase rounded-md"
+                                                @click="eliminarAsociacion(scope.row.id_servicio,'nuevo')">
                                                 Eliminar
                                             </button>
                                             
@@ -305,18 +349,25 @@
                                         </div>
                                     </div>
 
-                                    <div class="w-11/12">
-                                        <el-divider>Servicio</el-divider>
+                                    <div class="w-10/12 ml-28 mt-20">
+                                        <el-divider>Servicio Previos</el-divider>
                                     </div>
 
 
 
                                     <!-- tabla -->
-                                    <div class="relative overflow-x-auto mt-10">
+                                    <div class="relative overflow-x-auto ml-28 mt-10 w-10/12">
                                         <el-table :data="datosVenta.servicios" class="w-full mt-10 ">
-                                            <el-table-column prop="idServicio" label="Id"></el-table-column>
+                                            <el-table-column prop="id_servicio" label="Id"></el-table-column>
+                                            <el-table-column prop="nombre_servicio" label="Nombre servicio"></el-table-column>
+                                            <el-table-column prop="presio_servicio" label="Costo del servicio"></el-table-column>
 
-                                            <el-table-column class="text-center" label="Operaciones">
+                                            <el-table-column class="text-center" label="Valor dolar">
+                                                    <template >
+                                                        {{ datosVenta.precioDolar }}
+                                                    </template>
+                                                </el-table-column>
+                                            <!-- <el-table-column class="text-center" label="Operaciones">
                                                 <template slot-scope="scope">
                                                     <div v-for="dato in datosServicioTabla" :key="dato.id_servicio">
                                                         <p v-if="dato.id_servicio == scope.row.idServicio">
@@ -324,8 +375,8 @@
                                                         </p>
                                                     </div>
                                                 </template>
-                                            </el-table-column>
-
+                                            </el-table-column> -->
+                                            <!-- 
                                             <el-table-column label="Costo del servicio">
                                                 <template slot-scope="scope">
                                                     <div v-for="item in servicios.data" :key="item.id_servicio">
@@ -334,13 +385,44 @@
                                                         </p>
                                                     </div>
                                                 </template>
-                                            </el-table-column>
+                                            </el-table-column> -->
 
-                                            <el-table-column prop="cantidadRealizadas" label="Cantidad"></el-table-column>
+                                            <el-table-column prop="cantidad" label="Cantidad"></el-table-column>
                                         </el-table>
                                     </div>
 
-                                    <div class="  flex flex-row-reverse my-2 mt-2 mr-5">
+                                    <div v-if="datosVenta.serviciosNuevos.servicios.length" class="mt-28" >
+                                        <div class="w-10/12 ml-28">
+                                            <el-divider>Servicio Nuevos</el-divider>
+                                        </div>
+                                        <div class="relative overflow-x-auto mt-5 ml-28  w-10/12">
+                                            <el-table :data="datosVenta.serviciosNuevos.servicios" class="w-full mt-10 ">
+                                                <el-table-column prop="idServicio" label="Id"></el-table-column>
+                                                <el-table-column prop="nombre_servicio" label="Nombre servicio"></el-table-column>
+                                                <el-table-column prop="costoServicio" label="Costo del servicio"></el-table-column>
+
+
+                                                <el-table-column class="text-center" label="Valor dolar">
+                                                    <template >
+                                                        {{ datosVenta.serviciosNuevos.precioDolar }}
+                                                    </template>
+                                                </el-table-column>
+                                                <!-- 
+                                                <el-table-column label="Costo del servicio">
+                                                    <template slot-scope="scope">
+                                                        <div v-for="item in servicios.data" :key="item.id_servicio">
+                                                            <p v-if="item.id_servicio == scope.row.idServicio">
+                                                                {{ item.costo_dolares }}
+                                                            </p>
+                                                        </div>
+                                                    </template>
+                                                </el-table-column> -->
+
+                                                <el-table-column prop="cantidadRealizadas" label="Cantidad"></el-table-column>
+                                            </el-table>
+                                        </div>
+                                    </div>
+                                    <div class="  flex flex-row-reverse my-2 mt-10 mr-5">
                                         <button @click="calculosRapidos()"
                                             class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                             type="button">
@@ -350,11 +432,32 @@
 
                                     <div v-if="totalSuma != 0"
                                         class="border mt-10 flex flex-wrap  border-solid border-gray-400 my-10 p-5">
-                                        <p class=" text-verdiAnderson w-1/2 pl-5 text-xl"> Iva : </p>
-                                        <p class="w-1/2 text-right text-xl pl-5">{{ datosVenta.ivaVenta }}%</p>
 
-                                        <p class=" text-verdiAnderson w-1/2 pl-5 text-2xl">Total</p>
-                                        <p class="w-1/2 text-right text-2xl pl-5">{{ totalSuma }} $</p>
+                                        <p class=" text-verdiAnderson w-1/2 pl-5 text-sm"> Precio dolar : </p>
+                                        <p class="w-1/2 text-right text-sm pl-5">{{ datosVenta.precioDolar }} $</p>
+
+                                        <p class=" text-verdiAnderson w-1/2 pl-5 text-sm">Total De los servicios guardados</p>
+                                        <p class="w-1/2 text-right text-sm pl-5">{{ totalSuma }} $</p>
+
+                                        <p class=" text-verdiAnderson w-1/2 pl-5 text-sm"> Total De los servicios guardados Bolivares : </p>
+                                        <p class="w-1/2 text-right text-sm pl-5">{{ totalSuma * datosVenta.precioDolar  }} Bs</p>
+
+
+                                        <p class=" text-verdiAnderson w-1/2 pl-5 text-sm"> Precio dolar nuevo : </p>
+                                        <p class="w-1/2 text-right text-sm pl-5">{{ datosVenta.serviciosNuevos.precioDolar }} $</p>
+
+                                        <p class=" text-verdiAnderson w-1/2 pl-5 text-sm">Total De los servicios Nuevos</p>
+                                        <p class="w-1/2 text-right text-sm pl-5">{{ totalSumaNuevos }} $</p>
+
+                                        <p class=" text-verdiAnderson w-1/2 pl-5 text-sm"> Total  De los servicios nuevos Bolivares : </p>
+                                        <p class="w-1/2 text-right text-sm pl-5">{{ totalSumaNuevos * datosVenta.serviciosNuevos.precioDolar  }} Bs</p>
+
+
+                                        <p class=" text-verdiAnderson w-1/2 pl-5 text-2xl">Total </p>
+                                        <p class="w-1/2 text-right text-xl pl-5">{{ totalSumaNuevos + totalSuma }} $</p>
+
+                                        <p class=" text-verdiAnderson w-1/2 pl-5 text-2xl">Total Bolivares </p>
+                                        <p class="w-1/2 text-right text-xl pl-5">{{ (totalSumaNuevos * datosVenta.serviciosNuevos.precioDolar) + (totalSuma *datosVenta.precioDolar) }} Bs</p>
 
                                     </div>
                                     <br>
@@ -466,6 +569,7 @@ export default {
             aviso: true,
             active: 1,
             datosVenta: {
+                idPresupuesto:this.$route.params.ID,
                 idPaciente: null,
                 idTrabajador: null,
                 formaPago: null,
@@ -489,6 +593,8 @@ export default {
             },
             sumaTodoServicio: 0,
             totalSuma: 0,
+            totalSumaNuevos:0,
+            sumaTodoServicioNuevos:0,
             datosServicioTabla: [],
             datosMaterialesTabla: [],
             centerDialogVisible: false,
@@ -563,8 +669,10 @@ export default {
             }
             console.log("data---------",datos)
 
-            const producto = this.servicios.data.filter(item => item.id_servicio == datos.idServicio)[0];
-            datos['nombre_servicio'] = producto['nombre_servicio'];
+            const servicio = this.servicios.data.filter(item => item.id_servicio == datos.idServicio)[0];
+
+            datos['nombre_servicio'] = servicio['nombre_servicio'];
+            datos.costoServicio = servicio.costo_dolares;
 
             this.datosVenta.serviciosNuevos.precioDolar = this.precioDolarBaseDatos.data[0].precio_dolar
             this.datosVenta.serviciosNuevos.servicios.push(Object.assign({}, datos));
@@ -576,7 +684,7 @@ export default {
                 cantidadRealizadas: 1
             }
 
-            this.datosServicioTabla.push(Object.assign({}, producto));
+            this.datosServicioTabla.push(Object.assign({}, servicio));
         },
         asociarMaterialesIngresados(datos) {
             if (!datos.idMaterial) {
@@ -598,9 +706,15 @@ export default {
             this.datosMaterialesTabla.push(recurso)
             this.centerDialogVisible = false
         },
-        eliminarAsociacion(id) {
-            this.datosVenta.servicios = this.datosVenta.servicios.filter(item => item.id_servicio != id);
-            this.datosServicioTabla = this.datosServicioTabla.filter(item => item.id_servicio != id);
+        eliminarAsociacion(id,tiempo) {
+ 
+            if(tiempo == 'anterior'){
+                this.datosVenta.servicios = this.datosVenta.servicios.filter(item => item.id_servicio != id);
+                this.datosServicioTabla = this.datosServicioTabla.filter(item => item.id_servicio != id);
+            }
+            if(tiempo== 'nuevo'){
+                this.datosVenta.serviciosNuevos.servicios = this.datosVenta.serviciosNuevos.servicios.filter(item => item.id_servicio != id);
+            }
 
         },
         eliminarAsociacionMaterial(datos) {
@@ -623,25 +737,22 @@ export default {
         },
         calculosRapidos() {
             this.sumaTodoServicio = 0;
-            this.totalSuma =
-
-                this.datosVenta.servicios.forEach((servicioSeleccionado, indice) => {
-
-                    return this.servicios.data.forEach(servicioGuardados => {
-                        if (servicioSeleccionado.idServicio == servicioGuardados.id_servicio) {
-                            this.datosVenta.servicios[indice].costoServicio = servicioGuardados.costo_dolares;
-                        }
-                    })
-                })
-            console.log(this.datosVenta)
-
+            
             for (let index = 0; index < this.datosVenta.servicios.length; index++) {
-                this.sumaTodoServicio += (Number(this.datosVenta.servicios[index].costoServicio) * parseInt(this.datosVenta.servicios[index].cantidadRealizadas))
+                this.sumaTodoServicio += (Number(this.datosVenta.servicios[index].presio_servicio) * parseInt(this.datosVenta.servicios[index].cantidad))
             }
 
-            let iva = this.sumaTodoServicio * (parseInt(this.datosVenta.ivaVenta) / 100);
-            this.totalSuma = this.sumaTodoServicio + iva;
+            if(this.datosVenta.serviciosNuevos.servicios){
+                for (let index = 0; index < this.datosVenta.serviciosNuevos.servicios.length; index++) {
+                    this.sumaTodoServicioNuevos += (Number(this.datosVenta.serviciosNuevos.servicios[index].costoServicio) * parseInt(this.datosVenta.serviciosNuevos.servicios[index].cantidadRealizadas))
+                }
+            }
 
+            this.totalSuma = this.sumaTodoServicio;
+            this.totalSumaNuevos= this.sumaTodoServicioNuevos;
+
+            this.this.sumaTodoServicio = 0
+            this.sumaTodoServicioNuevos = 0
         },
         async ingresarVenta() {
             try {
@@ -651,7 +762,7 @@ export default {
                 const request = await axios({
                     method: 'POST',
                     baseURL: config.backend.baseURL,
-                    url: '/venta',
+                    url: '/presupuesto/venta',
                     headers: {
                         ['auth-token']: token,
                     },
@@ -664,7 +775,7 @@ export default {
                     message: request.data.mensaje,
                     type: 'success',
                 });
-                this.$router.push({ path: '/admin/recibo/venta/lista' });
+                // this.$router.push({ path: '/admin/presupuesto/venta/lista' });
             } catch (error) {
                 if (error.response) {
                     this.$message({
@@ -698,11 +809,9 @@ export default {
                 
                 this.detallesPresupuesto.data.forEach(servicioPresupuesto => {
                     const producto = this.servicios.data.filter(item => item.id_servicio == servicioPresupuesto.id_servicio);
-                    console.log("data------mm-------ss-------",producto)
 
                     servicioPresupuesto['nombre_servicio'] = producto[0]['nombre_servicio'];
 
-                    console.log("data-------------ss-------",servicioPresupuesto)
                     this.datosVenta.servicios.push(servicioPresupuesto);
                     // this.datosVenta.serviciosNuevos.servicios.push(Object.assign({}, datos));
                     this.datosServicioTabla.push(producto[0]);

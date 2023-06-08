@@ -68,6 +68,13 @@
                                     </el-select>
                                 </label>
                             </div>
+                            <div v-else  class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <el-alert
+                                    title="No se ha registrado proveedores"
+                                    type="warning"
+                                    show-icon>
+                                </el-alert>
+                            </div>
                         </div>
 
                         <!-- Vista para cuando se registre los materiales -->

@@ -42,6 +42,19 @@
 							<el-table-column prop="correo_paciente" label="Correo Electronico"
 								width="250"></el-table-column>
 							<el-table-column prop="genero_paciente" label="Genero"></el-table-column>
+
+							<el-table-column prop="genero_paciente" label="Genero">
+                                <template slot-scope="scope">
+                                    <el-tag
+                                        class="text-sm p-2 pb-2"
+                                        :type="scope.row.genero_paciente == 'Masculino' ? 'warning' : 'success'"
+                                        disable-transitions>{{scope.row.genero_paciente}}
+                                    </el-tag>
+                                </template>
+                            </el-table-column>
+
+
+
 							<el-table-column prop="fecha_creacion" label="Creado" width="200">
 								<template slot-scope="scope">
 									<p class="">{{ parseDate(scope.row.fecha_creacion) }}</p>

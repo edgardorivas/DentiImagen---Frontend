@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-wrap mt-4">
         <div class="w-full mb-12 xl:mb-0 px-4">
-            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-md rounded">
                 <div class="flex justify-center">
                     <div class="rounded-t mb-0 px-4 py-3 border-0 text-center">
                         <h3 class="font-semibold text-xl text-blueGray-700 uppercase">
@@ -39,6 +39,7 @@
                                     <el-date-picker v-model="odontodiagrama.fechaRegistron" type="datetime" size="large"
                                         :clearable="false" placeholder="Por favor seleccione la fecha">
                                     </el-date-picker>
+
                                 </label>
                             </div>
 
@@ -287,6 +288,21 @@
                 </div>
             </div>
         </div>
+
+        <div class="w-full mb-12 xl:mb-0 px-4">
+            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-md rounded">
+                <div class="flex justify-center">
+                    <div class="rounded-t mb-0 px-4 py-3 border-0 text-center">
+                        <h3 class="font-semibold text-xl text-blueGray-700 uppercase">
+                            Historial de tratamientos
+                        </h3>
+                        <p><small>Importante: es recomendable llenar el odontodiagrama en una PC de escritorio</small></p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
     </div>
 </template>
 <script>

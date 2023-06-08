@@ -159,12 +159,16 @@
                                             type="button">
                                                 Descargar PDF
                                         </button> -->
-                                        
-                                        <button :disabled="loading" class="w-full md:w-1/3 bg-indigo-600  text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
+                                        <button v-if="presupuesto.data[0].estado_compra != 'Cancelado'" :disabled="loading" class="w-full md:w-1/3 bg-indigo-600  text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
                                             type="button">
                                             <router-link :to="`/admin/presupuesto/convertir/venta/${ presupuesto.data[0].id_presupuesto }`">
                                                 Procesar Compra
                                             </router-link>
+                                        </button>
+
+                                        <button  v-else disabled class="w-full md:w-1/3 bg-indigo-300  text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
+                                            type="button">
+                                            Completado
                                         </button>
                                     </div>
                                 </div>

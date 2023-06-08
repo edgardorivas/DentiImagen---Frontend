@@ -49,7 +49,7 @@
                                 <template slot-scope="scope">
                                     <el-tag
                                         class="text-sm p-2 pb-2"
-                                        :type="scope.row.tag === 'Pendiente' ? 'primary' : 'warning'"
+                                        :type="scope.row.estado_compra == 'Pendiente' ? 'warning' : 'success'"
                                         disable-transitions>{{scope.row.estado_compra}}
                                     </el-tag>
                                 </template>

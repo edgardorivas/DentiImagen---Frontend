@@ -632,8 +632,10 @@ export default {
                 });
                 return false;
             }
-            const producto = this.servicios.data.filter(item => item.id_servicio == datos.idServicio)[0];
-            datos['nombre_servicio'] = producto['nombre_servicio'];
+            const servicio = this.servicios.data.filter(item => item.id_servicio == datos.idServicio)[0];
+            datos.costoServicio = servicio.costo_dolares
+            datos['nombre_servicio'] = servicio['nombre_servicio'];
+
             this.datosVenta.servicios.push(Object.assign({}, datos));
             this.serviciosIngresados = {
                 idServicio: null,
@@ -641,7 +643,7 @@ export default {
                 cantidadRealizadas: 1
             }
 
-            this.datosServicioTabla.push(Object.assign({}, producto));
+            this.datosServicioTabla.push(Object.assign({}, servicio));
         },
         asociarMaterialesIngresados(datos) {
             if (!datos.idMaterial) {
@@ -715,7 +717,7 @@ export default {
                     message: request.data.mensaje,
                     type: 'success',
                 });
-                // this.$router.push({ path: '/admin/recibo/venta/lista' });
+                this.$router.push({ path: '/admin/recibo/venta/lista' });
             } catch (error) {
                 if (error.response) {
                     this.$message({
@@ -789,6 +791,7 @@ export default {
         },
         precioDolarBaseDatos() {
             return this.$store.getters.getPrecioDolarFecha;
+
         }
     },
 };

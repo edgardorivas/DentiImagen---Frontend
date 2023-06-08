@@ -83,7 +83,7 @@
                                 <label>
                                     <p class="ml-1">Servicios</p>
                                     <el-select v-model="serviciosIngresados.idServicio"
-                                        placeholder="Seleccione el Odontologo" class="w-full">
+                                        placeholder="Seleccione el servicio" class="w-full">
                                         <el-option v-for="servicio in servicios.data" :key="servicio.id_servicio"
                                             :label="servicio.nombre_servicio" :value="servicio.id_servicio">
                                         </el-option>
@@ -94,7 +94,7 @@
                             <div class="md:w-1/2 lg:w-3/6 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Veces realizadas</p>
-                                    <el-input placeholder="Costo del servicio" type="number"
+                                    <el-input placeholder="Veces realizado el servicio" type="number"
                                         v-model="serviciosIngresados.cantidadRealizadas"></el-input>
                                 </label>
                             </div>
@@ -467,7 +467,7 @@ export default {
             },
             serviciosIngresados: {
                 idServicio: null,
-                costoServicio: 1,
+                costoServicio: 0,
                 cantidadRealizadas: 1
             },
             materialesIngresados: {
@@ -557,7 +557,8 @@ export default {
             }
         },
         asociarServiciosIngresados(datos) {
-            const producto = this.producto.data.filter(item => item.id_recurso == datos.idMaterial)[0];
+            const servicio = this.servicios.data.filter(item => item.id_servicio == datos.idServicio)[0];
+
             if (!datos.idServicio) {
                 this.$message({
                     message: 'Debes seleccionar el servicio',
@@ -565,15 +566,15 @@ export default {
                 });
                 return false;
             }
+            datos.costoServicio = servicio.costo_dolares
             this.datosVenta.servicios.push(datos);
             this.serviciosIngresados = {
                 idServicio: null,
-                costoServicio: 1,
+                costoServicio: 0,
                 cantidadRealizadas: 1
             }
 
-            this.datosServicioTabla.push(this.servicios.data.filter(item => item.id_servicio == datos.idServicio)[0])
-            console.log("Asociada", this.datosServicioTabla[0])
+            this.datosServicioTabla.push(servicio)
         },
         asociarMaterialesIngresados(datos) {
             const producto = this.producto.data.filter(item => item.id_recurso == datos.idMaterial)[0];
@@ -615,7 +616,6 @@ export default {
                         }
                     })
                 })
-            console.log(this.datosVenta)
 
             for (let index = 0; index < this.datosVenta.servicios.length; index++) {
                 this.sumaTodoServicio += (Number(this.datosVenta.servicios[index].costoServicio) * parseInt(this.datosVenta.servicios[index].cantidadRealizadas))

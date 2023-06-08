@@ -39,11 +39,17 @@
 
                             <el-table-column prop="cedula_paciente" label="Cedula"></el-table-column>
                             <el-table-column prop="nombre_trabajador" label="Odontologo"></el-table-column>
-                            <el-table-column prop="precio_total" label="Total $"></el-table-column>
-                            <el-table-column prop="iva_venta" label="Iva"></el-table-column>
-                            <el-table-column prop="forma_pago" label="Forma de pago"></el-table-column>
+                            <el-table-column prop="precio_total" label="Monto total dolares"></el-table-column>
 
-
+                            <el-table-column prop="forma_pago" label="Forma de pago">
+                                <template slot-scope="scope">
+                                    <el-tag
+                                        class="text-sm p-2 pb-2"
+                                        :type="scope.row.forma_pago == 'Transferencias' || scope.row.forma_pago == 'Pago Movil' ? 'warning' : 'success'"
+                                        disable-transitions>{{scope.row.forma_pago}}
+                                    </el-tag>
+                                </template>
+                            </el-table-column>
 
                             <el-table-column prop="fecha" label="Creado">
                                 <template slot-scope="scope">

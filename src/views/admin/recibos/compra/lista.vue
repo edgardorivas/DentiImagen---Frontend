@@ -27,7 +27,7 @@
                     <div v-if="compras && compras.data">
                         <!--tabla-->
                         <el-table :data="compras.data" class="w-full mb-8">
-                            <el-table-column fixed prop="usuario" label="Compra recivida por" width="190">
+                            <el-table-column fixed prop="usuario" label="Compra recivida por" >
                                 <template slot-scope="scope">
                                     <router-link :to="`/admin/usuarios/${scope.row.id_trabajador}`"
                                         class="uppercase text-verdiAnderson">
@@ -35,9 +35,10 @@
                                     </router-link>
                                 </template>
                             </el-table-column>
+                            
                             <el-table-column prop="telefono_trabajador" label="Telefono del Usuario"></el-table-column>
 
-                            <el-table-column fixed prop="usuario" label="Compra recivida por" width="190">
+                            <el-table-column fixed prop="nombre_proveedor" label="Proveedor">
                                 <template slot-scope="scope">
                                     <router-link :to="`/admin/proveedores/${scope.row.id_proveedor}`"
                                         class="uppercase text-verdiAnderson">
@@ -46,10 +47,18 @@
                                 </template>
                             </el-table-column>
                             
-                            <el-table-column prop="nombre_proveedor" label="Proveedor"></el-table-column>
                             <el-table-column prop="monto_total" label="Monto total"></el-table-column>
                             <el-table-column prop="forma_pago" label="Forma de Pago"></el-table-column>
-                            <el-table-column prop="referencias" label="Referencia del Pago"></el-table-column>
+
+                            <el-table-column prop="referencias" label="Referencia del Pago">
+                                <template slot-scope="scope">
+                                    <el-tag
+                                        class="text-sm p-2 pb-2"
+                                        :type="scope.row.referencias == '--Sin referencia---' ? 'warning' : 'success'"
+                                        disable-transitions>{{scope.row.referencias}}
+                                    </el-tag>
+                                </template>
+                            </el-table-column>
 
                             <el-table-column prop="fecha" label="Creado">
                                 <template slot-scope="scope">

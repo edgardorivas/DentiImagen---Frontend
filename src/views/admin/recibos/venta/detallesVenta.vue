@@ -99,8 +99,6 @@
                                         <el-divider>Detalles de la  Venta</el-divider>
                                     </div>
 
-
-
                                     <!-- tabla -->
                                     <div v-if="detallesVenta && detallesVenta.data" class="relative overflow-x-auto mt-10">
                                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -143,10 +141,7 @@
                                     <div class="border flex flex-wrap  border-solid border-gray-400 my-10 p-5">
 
                                         <p class=" text-verdiAnderson w-1/2 pl-5 text-xl">Precio del dolar</p>
-                                        <p class="w-1/2 text-right text-xl pl-5">{{ venta.data[0].precio_dolares }} %</p>
-
-                                        <p class=" text-verdiAnderson w-1/2 pl-5 text-xl">Total Bolivares soberanos</p>
-                                        <p class="w-1/2 text-right text-2xl pl-5">{{ venta.data[0].precio_total  * venta.data[0].precio_dolares}} Bs</p>
+                                        <p class="w-1/2 text-right text-xl pl-5">{{ venta.data[0].precio_dolares }} $</p>
 
                                         <p class=" text-verdiAnderson w-1/2 pl-5 text-2xl">Total dolares</p>
                                         <p class="w-1/2 text-right text-2xl pl-5">{{ venta.data[0].precio_total }} $</p>
