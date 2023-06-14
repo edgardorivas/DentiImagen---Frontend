@@ -6,6 +6,7 @@ export default {
     state: {
         pacientes: [],
         paciente: {},
+        historialTratamiento:[],
         usuariosOdontologicos: [],
         odontodiagramaIdPaciente: [],
         ultimoOdontodiagramaPaciente: null,
@@ -16,6 +17,9 @@ export default {
         },
         setPaciente: (state, value) => {
             state.paciente = value
+        },
+        setHistorialTratamiento: (state, value) => {
+            state.historialTratamiento = value
         },
         setUsuariosOdontologicos: (state, value) => {
             state.usuariosOdontologicos = value
@@ -33,6 +37,9 @@ export default {
         },
         getPaciente: (state) => {
             return state.paciente
+        },
+        getHistorialTratamiento: (state, value) => {
+            return state.historialTratamiento 
         },
         getUsuariosOdontologicos: (state) => {
             return state.usuariosOdontologicos
@@ -222,6 +229,43 @@ export default {
             commit('setUltimoOdontodiagramaPaciente', null)
           }
           dispatch('getLoadingApp', false);
+        },
+        async obtenerHistorialTratamientoIdPaciente({ dispatch, commit }, payload = { id: String }) {
+            const token = localStorage.getItem('token_acess')
+            dispatch('getLoadingApp', true);
+            try {
+                const resultado = await axios({
+                    method: 'GET',
+                    baseURL: config.backend.baseURL,
+                    url: `/historial-paciente/${payload.id}`,
+                    headers: {
+                        ['auth-token']: token,
+                    },
+                });
+                if (resultado.data.data.length) {
+                    commit('setHistorialTratamiento', resultado.data.data)
+                } else {
+                    commit('setHistorialTratamiento', null)
+                }
+            } catch (error) {
+                if (error.response) {
+                    // Notification({
+                    //   title: config.frontend.title,
+                    //   message: error,
+                    //   type: 'error'
+                    // })
+                    dispatch('getLoadingApp', false);
+                    return error.response
+                } else {
+                    Notification({
+                        title: config.frontend.title,
+                        message: 'Error al acceder a internet',
+                        type: 'error'
+                    })
+                }
+                commit('setHistorialTratamiento', null)
+            }
+            dispatch('getLoadingApp', false);
         },
     }
 }

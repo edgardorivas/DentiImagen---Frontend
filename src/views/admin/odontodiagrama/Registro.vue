@@ -16,9 +16,9 @@
                             <div class="w-11/12">
                                 <el-divider>Paciente</el-divider>
                             </div>
-                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                            <div class="w-full md:w-2/2 lg:w-2/5 px-2 mb-3 py-1">
 
-                                <label>
+                                <label class="md:w-1/2">
                                     <p class="ml-1">Paciente | <small>No esta registrado? <router-link
                                                 class="text-verdiAnderson" to="/admin/paciente/agregar">Registrar
                                                 Paciente</router-link></small> </p>
@@ -29,11 +29,20 @@
                                             :label="paciente.nombre_paciente + ' ' + paciente.apellido_paciente"
                                             :value="paciente.id_paciente"></el-option>
                                     </el-select>
+
                                 </label>
 
+                                <div class="relative " v-if="odontodiagrama.paciente">
+                                    <button type="button" v-on:click="modalHistorialTratamientos(odontodiagrama.paciente)" class="w-24  bg-verdiAnderson text-white absolute  bottom-0 left-full py-2 rounded-md">
+                                        agregar
+                                    </button>
+                                </div>
+
+
                             </div>
-                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                <label>
+
+                            <div class="w-full md:w-2/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label class="">
                                     <p class="ml-1">Fecha del Odontodiagrama: <small class="">{{
                                         parseDate(odontodiagrama.fechaRegistron) }}</small> </p>
                                     <el-date-picker v-model="odontodiagrama.fechaRegistron" type="datetime" size="large"
@@ -43,7 +52,7 @@
                                 </label>
                             </div>
 
-                            <div class="w-11/12">
+                            <div class="w-11/12 md:mt-10">
                                 <el-divider>Odontodiagrama</el-divider>
                             </div>
                             <!-- c-1 -->
@@ -289,19 +298,68 @@
             </div>
         </div>
 
-        <div class="w-full mb-12 xl:mb-0 px-4">
-            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-md rounded">
-                <div class="flex justify-center">
-                    <div class="rounded-t mb-0 px-4 py-3 border-0 text-center">
-                        <h3 class="font-semibold text-xl text-blueGray-700 uppercase">
-                            Historial de tratamientos
-                        </h3>
-                        <p><small>Importante: es recomendable llenar el odontodiagrama en una PC de escritorio</small></p>
-                    </div>
-                </div>
-                
+        <!-- cambiar el precio del dolar -->
+        <el-dialog title="Agregar informacion de tratamientos del paciente" :visible.sync="centerDialogVisibleHistorial" width="30%" center>
+            <div class="flex flex-wrap justify-around">
+                <el-form label-position="top" class="w-96" :model="formHistorialTratamiento" :rules="rules" ref="registrarhistorialTratamientos">
+
+                    <label>
+                        <p class="ml-1">Nombre</p>
+                        <el-form-item prop="titulo">
+                            <el-input
+                                placeholder="Ingrese el titulo del tratamiento"
+                                v-model="formHistorialTratamiento.titulo">
+                            </el-input>
+                        </el-form-item>
+                    </label>
+
+                    <div class="my-6"></div>
+
+                    <label>
+                        <p class="ml-1">Descripcion</p>
+                        <el-form-item prop="descripcion">
+                            <el-input
+                                type="textarea"
+                                :autosize="{ minRows: 2, maxRows: 4}"
+                                placeholder="Ingrese la descripcion del tratamiento"
+                                v-model="formHistorialTratamiento.descripcion">
+                            </el-input>
+                        </el-form-item>
+                    </label>
+
+                    <label v-if="estatusObservacion">
+                        <p class="ml-1">Observacion</p>
+                        <el-form-item prop="observacion">
+                            <el-input
+                                type="textarea"
+                                placeholder="Ingrese la descripcion del tratamiento"
+                                v-model="formHistorialTratamiento.observacion"
+                                maxlength="250"
+                                show-word-limit>
+                            </el-input>
+                        </el-form-item>
+
+                        <el-button type="text" @click="observacionesEstado">Quitar observacion</el-button>
+                        
+                    </label>
+                    <el-button type="text" v-if="!estatusObservacion" @click="estatusObservacion = true">Agregar observacion</el-button>
+
+                </el-form>
             </div>
-        </div>
+
+            <div slot="footer" class="dialog-footer flex flex-wrap justify-around">
+                <button slot="reference" :disabled="loading"
+                    class="w-full md:w-1/3 bg-red-600 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
+                    @click="centerDialogVisibleHistorial = false" type="button">
+                    Cerrar
+                </button>
+                <button slot="reference" :disabled="loading"
+                    class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
+                    type="button" v-on:click="ingresarHistorialTratamiento(formHistorialTratamiento)">
+                    Ingresar
+                </button>
+            </div>
+        </el-dialog>
 
     </div>
 </template>
@@ -316,16 +374,95 @@ export default {
     },
     data() {
         return {
+            centerDialogVisibleHistorial: false,
+            formHistorialTratamiento:{
+                titulo:'',
+                descripcion:'',
+                observacion:''
+            },
             odontodiagrama: this.getObjectOdontodiagrama(),
             modal: false,
             diente: null,
             search: {
                 cedula: '',
             },
+            rules: {
+                titulo: [
+                    { required: true, message: 'Es necesario ingresar el nombre del tratamiento', trigger: 'change' },
+                    { min: 2,  message: 'El titulo del tratamiento tiene que tener como minimo 2 caracteres', trigger: 'change' }
+                ],
+                descripcion: [
+                    { required: true, message: 'Es necesario ingresar la descripcion del tratamiento', trigger: 'change' },
+                    { min: 5,  message: 'La descripcion tiene que ser mayor a  5 caracteres', trigger: 'change' }
+                ],
+                observacion: [
+                    { min: 2, max:250, message: 'La observacion general tiene que tener como minimo 2 caracteres y como maximo 250 ', trigger: 'change' }
+                ],
+            },
+            estatusObservacion:false,
             pacientes: [],
+            loading:false
         }
     },
     methods: {
+        async ingresarHistorialTratamiento(historialTratamiento){
+            this.$refs['registrarhistorialTratamientos'].validate(async (valid) => {
+                if(valid){
+                    try {
+                        this.$store.dispatch('getLoadingApp', true);
+                        const token = localStorage.getItem('token_acess');
+                        const request = await axios({
+                            method: 'POST',
+                            baseURL: config.backend.baseURL,
+                            url: `/historial-tratamiento/${this.odontodiagrama.paciente}`,
+                            headers: {
+                                ['auth-token']: token,
+                            },
+                            data: historialTratamiento,
+                        });
+                        this.$store.dispatch('getLoadingApp', false);
+
+                        this.formHistorialTratamiento={
+                            titulo:'',
+                            descripcion:'',
+                            observacion:''
+                        },
+                        this.centerDialogVisibleHistorial= false;
+
+                        this.$message({
+                            message: 'Se reistro el nuevo tratamiendo al historial del paciente',
+                            type: 'success',
+                        });
+
+
+                    } catch (error) {
+                        if (error.response) {
+                            this.$message({
+                              message: error.response.data.mensaje || 'Sin mensaje del servidor',
+                              type: 'error',
+                            });
+                            this.$store.dispatch('getLoadingApp', false);
+
+                            return false
+                        } else {
+                            this.$message({
+                                message: 'No estas conectado a internet.',
+                                type: 'error'
+                            });
+                        }
+                        this.$store.dispatch('getLoadingApp', false);
+                        console.clear()
+                    }
+                }
+            });
+        },
+        modalHistorialTratamientos(paciente) {
+            this.centerDialogVisibleHistorial = true;
+        },
+        observacionesEstado() {
+            this.formHistorialTratamiento.observacion = '';
+            this.estatusObservacion=false;
+        },
         getObjectOdontodiagrama() {
             return {
                 paciente: null,
