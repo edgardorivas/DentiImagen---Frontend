@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-wrap mt-4">
-        <div class="w-10/12 mb-12 ml-40 xl:mb-0 px-4">
+        <div class="w-full mb-12 xl:mb-0 px-4">
             <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
                 <div class="flex justify-center">
                     <div class="rounded-t mb-0 px-4 py-3 border-0">
@@ -10,65 +10,104 @@
                     </div>
                 </div>
                 <div class="mt-10 pb-5">
-                    <div v-if="paciente" class="demo-image__placeholder   relative">
-                        <div class="block">
-                            <!-- <i class="el-icon-user-solid w-72 h-72 absolute top-9 left-20"></i> -->
-                            <img src="../../../assets/avatar_masculino.svg" class="md:w-40 md:h-40 lg:w-60 lg:h-60 absolute md:top-14 md:left-32 lg:top-14 lg:left-28" alt="">
-                            <el-button  v-if="estadoHistorialTratamientos" v-on:click=" estadoHistorialTratamientos = false " class=" absolute top-80 left-36" type="text">Historial de tratamientos</el-button>
-                            <el-button v-else v-on:click="estadoHistorialTratamientos = true"  class=" absolute top-80 left-40" type="text">Odontodiagrama</el-button>
-
+                    <section v-if="paciente" class="flex flex-wrap break-words m-0 py-0 px-5 justify-around">
+                        <div class="w-full sm:w-full md:w-1/5 mb-3 text-center">
+                            <img src="../../../assets/avatar_masculino.svg" class="w-full" alt="">
+                            <br>
+                            <button v-if="estadoHistorialTratamientos" v-on:click=" estadoHistorialTratamientos = false" class="w-full text-blue-500 text-sm">Historial de tratamientos</button>
+                            <button v-else v-on:click="estadoHistorialTratamientos = true"  class="w-full text-blue-500 text-sm">Odontodiagrama</button>
                         </div>
-                    </div>
-                    
-                    <form v-if="paciente" @submit.prevent="false">
-
-
-                        <div class=" md:w-full lg:w-9/12 w-9/12 md:ml-20 md:mt-96 lg:ml-96 lg:mt-14">
-                        <!-- <div class=" w-9/12 md:ml-52 md:mt-40 lg:ml-96 lg:mt-14 "> -->
-
-                            <el-descriptions title="Datos del Paciente" class="p-2 pb-2 ml-20"   :column="2">
-                                <el-descriptions-item label="Nombres">{{ paciente.nombre_paciente }}</el-descriptions-item>
-                                <el-descriptions-item label="Apellidos">{{ paciente.apellido_paciente }}</el-descriptions-item>
-                                <el-descriptions-item label="Edad" >{{ paciente.edad_paciente }}</el-descriptions-item>
-                                <el-descriptions-item label="Cedula"> {{ paciente.cedula_paciente }}</el-descriptions-item>
-                                <el-descriptions-item label="Genero">{{ paciente.genero_paciente }}</el-descriptions-item>
-                                <el-descriptions-item label="Telefono">{{ paciente.telefono_paciente }}</el-descriptions-item>
-                                <el-descriptions-item label="Odontologo referido">{{ paciente.referido_por }}</el-descriptions-item>
-                                <el-descriptions-item label="Profesion">{{ paciente.profecion }}</el-descriptions-item>
-                                <el-descriptions-item label="Alergia a algun medicamento">{{ paciente.alergico_algun_tratamiento == "true" ? 'Si' :'No' }}</el-descriptions-item>
-                                <el-descriptions-item label="Medicado">{{paciente.esta_tratamiento}}</el-descriptions-item>
-                                <el-descriptions-item label="Motivo de la Consulta inicial">{{ paciente.motivo_consulta }}</el-descriptions-item>
-                                <el-descriptions-item label="Correo Electronico">{{ paciente.correo_paciente }}</el-descriptions-item>
-                                <el-descriptions-item label="Dirección">{{paciente.direccion_paciente}}</el-descriptions-item>
-                            </el-descriptions>
+                        <div class="w-full sm:w-full md:w-3/5 mb-3 text-gray-600 text-sm">
+                            <h2 class="text-center">Datos del Paciente</h2>
+                            <div class="flex flex-wrap w-full mt-10 justify-between">
+                                <div class="w-5/12 mb-3">
+                                    <p><span>Nombres: {{paciente.nombre_paciente}}</span></p>
+                                </div>
+                                <div class="w-5/12 mb-3">
+                                    <p><span>Apellidos: {{paciente.apellido_paciente}}</span></p>
+                                </div>
+                                <div class="w-5/12 mb-3">
+                                    <p><span>Edad: {{paciente.edad_paciente}}</span></p>
+                                </div>
+                                <div class="w-5/12 mb-3">
+                                    <p><span>Cedula: {{paciente.cedula_paciente}}</span></p>
+                                </div>
+                                <div class="w-5/12 mb-3">
+                                    <p><span>Genero: {{paciente.genero_paciente}}</span></p>
+                                </div>
+                                <div class="w-5/12 mb-3">
+                                    <p><span>Telefono: {{paciente.telefono_paciente}}</span></p>
+                                </div>
+                                <div class="w-5/12 mb-3">
+                                    <p><span>Odontologo Referido: {{paciente.referido_por}}</span></p>
+                                </div>
+                                <div class="w-5/12 mb-3">
+                                    <p><span>Profesion: {{paciente.profecion}}</span></p>
+                                </div>
+                                <div class="w-5/12 mb-3">
+                                    <p><span>Alergia a algun medicamento: {{paciente.alergico_algun_tratamiento == "true" ? 'Si' :'No'}}</span></p>
+                                </div>
+                                <div class="w-5/12 mb-3">
+                                    <p><span>Medicado: {{paciente.esta_tratamiento}}</span></p>
+                                </div>
+                                <div class="w-5/12 mb-3">
+                                    <p><span>Motivo de la Consulta inicial: <br> {{paciente.motivo_consulta}}</span></p>
+                                </div>
+                                <div class="w-5/12 mb-3">
+                                    <p><span>Correo Electronico: <br> {{paciente.correo_paciente}}</span></p>
+                                </div>
+                                <div class="w-5/12 mb-3">
+                                    <p><span>Dirección: {{paciente.direccion_paciente}}</span></p>
+                                </div>
+                            </div>
                         </div>
-
-
-                        <div class="mt-10 ml-5 w-11/12">
-                            <el-descriptions title="Datos adicionales" class="p-2 ml-20 " direction="vertical"  :column="4" border>
-                                <el-descriptions-item label="¿ Sufre de presion arterial ?">{{ paciente.suefre_presion_alterial == true ? 'Si' :'No' }}</el-descriptions-item>
-                                <el-descriptions-item label="¿ Diabetico ?">{{ paciente.diabetico == true ? 'Si' :'No' }}</el-descriptions-item>
-                                <el-descriptions-item label="¿ Antecedentes familiares de diabetes ?">{{ paciente.antecedentes_diabetico == true ? 'Si' :'No' }}</el-descriptions-item>
-                                <el-descriptions-item label="¿ Ha sufrido de Herpes ?">{{ paciente.ha_sufrido_hepatitis == true ? 'Si' :'No' }}</el-descriptions-item>
-                                <el-descriptions-item label="¿ Ha sufrido de Afecciones cardiacas  ?">{{ paciente.ha_sufrido_efecciones_cardiacas == true ? 'Si' :'No' }}</el-descriptions-item>
-                                <el-descriptions-item label="¿ Problemas con la Anestecia ?">{{ paciente.ha_sufrido_con_anestecia == true ? 'Si' :'No' }}</el-descriptions-item>
-                                <el-descriptions-item label="¿ Es usted propenso a las Hemorragias ?">{{ paciente.propenso_horragia == true ? 'Si' :'No' }}</el-descriptions-item>
-                                <el-descriptions-item label="¿ Ha convulsionado alguna vez ?">{{ paciente.convulcion_alguna_vez == true ? 'Si' :'No' }}</el-descriptions-item>
-                                <el-descriptions-item label="¿ Ha sufrido de Hepatitis ?">{{ paciente.ha_sufrido_hepatitis == true ? 'Si' :'No' }}</el-descriptions-item>
-                                
-                            </el-descriptions>
+                    </section>
+                    <section v-if="paciente" class="w-full m-0 py-0 px-5">
+                        <div class="w-full mb-3 text-gray-600 text-sm">
+                            <h2 class="text-center">Datos adicionales</h2>
+                            <div class="flex flex-wrap w-full mt-10 justify-between">
+                                <div class="w-5/12 mb-3">
+                                    <p><span>¿ Sufre de presion arterial ?: {{ paciente.suefre_presion_alterial == true ? 'Si' :'No' }}</span></p>
+                                </div>
+                                <div class="w-5/12 mb-3">
+                                    <p><span>¿ Diabetico ?: {{ paciente.diabetico == true ? 'Si' :'No' }}</span></p>
+                                </div>
+                                <div class="w-5/12 mb-3">
+                                    <p><span>¿ Antecedentes familiares de diabetes ?: {{paciente.edad_paciente}}</span></p>
+                                </div>
+                                <div class="w-5/12 mb-3">
+                                    <p><span>¿ Ha sufrido de Herpes ?: {{paciente.cedula_paciente}}</span></p>
+                                </div>
+                                <div class="w-5/12 mb-3">
+                                    <p><span>¿ Ha sufrido de Afecciones cardiacas ?: {{ paciente.ha_sufrido_efecciones_cardiacas == true ? 'Si' :'No' }}</span></p>
+                                </div>
+                                <div class="w-5/12 mb-3">
+                                    <p><span>¿ Problemas con la Anestesia ?: {{ paciente.ha_sufrido_con_anestecia == true ? 'Si' :'No' }}</span></p>
+                                </div>
+                                <div class="w-5/12 mb-3">
+                                    <p><span>¿ Es usted propenso a las Hemorragias ?: {{ paciente.propenso_horragia == true ? 'Si' :'No' }}</span></p>
+                                </div>
+                                <div class="w-5/12 mb-3">
+                                    <p><span>¿ Ha convulsionado alguna vez ?: {{ paciente.convulcion_alguna_vez == true ? 'Si' :'No' }}</span></p>
+                                </div>
+                                <div class="w-5/12 mb-3">
+                                    <p><span>¿ Ha sufrido de Hepatitis ?: {{ paciente.ha_sufrido_hepatitis == true ? 'Si' :'No' }}</span></p>
+                                </div>
+                            </div>
                         </div>
+                    </section>
 
+                    <form v-if="paciente" @submit.prevent="false" class="w-full">
                         <!-- OdontoDiagrama -->
                         <div v-if="estadoHistorialTratamientos">
-                           
+
                             <!-- Odonto Diagrama -->
-                            <div v-if="odontodiagramaPaciente && odontodiagramaPaciente.length" class="w-11/12 ml-16 flex flex-wrap justify-around mt-5">
-                                
+                            <div v-if="odontodiagramaPaciente && odontodiagramaPaciente.length" class="w-full flex flex-wrap justify-around">
+
                                 <div class="w-11/12 text-gray-600">
                                     <el-divider>Odontodiagrama</el-divider>
                                 </div>
-    
+
                                 <div class="w-11/12 text-center">
                                     <div class="flex flex-wrap justify-around">
                                       <h4 class="text-gray-600">Fecha: {{parseDate(odontodiagramaPaciente[posicion].fecha_registro)}}</h4>
@@ -118,7 +157,7 @@
                                         </div>
                                     </div>
                                 </div>
-    
+
                                 <!-- c-2 -->
                                 <div
                                     class="w-full md:w-1/2 lg:w-6/12 px-2 mb-3 py-1 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-200">
@@ -158,7 +197,7 @@
                                         </div>
                                     </div>
                                 </div>
-    
+
                                 <!-- c-4 -->
                                 <div
                                     class="w-full md:w-1/2 lg:w-6/12 px-2 mb-3 py-1 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-200">
@@ -198,7 +237,7 @@
                                         </div>
                                     </div>
                                 </div>
-    
+
                                 <!-- c-3 -->
                                 <div
                                     class="w-full md:w-1/2 lg:w-6/12 px-2 mb-3 py-1 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-100 duration-200">
@@ -254,7 +293,7 @@
                                     />
                                 </div>
                             </div>
-    
+
                             <div id="Drawer">
                                 <!-- Modal Editor de Dientes -->
                                 <el-drawer title="Estado del Diente" :visible.sync="modal" direction="rtl">
@@ -367,7 +406,7 @@
 
                                 <div class="w-11/12 mb-20 text-center">
                                     <br>
-                                    
+
                                     <div v-if="historialPaciente">
 
                                         <el-form  :inline="true"  label-position="top">
@@ -384,18 +423,18 @@
                                                             :value="item.nombre">
                                                         </el-option>
                                                     </div>
-                                                    
+
                                                 </el-select>
                                             </el-form-item>
-                                            
+
                                         </el-form>
 
-                                        
-                                        
+
+
                                         <template  >
 
                                             <el-table  class="mt-10" :data="historialPaciente.filter(item => item.nombre_trabajador.toLowerCase().includes(filterName.toLowerCase()) && item.fecha_registro.toLowerCase().includes(filterDate.toLowerCase()))">
-                                                
+
                                                 <el-table-column type="expand">
                                                     <template slot-scope="props">
                                                         <p> <span class="text-black"> Titulo: </span> {{ props.row.titulo_tratamiento }}</p>
@@ -403,9 +442,9 @@
                                                         <p><span class="text-black"> Observacion: </span>  {{ props.row.observaciones_generales }}</p>
                                                     </template>
                                                 </el-table-column>
-                                                
+
                                                 <el-table-column prop="id_historial_tratamientos" label="id" > </el-table-column>
-                                                
+
                                                 <el-table-column prop="id_trabajador" label="Odontologo">
                                                     <template slot-scope="scope">
                                                         <p class="">{{ scope.row.nombre_trabajador +" "+ scope.row.apellido_trabajador }}</p>
@@ -435,7 +474,7 @@
                                                 layout=" prev, pager, next"
                                                 :total="9">
                                             </el-pagination>
-                                            
+
                                         </template>
                                     </div>
 
@@ -445,7 +484,7 @@
                                             type="warning"
                                             :closable="false"
                                             description='
-                                            El historial de tratamiento se visualizara cuando el odontologo 
+                                            El historial de tratamiento se visualizara cuando el odontologo
                                             registre el tratamiento que realizo sobre el paciente
                                             '>
                                         </el-alert>
@@ -522,7 +561,7 @@ export default {
         filtrarOdontologos(){
             if(this.historialPaciente){
                 let historial = this.historialPaciente;
-                
+
             }
         },
         obtenerDatosPaciente(ID) {
@@ -656,10 +695,10 @@ export default {
           }
           return resultado;
         },
-     
+
     },
     computed: {
-        
+
         paciente() {
             return this.$store.getters.getPaciente;
         },
