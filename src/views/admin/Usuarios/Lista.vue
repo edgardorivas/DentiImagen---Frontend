@@ -12,13 +12,18 @@
             <div
               class="relative w-full px-4 max-w-full flex-grow flex-1 text-right"
             >
+              <button v-on:click="openNewTab" class="bg-red-600 text-white text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                  PDF
+              </button>
               <router-link to="/admin/usuario/agregar" class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 ">
                 Agregar nuevo
               </router-link>
+
             </div>
           </div>
         </div>
         <div class="px-5 mt-3 flex justify-start">
+
           <button @click="modal = true" class="bg-verdiAnderson text-white py-2 px-3 rounded-md uppercase">
             Busqueda Avanzada
           </button>
@@ -138,6 +143,8 @@
           especializacion: "",
           nivel: "",
         },
+        url:`http://localhost:3000/pdf/trabajadores`,
+
       }
     },
     methods: {
@@ -149,6 +156,9 @@
       },
       aplicarFiltro() {
         this.$store.dispatch('obtenerDetalleUsuario', this.search);
+      },
+      openNewTab() {
+          window.open(this.url, '_blank');
       }
     },
     computed: {

@@ -775,7 +775,7 @@ export default {
                     message: request.data.mensaje,
                     type: 'success',
                 });
-                // this.$router.push({ path: '/admin/presupuesto/venta/lista' });
+                this.$router.push({ path: '/admin/presupuesto/venta/lista' });
             } catch (error) {
                 if (error.response) {
                     this.$message({

@@ -13,8 +13,8 @@
                     <div v-if="paciente" class="demo-image__placeholder   relative">
                         <div class="block">
                             <!-- <i class="el-icon-user-solid w-72 h-72 absolute top-9 left-20"></i> -->
-                            <img src="../../../assets/avatar_masculino.svg" class="md:w-40 md:h-40 lg:w-60 lg:h-60 absolute md:top-14 md:left-32 lg:top-14 lg:left-28" alt="">
-                            <el-button  v-if="estadoHistorialTratamientos" v-on:click=" estadoHistorialTratamientos = false " class=" absolute top-80 left-36" type="text">Historial de tratamientos</el-button>
+                            <img src="../../../assets/avatar_masculino.svg" class="md:w-40 md:h-40 lg:w-60 lg:h-80 absolute md:top-14 md:left-32 lg:top-14 lg:left-28" alt="">
+                            <el-button  v-if="estadoHistorialTratamientos" v-on:click=" estadoHistorialTratamientos = false " class=" absolute top- left-36" type="text">Historial de tratamientos</el-button>
                             <el-button v-else v-on:click="estadoHistorialTratamientos = true"  class=" absolute top-80 left-40" type="text">Odontodiagrama</el-button>
 
                         </div>
