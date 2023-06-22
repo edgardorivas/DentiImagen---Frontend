@@ -10,10 +10,17 @@
 							</h3>
 						</div>
 						<div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
+
+							<button v-on:click="openNewTab" class="bg-red-600 text-white text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+								PDF
+							</button>
+
 							<router-link to="/admin/paciente/agregar"
 								class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
 								Agregar nuevo
 							</router-link>
+
+
 						</div>
 					</div>
 				</div>
@@ -122,6 +129,8 @@ export default {
 			search: {
 				nombre: "",
 			},
+			url:`http://localhost:3000/pdf/pacientes`,
+
 		};
 	},
 	methods: {
@@ -131,6 +140,9 @@ export default {
 		handleClose() {
 			this.modal = false;
 		},
+		openNewTab() {
+            window.open(this.url, '_blank');
+        }
 
 	},
 	computed: {

@@ -154,22 +154,19 @@
                                     <br>
                                     <div class="flex flex-wrap justify-around">
                                         
-                                        <!-- <button :disabled="loading"
+                                        <button :disabled="loading"
                                             class="w-full md:w-1/3 bg-red-600 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
-                                            type="button">
+                                            type="button"  v-on:click="openNewTab">
                                                 Descargar PDF
-                                        </button> -->
+                                        </button>
+
                                         <button v-if="presupuesto.data[0].estado_compra != 'Cancelado'" :disabled="loading" class="w-full md:w-1/3 bg-indigo-600  text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
                                             type="button">
                                             <router-link :to="`/admin/presupuesto/convertir/venta/${ presupuesto.data[0].id_presupuesto }`">
                                                 Procesar Compra
                                             </router-link>
                                         </button>
-
-                                        <button  v-else disabled class="w-full md:w-1/3 bg-indigo-300  text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
-                                            type="button">
-                                            Completado
-                                        </button>
+                                        
                                     </div>
                                 </div>
                                 
@@ -198,11 +195,16 @@ export default {
     data() {
         return {
             loading: false,
+            url:`http://localhost:3000/pdf/presupuesto/${this.$route.params.ID}`,
+
         }
     },
     methods: {
         parseDate(date) {
             return new Date(date).toLocaleString();
+        },
+        openNewTab() {
+            window.open(this.url, '_blank');
         }
     },
     computed: {

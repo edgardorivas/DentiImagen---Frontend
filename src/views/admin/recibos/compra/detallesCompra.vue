@@ -31,17 +31,17 @@
                                     <div class="flex mt-9 flex-wrap justify-around">
                                         
                                         <div class="w-1/3">
-                                            <p class=" mb-3 font-normal text-center text-gray-700 dark:text-gray-400">
+                                            <p class=" mb-3 font-normal text-center text-gray-700">
                                                <b>Datos de la clinica </b> 
                                             </p>
 
-                                            <p class="font-normal text-gray-700 dark:text-gray-400">
+                                            <p class="font-normal text-gray-700  ">
                                                <b>Nombre: </b> DENTIMAGEN C.A.
                                             </p>
-                                            <p class="font-normal text-gray-700 dark:text-gray-400">
+                                            <p class="font-normal text-gray-700  ">
                                                <b>Direccion: </b>Santiago mariño,turmero 
                                             </p>
-                                            <p class="font-normal text-gray-700 dark:text-gray-400">
+                                            <p class="font-normal text-gray-700  ">
                                                <b>Telefono: </b> 04126533015
                                             </p>
                                             
@@ -49,16 +49,16 @@
 
 
                                         <div class="w-4/12 border-l-2 border-verdiAnderson pl-10">
-                                            <p class="font-normal mb-3 text-gray-700 dark:text-gray-400">
+                                            <p class="font-normal mb-3 text-gray-700  ">
                                                 <b>Datos del Trabajador </b>
                                             </p>
-                                            <p class="font-normal text-gray-700 dark:text-gray-400">
+                                            <p class="font-normal text-gray-700  ">
                                                 <b>Nombres: </b> {{ detallesCompra.data[0].nombre_trabajador }}
                                             </p>
-                                            <p class="font-normal text-gray-700 dark:text-gray-400">
+                                            <p class="font-normal text-gray-700  ">
                                                 <b>Apellido: </b> {{ detallesCompra.data[0].apellido_trabajador }}
                                             </p>
-                                            <p class="font-normal text-gray-700 dark:text-gray-400">
+                                            <p class="font-normal text-gray-700  ">
                                                 <b>telefono: </b> {{ detallesCompra.data[0].telefono_trabajador}}
                                             </p>
                                            
@@ -72,16 +72,16 @@
                                     <div class="flex mt-9 pl-20 flex-wrap justify-start">
 
                                         <div class="w-11/12">
-                                            <p  class="border font-normal p-2 text-gray-700 dark:text-gray-400">
+                                            <p  class="border font-normal p-2 text-gray-700  ">
                                                 <b >Nombre del Proveedor: </b> {{ detallesCompra.data[0].nombre_proveedor }}
                                             </p>
-                                            <p class="border font-normal p-2 text-gray-700 dark:text-gray-400">
+                                            <p class="border font-normal p-2 text-gray-700  ">
                                                 <b>Metodo de pago: </b>{{ detallesCompra.data[0].forma_pago }}
                                             </p>
-                                            <p class="border font-normal p-2 text-gray-700 dark:text-gray-400">
+                                            <p class="border font-normal p-2 text-gray-700  ">
                                                 <b>Referencia: </b>{{ detallesCompra.data[0].referencias }}
                                             </p>
-                                            <p class="border font-normal p-2 text-gray-700 dark:text-gray-400">
+                                            <p class="border font-normal p-2 text-gray-700  ">
                                                 <b>Fecha de compra: </b> {{ parseDate(detallesCompra.data[0].fecha_compra) }}
                                             </p>
                                             
@@ -96,8 +96,8 @@
 
                                     <!-- tabla -->
                                     <div class="relative overflow-x-auto mt-10">
-                                        <table class="w-full text-sm text-left text-gray-500 ">
-                                            <thead class="text-xs text-gray-700 uppercase bg-gray-50  ">
+                                        <table class="w-full text-sm text-left text-gray-500  ">
+                                            <thead class="text-xs text-gray-700 uppercase bg-gray-50    ">
                                                 <tr>
                                                     <th scope="col" class="px-6 text-sm py-3 text-verdiAnderson">
                                                         Material
@@ -116,7 +116,7 @@
                                             <tbody v-if="detallesCompraMateriales && detallesCompraMateriales.data">
                                                 <tr v-for="material in detallesCompraMateriales.data" :key="material.id_recurso" class="bg-white border-b">
                                                     
-                                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                                         {{  material.nombre_recurso}}
                                                     </th>
 
@@ -144,7 +144,14 @@
                                         
                                     </div>
                                     <br>
-                                    
+                                    <div class="flex flex-wrap justify-around">
+                                        
+                                        <button :disabled="loading"
+                                            class="w-full md:w-1/3 bg-red-600 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
+                                            type="button" v-on:click="openNewTab">
+                                            Descargar Pdf
+                                        </button>
+                                    </div>
                                 </div>
                                 
                             </div>
@@ -157,7 +164,9 @@
     </div>
 </template>
 <script>
-import config from '../../../../config';
+import config from "../../../../config";
+import axios from "axios";
+
 export default {
     name: 'users-list',
     metaInfo: {
@@ -171,12 +180,17 @@ export default {
     },
     data() {
         return {
+            url:`http://localhost:3000/pdf/compra/${this.$route.params.ID}`,
             loading: false,
         }
     },
     methods: {
         parseDate(date) {
             return new Date(date).toLocaleString();
+        },
+
+        openNewTab() {
+            window.open(this.url, '_blank');
         }
     },
     computed: {

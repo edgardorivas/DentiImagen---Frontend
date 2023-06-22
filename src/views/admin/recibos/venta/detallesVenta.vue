@@ -148,6 +148,12 @@
                                         
                                     </div>
                                     <br>
+                                    <div class="flex flex-wrap justify-around">
+                                        
+                                        <button :disabled="loading"
+                                            class="w-full md:w-1/3 bg-red-600 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
+                                            type="button" v-on:click="openNewTab">Descargar PDF</button>
+                                    </div>
                                     
                                 </div>
                                 
@@ -176,11 +182,15 @@ export default {
     data() {
         return {
             loading: false,
+            url:`http://localhost:3000/pdf/venta/${this.$route.params.ID}`,
         }
     },
     methods: {
         parseDate(date) {
             return new Date(date).toLocaleString();
+        },
+        openNewTab() {
+            window.open(this.url, '_blank');
         }
     },
     computed: {

@@ -18,10 +18,19 @@
                 </div>
                 <div v-if="inventario && inventario.data">
 
-                    <div class="px-5 mt-3 flex justify-start">
-                        <button @click="modal = true" class="bg-verdiAnderson text-white py-2 px-3 rounded-md uppercase">
+                    <div class="px-5 mt-3 flex ">
+
+                        <button @click="modal = true" class="bg-verdiAnderson justify-start text-white py-2 px-3 rounded-md uppercase">
                             Busqueda Avanzada
                         </button>
+
+                        <button :disabled="loading"
+                            class=" md:w-1/12 bg-indigo-600 justify-end text-white  uppercase py-1 rounded-md"
+                            type="button" v-on:click="openNewTab">
+                            PDF
+                        </button>
+                       
+                        
                     </div>
                     
                     <div class="mt-5">
@@ -141,6 +150,8 @@ export default {
                     nivel: "",
                 },
             */
+            url:`http://localhost:3000/pdf/inventario`,
+
         }
     },
     methods: {
@@ -152,6 +163,9 @@ export default {
         },
         aplicarFiltro() {
             this.$store.dispatch('obtenerDetalleUsuario', this.search);
+        },
+        openNewTab() {
+            window.open(this.url, '_blank');
         }
     },
     computed: {
