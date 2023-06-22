@@ -13,9 +13,7 @@ import venta from './venta';
 import presupuestos from './presupuestos';
 import servicios from './servicios';
 import configuraciones from './configuraciones';
-
-
-
+import estadisticas from './estadisticas';
 
 Vue.use(Vuex)
 
@@ -40,6 +38,7 @@ export default new Vuex.Store({
     presupuestos,
     venta,
     servicios,
-    configuraciones
+    configuraciones,
+    estadisticas,
   }
 })
