@@ -3,16 +3,16 @@
     <div class="w-full mb-12 xl:mb-0 px-4">
       <div class="relative flex flex-col min-w-0 w-full">
         <div class="flex flex-wrap justify-around px-3">
-          <div v-if="estadisticaPacientes && estadisticaPacientes.length" class="w-full md:w-2/5 mx-1 mb-3 shadow-lg rounded bg-white p-1">
+          <div v-if="estadisticaPacientes && estadisticaPacientes.length" class="w-full sm:w-full md:w-2/5 mx-1 mb-3 shadow-lg rounded bg-white p-1">
             <highcharts :options="returnEstadisticaPacientes(estadisticaPacientes)"></highcharts>
           </div>
-          <div v-if="estadisticaVentas && estadisticaVentas.length" class="w-full md:w-3/6 mx-1 mb-3 shadow-lg rounded bg-white p-1">
+          <div v-if="estadisticaVentas && estadisticaVentas.length" class="w-full sm:w-full md:w-3/6 mx-1 mb-3 shadow-lg rounded bg-white p-1">
             <highcharts :options="returnEstadisticaVentas(estadisticaVentas)"></highcharts>
           </div>
-          <div v-if="estadisticaPresupuestos && estadisticaPresupuestos.length" class="w-full md:w-3/6 mx-1 mb-3 shadow-lg rounded bg-white p-1">
+          <div v-if="estadisticaPresupuestos && estadisticaPresupuestos.length" class="w-full sm:w-full md:w-3/6 mx-1 mb-3 shadow-lg rounded bg-white p-1">
             <highcharts :options="returnEstadisticaPresupuestos(estadisticaPresupuestos)"></highcharts>
           </div>
-          <div v-if="estadisticaCompras && estadisticaCompras.length" class="w-full md:w-2/5 mx-1 mb-3 shadow-lg rounded bg-white p-1">
+          <div v-if="estadisticaCompras && estadisticaCompras.length" class="w-full sm:w-full md:w-2/5 mx-1 mb-3 shadow-lg rounded bg-white p-1">
             <highcharts :options="returnEstadisticaCompras(estadisticaCompras)"></highcharts>
           </div>
         </div>
