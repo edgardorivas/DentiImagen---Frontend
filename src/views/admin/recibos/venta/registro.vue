@@ -249,17 +249,17 @@
                                     <div class="flex mt-16 ml-20 flex-wrap justify-around">
 
                                         <div class="w-1/3">
-                                            <p class=" mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                            <p class=" mb-3 font-normal text-gray-700"  >
                                                 <b>Datos de la clinica </b>
                                             </p>
 
-                                            <p class="font-normal text-gray-700 dark:text-gray-400">
+                                            <p class="font-normal text-gray-700 " >
                                                 <b>Nombre: </b> DENTIMAGEN C.A.
                                             </p>
-                                            <p class="font-normal text-gray-700 dark:text-gray-400">
+                                            <p class="font-normal text-gray-700"  >
                                                 <b>Direccion: </b>Santiago mariño,turmero
                                             </p>
-                                            <p class="font-normal text-gray-700 dark:text-gray-400">
+                                            <p class="font-normal text-gray-700 "  >
                                                 <b>Telefono: </b> 04126533015
                                             </p>
 
@@ -267,22 +267,22 @@
 
 
                                         <div class="w-6/12 border-l-2 border-verdiAnderson pl-20">
-                                            <p class="font-normal mb-3 text-gray-700 dark:text-gray-400">
+                                            <p class="font-normal mb-3 text-gray-700 " >
                                                 <b>Datos del Odontologo </b>
                                             </p>
                                             <div v-for="trabajador in usuarios.data" :key="trabajador.id_trabajador">
                                                 <div v-if="trabajador.id_trabajador == datosVenta.idTrabajador">
 
-                                                    <p class="font-normal text-gray-700 dark:text-gray-400">
+                                                    <p class="font-normal text-gray-700 " >
                                                         <b>Nombres: </b> {{ trabajador.nombre }} {{ trabajador.apellido }}
                                                     </p>
-                                                    <p class="font-normal text-gray-700 dark:text-gray-400">
+                                                    <p class="font-normal text-gray-700 " >
                                                         <b>Telefono: </b> {{ trabajador.telefono }}
                                                     </p>
-                                                    <p class="font-normal text-gray-700 dark:text-gray-400">
+                                                    <p class="font-normal text-gray-700 " >
                                                         <b>especializacion: </b> {{ trabajador.especializacion }}
                                                     </p>
-                                                    <p class="font-normal text-gray-700 dark:text-gray-400">
+                                                    <p class="font-normal text-gray-700 " >
                                                         <b>Correo: </b> {{ trabajador.correo }}
                                                     </p>
 
@@ -299,31 +299,31 @@
                                         class="flex mt-9 pl-20 flex-wrap justify-start">
                                         <div v-if="paciente.id_paciente == datosVenta.idPaciente" class="w-11/12">
 
-                                            <p class="border  p-2 font-normal text-gray-700 dark:text-gray-400">
+                                            <p class="border  p-2 font-normal text-gray-700 " >
                                                 <b>Nombres: </b> {{ paciente.nombre_paciente }}
                                             </p>
-                                            <p class=" border  p-2 font-normal text-gray-700 dark:text-gray-400">
+                                            <p class=" border  p-2 font-normal text-gray-700  ">
                                                 <b>Apellido: </b> {{ paciente.apellido_paciente }}
                                             </p>
-                                            <p class="border  p-2 font-normal text-gray-700 dark:text-gray-400">
+                                            <p class="border  p-2 font-normal text-gray-700  ">
                                                 <b>Edad: </b> {{ paciente.edad_paciente }} Años
                                             </p>
-                                            <p class="border  p-2 font-normal text-gray-700 dark:text-gray-400">
+                                            <p class="border  p-2 font-normal text-gray-700 " >
                                                 <b>Cedula: </b> {{ paciente.cedula_paciente }}
                                             </p>
-                                            <p class="border  p-2 font-normal text-gray-700 dark:text-gray-400">
+                                            <p class="border  p-2 font-normal text-gray-700 " >
                                                 <b>Telefono: </b> {{ paciente.telefono_paciente }}
                                             </p>
-                                            <p class="border  p-2 font-normal text-gray-700 dark:text-gray-400">
+                                            <p class="border  p-2 font-normal text-gray-700 " >
                                                 <b>Correo: </b> {{ paciente.correo_paciente }}
                                             </p>
-                                            <p class="border  p-2 font-normal text-gray-700 dark:text-gray-400">
+                                            <p class="border  p-2 font-normal text-gray-700  ">
                                                 <b>Motivo de la Consulta: </b> {{ paciente.motivo_consulta }}
                                             </p>
-                                            <p class="border  p-2 font-normal text-gray-700 dark:text-gray-400">
+                                            <p class="border  p-2 font-normal text-gray-700 " >
                                                 <b>Genero: </b> {{ paciente.genero_paciente }}
                                             </p>
-                                            <p class="border  p-2 font-normal text-gray-700 dark:text-gray-400">
+                                            <p class="border  p-2 font-normal text-gray-700 " >
                                                 <b>Dirreccion: </b> {{ paciente.direccion_paciente }}
                                             </p>
                                         </div>
