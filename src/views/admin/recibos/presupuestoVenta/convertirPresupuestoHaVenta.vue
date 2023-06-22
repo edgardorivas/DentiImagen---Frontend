@@ -85,7 +85,7 @@
                                 </label>
                             </div>
 
-                            <div class="md:w-8/12 lg:w-10/12 w-12/12 px-2 mb-3 pt-7">
+                            <div style="margin-left:150px" class="md:w-8/12 lg:w-10/12 w-12/12 px-2 mb-3 pt-7">
                                 <button type="button"
                                     class=" mr-40 md:w-1/2 py-2 text-white bg-verdiAnderson transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase rounded-md"
                                     @click="asociarServiciosIngresados(serviciosIngresados)">
@@ -97,18 +97,16 @@
 
                             <!-- Se agrega la tabla para los items -->
 
-                            <div v-if="datosVenta.servicios.length" :class="datosVenta.serviciosNuevos.servicios.length > 0 ? 'w-5/12 mt-10   m-0 p-0':  'w-11/12 mt-10  m-0 p-0'">
+                            <div style="width: 800px;" v-if="datosVenta.servicios.length" :class="datosVenta.serviciosNuevos.servicios.length > 0 ? 'w-5/12 mt-10   m-0 p-0':  'w-11/12 mt-10  m-0 p-0'">
                                 <div class="w-11/12">
                                     <el-divider>Servicios Solicitados</el-divider>
                                 </div>
 
                                 <!-- tabla -->
-                                <el-table :border="datosVenta.serviciosNuevos.servicios.length > 0 ? true :false" :data="datosVenta.servicios" class="w-full mt-10 ">
+                                <el-table style="width: 800px;"  :data="datosVenta.servicios" class="w-full mt-10 ">
                                     <el-table-column prop="id_servicio" label="Id"></el-table-column>
                                     <el-table-column prop="nombre_servicio" label="Servicio"></el-table-column>
                                     
-                                    
-
                                     <el-table-column label="Costo">
                                         <template slot-scope="scope">
                                             <div v-for="item in servicios.data" :key="item.id_servicio">
@@ -136,13 +134,13 @@
 
                             </div>
 
-                            <div v-if="datosVenta.serviciosNuevos.servicios.length" :class="datosVenta.servicios.length > 0 ? 'w-5/12 mt-10  m-0 p-0':  'w-11/12 mt-10  m-0 p-0'">
+                            <div style="width: 800px;" v-if="datosVenta.serviciosNuevos.servicios.length" :class="datosVenta.servicios.length > 0 ? 'w-5/12 mt-10  m-0 p-0':  'w-11/12 mt-10  m-0 p-0'">
                                 <div class="w-11/12">
                                     <el-divider>Nuevos Servicios </el-divider>
                                 </div>
 
                                 <!-- tabla -->
-                                <el-table :data="datosVenta.serviciosNuevos.servicios" :border="datosVenta.servicios.length > 0 ? true :false" class="w-full mt-10 ">
+                                <el-table :data="datosVenta.serviciosNuevos.servicios" style="width: 800px;"  class="w-full mt-10 ">
                                     <el-table-column prop="idServicio" label="Id"></el-table-column>
                                     <el-table-column prop="nombre_servicio" label="Servicio"></el-table-column>
 
@@ -183,24 +181,25 @@
 
                         <div v-if="active == 3" class="flex flex-wrap justify-around mt-5">
 
-
-                            <div class="w-11/12 mt-10  m-0 p-0">
-
-                                <div class="  flex flex-row-reverse my-2 mr-5">
-                                    <button @click="centerDialogVisible = true"
-                                        class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                <div style="margin-left: 400px;
+    margin-top: 50px;" class="  flex flex-row-reverse">
+                                        <button @click="centerDialogVisible = true"
+                                        class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1  ease-linear transition-all duration-150"
                                         type="button">
                                         Agregar Materiales usados
                                     </button>
                                 </div>
-                                <el-table v-if="datosMaterialesTabla.length" :data="datosMaterialesTabla"
-                                    class="w-full mt-10 mb-10 ">
+                            <div style="width: 800px;" class="w-11/12 mt-5  m-0 p-0">
+
+                                
+                                <el-table style="width: 800px;" v-if="datosMaterialesTabla.length" :data="datosMaterialesTabla"
+                                    class="w-full mt-5 mb-10 ">
                                     <el-table-column prop="id_recurso" label="Id"></el-table-column>
                                     <el-table-column prop="nombre" label="Nombre "></el-table-column>
                                     <el-table-column prop="descripcion" label="Descripcion "></el-table-column>
-                                    <el-table-column prop="disponible" label="Cantidad Disponible"></el-table-column>
+                                    <el-table-column prop="disponible" label="Disponible"></el-table-column>
 
-                                    <el-table-column label="Cantidad Gastada" width="170">
+                                    <el-table-column label="Consumida" width="170">
                                         <template slot-scope="scope">
                                             <div v-for="datos in datosVenta.materiales" :key="datos.idMaterial">
                                                 <p v-if="datos.idMaterial == datosMaterialesTabla[scope.$index].id_recurso">
@@ -224,8 +223,8 @@
                                     </el-table-column>
                                 </el-table>
 
-                                <div v-else class=" w-1/2 sm:ml-32 md:ml-36 lg:ml-96 mb-20">
-                                    <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                                <div v-else class=" w-10/12 ml-20 mb-20">
+                                    <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50"
                                         role="alert">
                                         <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3"
                                             fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -254,9 +253,9 @@
                         </div>
 
                         <div v-if="active == 4" class="flex flex-wrap justify-around mt-5">
-                            <div class="w-11/12 mt-10 ml-48  m-0 p-0">
+                            <div style="width: 1000px;" class="w-11/12 mt-10  m-0 p-0">
 
-                                <div class="block w-7/8 mb-10  p-6 bg-white border border-gray-200 rounded-lg shadow-md">
+                                <div style="width: 800px;" class="block w-7/8 mb-10  p-6 bg-white border border-gray-200 rounded-lg shadow-md">
 
                                     <div class="flex justify-center">
                                         <div class="rounded-t mb-0 px-4 py-3 border-0">
@@ -499,7 +498,7 @@
                     <el-dialog title="Agregar los datos de los materiales" :visible.sync="centerDialogVisible" width="30%"
                         center>
                         <div class="flex flex-wrap justify-around">
-                            <div v-if="producto && producto.data" class=" md:w-1/2 lg:w-3/6 px-2 mb-3 py-1">
+                            <div v-if="producto && producto.data" class="w-full px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Material</p>
                                     <el-select v-model="materialesIngresados.idMaterial"
@@ -511,7 +510,7 @@
                                 </label>
                             </div>
 
-                            <div class="w-full md:w-1/2  px-2 mb-3 py-1">
+                            <div class="w-full   px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Unidades Utilizadas</p>
                                     <el-input placeholder="Unidades compradas"
@@ -775,7 +774,7 @@ export default {
                     message: request.data.mensaje,
                     type: 'success',
                 });
-                // this.$router.push({ path: '/admin/presupuesto/venta/lista' });
+                this.$router.push({ path: '/admin/presupuesto/venta/lista' });
             } catch (error) {
                 if (error.response) {
                     this.$message({

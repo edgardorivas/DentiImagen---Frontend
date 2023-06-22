@@ -27,7 +27,7 @@
                     <div v-if="compras && compras.data">
                         <!--tabla-->
                         <el-table :data="compras.data" class="w-full mb-8">
-                            <el-table-column fixed prop="usuario" label="Compra recivida por" >
+                            <el-table-column fixed prop="usuario" label="Usuario" >
                                 <template slot-scope="scope">
                                     <router-link :to="`/admin/usuarios/${scope.row.id_trabajador}`"
                                         class="uppercase text-verdiAnderson">
@@ -36,8 +36,11 @@
                                 </template>
                             </el-table-column>
                             
-                            <el-table-column prop="telefono_trabajador" label="Telefono del Usuario"></el-table-column>
+                            <el-table-column prop="telefono_trabajador" label="movil del Usuario"></el-table-column>
 
+                            
+
+                            <el-table-column prop="forma_pago" label="Pago"></el-table-column>
                             <el-table-column fixed prop="nombre_proveedor" label="Proveedor">
                                 <template slot-scope="scope">
                                     <router-link :to="`/admin/proveedores/${scope.row.id_proveedor}`"
@@ -46,11 +49,9 @@
                                     </router-link>
                                 </template>
                             </el-table-column>
-                            
                             <el-table-column prop="monto_total" label="Monto total"></el-table-column>
-                            <el-table-column prop="forma_pago" label="Forma de Pago"></el-table-column>
 
-                            <el-table-column prop="referencias" label="Referencia del Pago">
+                            <el-table-column prop="referencias" label="Referencia">
                                 <template slot-scope="scope">
                                     <el-tag
                                         class="text-sm p-2 pb-2"
@@ -60,7 +61,7 @@
                                 </template>
                             </el-table-column>
 
-                            <el-table-column prop="fecha" label="Creado">
+                            <el-table-column prop="fecha" label="Fecha">
                                 <template slot-scope="scope">
                                     <p class="">{{ parseDate(scope.row.fecha_compra) }}</p>
                                 </template>
@@ -81,8 +82,8 @@
                         </el-table>
                     </div>
 
-                    <div v-else class=" w-1/2 sm:ml-32 md:ml-36 lg:ml-96 mb-20">
-                        <div class=" flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                    <div v-else class=" w-1/2 sm:ml-32 md:ml-36 lg:ml-64 mb-20">
+                        <div class=" flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 "
                             role="warning">
                             <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
                                 viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">

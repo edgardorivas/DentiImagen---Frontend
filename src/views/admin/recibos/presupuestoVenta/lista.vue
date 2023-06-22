@@ -27,7 +27,7 @@
                     <div v-if="presupuesto && presupuesto.data">
                         <el-table :data="presupuesto.data" class="w-full">
 
-                            <el-table-column fixed prop="paciente" label="Paciente" width="190">
+                            <el-table-column fixed prop="paciente" label="Paciente">
                                 <template slot-scope="scope">
                                     <router-link :to="`/admin/paciente/id/${scope.row.id_pacinte}`"
                                         class="uppercase text-verdiAnderson">
@@ -37,12 +37,10 @@
                             </el-table-column>
                             <el-table-column prop="apellido_paciente" label="Apellido"></el-table-column>
                             <el-table-column prop="cedula_paciente" label="Cedula"></el-table-column>
-                            <el-table-column prop="nombre_trabajador" label="Odontologo"></el-table-column>
-                            <el-table-column prop="presio_dolar" label="Valor del dolar"></el-table-column>
-                            <el-table-column prop="precio_total" label="Total de la compra"></el-table-column>
+                            <el-table-column prop="presio_dolar" label="Dolar"></el-table-column>
+                            <el-table-column prop="precio_total" label="Total"></el-table-column>
 
                             
-                            <el-table-column prop="forma_pago" label="Forma de pago"></el-table-column>
                             
                             
                             <el-table-column prop="estado_compra" label="Estado">
@@ -55,7 +53,7 @@
                                 </template>
                             </el-table-column>
 
-                            <el-table-column prop="fecha" label="Creado">
+                            <el-table-column prop="fecha" label="Fecha">
                                 <template slot-scope="scope">
                                     <p class="">{{ parseDate(scope.row.fecha_presupuesto) }}</p>
                                 </template>
@@ -132,8 +130,8 @@
                       </el-drawer>
                       Fin del contenido -->
                     </div>
-                    <div v-else class=" w-1/2 sm:ml-32 md:ml-36 lg:ml-96 mb-20">
-                        <div class=" flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                    <div v-else class=" w-1/2 sm:ml-32 md:ml-36 lg:ml-64 mb-20">
+                        <div class=" flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50"
                             role="warning">
                             <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
                                 viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">

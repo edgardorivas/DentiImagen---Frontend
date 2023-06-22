@@ -19,9 +19,11 @@
                             <div class="w-full md:w-2/2 lg:w-2/5 px-2 mb-3 py-1">
 
                                 <label class="md:w-1/2">
-                                    <p class="ml-1">Paciente | <small>No esta registrado? <router-link
+                                    <p v-if="!odontodiagrama.paciente" class="ml-1">Paciente | <small>No esta registrado? <router-link
                                                 class="text-verdiAnderson" to="/admin/paciente/agregar">Registrar
                                                 Paciente</router-link></small> </p>
+
+                                    <p v-else class="ml-1">Paciente | <el-button type="text" v-on:click="modalHistorialTratamientos(odontodiagrama.paciente)">Agregar historial de tratamiento</el-button> </p>
 
                                     <el-select v-model="odontodiagrama.paciente" filterable @change="actualizarUltimoOdontodiagrama"
                                         placeholder="Seleccione el paciente" class="w-full">
@@ -32,11 +34,6 @@
 
                                 </label>
 
-                                <div class="relative " v-if="odontodiagrama.paciente">
-                                    <button type="button" v-on:click="modalHistorialTratamientos(odontodiagrama.paciente)" class="w-24  bg-verdiAnderson text-white absolute  bottom-0 left-full py-2 rounded-md">
-                                        agregar
-                                    </button>
-                                </div>
 
 
                             </div>

@@ -14,8 +14,8 @@
                 <div class="mt-5 pb-5">
                     <div >
                         <form >
-                            <div class="flex flex-wrap justify-around">
-                                <div class="block w-2/3 mb-10  p-6 bg-white border border-gray-200 rounded-lg shadow-md  dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"> 
+                            <div  class="flex flex-wrap justify-around">
+                                <div style="    width: 800px;" class="block w-2/3 mb-10  p-6 bg-white border border-gray-200 rounded-lg shadow-md "> 
                                     
                                     <div class="flex justify-center">
                                         <div class="rounded-t mb-0 px-4 py-3 border-0">
@@ -29,17 +29,17 @@
                                     <div class="flex mt-9 flex-wrap justify-around">
                                         
                                         <div class="w-1/3">
-                                            <p class=" mb-3 font-normal text-center text-gray-700 dark:text-gray-400">
+                                            <p class=" mb-3 font-normal text-center text-gray-700  ">
                                                <b>Datos de la clinica </b> 
                                             </p>
 
-                                            <p class="font-normal text-gray-700 dark:text-gray-400">
+                                            <p class="font-normal text-gray-700  ">
                                                <b>Nombre: </b> DENTIMAGEN C.A.
                                             </p>
-                                            <p class="font-normal text-gray-700 dark:text-gray-400">
+                                            <p class="font-normal text-gray-700  ">
                                                <b>Direccion: </b>Santiago mariño,turmero 
                                             </p>
-                                            <p class="font-normal text-gray-700 dark:text-gray-400">
+                                            <p class="font-normal text-gray-700  ">
                                                <b>Telefono: </b> 04126533015
                                             </p>
                                             
@@ -47,16 +47,16 @@
 
 
                                         <div class="w-4/12 border-l-2 border-verdiAnderson pl-10">
-                                            <p class="font-normal mb-3 text-gray-700 dark:text-gray-400">
+                                            <p class="font-normal mb-3 text-gray-700  ">
                                                 <b>Datos del Trabajador </b>
                                             </p>
-                                            <p class="font-normal text-gray-700 dark:text-gray-400">
+                                            <p class="font-normal text-gray-700  ">
                                                 <b>Nombres: </b> {{ venta.data[0].nombre_trabajador }}
                                             </p>
-                                            <p class="font-normal text-gray-700 dark:text-gray-400">
+                                            <p class="font-normal text-gray-700  ">
                                                 <b>Apellido: </b> {{ venta.data[0].apellido_trabajador }}
                                             </p>
-                                            <p class="font-normal text-gray-700 dark:text-gray-400">
+                                            <p class="font-normal text-gray-700  ">
                                                 <b>Especializacion: </b> {{ venta.data[0].especializacion_trabajador}}
                                             </p>
                                            
@@ -70,25 +70,25 @@
                                     <div class="flex mt-9 pl-20 flex-wrap justify-start">
 
                                         <div class="w-11/12">
-                                            <p  class="border font-normal p-2 text-gray-700 dark:text-gray-400">
+                                            <p  class="border font-normal p-2 text-gray-700  ">
                                                 <b >Nombres: </b> {{ venta.data[0].nombre_paciente }}
                                             </p>
-                                            <p class="border font-normal p-2 text-gray-700 dark:text-gray-400">
+                                            <p class="border font-normal p-2 text-gray-700  ">
                                                 <b>Apellidos: </b>{{ venta.data[0].apellido_paciente }}
                                             </p>
-                                            <p class="border font-normal p-2 text-gray-700 dark:text-gray-400">
+                                            <p class="border font-normal p-2 text-gray-700  ">
                                                 <b>Edad: </b>{{ venta.data[0].edad_paciente }}
                                             </p>
-                                            <p class="border font-normal p-2 text-gray-700 dark:text-gray-400">
+                                            <p class="border font-normal p-2 text-gray-700  ">
                                                 <b>Genero: </b>{{ venta.data[0].genero_paciente }}
                                             </p>
-                                            <p class="border font-normal p-2 text-gray-700 dark:text-gray-400">
+                                            <p class="border font-normal p-2 text-gray-700  ">
                                                 <b>Cedula: </b>{{ venta.data[0].cedula_paciente }}
                                             </p>
-                                            <p class="border font-normal p-2 text-gray-700 dark:text-gray-400">
+                                            <p class="border font-normal p-2 text-gray-700  ">
                                                 <b>Fecha de la venta: </b> {{ parseDate(venta.data[0].fecha_venta) }}
                                             </p>
-                                            <p class="border font-normal p-2 text-gray-700 dark:text-gray-400">
+                                            <p class="border font-normal p-2 text-gray-700  ">
                                                 <b>Forma de pago: </b>{{ venta.data[0].forma_pago }}
                                             </p>
                                             
@@ -101,8 +101,8 @@
 
                                     <!-- tabla -->
                                     <div v-if="detallesVenta && detallesVenta.data" class="relative overflow-x-auto mt-10">
-                                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                        <table class="w-full text-sm text-left text-gray-500  ">
+                                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
                                                 <tr>
                                                     <th scope="col" class="px-6 text-sm py-3 text-verdiAnderson">
                                                         Servicio
@@ -117,9 +117,9 @@
                                                 </tr>
                                             </thead>
                                             <tbody >
-                                                <tr v-for="servicio in detallesVenta.data" :key="servicio.id_detalles_servicios" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                <tr v-for="servicio in detallesVenta.data" :key="servicio.id_detalles_servicios" class="bg-white border-b   ">
                                                     
-                                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    <th scope="row" class="px-6 py-4 font-medium text-gray-500">
                                                         {{  servicio.nombre_servicio}}
                                                     </th>
 
@@ -148,12 +148,7 @@
                                         
                                     </div>
                                     <br>
-                                    <div class="flex flex-wrap justify-around">
-                                        
-                                        <button :disabled="loading"
-                                            class="w-full md:w-1/3 bg-red-600 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
-                                            type="submit">Descargar PDF</button>
-                                    </div>
+                                    
                                 </div>
                                 
                             </div>

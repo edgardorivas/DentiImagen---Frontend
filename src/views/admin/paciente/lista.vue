@@ -79,8 +79,8 @@
 						</el-table>
 					</div>
 					<!-- mensaje de alert cuando no se encuentre ningun registro -->
-					<div v-else class=" w-1/2 sm:ml-32 md:ml-36 lg:ml-96 mb-20">
-						<div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+					<div v-else class=" w-1/2 sm:ml-32 md:ml-36 lg:ml-64 mb-20">
+						<div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50"
 							role="warning">
 							<svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
 								viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">

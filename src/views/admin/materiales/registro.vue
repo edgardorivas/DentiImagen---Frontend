@@ -181,8 +181,7 @@ export default {
                     { min: 1,  message: 'La cantidad minima permitida tiene que tener como minimo un digito', trigger: 'change' }
                 ],
                 tipo_recurso: [
-                    { required: true, message: 'Es obligatorio seleccionar un tipo de material', trigger: 'change',
-                }
+                    { required: true, message: 'Es obligatorio seleccionar un tipo de material', trigger: 'change',}
                 ],
                 
             },

@@ -91,7 +91,7 @@
                                 </label>
                             </div>
 
-                            <div class="md:w-1/2 lg:w-3/6 px-2 mb-3 py-1">
+                            <div class="md:w-1/2 lg:w-3/6 px-10 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Veces realizadas</p>
                                     <el-input placeholder="Veces realizado el servicio" type="number"
@@ -101,7 +101,7 @@
 
 
 
-                            <div class="md:w-1/2 lg:w-3/6 px-2 mb-3 pt-7">
+                            <div style="margin-left: 70px;" class="md:w-1/2 lg:w-3/6 px-2 mb-3 pt-7">
                                 <button type="button"
                                     class="  md:w-1/2 py-2 text-white bg-verdiAnderson transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase rounded-md"
                                     @click="asociarServiciosIngresados(serviciosIngresados)">
@@ -112,16 +112,16 @@
 
 
                             <!-- Se agrega la tabla para los items -->
-                            <div v-if="datosServicioTabla.length" class="w-11/12 mt-10  m-0 p-0">
+                            <div v-if="datosServicioTabla.length" style="width: 800px;" class="w-11/12 mt-5  m-0 p-0">
                                 <div class="w-11/12">
                                     <el-divider>Servicios aplicados</el-divider>
                                 </div>
 
                                 <!-- tabla -->
-                                <el-table :data="datosVenta.servicios" class="w-full mt-10 ">
+                                <el-table style="width: 800px;" :data="datosVenta.servicios" class="w-full mt-10 ">
                                     <el-table-column prop="idServicio" label="Id"></el-table-column>
 
-                                    <el-table-column label="Nombre del servicio">
+                                    <el-table-column label="Servicio">
                                         <template slot-scope="scope">
                                             <div v-for="item in servicios.data" :key="item.id_servicio">
                                                 <p v-if="item.id_servicio == scope.row.idServicio">
@@ -132,7 +132,7 @@
                                     </el-table-column>
 
 
-                                    <el-table-column label="Costo del servicio">
+                                    <el-table-column label="Costo">
                                         <template slot-scope="scope">
                                             <div v-for="item in servicios.data" :key="item.id_servicio">
                                                 <p v-if="item.id_servicio == scope.row.idServicio">
@@ -163,9 +163,9 @@
                         
 
                         <div v-if="active == 3" class="flex flex-wrap justify-around mt-5">
-                            <div class="w-10/12 mt-10 ml-40  m-0 p-0">
+                            <div  style="width: 800px;" class="w-10/12 m-0 p-0">
 
-                                <div class="block w-7/8 mb-10  p-6 bg-white border border-gray-200 rounded-lg shadow-md">
+                                <div  style="width: 800px;"  class="block w-7/8 mb-10  p-6 bg-white border border-gray-200 rounded-lg shadow-md">
                                     <div class="flex justify-center">
                                         <div class="rounded-t mb-0 px-4 py-3 border-0">
                                             <p class="font-semibold text-lg text-verdiAnderson uppercase">
@@ -405,9 +405,9 @@
                         <div class="flex flex-wrap justify-around">
 
 
-                            <div class="w-full md:w-1/2  px-2 mb-3 py-1">
+                            <div class="w-full  px-2 mb-1 py-1">
                                 <label>
-                                    <p class="ml-1">Unidades Utilizadas</p>
+                                    <p class="ml-1">Valor del dolar</p>
                                     <el-input placeholder="precio del dolar" v-model="precioNuevo.precioDolar"
                                         type="number"></el-input>
                                 </label>

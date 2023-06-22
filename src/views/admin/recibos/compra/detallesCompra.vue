@@ -17,7 +17,7 @@
                         <form >
                             <div class="flex flex-wrap justify-around">
 
-                                <div class="block w-2/3 mb-10  p-6 bg-white border border-gray-200 rounded-lg shadow-md  dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"> 
+                                <div class="block w-11/12 mb-10  p-6 bg-white border border-gray-200 rounded-lg shadow-md"> 
                                     
                                     <div class="flex justify-center">
                                         <div class="rounded-t mb-0 px-4 py-3 border-0">
@@ -96,8 +96,8 @@
 
                                     <!-- tabla -->
                                     <div class="relative overflow-x-auto mt-10">
-                                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                        <table class="w-full text-sm text-left text-gray-500 ">
+                                            <thead class="text-xs text-gray-700 uppercase bg-gray-50  ">
                                                 <tr>
                                                     <th scope="col" class="px-6 text-sm py-3 text-verdiAnderson">
                                                         Material
@@ -114,9 +114,9 @@
                                                 </tr>
                                             </thead>
                                             <tbody v-if="detallesCompraMateriales && detallesCompraMateriales.data">
-                                                <tr v-for="material in detallesCompraMateriales.data" :key="material.id_recurso" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                <tr v-for="material in detallesCompraMateriales.data" :key="material.id_recurso" class="bg-white border-b">
                                                     
-                                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                                                         {{  material.nombre_recurso}}
                                                     </th>
 
@@ -144,12 +144,7 @@
                                         
                                     </div>
                                     <br>
-                                    <div class="flex flex-wrap justify-around">
-                                        
-                                        <button :disabled="loading"
-                                            class="w-full md:w-1/3 bg-red-600 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
-                                            type="submit">Descargar PDF</button>
-                                    </div>
+                                    
                                 </div>
                                 
                             </div>
