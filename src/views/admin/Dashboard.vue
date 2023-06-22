@@ -6,8 +6,8 @@
           <div v-if="estadisticaPacientes && estadisticaPacientes.length" class="w-full md:w-2/5 mx-1 mb-3 shadow-lg rounded bg-white p-1">
             <highcharts :options="returnEstadisticaPacientes(estadisticaPacientes)"></highcharts>
           </div>
-          <div class="w-full md:w-2/5 mx-1 mb-3 shadow-lg rounded bg-white p-1">
-            <highcharts :options="{}"></highcharts>
+          <div v-if="estadisticaVentas && estadisticaVentas.length" class="w-full md:w-2/5 mx-1 mb-3 shadow-lg rounded bg-white p-1">
+            <highcharts :options="returnEstadisticaVentas(estadisticaVentas)"></highcharts>
           </div>
           <div class="w-full md:w-2/5 mx-1 mb-3 shadow-lg rounded bg-white p-1">
             <highcharts :options="{}"></highcharts>
@@ -64,6 +64,39 @@
             },
           },
           xAxis: {
+            categories: ['Pacientes por fecha'],
+          },
+          series: [
+            {
+              data: [0],
+              name: "Promedios de pacientes",
+              label: "Actual"
+            },
+          ],
+        };
+        for (const estadistica of payload) {
+          const objetoSeries = {
+            name: `${estadistica.fecha_creacion.slice(0, 10)}`,
+            data: [0, Number(estadistica.count)]
+          };
+          resultado.series.push(objetoSeries);
+        }
+        return resultado;
+      },
+      returnEstadisticaVentas(payload) {
+        const resultado = {
+          title: { text: `Registro de ventas por fecha ${this.payloadSearch.fechaInicio} al ${this.payloadSearch.fechaFinal}` },
+          legend: {
+            enabled: true,
+          },
+          credits: { enabled: true },
+          plotOptions: {
+            line: {
+              dataLabels: { enabled: true },
+              enableMouseTracking: true,
+            },
+          },
+          xAxis: {
             categories: ['Ventas por fecha'],
           },
           series: [
@@ -76,8 +109,8 @@
         };
         for (const estadistica of payload) {
           const objetoSeries = {
-            name: `${estadistica.fecha_creacion.slice(0, 10)}`,
-            data: [0, Number(estadistica.count)]
+            name: `${estadistica.nombre_servicio}`,
+            data: [0, Number(estadistica.cantidad_vendida)]
           };
           resultado.series.push(objetoSeries);
         }
