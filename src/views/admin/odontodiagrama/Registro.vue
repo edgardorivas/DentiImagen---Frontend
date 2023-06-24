@@ -241,6 +241,17 @@
                                                 inactive-color="#ff4949"></el-switch>
                                         </label>
                                     </div>
+
+                                    <div class=" mb-2">
+                                        <label>
+                                            <p class="ml-1 mb-1">Observacion general</p>
+                                            <el-input type="textarea" :rows="2"
+                                                placeholder="Observacion del diente"
+                                                v-model="diente.observacionGeneral">
+                                            </el-input>
+                                        </label>
+                                    </div>
+
                                     <div class="w-full px-2 mb-3 py-1">
                                         <label>
                                             <p class="ml-1 mb-1">Afecciones / Problematica del Diente</p>
@@ -276,12 +287,15 @@
                                                     inactive-text="NO"></el-switch>
                                             </label>
                                         </div>
+
+
                                         <div class="flex justify-end">
                                             <button class="text-red-500 uppercase"
                                                 @click="eliminarAfeccion(diente.afecciones, index)"> <i
                                                     class="fa-solid fa-xmark"></i> Eliminar</button>
                                         </div>
                                     </div>
+                                    
                                 </div>
                                 <div>
                                     <button @click="modal = false"
@@ -295,7 +309,7 @@
             </div>
         </div>
 
-        <!-- cambiar el precio del dolar -->
+        <!-- modal del historial del paciente -->
         <el-dialog title="Agregar informacion de tratamientos del paciente" :visible.sync="centerDialogVisibleHistorial" width="30%" center>
             <div class="flex flex-wrap justify-around">
                 <el-form label-position="top" class="w-96" :model="formHistorialTratamiento" :rules="rules" ref="registrarhistorialTratamientos">
@@ -396,6 +410,7 @@ export default {
                     { min: 2, max:250, message: 'La observacion general tiene que tener como minimo 2 caracteres y como maximo 250 ', trigger: 'change' }
                 ],
             },
+            observacion:false,
             estatusObservacion:false,
             pacientes: [],
             loading:false
@@ -553,6 +568,7 @@ export default {
                 afecciones: [],
                 sano: true,
                 ausente: false,
+                observacionGeneral: ''
             };
         },
         getNewAfeccion() {

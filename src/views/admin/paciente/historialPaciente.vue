@@ -314,6 +314,15 @@
                                                             inactive-color="#ff4949"></el-switch>
                                                     </label>
                                                 </div>
+                                                <div class=" mb-2">
+                                                    <label>
+                                                        <p class="ml-1 mb-1">Observacion general</p>
+                                                        <el-input type="textarea" :rows="2"
+                                                            placeholder="Observacion del diente"
+                                                            v-model="diente.observacionGeneral">
+                                                        </el-input>
+                                                    </label>
+                                                </div>
                                                 <div class="w-full px-2 mb-3 py-1">
                                                     <label>
                                                         <p class="ml-1 mb-1">Afecciones / Problematica del Diente</p>

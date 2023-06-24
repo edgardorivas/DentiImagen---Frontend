@@ -28,7 +28,7 @@
             Busqueda Avanzada
           </button>
         </div>
-        <div class="mt-5">
+        <div class="mt-5">0
           <div v-if="usuarios && usuarios.data">
             <el-table :data="usuarios.data" class="w-full">
               <el-table-column fixed prop="usuario" label="Usuario" width="190">

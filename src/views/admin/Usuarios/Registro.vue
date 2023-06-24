@@ -428,9 +428,10 @@ export default {
     },
     methods: {
         async registrarUsuario() {
-            try {
-                this.$refs['nuevoUsuario'].validate(async (valid) => {
-                    if (valid) {
+            
+            this.$refs['nuevoUsuario'].validate(async (valid) => {
+                if (valid) {
+                    try {
                         this.$store.dispatch('getLoadingApp', true);
                         this.loading = true;
                         const token = localStorage.getItem('token_acess');
@@ -450,24 +451,28 @@ export default {
                             type: 'success',
                         });
                         this.$router.push({ path: '/admin/usuarios' });
+
+                    } catch (error) {
+                        console.log("entro error")
+                        if (error.response) {
+                            console.log("entro error",error.response)
+
+                            this.$message({
+                                message: error.response.data.mensaje || 'Sin mensaje del servidor',
+                                type: 'error',
+                            });
+                        } else {
+                            this.$message({
+                                message: 'No estas conectado a internet.',
+                                type: 'error'
+                            });
+                        }
+                        this.$store.dispatch('getLoadingApp', false);
+                        this.loading = false;
+                        console.clear()
                     }
-                });
-            } catch (error) {
-                if (error.response) {
-                    this.$message({
-                        message: error.response.data.mensaje || 'Sin mensaje del servidor',
-                        type: 'error',
-                    });
-                } else {
-                    this.$message({
-                        message: 'No estas conectado a internet.',
-                        type: 'error'
-                    });
                 }
-                this.$store.dispatch('getLoadingApp', false);
-                this.loading = false;
-                console.clear()
-            }
+            });
         },
     },
     computed: {

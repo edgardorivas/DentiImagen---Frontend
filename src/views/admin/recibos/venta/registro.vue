@@ -748,14 +748,16 @@ export default {
                     },
                     data: this.precioNuevo,
                 });
-                console.log(request)
+
+                this.precioDolarBaseDatos.data[0].precio_dolar = this.precioNuevo.precioDolar
+
                 this.$store.dispatch('getLoadingApp', false);
                 this.loading = false;
                 this.$message({
                     message: request.data.mensaje,
                     type: 'success',
                 });
-                this.precioDolarBaseDatos.data[0].precio_dolar = this.precioNuevo.precioDolar
+
                 this.datosVenta.precioDolar = this.precioDolarBaseDatos.data[0].precio_dolar
                 this.centerDialogVisibleDolar = false
             } catch (error) {
