@@ -5,22 +5,22 @@
                 <span
                     class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full">
                     <img alt="..." class="w-full rounded-full align-middle border-none shadow-lg"
-                        :src="'https://w7.pngwing.com/pngs/312/283/png-transparent-man-s-face-avatar-computer-icons-user-profile-business-user-avatar-blue-face-heroes-thumbnail.png'" />
+                        src="../../assets/avatar_masculino.svg" />
                 </span>
             </div>
         </a>
-        <div  ref="popoverDropdownRef"
+        <div ref="popoverDropdownRef"
             class="bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48" v-bind:class="{
                 hidden: !dropdownPopoverShow,
                 block: dropdownPopoverShow,
             }">
             <div v-if="getmiUsuario && getmiUsuario.id_usuario" v-on:click="toggleDropdown">
-                <router-link :to="`/admin/usuarios/${getmiUsuario.id_usuario}`" 
+                <router-link :to="`/admin/usuarios/${getmiUsuario.id_usuario}`"
                     class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
                     Perfil
                 </router-link>
             </div>
-            
+
             <div class="h-0 my-2 border border-solid border-blueGray-100"> </div>
             <router-link to="/logout"
                 class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700">
