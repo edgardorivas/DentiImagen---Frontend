@@ -16,32 +16,41 @@
                         </div>
                     </div>
                 </div>
+                <div v-if="inventario && inventario.data"
+                    class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
+
+                    <button v-on:click="openNewTab"
+                        class="bg-red-600 text-white active:bg-indigo-600 text-xs font-bold uppercase px-8 py-1 rounded outline-none focus:outline-none mr-8 mb-1 ease-linear transition-all duration-150"
+                        type="button">
+                        PDF
+                    </button>
+                    <!-- 
+                    <router-link v-on:click="openNewTab"
+                        class="bg-red-600 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
+                        PDF
+                    </router-link> -->
+
+
+                </div>
                 <div v-if="inventario && inventario.data">
 
                     <div class="px-5 mt-3 flex ">
 
-                        <button @click="modal = true" class="bg-verdiAnderson justify-start text-white py-2 px-3 rounded-md uppercase">
+                        <button @click="modal = true"
+                            class="bg-verdiAnderson justify-start text-white py-2 px-3 rounded-md uppercase">
                             Busqueda Avanzada
                         </button>
-
-                        <button :disabled="loading"
-                            class=" md:w-1/12 bg-indigo-600 justify-end text-white  uppercase py-1 rounded-md"
-                            type="button" v-on:click="openNewTab">
-                            PDF
-                        </button>
-                       
-                        
                     </div>
-                    
+
                     <div class="mt-5">
-                        <div >
+                        <div>
                             <el-table :data="inventario.data" class="w-full">
                                 <el-table-column prop="nombre" label="Nombres"></el-table-column>
                                 <el-table-column prop="tipo" label="Tipo de material"></el-table-column>
                                 <el-table-column prop="minimo" label="Cantidad Minima"></el-table-column>
                                 <el-table-column prop="disponible" label="Cantidad Disponible"></el-table-column>
-    
-                                
+
+
                             </el-table>
                             <!-- Modales de busqueda -->
                             <el-drawer title="Busqueda Avanzada" :visible.sync="modal" direction="rtl"
@@ -95,8 +104,8 @@
                                         </div>
                                         <div>
                                             <button
-                                            class="w-full bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2"
-                                            type="submit">Buscar</button>
+                                                class="w-full bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2"
+                                                type="submit">Buscar</button>
                                         </div>
                                     </div>
                                 </form>
@@ -105,8 +114,7 @@
                     </div>
                 </div>
                 <div v-else class=" w-1/2 sm:ml-32 md:ml-36 lg:ml-96 mb-20">
-                    <div class=" flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50"
-                        role="warning">
+                    <div class=" flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="warning">
                         <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
                             viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
@@ -150,7 +158,7 @@ export default {
                     nivel: "",
                 },
             */
-            url:`http://localhost:3000/pdf/inventario`,
+            url: `http://localhost:3000/pdf/inventario`,
 
         }
     },
@@ -172,7 +180,7 @@ export default {
         inventario() {
             return this.$store.getters.getInventario;
         },
-        
+
     }
 }
 </script>
