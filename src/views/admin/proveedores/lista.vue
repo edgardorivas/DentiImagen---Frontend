@@ -10,6 +10,13 @@
 							</h3>
 						</div>
 						<div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
+
+							<button v-on:click="openNewTab"
+								class="bg-red-600 text-white text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+								type="button">
+								PDF
+							</button>
+
 							<router-link to="/admin/proveedores/agregar"
 								class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
 								Agregar nuevo
@@ -22,11 +29,7 @@
 					<button @click="modal = true" class="bg-verdiAnderson text-white py-2 px-3 rounded-md uppercase">
 						Busqueda Avanzada
 					</button>
-					<button  :disabled="loading"
-						class=" md:w-1/12 bg-indigo-600 justify-end text-white  uppercase py-1 rounded-md"
-						type="button" v-on:click="openNewTab">
-						PDF
-					</button>
+
 				</div>
 
 				<div class="mt-5 ">
@@ -120,8 +123,7 @@
 
 					</div>
 					<div v-else class=" w-1/2 sm:ml-32 md:ml-36 lg:ml-64 mb-20">
-						<div class=" flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50"
-							role="warning">
+						<div class=" flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="warning">
 							<svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
 								viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
 								<path fill-rule="evenodd"
@@ -132,7 +134,8 @@
 							<div>
 								<span class="font-medium">No se ha registrado ningun proveedor</span>
 								<ul class="mt-1.5 ml-4 list-disc list-inside">
-									<li>Se recomienda tener registrado los materiales que posee y necesita la clinica odontologica</li>
+									<li>Se recomienda tener registrado los materiales que posee y necesita la clinica
+										odontologica</li>
 								</ul>
 							</div>
 						</div>
@@ -164,7 +167,7 @@ export default {
 				especializacion: "",
 				nivel: "",
 			},
-            url:`http://localhost:3000/pdf/proveedor`,
+			url: `http://localhost:3000/pdf/proveedor`,
 
 		};
 	},
@@ -178,9 +181,9 @@ export default {
 		aplicarFiltro() {
 			this.$store.dispatch("obtenerDetalleProveedor", this.search);
 		},
-        openNewTab() {
-            window.open(this.url, '_blank');
-        }
+		openNewTab() {
+			window.open(this.url, '_blank');
+		}
 	},
 	computed: {
 		// usuarios () {

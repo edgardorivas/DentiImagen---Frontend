@@ -82,8 +82,8 @@
                             <div v-if="servicios && servicios.data" class=" md:w-1/2 lg:w-3/6 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Servicios</p>
-                                    <el-select v-model="serviciosIngresados.idServicio"
-                                        placeholder="Seleccione el servicio" class="w-full">
+                                    <el-select v-model="serviciosIngresados.idServicio" placeholder="Seleccione el servicio"
+                                        class="w-full">
                                         <el-option v-for="servicio in servicios.data" :key="servicio.id_servicio"
                                             :label="servicio.nombre_servicio" :value="servicio.id_servicio">
                                         </el-option>
@@ -160,12 +160,13 @@
                             </div>
 
                         </div>
-                        
+
 
                         <div v-if="active == 3" class="flex flex-wrap justify-around mt-5">
-                            <div  style="width: 800px;" class="w-10/12 m-0 p-0">
+                            <div style="width: 800px;" class="w-10/12 m-0 p-0">
 
-                                <div  style="width: 800px;"  class="block w-7/8 mb-10  p-6 bg-white border border-gray-200 rounded-lg shadow-md">
+                                <div style="width: 800px;"
+                                    class="block w-7/8 mb-10  p-6 bg-white border border-gray-200 rounded-lg shadow-md">
                                     <div class="flex justify-center">
                                         <div class="rounded-t mb-0 px-4 py-3 border-0">
                                             <p class="font-semibold text-lg text-verdiAnderson uppercase">
@@ -226,8 +227,8 @@
 
                                     <div v-for="paciente in pacientes.data" :key="paciente.id_paciente"
                                         class="flex mt-9 pl-20 flex-wrap justify-start">
-                                        
-                                        
+
+
                                         <div v-if="paciente.id_paciente == datosVenta.idPaciente" class="w-11/12">
 
                                             <p class="border  p-2 font-normal text-gray-700  ">
@@ -314,10 +315,12 @@
                                     <div v-if="totalSuma != 0"
                                         class="border mt-10 flex flex-wrap  border-solid border-gray-400 my-10 p-5">
                                         <p class=" text-verdiAnderson w-1/2 pl-5 text-xl"> Precio del dolar : </p>
-                                        <p class="w-1/2 text-right text-xl pl-5">{{ datosVenta.precioDolar}} Bs</p>
+                                        <p class="w-1/2 text-right text-xl pl-5">{{ datosVenta.precioDolar }} Bs</p>
 
-                                        <p class=" text-verdiAnderson w-1/2 pl-5 text-xl"> Precio en bolivares soberanos : </p>
-                                        <p class="w-1/2 text-right text-xl pl-5">{{ totalSuma * datosVenta.precioDolar}} Bs</p>
+                                        <p class=" text-verdiAnderson w-1/2 pl-5 text-xl"> Precio en bolivares soberanos :
+                                        </p>
+                                        <p class="w-1/2 text-right text-xl pl-5">{{ totalSuma * datosVenta.precioDolar }} Bs
+                                        </p>
 
                                         <p class=" text-verdiAnderson w-1/2 pl-5 text-2xl">Total en dolares</p>
                                         <p class="w-1/2 text-right text-2xl pl-5">{{ totalSuma }}$</p>
@@ -329,16 +332,17 @@
                                         <!-- <button :disabled="loading"
                                           class="w-full md:w-1/3 bg-red-600 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
                                           type="submit">Descargar PDF</button> -->
+                                        <button :disabled="loading" v-on:click="ingresarVenta()"
+                                            class="w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">
+                                            Guardar presupuesto
+                                        </button>
                                     </div>
                                 </div>
 
 
                             </div>
 
-                            <button :disabled="loading" v-on:click="ingresarVenta()"
-                                class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">
-                                Guardar presupuesto
-                            </button>
+
 
                         </div>
 
@@ -703,7 +707,7 @@ export default {
                 this.loading = false;
             }
         },
-        
+
     },
     computed: {
         usuarios() {
