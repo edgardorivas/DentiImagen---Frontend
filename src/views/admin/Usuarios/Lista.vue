@@ -9,13 +9,14 @@
                 Lista de Usuarios
               </h3>
             </div>
-            <div
-              class="relative w-full px-4 max-w-full flex-grow flex-1 text-right"
-            >
-              <button v-on:click="openNewTab" class="bg-red-600 text-white text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                  PDF
+            <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
+              <button v-on:click="openNewTab"
+                class="bg-red-600 text-white text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                type="button">
+                PDF
               </button>
-              <router-link to="/admin/usuario/agregar" class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 ">
+              <router-link to="/admin/usuario/agregar"
+                class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 ">
                 Agregar nuevo
               </router-link>
 
@@ -28,23 +29,23 @@
             Busqueda Avanzada
           </button>
         </div>
-        <div class="mt-5">0
+        <div class="mt-5">
           <div v-if="usuarios && usuarios.data">
             <el-table :data="usuarios.data" class="w-full">
               <el-table-column fixed prop="usuario" label="Usuario" width="190">
                 <template slot-scope="scope">
                   <router-link :to="`/admin/usuarios/${scope.row.id_usuario}`" class="uppercase text-verdiAnderson">
-                    @{{scope.row.usuario}}
+                    @{{ scope.row.usuario }}
                   </router-link>
                 </template>
               </el-table-column>
               <el-table-column prop="nombre" label="Nombres"></el-table-column>
               <el-table-column prop="apellido" label="Apellidos"></el-table-column>
               <el-table-column prop="correo" label="Correo Electronico"></el-table-column>
-              
+
               <el-table-column prop="rol" label="Rango">
                 <template slot-scope="scope">
-                  <p class="text-verdiAnderson uppercase">{{scope.row.rol}}</p>
+                  <p class="text-verdiAnderson uppercase">{{ scope.row.rol }}</p>
                 </template>
               </el-table-column>
 
@@ -52,16 +53,14 @@
 
               <el-table-column prop="fecha" label="Creado">
                 <template slot-scope="scope">
-                  <p class="">{{parseDate(scope.row.fecha)}}</p>
+                  <p class="">{{ parseDate(scope.row.fecha) }}</p>
                 </template>
               </el-table-column>
-              <el-table-column
-                fixed="right"
-                label="Operaciones"
-                width="170">
+              <el-table-column fixed="right" label="Operaciones" width="170">
                 <template slot-scope="scope">
                   <p class="text-center">
-                    <router-link :to="`/admin/usuarios/${scope.row.id_usuario}`" class="text-verdiAnderson text-xs w-full">
+                    <router-link :to="`/admin/usuarios/${scope.row.id_usuario}`"
+                      class="text-verdiAnderson text-xs w-full">
                       Editar
                     </router-link>
                   </p>
@@ -89,13 +88,15 @@
                     <div class="w-full px-2 mb-3 py-1">
                       <label>
                         <p class="ml-1 mb-1">Especializacion</p>
-                        <el-input placeholder="Especializacion del Trabajador" v-model="search.especializacion"></el-input>
+                        <el-input placeholder="Especializacion del Trabajador"
+                          v-model="search.especializacion"></el-input>
                       </label>
                     </div>
                     <div class="w-full px-2 mb-3 py-1">
                       <label>
                         <p class="ml-1 mb-1">Fecha</p>
-                        <el-date-picker v-model="search.fecha" type="date" placeholder="Selecciona una fecha"></el-date-picker>
+                        <el-date-picker v-model="search.fecha" type="date"
+                          placeholder="Selecciona una fecha"></el-date-picker>
                       </label>
                     </div>
                     <div v-if="nivelesUsuario && nivelesUsuario.data" class="w-full px-2 mb-3 py-1">
@@ -103,14 +104,17 @@
                         <p class="ml-1">Nivel / Rol</p>
                         <el-select v-model="search.nivel" placeholder="Nivel del trabajador" class="w-full">
                           <el-option label="Ninguno" :value="null"></el-option>
-                          <el-option v-for="item in nivelesUsuario.data" :key="item.id_nivel_usuario" :label="item.nombre_nivel_usuario" :value="item.id_nivel_usuario"></el-option>
+                          <el-option v-for="item in nivelesUsuario.data" :key="item.id_nivel_usuario"
+                            :label="item.nombre_nivel_usuario" :value="item.id_nivel_usuario"></el-option>
                         </el-select>
                       </label>
                     </div>
                     <!-- Fin del contenido -->
                   </div>
                   <div>
-                    <button class="w-full bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2" type="submit">Buscar</button>
+                    <button
+                      class="w-full bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2"
+                      type="submit">Buscar</button>
                   </div>
                 </div>
               </form>
@@ -122,60 +126,59 @@
   </div>
 </template>
 <script>
-  import config from '../../../config';
-  export default {
-    name: 'users-list',
-    metaInfo: {
-      title: config.frontend.title,
-      titleTemplate: '%s | Lista de Usuarios',
-    },
-    created() {
-      // this.$store.dispatch('obtenerListaDeUsuarios')
-      this.aplicarFiltro();
-    },
-    data() {
-      return {
-        modal: false,
-        search: {
-          nombre: "",
-          usuario: "",
-          fecha: "",
-          especializacion: "",
-          nivel: "",
-        },
-        url:`http://localhost:3000/pdf/trabajadores`,
+import config from '../../../config';
+export default {
+  name: 'users-list',
+  metaInfo: {
+    title: config.frontend.title,
+    titleTemplate: '%s | Lista de Usuarios',
+  },
+  created() {
+    // this.$store.dispatch('obtenerListaDeUsuarios')
+    this.aplicarFiltro();
+  },
+  data() {
+    return {
+      modal: false,
+      search: {
+        nombre: "",
+        usuario: "",
+        fecha: "",
+        especializacion: "",
+        nivel: "",
+      },
+      url: `http://localhost:3000/pdf/trabajadores`,
 
-      }
-    },
-    methods: {
-      parseDate(date) {
-        return new Date(date).toLocaleString();
-      },
-      handleClose() {
-        this.modal = false;
-      },
-      aplicarFiltro() {
-        this.$store.dispatch('obtenerDetalleUsuario', this.search);
-      },
-      openNewTab() {
-          window.open(this.url, '_blank');
-      }
-    },
-    computed: {
-      // usuarios () {
-      //   return this.$store.getters.getusuarios;
-      // },
-      usuarios () {
-        return this.$store.getters.getdetalleUsuarioId;
-      },
-      nivelesUsuario () {
-        return this.$store.getters.getnivelesUsuarios;
-      },
     }
+  },
+  methods: {
+    parseDate(date) {
+      return new Date(date).toLocaleString();
+    },
+    handleClose() {
+      this.modal = false;
+    },
+    aplicarFiltro() {
+      this.$store.dispatch('obtenerDetalleUsuario', this.search);
+    },
+    openNewTab() {
+      window.open(this.url, '_blank');
+    }
+  },
+  computed: {
+    // usuarios () {
+    //   return this.$store.getters.getusuarios;
+    // },
+    usuarios() {
+      return this.$store.getters.getdetalleUsuarioId;
+    },
+    nivelesUsuario() {
+      return this.$store.getters.getnivelesUsuarios;
+    },
   }
+}
 </script>
 <style lang="scss">
-  .el-date-editor {
-    width: 100% !important;
-  }
-</style>
+.el-date-editor {
+  width: 100% !important;
+}</style>

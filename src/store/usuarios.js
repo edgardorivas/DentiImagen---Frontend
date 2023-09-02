@@ -1,6 +1,6 @@
-import axios from 'axios'
-import config from './../config.js'
-import { Notification } from 'element-ui'
+import axios from "axios";
+import config from "./../config.js";
+import { Notification } from "element-ui";
 
 export default {
   state: {
@@ -8,160 +8,232 @@ export default {
     detalleUsuarioId: null,
     nivelesUsuarios: null,
     miUsuario: null,
+    respaldoBd: null,
+    restauracionBD: null,
   },
   mutations: {
+    setrestauracionBD: (state, value) => {
+      state.restauracionBD = value;
+    },
+    setrespaldoBd: (state, value) => {
+      state.respaldoBd = value;
+    },
     setusuarios: (state, value) => {
-      state.usuarios = value
+      state.usuarios = value;
     },
     setdetalleUsuarioId: (state, value) => {
-      state.detalleUsuarioId = value
+      state.detalleUsuarioId = value;
     },
     setnivelesUsuarios: (state, value) => {
-      state.nivelesUsuarios = value
+      state.nivelesUsuarios = value;
     },
     setmiUsuario: (state, value) => {
-        state.miUsuario = value
+      state.miUsuario = value;
     },
   },
   getters: {
+    getrespaldoBd: (state) => {
+      return state.respaldoBd;
+    },
+    getrestauracionBD: (state) => {
+      return state.restauracionBD;
+    },
     getusuarios: (state) => {
-      return state.usuarios
+      return state.usuarios;
     },
     getdetalleUsuarioId: (state) => {
-      return state.detalleUsuarioId
+      return state.detalleUsuarioId;
     },
     getnivelesUsuarios: (state) => {
-      return state.nivelesUsuarios
+      return state.nivelesUsuarios;
     },
     getmiUsuario: (state) => {
-        return state.miUsuario
+      return state.miUsuario;
     },
   },
   actions: {
-    async obtenerListaDeUsuarios (context) {
-      const token = localStorage.getItem('token_acess')
-      context.dispatch('getLoadingApp', true);
+    async obtenerListaDeUsuarios(context) {
+      const token = localStorage.getItem("token_acess");
+      context.dispatch("getLoadingApp", true);
       try {
         const resultado = await axios({
-          method: 'GET',
+          method: "GET",
           baseURL: config.backend.baseURL,
-          url: '/usuario',
+          url: "/usuario",
           headers: {
-            ['auth-token']: token,
-          }
+            ["auth-token"]: token,
+          },
         });
-        context.commit('setusuarios', resultado.data)
+        context.commit("setusuarios", resultado.data);
       } catch (error) {
         if (error.response) {
           Notification({
             title: config.frontend.title,
             message: error,
-            type: 'error'
-          })
+            type: "error",
+          });
         } else {
           Notification({
             title: config.frontend.title,
-            message: 'Error al acceder a internet',
-            type: 'error'
-          })
+            message: "Error al acceder a internet",
+            type: "error",
+          });
         }
-        context.commit('setusuarios', [])
+        context.commit("setusuarios", []);
       }
-      context.dispatch('getLoadingApp', false);
+      context.dispatch("getLoadingApp", false);
     },
-    async obtenerDetalleUsuario (context, payload = { id: String }) {
-      const token = localStorage.getItem('token_acess')
-      context.dispatch('getLoadingApp', true);
+    async obtenerDetalleUsuario(context, payload = { id: String }) {
+      const token = localStorage.getItem("token_acess");
+      context.dispatch("getLoadingApp", true);
       try {
         const resultado = await axios({
-          method: 'POST',
+          method: "POST",
           baseURL: config.backend.baseURL,
-          url: '/usuario/buscar',
+          url: "/usuario/buscar",
           headers: {
-            ['auth-token']: token,
+            ["auth-token"]: token,
           },
           data: payload,
         });
-        context.commit('setdetalleUsuarioId', resultado.data)
+        context.commit("setdetalleUsuarioId", resultado.data);
       } catch (error) {
         if (error.response) {
           Notification({
             title: config.frontend.title,
             message: error,
-            type: 'error'
-          })
+            type: "error",
+          });
         } else {
           Notification({
             title: config.frontend.title,
-            message: 'Error al acceder a internet',
-            type: 'error'
-          })
+            message: "Error al acceder a internet",
+            type: "error",
+          });
         }
-        context.commit('setdetalleUsuarioId', [])
+        context.commit("setdetalleUsuarioId", []);
       }
-      context.dispatch('getLoadingApp', false);
+      context.dispatch("getLoadingApp", false);
     },
-    async obtenerRoles (context) {
-      const token = localStorage.getItem('token_acess')
-      context.dispatch('getLoadingApp', true);
+    async obtenerRoles(context) {
+      const token = localStorage.getItem("token_acess");
+      context.dispatch("getLoadingApp", true);
       try {
         const resultado = await axios({
-          method: 'GET',
+          method: "GET",
           baseURL: config.backend.baseURL,
-          url: '/nivel-usuario',
+          url: "/nivel-usuario",
           headers: {
-            ['auth-token']: token,
+            ["auth-token"]: token,
           },
         });
-        context.commit('setnivelesUsuarios', resultado.data)
+        context.commit("setnivelesUsuarios", resultado.data);
       } catch (error) {
         if (error.response) {
           Notification({
             title: config.frontend.title,
             message: error,
-            type: 'error'
-          })
+            type: "error",
+          });
         } else {
           Notification({
             title: config.frontend.title,
-            message: 'Error al acceder a internet',
-            type: 'error'
-          })
+            message: "Error al acceder a internet",
+            type: "error",
+          });
         }
-        context.commit('setnivelesUsuarios', [])
+        context.commit("setnivelesUsuarios", []);
       }
-      context.dispatch('getLoadingApp', false);
+      context.dispatch("getLoadingApp", false);
     },
     async obtenerMiUsuario(context) {
-        const token = localStorage.getItem('token_acess')
-        context.dispatch('getLoadingApp', true);
-        try {
-            const resultado = await axios({
-                method: 'GET',
-                baseURL: config.backend.baseURL,
-                url: '/usuario/miPerfil',
-                headers: {
-                    ['auth-token']: token,
-                },
-            });
-            context.commit('setmiUsuario', resultado.data.data[0])
-        } catch (error) {
-            if (error.response) {
-            Notification({
-                title: config.frontend.title,
-                message: error,
-                type: 'error'
-            })
-            } else {
-            Notification({
-                title: config.frontend.title,
-                message: 'Error al acceder a internet',
-                type: 'error'
-            })
-            }
-            context.commit('setmiUsuario', null)
+      const token = localStorage.getItem("token_acess");
+      context.dispatch("getLoadingApp", true);
+      try {
+        const resultado = await axios({
+          method: "GET",
+          baseURL: config.backend.baseURL,
+          url: "/usuario/miPerfil",
+          headers: {
+            ["auth-token"]: token,
+          },
+        });
+        context.commit("setmiUsuario", resultado.data.data[0]);
+      } catch (error) {
+        if (error.response) {
+          Notification({
+            title: config.frontend.title,
+            message: error,
+            type: "error",
+          });
+        } else {
+          Notification({
+            title: config.frontend.title,
+            message: "Error al acceder a internet",
+            type: "error",
+          });
         }
-        context.dispatch('getLoadingApp', false);
-    }
-  }
-}
+        context.commit("setmiUsuario", null);
+      }
+      context.dispatch("getLoadingApp", false);
+    },
+    async respaldarBaseDatos(context) {
+      const token = localStorage.getItem("token_acess");
+      try {
+        const resultado = await axios({
+          method: "GET",
+          baseURL: config.backend.baseURL,
+          url: "/respaldo",
+          headers: {
+            ["auth-token"]: token,
+          },
+        });
+        context.commit("setrespaldoBd", resultado);
+      } catch (error) {
+        if (error.response) {
+          Notification({
+            title: config.frontend.title,
+            message: error,
+            type: "error",
+          });
+        } else {
+          Notification({
+            title: config.frontend.title,
+            message: "Error al acceder a internet",
+            type: "error",
+          });
+        }
+        context.commit("setrespaldoBd", []);
+      }
+    },
+    async restauracionBaseDatos(context) {
+      const token = localStorage.getItem("token_acess");
+      try {
+        const resultado = await axios({
+          method: "GET",
+          baseURL: config.backend.baseURL,
+          url: "/restauracion",
+          headers: {
+            ["auth-token"]: token,
+          },
+        });
+        context.commit("setrestauracionBD", resultado);
+      } catch (error) {
+        if (error.response) {
+          Notification({
+            title: config.frontend.title,
+            message: error,
+            type: "error",
+          });
+        } else {
+          Notification({
+            title: config.frontend.title,
+            message: "Error al acceder a internet",
+            type: "error",
+          });
+        }
+        context.commit("setrestauracionBD", []);
+      }
+    },
+  },
+};

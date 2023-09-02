@@ -13,7 +13,8 @@
                 <div class="mt-5 pb-5">
 
 
-                    <el-form label-position="top" :model="datos" :rules="rules"  ref="registroCompra" label-width="120px" class="demo-ruleForm">
+                    <el-form label-position="top" :model="datos" :rules="rules" ref="registroCompra" label-width="120px"
+                        class="demo-ruleForm">
                         <div class="flex flex-wrap justify-around">
 
                             <div class="w-11/12">
@@ -24,11 +25,12 @@
                                 <label>
                                     <p class="ml-1">Trabajador que recibe la compra</p>
                                     <el-form-item prop="idtrabajador">
-                                        <el-select v-model="datos.idtrabajador"  placeholder="Trabajadores" class="w-full">
-                                            <el-option v-for="item in usuarios.data"  :key="item.id" :label="`${item.nombre} - ${item.rol}`"
+                                        <el-select v-model="datos.idtrabajador" placeholder="Trabajadores" class="w-full">
+                                            <el-option v-for="item in usuarios.data" :key="item.id"
+                                                :label="`${item.nombre} - ${item.rol}`"
                                                 :value="item.id_trabajador"></el-option>
                                         </el-select>
-                                    </el-form-item >
+                                    </el-form-item>
 
                                 </label>
                             </div>
@@ -42,7 +44,7 @@
                                             <el-option v-for="item in opciones" :key="item.value" :label="item.label"
                                                 :value="item.value"></el-option>
                                         </el-select>
-                                    </el-form-item >
+                                    </el-form-item>
 
                                 </label>
                             </div>
@@ -52,23 +54,23 @@
                                     <p class="ml-1">Monto Total</p>
                                     <el-form-item prop="montoTotal">
 
-                                        <el-input placeholder="Monto total " type="number" 
+                                        <el-input placeholder="Monto total " type="number"
                                             v-model="datos.montoTotal"></el-input>
-                                    </el-form-item >
+                                    </el-form-item>
 
                                 </label>
                             </div>
 
-                            <div v-if="datos.formaPago == 'Pago Movil' || datos.formaPago == 'Transferencias' "
-                             class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                            <div v-if="datos.formaPago == 'Pago Movil' || datos.formaPago == 'Transferencias'"
+                                class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Referencia</p>
                                     <el-form-item prop="referencia">
 
-                                        <el-input placeholder="Referencia " type="number" 
+                                        <el-input placeholder="Referencia " type="number"
                                             v-model="datos.referencia"></el-input>
-                                    </el-form-item >
-                                    
+                                    </el-form-item>
+
                                 </label>
                             </div>
 
@@ -79,7 +81,7 @@
 
                                         <el-input placeholder="Fecha de la compra" type="date" auto-complete="tel"
                                             v-model="datos.fechaCompra"></el-input>
-                                    </el-form-item >
+                                    </el-form-item>
 
                                 </label>
                             </div>
@@ -93,85 +95,96 @@
                                             <el-option v-for="item in proveedores.data" :key="item.id_provedor"
                                                 :label="item.nombre_proveedor" :value="item.id_provedor"></el-option>
                                         </el-select>
-                                    </el-form-item >
+                                    </el-form-item>
 
                                 </label>
                             </div>
 
-                            <div v-else  class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                <el-alert
-                                    title="No se ha registrado proveedores"
-                                    type="warning"
-                                    show-icon>
+                            <div v-else class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <el-alert title="No se ha registrado proveedores" type="warning" show-icon>
                                 </el-alert>
                             </div>
                         </div>
 
                         <!-- Vista para cuando se registre los materiales -->
                         <div v-if="datos.idProvedor">
-                        
-                            <div v-if="proveedorMateriales && proveedorMateriales.data" class="flex flex-wrap justify-around">
-        
-                                <el-divider class="w-11/12" >
+
+                            <div v-if="proveedorMateriales && proveedorMateriales.data"
+                                class="flex flex-wrap justify-around">
+
+                                <el-divider class="w-11/12">
                                     Datos de los materiales comprados
                                 </el-divider>
-    
+
                                 <div class=" my-2 mr-5">
-                                    <button @click="centerDialogVisible = true" class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                                    <button @click="centerDialogVisible = true"
+                                        class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                        type="button">
                                         Agregar Item
                                     </button>
                                 </div>
-    
+
                                 <div v-if="aviso" class=" w-11/12  ml-10 mb-20">
                                     <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
-                                        <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                                        <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3"
+                                            fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                                clip-rule="evenodd"></path>
+                                        </svg>
                                         <span class="sr-only">Danger</span>
                                         <div>
-                                            <span class="font-medium">Consideraciones para registrar los materiales comprados</span>
+                                            <span class="font-medium">Consideraciones para registrar los materiales
+                                                comprados</span>
                                             <ul class="mt-1.5 ml-4 list-disc list-inside">
                                                 <li>Tener registrados previamente los materiales</li>
                                                 <li>Asociar los materiales al provedor previamente selecionado</li>
-                                                <li>Mantener la infomacion actualizada de los materiales que maneja cada proveedor</li>
+                                                <li>Mantener la infomacion actualizada de los materiales que maneja cada
+                                                    proveedor</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div v-else class="w-11/12 m-0 p-0">
                                     <el-table :data="datos.recurso" class="w-full">
-                                        
+
                                         <el-table-column prop="idRecurso" label="Id"></el-table-column>
-    
-                                        <el-table-column  label="Nombre" >
+
+                                        <el-table-column label="Nombre">
                                             <template slot-scope="scope">
                                                 <div v-for="item in datosMaterialesSinModificar" :key="item.id_recurso">
-                                                    <p v-if="datos.recurso[scope.$index].idRecurso == item.id_recurso">{{ item.nombre_recurso }}</p>
+                                                    <p v-if="datos.recurso[scope.$index].idRecurso == item.id_recurso">{{
+                                                        item.nombre_recurso }}</p>
                                                 </div>
                                             </template>
                                         </el-table-column>
-    
+
                                         <el-table-column prop="unidades" label="Unidades"></el-table-column>tipoMoneda
                                         <el-table-column prop="tipoMoneda" label="Tipo de moneda"></el-table-column>
                                         <el-table-column prop="costo" label="Costo"></el-table-column>
-    
-                                        
+
+
                                         <el-table-column fixed="right" label="Operaciones" width="170">
                                             <template slot-scope="scope">
-                                                <el-popconfirm confirm-button-text='Si, Eliminar' confirm-button-type="danger"
-                                                    cancel-button-text='No, Cancelar' icon="el-icon-info" icon-color="red"
+                                                <el-popconfirm confirm-button-text='Si, Eliminar'
+                                                    confirm-button-type="danger" cancel-button-text='No, Cancelar'
+                                                    icon="el-icon-info" icon-color="red"
                                                     :title="`Estas seguro de eliminar el material ?`"
-                                                    class="w-full md:w-1/3" @confirm="eliminarItemArray(datos.recurso[scope.$index].idRecurso)">
-    
-                                                    <p slot="reference" :disabled="loading" class="w-full text-red-600  uppercase py-2 ">Borrar</p>
+                                                    class="w-full md:w-1/3"
+                                                    @confirm="eliminarItemArray(datos.recurso[scope.$index].idRecurso)">
+
+                                                    <p slot="reference" :disabled="loading"
+                                                        class="w-full text-red-600  uppercase py-2 ">Borrar</p>
                                                 </el-popconfirm>
                                             </template>
                                         </el-table-column>
-    
+
                                     </el-table>
                                 </div>
-                                
-                                
-                            </div> 
+
+
+                            </div>
                         </div>
 
                         <div class="flex flex-wrap mt-4 justify-around">
@@ -186,18 +199,21 @@
                     </el-form>
 
                     <!-- Modal para agregar nuevos material para el revibo de compra-->
-                    <el-dialog title="Agregar los datos de la compra" :visible.sync="centerDialogVisible" width="30%" center>
+                    <el-dialog title="Agregar los datos de la compra" :visible.sync="centerDialogVisible" width="30%"
+                        center>
                         <p class="px-2 mb-4 text-center">Datos del material </p>
 
                         <div class="flex flex-wrap justify-around">
-                            <el-form label-position="top" :model="datosRecurso" :rules="rulesModal"  ref="registrarMaterialCompra" label-width="120px" class="demo-ruleForm w-11/12">
-                                
+                            <el-form label-position="top" :model="datosRecurso" :rules="rulesModal"
+                                ref="registrarMaterialCompra" label-width="120px" class="demo-ruleForm w-11/12">
+
                                 <div v-if="proveedorMateriales && proveedorMateriales.data"
                                     class="w-full px-2 mb-3 py-1 block">
                                     <label>
                                         <p class="ml-1">Materiales</p>
                                         <el-form-item prop="idRecurso">
-                                            <el-select v-model="datosRecurso.idRecurso" placeholder="Materiales" class="w-full">
+                                            <el-select v-model="datosRecurso.idRecurso" placeholder="Materiales"
+                                                class="w-full">
                                                 <el-option v-for="item in proveedorMateriales.data" :key="item.id_recurso"
                                                     :label="item.nombre_recurso" :value="item.id_recurso"></el-option>
                                             </el-select>
@@ -205,7 +221,7 @@
 
                                     </label>
                                 </div>
-                                
+
                                 <div class="w-full   px-2 mb-3 py-1">
                                     <label>
                                         <p class="ml-1">Unidades</p>
@@ -213,40 +229,41 @@
 
                                             <el-input placeholder="Unidades compradas" type="number" auto-complete="email"
                                                 v-model="datosRecurso.unidades"></el-input>
-                                        </el-form-item >
+                                        </el-form-item>
 
                                     </label>
                                 </div>
 
                                 <div class="w-full   px-2 mb-3 py-1">
-                                    <label >
+                                    <label>
                                         <p class="ml-1">Costo de la compra</p>
                                         <el-form-item prop="costo">
-                                            <el-input placeholder="monto" v-model="datosRecurso.costo" class="input-with-select ">
-                                                    
-                                                    <el-select v-model="datosRecurso.tipoMoneda" style="width:100px"  slot="prepend">
-                                                        <el-option label="$" value="dolares"></el-option>
-                                                        <el-option label="Bs" value="bolivares"></el-option>
-                                                    </el-select>
+                                            <el-input placeholder="monto" v-model="datosRecurso.costo"
+                                                class="input-with-select ">
+
+                                                <el-select v-model="datosRecurso.tipoMoneda" style="width:100px"
+                                                    slot="prepend">
+                                                    <el-option label="$" value="dolares"></el-option>
+                                                    <el-option label="Bs" value="bolivares"></el-option>
+                                                </el-select>
 
                                             </el-input>
-                                        </el-form-item >
+                                        </el-form-item>
 
                                     </label>
                                 </div>
-                        
+
                             </el-form>
 
-                            
-                        </div> 
-                                                           
-                        
 
-                        <div  slot="footer" class="dialog-footer flex flex-wrap justify-around">
+                        </div>
+
+
+
+                        <div slot="footer" class="dialog-footer flex flex-wrap justify-around">
                             <button slot="reference" :disabled="loading"
                                 class="w-full md:w-1/3 bg-red-600 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
-                                @click="centerDialogVisible = false"
-                                type="button">Cerrar</button>
+                                @click="centerDialogVisible = false" type="button">Cerrar</button>
 
                             <button :disabled="loading"
                                 class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
@@ -467,7 +484,7 @@ export default {
         return {
             centerDialogVisible: false,
             aviso: true,
-            datosMaterialesSinModificar:[],
+            datosMaterialesSinModificar: [],
             opciones: [
                 {
                     value: "Pago Movil",
@@ -488,8 +505,8 @@ export default {
                 fechaCompra: "",
                 idProvedor: "",
                 recurso: [],
-                referencia:'',
-                montoTotal:"",
+                referencia: '',
+                montoTotal: "",
             },
             datosRecurso: {
                 idRecurso: null,
@@ -505,20 +522,20 @@ export default {
                     { required: true, message: 'Seleccione el tipo de pago que se le hizo al proveedor', trigger: 'change' },
                 ],
                 fechaCompra: [
-                    { required: true,  message: 'Es necesario ingresar la fecha de la compra', trigger: 'change' },
+                    { required: true, message: 'Es necesario ingresar la fecha de la compra', trigger: 'change' },
                 ],
                 idProvedor: [
                     { required: true, message: 'Es necesario ingresar el proveedor al que se le hizo la compra', trigger: 'change' },
                 ],
                 referencia: [
-                    { required: false, message: 'ingrese la referencia del pago movil y/o transferencia', trigger: 'change',},
-                    { min: 4, message: 'la referencia tiene que tener como minimo 4 caracteres', trigger: 'change',}
+                    { required: false, message: 'ingrese la referencia del pago movil y/o transferencia', trigger: 'change', },
+                    { min: 4, message: 'la referencia tiene que tener como minimo 4 caracteres', trigger: 'change', }
 
                 ],
                 montoTotal: [
-                    { required: true, message: 'Es obligatorio ingresar el monto total gastado', trigger: 'change',}
+                    { required: true, message: 'Es obligatorio ingresar el monto total gastado', trigger: 'change', }
                 ],
-                
+
             },
             rulesModal: {
                 idRecurso: [
@@ -530,12 +547,12 @@ export default {
 
                 ],
                 costo: [
-                    { required: true,  message: 'Es necesario ingresar el costo del material', trigger: 'change' },
+                    { required: true, message: 'Es necesario ingresar el costo del material', trigger: 'change' },
                     { min: 1, message: 'es necesario ingresar como minimo un valor de un digito', trigger: 'change' },
 
                 ]
-                
-                
+
+
             },
 
 
@@ -550,29 +567,29 @@ export default {
     methods: {
         agregarRecurso(valor) {
             this.$refs['registrarMaterialCompra'].validate(async (valid) => {
-            if(valid){
-                this.datos.recurso.push(valor)
-                this.datosRecurso = {
-                    idRecurso: null,
-                    unidades: null,
-                    costo: null,
-                    tipoMoneda: null,
-                }
-                this.aviso = false
-                this.centerDialogVisible= false
-                this.datosMaterialesSinModificar.push(this.proveedorMateriales.data.filter(item => item.id_recurso == valor.idRecurso)[0])
+                if (valid) {
+                    this.datos.recurso.push(valor)
+                    this.datosRecurso = {
+                        idRecurso: null,
+                        unidades: null,
+                        costo: null,
+                        tipoMoneda: null,
+                    }
+                    this.aviso = false
+                    this.centerDialogVisible = false
+                    this.datosMaterialesSinModificar.push(this.proveedorMateriales.data.filter(item => item.id_recurso == valor.idRecurso)[0])
 
-                this.proveedorMateriales.data = this.proveedorMateriales.data.filter(item => item.id_recurso != valor.idRecurso);
+                    this.proveedorMateriales.data = this.proveedorMateriales.data.filter(item => item.id_recurso != valor.idRecurso);
 
                 }
             });
-            
-            
-            
+
+
+
         },
         async registrarCompra() {
             this.$refs['registroCompra'].validate(async (valid) => {
-                if(valid){
+                if (valid) {
                     try {
                         console.log('hola----------------------------')
                         this.$store.dispatch('getLoadingApp', true);
@@ -587,16 +604,16 @@ export default {
                             },
                             data: this.datos
                         });
-                        this.datos= {
+                        this.datos = {
                             idtrabajador: "",
                             formaPago: "",
                             fechaCompra: "",
                             idProvedor: "",
                             recurso: [],
-                            referencia:'',
-                            montoTotal:"",
+                            referencia: '',
+                            montoTotal: "",
                         },
-                        this.$store.dispatch('getLoadingApp', false);
+                            this.$store.dispatch('getLoadingApp', false);
                         this.loading = false;
                         this.$message({
                             message: request.data.mensaje,
@@ -623,14 +640,14 @@ export default {
                 }
             });
         },
-        eliminarItemArray(id){
-            if(this.datos.recurso.length == 1){
+        eliminarItemArray(id) {
+            if (this.datos.recurso.length == 1) {
                 this.$message({
                     message: 'Se tiene que tener como minimo 1 material registrado',
                     type: 'error',
                 });
-            }else{
-                this.datos.recurso= this.datos.recurso.filter(elementos => elementos.idRecurso != id)
+            } else {
+                this.datos.recurso = this.datos.recurso.filter(elementos => elementos.idRecurso != id)
                 console.log(this.datos.recurso)
             }
         }
