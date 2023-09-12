@@ -61,7 +61,7 @@ export default {
     },
     async obtenerNotificaciones (context) {
       const token = localStorage.getItem('token_acess')
-      context.dispatch('getLoadingApp', true);
+      // context.dispatch('getLoadingApp', true);
       try {
         const resultado = await axios({
           method: 'GET',
@@ -92,7 +92,7 @@ export default {
         }
         context.commit('setInventario', [])
       }
-      context.dispatch('getLoadingApp', false);
+      // context.dispatch('getLoadingApp', false);
     },
   }
 }
