@@ -32,6 +32,7 @@ export default {
     this.$store.dispatch('obtenerInventario');
     this.$store.dispatch('obtenerListaDePacientes');
     this.$store.dispatch('obtenerServicios');
+    this.$store.dispatch('obtenerNotificaciones');
   }
 };
 </script>
