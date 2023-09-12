@@ -14,9 +14,9 @@
           </el-breadcrumb-item>
         </template>
       </el-breadcrumb>
-      <!-- User -->
       <ul class="flex-col md:flex-row list-none items-center hidden md:flex">
-        <user-dropdown />
+        <notification-dropdown class="mx-2 hover:border-white border-2 border-transparent h-full rounded-full" />
+        <user-dropdown class="hover:border-white border-2 border-transparent rounded-md" />
       </ul>
     </div>
   </nav>
@@ -24,10 +24,12 @@
 
 <script>
 import UserDropdown from "@/components/Dropdowns/UserDropdown.vue";
+import NotificationDropdown from "@/components/Dropdowns/NotificationDropdown.vue";
 
 export default {
   components: {
     UserDropdown,
+    NotificationDropdown,
   },
   computed: {
     ubicacion () {
