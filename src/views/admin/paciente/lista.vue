@@ -11,7 +11,9 @@
 						</div>
 						<div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
 
-							<button v-on:click="openNewTab" class="bg-red-600 text-white text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+							<button v-on:click="openNewTab"
+								class="bg-red-600 text-white text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+								type="button">
 								PDF
 							</button>
 
@@ -24,17 +26,17 @@
 						</div>
 					</div>
 				</div>
-						<!--
-				<div class="px-5 mt-3 flex justify-start">
-					<button @click="modal = true" class="bg-verdiAnderson text-white py-2 px-3 rounded-md uppercase">
-					Busqueda Avanzada
-					</button>
-				</div>
-				-->
+
 				<div class="mt-5">
 					<div v-if="pacientes && pacientes.data">
-						<el-table :data="pacientes.data" class="w-full">
-							<el-table-column fixed prop="nombre_paciente" label="Nombre del paciente" width="200">
+						<template class="relative h-32 w-32 ">
+							<el-input v-model="search" class="h-1/6 w-2/12 ml-10" placeholder="Buscar" />
+						</template>
+
+						<el-table class="w-full p-5"
+							:data="pacientes.data.filter(data => !search || data.nombre_paciente.toLowerCase().includes(search.toLowerCase()))">
+
+							<el-table-column prop="nombre_paciente" label="Nombre del paciente" width="200">
 								<template slot-scope="scope">
 									<router-link :to="`/admin/paciente/id/${scope.row.id_paciente}`"
 										class="uppercase text-verdiAnderson">
@@ -51,14 +53,13 @@
 							<el-table-column prop="genero_paciente" label="Genero"></el-table-column>
 
 							<el-table-column prop="genero_paciente" label="Genero">
-                                <template slot-scope="scope">
-                                    <el-tag
-                                        class="text-sm p-2 pb-2"
-                                        :type="scope.row.genero_paciente == 'Masculino' ? 'warning' : 'success'"
-                                        disable-transitions>{{scope.row.genero_paciente}}
-                                    </el-tag>
-                                </template>
-                            </el-table-column>
+								<template slot-scope="scope">
+									<el-tag class="text-sm p-2 pb-2"
+										:type="scope.row.genero_paciente == 'Masculino' ? 'warning' : 'success'"
+										disable-transitions>{{ scope.row.genero_paciente }}
+									</el-tag>
+								</template>
+							</el-table-column>
 
 
 
@@ -67,15 +68,16 @@
 									<p class="">{{ parseDate(scope.row.fecha_creacion) }}</p>
 								</template>
 							</el-table-column>
+
 							<el-table-column label="Operaciones" width="170">
 								<template slot-scope="scope">
-									<p class="text-center">
+									<p class="text-center pr-20">
 										<router-link :to="`/admin/paciente/id/${scope.row.id_paciente}`"
 											class="text-verdiAnderson text-xs w-full">
 											Editar
 										</router-link>
 									</p>
-									<p class="text-center">
+									<p class="text-center pr-20">
 										<router-link :to="`/admin/paciente/historial/${scope.row.id_paciente}`"
 											class="text-indigo-600 text-xs w-full">
 											Historial
@@ -87,8 +89,7 @@
 					</div>
 					<!-- mensaje de alert cuando no se encuentre ningun registro -->
 					<div v-else class=" w-1/2 sm:ml-32 md:ml-36 lg:ml-64 mb-20">
-						<div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50"
-							role="warning">
+						<div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="warning">
 							<svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
 								viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
 								<path fill-rule="evenodd"
@@ -100,11 +101,12 @@
 								<span class="font-medium">No se ha registrado ningun paciente</span>
 								<ul class="mt-1.5 ml-4 list-disc list-inside">
 									<li>Se recomienda al usuario ingresar los pacientes con odontodigramas</li>
-									<li>Se recomienda que a los pacientes nuevos se les cree un odontodiagrama despues de hacer su resgistro basico</li>
+									<li>Se recomienda que a los pacientes nuevos se les cree un odontodiagrama despues de
+										hacer su resgistro basico</li>
 								</ul>
 							</div>
 						</div>
-						
+
 					</div>
 				</div>
 			</div>
@@ -126,10 +128,8 @@ export default {
 	data() {
 		return {
 			modal: false,
-			search: {
-				nombre: "",
-			},
-			url:`http://localhost:3000/pdf/pacientes`,
+			search: '',
+			url: `http://localhost:3000/pdf/pacientes`,
 
 		};
 	},
@@ -141,8 +141,8 @@ export default {
 			this.modal = false;
 		},
 		openNewTab() {
-            window.open(this.url, '_blank');
-        }
+			window.open(this.url, '_blank');
+		}
 
 	},
 	computed: {
@@ -152,6 +152,8 @@ export default {
 	},
 };
 </script>
-<style lang="scss">.el-date-editor {
+<style lang="scss">
+.el-date-editor {
 	width: 100% !important;
-}</style>
+}
+</style>

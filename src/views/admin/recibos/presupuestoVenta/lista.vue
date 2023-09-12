@@ -10,7 +10,7 @@
                                 Lista de Presupuestos
                             </h3>
                         </div>
-                        <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
+                        <div class="relative w-full pt-10 px-4 max-w-full flex-grow flex-1 text-right">
                             <router-link to="/admin/presupuesto/venta/agregar"
                                 class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 ">
                                 Agregar nuevo
@@ -18,16 +18,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="px-5 mt-3 flex justify-start">
-                    <button @click="modal = true" class="bg-verdiAnderson text-white py-2 px-3 rounded-md uppercase">
-                        Busqueda Avanzada
-                    </button>
-                </div>
-                <div class="mt-3">
-                    <div v-if="presupuesto && presupuesto.data">
-                        <el-table :data="presupuesto.data" class="w-full">
 
-                            <el-table-column fixed prop="paciente" label="Paciente">
+                <div class="mt-5">
+                    <div v-if="presupuesto && presupuesto.data">
+
+                        <template class="relative h-32 w-32 ">
+                            <el-input v-model="search" class="h-1/6 w-2/12 ml-10" placeholder="Buscar" />
+                        </template>
+
+                        <el-table :data="presupuesto.data.filter(data => !search ||
+                            data.nombre_paciente.toLowerCase().includes(search.toLowerCase()))" class="w-full p-10">
+
+                            <el-table-column prop="paciente" label="Paciente">
                                 <template slot-scope="scope">
                                     <router-link :to="`/admin/paciente/id/${scope.row.id_pacinte}`"
                                         class="uppercase text-verdiAnderson">
@@ -40,15 +42,11 @@
                             <el-table-column prop="presio_dolar" label="Dolar"></el-table-column>
                             <el-table-column prop="precio_total" label="Total"></el-table-column>
 
-                            
-                            
-                            
                             <el-table-column prop="estado_compra" label="Estado">
                                 <template slot-scope="scope">
-                                    <el-tag
-                                        class="text-sm p-2 pb-2"
+                                    <el-tag class="text-sm p-2 pb-2"
                                         :type="scope.row.estado_compra == 'Pendiente' ? 'warning' : 'success'"
-                                        disable-transitions>{{scope.row.estado_compra}}
+                                        disable-transitions>{{ scope.row.estado_compra }}
                                     </el-tag>
                                 </template>
                             </el-table-column>
@@ -60,13 +58,13 @@
                             </el-table-column>
 
 
-                            <el-table-column fixed="right" label="Operaciones" width="170">
+                            <el-table-column label="Operaciones" width="170">
                                 <template slot-scope="scope">
                                     <p class="text-left">
                                         <router-link :to="`/admin/presupuesto/venta/detalles/${scope.row.id_presupuesto}`"
                                             class="text-red-600 text-xs w-full">
-                                            <p class="text-sm">Ver detalles</p>
-                                            
+                                            <p class="text-sm">Detalles</p>
+
                                         </router-link>
                                     </p>
                                 </template>
@@ -131,8 +129,7 @@
                       Fin del contenido -->
                     </div>
                     <div v-else class=" w-1/2 sm:ml-32 md:ml-36 lg:ml-64 mb-20">
-                        <div class=" flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50"
-                            role="warning">
+                        <div class=" flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="warning">
                             <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
                                 viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -169,13 +166,7 @@ export default {
     data() {
         return {
             modal: false,
-            search: {
-                nombre: "",
-                usuario: "",
-                fecha: "",
-                especializacion: "",
-                nivel: "",
-            },
+            search: "",
         }
     },
     methods: {

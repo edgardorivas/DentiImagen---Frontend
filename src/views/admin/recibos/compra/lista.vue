@@ -18,16 +18,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="px-5 mt-3 flex justify-start">
-                    <button @click="modal = true" class="bg-verdiAnderson text-white py-2 px-3 rounded-md uppercase">
-                        Busqueda Avanzada
-                    </button>
-                </div>
                 <div class="mt-5 ">
                     <div v-if="compras && compras.data">
                         <!--tabla-->
-                        <el-table :data="compras.data" class="w-full mb-8">
-                            <el-table-column fixed prop="usuario" label="Usuario" >
+                        <template class="relative h-32 w-32 ">
+                            <el-input v-model="search" class="h-1/6 w-2/12 ml-10" placeholder="Buscar" />
+                        </template>
+
+                        <el-table :data="compras.data.filter(data => !search ||
+                            data.nombre_trabajador.toLowerCase().includes(search.toLowerCase()) ||
+                            data.nombre_proveedor.toLowerCase().includes(search.toLowerCase()))" class="w-full p-10">
+
+                            <el-table-column prop="usuario" label="Usuario">
                                 <template slot-scope="scope">
                                     <router-link :to="`/admin/usuarios/${scope.row.id_trabajador}`"
                                         class="uppercase text-verdiAnderson">
@@ -35,13 +37,13 @@
                                     </router-link>
                                 </template>
                             </el-table-column>
-                            
+
                             <el-table-column prop="telefono_trabajador" label="movil del Usuario"></el-table-column>
 
-                            
+
 
                             <el-table-column prop="forma_pago" label="Pago"></el-table-column>
-                            <el-table-column fixed prop="nombre_proveedor" label="Proveedor">
+                            <el-table-column prop="nombre_proveedor" label="Proveedor">
                                 <template slot-scope="scope">
                                     <router-link :to="`/admin/proveedores/${scope.row.id_proveedor}`"
                                         class="uppercase text-verdiAnderson">
@@ -53,10 +55,9 @@
 
                             <el-table-column prop="referencias" label="Referencia">
                                 <template slot-scope="scope">
-                                    <el-tag
-                                        class="text-sm p-2 pb-2"
+                                    <el-tag class="text-sm p-2 pb-2"
                                         :type="scope.row.referencias == '--Sin referencia---' ? 'warning' : 'success'"
-                                        disable-transitions>{{scope.row.referencias}}
+                                        disable-transitions>{{ scope.row.referencias }}
                                     </el-tag>
                                 </template>
                             </el-table-column>
@@ -68,13 +69,13 @@
                             </el-table-column>
                             <!--fin tabla-->
 
-                            <el-table-column fixed="right" label="Operaciones" width="170">
+                            <el-table-column label="Opciones" width="170">
                                 <template slot-scope="scope">
                                     <p class="text-left">
                                         <router-link :to="`/admin/recibo/compra/detalles/${scope.row.id_compra}`"
                                             class="text-red-600 text-xs w-full">
-                                            <p class="text-sm">Ver detalles</p>
-                                            
+                                            <p class="text-sm">Detalles</p>
+
                                         </router-link>
                                     </p>
                                 </template>
@@ -83,8 +84,7 @@
                     </div>
 
                     <div v-else class=" w-1/2 sm:ml-32 md:ml-36 lg:ml-64 mb-20">
-                        <div class=" flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 "
-                            role="warning">
+                        <div class=" flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 " role="warning">
                             <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
                                 viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -96,7 +96,8 @@
                                 <span class="font-medium">No se ha registrado ninguna Compra</span>
                                 <ul class="mt-1.5 ml-4 list-disc list-inside">
                                     <li>Se recomienda al usuario tener proveedores registrados previamente</li>
-                                    <li>Se recomienda tener tipos de materiales y materiales registrados previamentes para poder registrar la compra</li>
+                                    <li>Se recomienda tener tipos de materiales y materiales registrados previamentes para
+                                        poder registrar la compra</li>
                                 </ul>
                             </div>
                         </div>
@@ -125,13 +126,7 @@ export default {
     data() {
         return {
             modal: false,
-            search: {
-                nombre: "",
-                usuario: "",
-                fecha: "",
-                especializacion: "",
-                nivel: "",
-            },
+            search: "",
 
         }
     },
@@ -166,6 +161,7 @@ export default {
 .el-date-editor {
     width: 100% !important;
 }
+
 th {
     --tw-bg-opacity: 1;
     color: rgb(0 200 165 / var(--tw-bg-opacity));

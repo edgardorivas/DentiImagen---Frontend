@@ -27,8 +27,14 @@
                 <div class="mt-5">
 
                     <div v-if="tipoProducto && tipoProducto.data">
-                        <el-table :data="tipoProducto.data" class="w-full">
-                            <el-table-column fixed prop="nombre_tipo_recurso" label="Nombre" width="190">
+                        <template class="relative h-32 w-32 ">
+                            <el-input v-model="search" class="h-1/6 w-2/12 ml-10" placeholder="Buscar" />
+                        </template>
+
+                        <el-table
+                            :data="tipoProducto.data.filter(data => !search || data.nombre_tipo_recurso.toLowerCase().includes(search.toLowerCase()))"
+                            class="w-full p-10">
+                            <el-table-column prop="nombre_tipo_recurso" label="Nombre" width="190">
                                 <template slot-scope="scope">
                                     <router-link :to="`/admin/tipo-materiales/${scope.row.id_tipo_recurso}`"
                                         class="uppercase text-verdiAnderson">
@@ -39,7 +45,7 @@
 
                             <el-table-column prop="descripcion_tipo_recurso" label="Descripcion"></el-table-column>
 
-                            <el-table-column fixed="right" label="Operaciones" width="170">
+                            <el-table-column label="Operaciones">
                                 <template slot-scope="scope">
                                     <p class="text-center">
                                         <router-link :to="`/admin/tipo-materiales/${scope.row.id_tipo_recurso}`"
@@ -52,8 +58,7 @@
                         </el-table>
                     </div>
                     <div v-else class=" w-1/2 sm:ml-32 md:ml-36 lg:ml-64 mb-20">
-                        <div class=" flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 "
-                            role="warning">
+                        <div class=" flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 " role="warning">
                             <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
                                 viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -88,9 +93,7 @@ export default {
     data() {
         return {
             modal: false,
-            search: {
-                nombre: "",
-            },
+            search: "",
         }
     },
 
@@ -101,7 +104,7 @@ export default {
         handleClose() {
             this.modal = false;
         },
-        
+
     },
     computed: {
         tipoProducto() {

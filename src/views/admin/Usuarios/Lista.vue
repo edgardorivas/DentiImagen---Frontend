@@ -23,22 +23,25 @@
             </div>
           </div>
         </div>
-        <div class="px-5 mt-3 flex justify-start">
 
-          <button @click="modal = true" class="bg-verdiAnderson text-white py-2 px-3 rounded-md uppercase">
-            Busqueda Avanzada
-          </button>
-        </div>
         <div class="mt-5">
           <div v-if="usuarios && usuarios.data">
-            <el-table :data="usuarios.data" class="w-full">
-              <el-table-column fixed prop="usuario" label="Usuario" width="190">
+
+            <template class="h-32 w-32 ">
+              <el-input v-model="search" class="h-1/6 w-2/12 ml-10" placeholder="Buscar" />
+            </template>
+
+            <el-table
+              :data="usuarios.data.filter(data => !search || data.nombre.toLowerCase().includes(search.toLowerCase()))"
+              class="w-full p-10">
+              <el-table-column prop="usuario" label="Usuario">
                 <template slot-scope="scope">
                   <router-link :to="`/admin/usuarios/${scope.row.id_usuario}`" class="uppercase text-verdiAnderson">
                     @{{ scope.row.usuario }}
                   </router-link>
                 </template>
               </el-table-column>
+
               <el-table-column prop="nombre" label="Nombres"></el-table-column>
               <el-table-column prop="apellido" label="Apellidos"></el-table-column>
               <el-table-column prop="correo" label="Correo Electronico"></el-table-column>
@@ -56,11 +59,12 @@
                   <p class="">{{ parseDate(scope.row.fecha) }}</p>
                 </template>
               </el-table-column>
-              <el-table-column fixed="right" label="Operaciones" width="170">
+
+              <el-table-column label="Operaciones">
                 <template slot-scope="scope">
                   <p class="text-center">
                     <router-link :to="`/admin/usuarios/${scope.row.id_usuario}`"
-                      class="text-verdiAnderson text-xs w-full">
+                      class="text-verdiAnderson text-xs pr-16 w-full">
                       Editar
                     </router-link>
                   </p>
@@ -140,13 +144,7 @@ export default {
   data() {
     return {
       modal: false,
-      search: {
-        nombre: "",
-        usuario: "",
-        fecha: "",
-        especializacion: "",
-        nivel: "",
-      },
+      search: '',
       url: `http://localhost:3000/pdf/trabajadores`,
 
     }
@@ -181,4 +179,5 @@ export default {
 <style lang="scss">
 .el-date-editor {
   width: 100% !important;
-}</style>
+}
+</style>

@@ -18,40 +18,41 @@
                 </div>
                 <div v-if="inventario && inventario.data"
                     class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-
                     <button v-on:click="openNewTab"
                         class="bg-red-600 text-white active:bg-indigo-600 text-xs font-bold uppercase px-8 py-1 rounded outline-none focus:outline-none mr-8 mb-1 ease-linear transition-all duration-150"
                         type="button">
                         PDF
                     </button>
-                    <!-- 
-                    <router-link v-on:click="openNewTab"
-                        class="bg-red-600 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
-                        PDF
-                    </router-link> -->
-
-
                 </div>
                 <div v-if="inventario && inventario.data">
-
+                    <!-- 
                     <div class="px-5 mt-3 flex ">
 
                         <button @click="modal = true"
                             class="bg-verdiAnderson justify-start text-white py-2 px-3 rounded-md uppercase">
                             Busqueda Avanzada
                         </button>
-                    </div>
+                    </div> -->
 
                     <div class="mt-5">
                         <div>
-                            <el-table :data="inventario.data" class="w-full">
-                                <el-table-column prop="nombre" label="Nombres"></el-table-column>
-                                <el-table-column prop="tipo" label="Tipo de material"></el-table-column>
-                                <el-table-column prop="minimo" label="Cantidad Minima"></el-table-column>
-                                <el-table-column prop="disponible" label="Cantidad Disponible"></el-table-column>
+                            <template>
+                                <template class="relative h-32 w-32 ">
+                                    <el-input v-model="search" class="h-1/6 w-2/12 ml-10" placeholder="Buscar" />
+                                </template>
 
+                                <el-table class="p-10 "
+                                    :data="inventario.data.filter(data => !search || data.nombre.toLowerCase().includes(search.toLowerCase()))"
+                                    style="width: 100%">
 
-                            </el-table>
+                                    <el-table-column prop="nombre" label="Nombres"></el-table-column>
+                                    <el-table-column prop="tipo" label="Tipo de material"></el-table-column>
+                                    <el-table-column prop="minimo" label="Cantidad Minima"></el-table-column>
+                                    <el-table-column prop="disponible" label="Cantidad Disponible"></el-table-column>
+                                </el-table>
+
+                            </template>
+
                             <!-- Modales de busqueda -->
                             <el-drawer title="Busqueda Avanzada" :visible.sync="modal" direction="rtl"
                                 :before-close="handleClose">
@@ -149,6 +150,7 @@ export default {
     data() {
         return {
             modal: false,
+            search: '',
             /*
                 search: {
                     nombre: "",

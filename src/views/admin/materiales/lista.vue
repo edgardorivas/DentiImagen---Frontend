@@ -17,16 +17,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="px-5 mt-3 flex justify-start">
-                    <button @click="modal = true" class="bg-verdiAnderson text-white py-2 px-3 rounded-md uppercase">
-                        Busqueda Avanzada
-                    </button>
-                </div>
                 <div class="mt-5">
                     <div v-if="producto && producto.data">
-                        <el-table :data="producto.data" class="w-full">
+                        <template class="relative h-32 w-32 ">
+                            <el-input v-model="search" class="h-1/6 w-2/12 ml-10" placeholder="Buscar" />
+                        </template>
 
-                            <el-table-column fixed prop="nombre" label="Nombre">
+                        <el-table
+                            :data="producto.data.filter(data => !search || data.nombre.toLowerCase().includes(search.toLowerCase()))"
+                            class="w-full p-10">
+                            <el-table-column prop="nombre" label="Nombre">
                                 <template slot-scope="scope">
                                     <router-link :to="`/admin/materiales/${scope.row.id_recurso}`"
                                         class="uppercase text-verdiAnderson">
@@ -38,9 +38,9 @@
                             <el-table-column prop="tipo" label="Tipo de Material"></el-table-column>
 
 
-                            <el-table-column fixed="right" label="Operaciones" width="170">
+                            <el-table-column label="Operaciones">
                                 <template slot-scope="scope">
-                                    <p class="text-center">
+                                    <p class="text-left pl-10">
                                         <router-link :to="`/admin/materiales/${scope.row.id_recurso}`"
                                             class="text-verdiAnderson text-xs w-full">
                                             Editar
@@ -101,8 +101,7 @@
               -->
                     </div>
                     <div v-else class=" w-1/2 sm:ml-32 md:ml-36 lg:ml-64 mb-20">
-                        <div class=" flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 "
-                            role="warning">
+                        <div class=" flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 " role="warning">
                             <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
                                 viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -139,13 +138,7 @@ export default {
     data() {
         return {
             modal: false,
-            search: {
-                nombre: "",
-                usuario: "",
-                fecha: "",
-                especializacion: "",
-                nivel: "",
-            },
+            search: "",
         }
     },
     methods: {

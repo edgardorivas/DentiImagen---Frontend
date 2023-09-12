@@ -25,18 +25,18 @@
 					</div>
 				</div>
 
-				<div v-if="proveedores && proveedores.data" class="px-5 mt-3 flex justify-start">
-					<button @click="modal = true" class="bg-verdiAnderson text-white py-2 px-3 rounded-md uppercase">
-						Busqueda Avanzada
-					</button>
-
-				</div>
-
 				<div class="mt-5 ">
 					<div v-if="proveedores && proveedores.data">
 						<!--tabla-->
-						<el-table :data="proveedores.data" class="w-full">
-							<el-table-column fixed prop="nombre_proveedor" label="Nombre" width="190">
+						<template class="relative h-32 w-32 ">
+							<el-input v-model="search" class="h-1/6 w-2/12 ml-10" placeholder="Buscar" />
+						</template>
+
+						<el-table
+							:data="proveedores.data.filter(data => !search || data.nombre_proveedor.toLowerCase().includes(search.toLowerCase()))"
+							class="w-full p-10">
+
+							<el-table-column prop="nombre_proveedor" label="Nombre">
 								<template slot-scope="scope">
 									<router-link :to="`/admin/proveedores/${scope.row.id_provedor}`"
 										class="uppercase text-verdiAnderson">
@@ -49,11 +49,11 @@
 							<el-table-column prop="rif_provedor" label="RIF"></el-table-column>
 							<!--fin tabla-->
 
-							<el-table-column fixed="right" label="Operaciones" width="170">
+							<el-table-column label="Operaciones">
 								<template slot-scope="scope">
-									<p class="text-center">
+									<p class="text-left pl-10">
 										<router-link :to="`/admin/proveedores/${scope.row.id_provedor}`"
-											class="text-verdiAnderson text-xs w-full">
+											class="text-verdiAnderson text-xs">
 											Editar
 										</router-link>
 									</p>
@@ -160,13 +160,7 @@ export default {
 	data() {
 		return {
 			modal: false,
-			search: {
-				nombre: "",
-				usuario: "",
-				fecha: "",
-				especializacion: "",
-				nivel: "",
-			},
+			search: "",
 			url: `http://localhost:3000/pdf/proveedor`,
 
 		};

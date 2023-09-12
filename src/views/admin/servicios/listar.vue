@@ -19,8 +19,15 @@
                 </div>
                 <div class="mt-5">
                     <div v-if="servicios && servicios.data">
-                        <el-table :data="servicios.data" class="w-full px-10 mb-5">
-                            <el-table-column  prop="nombre_servicio" label="Nombre del Servicio" >
+
+                        <template class="relative h-32 w-32 ">
+                            <el-input v-model="search" class="h-1/6 w-2/12 ml-10" placeholder="Buscar" />
+                        </template>
+
+                        <el-table :data="servicios.data.filter(data => !search ||
+                            data.nombre_servicio.toLowerCase().includes(search.toLowerCase()))" class="w-full p-10">
+
+                            <el-table-column prop="nombre_servicio" label="Nombre del Servicio">
                                 <template slot-scope="scope">
                                     <router-link :to="`/admin/servicios/${scope.row.id_servicio}`"
                                         class="uppercase text-verdiAnderson">
@@ -28,10 +35,10 @@
                                     </router-link>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="descripcion" label="Descripcion" ></el-table-column>
-                            <el-table-column prop="costo_dolares" label="Presio" ></el-table-column>
-                            
-                            <el-table-column   label="Operaciones" >
+                            <el-table-column prop="descripcion" label="Descripcion"></el-table-column>
+                            <el-table-column prop="costo_dolares" label="Presio"></el-table-column>
+
+                            <el-table-column label="Operaciones">
                                 <template slot-scope="scope">
                                     <p class="text-left ml-8">
                                         <router-link :to="`/admin/servicios/${scope.row.id_servicio}`"
@@ -66,9 +73,7 @@ export default {
     data() {
         return {
             modal: false,
-            search: {
-                nombre: "",
-            },
+            search: "",
         };
     },
     methods: {
@@ -86,10 +91,10 @@ export default {
 .el-date-editor {
     width: 100% !important;
 }
-th{
+
+th {
     --tw-text-opacity: 1;
     color: rgb(0 200 165 / var(--tw-text-opacity));
 }
-
 </style>
   
