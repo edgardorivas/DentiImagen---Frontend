@@ -33,6 +33,7 @@ export default {
   },
   computed: {
     ubicacion () {
+      this.$store.dispatch('obtenerNotificaciones');
       return this.$route.matched;
     }
   }
