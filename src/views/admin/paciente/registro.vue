@@ -10,12 +10,13 @@
                     </div>
                 </div>
                 <div class="mt-5 pb-5">
-                    
+
 
                     <!-- formulario original -->
-                    <el-form label-position="top" :model="nuevoHistorialPaciente" :rules="rules"  ref="registrarPaciente" label-width="120px" class="demo-ruleForm">
+                    <el-form label-position="top" :model="nuevoHistorialPaciente" :rules="rules" ref="registrarPaciente"
+                        label-width="120px" class="demo-ruleForm">
                         <div class="flex flex-wrap justify-around">
-    
+
                             <div class="w-11/12">
                                 <el-divider>Datos del Paciente</el-divider>
                             </div>
@@ -142,8 +143,8 @@
                                 <label v-if="trabajadoresOdontologicos">
                                     <p class="ml-1">Odontologo Asignado</p>
                                     <el-form-item prop="trabajadorOdontologo">
-                                        <el-select v-model="nuevoHistorialPaciente.trabajadorOdontologo" style="width: 100%;"
-                                            size="large" placeholder="Genero del Paciente">
+                                        <el-select v-model="nuevoHistorialPaciente.trabajadorOdontologo"
+                                            style="width: 100%;" size="large" placeholder="Genero del Paciente">
                                             <el-option v-for=" trabajador in trabajadoresOdontologicos"
                                                 :key="trabajador.id_trabajador"
                                                 :label="trabajador.nombre + ' - ' + trabajador.especializacion"
@@ -185,7 +186,7 @@
                                 <label>
                                     <p class="ml-1">¿ Sufre de presion arterial ?</p>
                                     <el-form-item prop="sufreTensionAlterial">
-                                        <el-radio-group v-model="nuevoHistorialPaciente.sufreTensionAlterial" >
+                                        <el-radio-group v-model="nuevoHistorialPaciente.sufreTensionAlterial">
                                             <el-radio label="1">SI</el-radio>
                                             <el-radio label="0">NO</el-radio>
                                         </el-radio-group>
@@ -198,8 +199,8 @@
                                     <p class="ml-1">¿ Diabetico ?</p>
                                     <el-form-item prop="diabetico">
                                         <el-radio-group v-model="nuevoHistorialPaciente.diabetico">
-                                            <el-radio  label="1">SI</el-radio>
-                                            <el-radio  label="0">NO</el-radio>
+                                            <el-radio label="1">SI</el-radio>
+                                            <el-radio label="0">NO</el-radio>
                                         </el-radio-group>
                                     </el-form-item>
                                 </label>
@@ -210,8 +211,8 @@
                                     <p class="ml-1">¿ Antecedentes familiares de diabetes ?</p>
                                     <el-form-item prop="antecedentesDiabetico">
                                         <el-radio-group v-model="nuevoHistorialPaciente.antecedentesDiabetico">
-                                            <el-radio  label="1">SI</el-radio>
-                                            <el-radio  label="0">NO</el-radio>
+                                            <el-radio label="1">SI</el-radio>
+                                            <el-radio label="0">NO</el-radio>
                                         </el-radio-group>
                                     </el-form-item>
 
@@ -223,10 +224,10 @@
                                     <p class="ml-1">¿ Ha sufrido de Hepatitis ?</p>
                                     <el-form-item prop="antecedentesDiabetico">
                                         <el-radio-group v-model="nuevoHistorialPaciente.sufridoHepatitis">
-                                            <el-radio  label="1">SI</el-radio>
-                                            <el-radio  label="0">NO</el-radio>
+                                            <el-radio label="1">SI</el-radio>
+                                            <el-radio label="0">NO</el-radio>
                                         </el-radio-group>
-                                        
+
                                     </el-form-item>
 
                                 </label>
@@ -237,8 +238,8 @@
                                     <p class="ml-1">¿ Ha sufrido de Herpes ?</p>
                                     <el-form-item prop="sufridoHerpes">
                                         <el-radio-group v-model="nuevoHistorialPaciente.sufridoHerpes">
-                                            <el-radio  label="1">SI</el-radio>
-                                            <el-radio  label="0">NO</el-radio>
+                                            <el-radio label="1">SI</el-radio>
+                                            <el-radio label="0">NO</el-radio>
                                         </el-radio-group>
                                     </el-form-item>
 
@@ -250,8 +251,8 @@
                                     <p class="ml-1">¿ Ha sufrido de Afecciones cardiacas ?</p>
                                     <el-form-item prop="efeccionesCardiacas">
                                         <el-radio-group v-model="nuevoHistorialPaciente.efeccionesCardiacas">
-                                            <el-radio  label="1">SI</el-radio>
-                                            <el-radio  label="0">NO</el-radio>
+                                            <el-radio label="1">SI</el-radio>
+                                            <el-radio label="0">NO</el-radio>
                                         </el-radio-group>
 
                                     </el-form-item>
@@ -264,10 +265,10 @@
                                     <p class="ml-1">¿ Problemas con la Anestecia ?</p>
                                     <el-form-item prop="sufridoAnestecia">
                                         <el-radio-group v-model="nuevoHistorialPaciente.sufridoAnestecia">
-                                            <el-radio  label="1">SI</el-radio>
-                                            <el-radio  label="0">NO</el-radio>
+                                            <el-radio label="1">SI</el-radio>
+                                            <el-radio label="0">NO</el-radio>
                                         </el-radio-group>
-                                        
+
                                     </el-form-item>
 
                                 </label>
@@ -278,8 +279,8 @@
                                     <p class="ml-1">¿ Es usted propenso a las Hemorragias ?</p>
                                     <el-form-item prop="propensoHemorragias">
                                         <el-radio-group v-model="nuevoHistorialPaciente.propensoHemorragias">
-                                            <el-radio  label="1">SI</el-radio>
-                                            <el-radio  label="0">NO</el-radio>
+                                            <el-radio label="1">SI</el-radio>
+                                            <el-radio label="0">NO</el-radio>
                                         </el-radio-group>
                                     </el-form-item>
 
@@ -291,15 +292,15 @@
                                     <p class="ml-1">¿ Ha convulsionado alguna vez ?</p>
                                     <el-form-item prop="convulcionAlgunaVez">
                                         <el-radio-group v-model="nuevoHistorialPaciente.convulcionAlgunaVez">
-                                            <el-radio  label="1">SI</el-radio>
-                                            <el-radio  label="0">NO</el-radio>
+                                            <el-radio label="1">SI</el-radio>
+                                            <el-radio label="0">NO</el-radio>
                                         </el-radio-group>
                                     </el-form-item>
 
                                 </label>
                             </div>
                         </div>
-                       
+
                         <br>
 
                         <div class="flex flex-wrap justify-around">
@@ -307,8 +308,8 @@
                                 class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">Guardar</button>
                         </div>
                     </el-form>
-                    
-                    
+
+
                 </div>
             </div>
         </div>
@@ -357,51 +358,52 @@ export default {
             rules: {
                 nombre: [
                     { required: true, message: 'Es necesario ingresar los nombre del paciente', trigger: 'blur' },
-                    { min: 5,  message: 'Los nombre tiene que tener mas de 5 caracteres', trigger: 'blur' }
+                    { min: 5, message: 'Los nombre tiene que tener mas de 5 caracteres', trigger: 'blur' }
                 ],
                 apellido: [
                     { required: true, message: 'Es necesario ingresar los apellido del paciente', trigger: 'blur' },
-                    { min: 5,  message: 'Los apellido tiene que tener mas de 5 caracteres', trigger: 'blur' }
+                    { min: 5, message: 'Los apellido tiene que tener mas de 5 caracteres', trigger: 'blur' }
 
                 ],
                 edad: [
                     { required: true, message: 'Es necesario ingresar la edad del paciente', trigger: 'blur' },
-                    { min: 1, max:3, message: 'La edad tiene que tener como minimo 1 digito y como maximo 3', trigger: 'blur' }
+                    { min: 1, max: 3, message: 'La edad tiene que tener como minimo 1 digito y como maximo 3', trigger: 'blur' }
                 ],
                 cedula: [
                     { required: true, message: 'Es necesario ingresar la cedula del paciente', trigger: 'blur' },
-                    { min: 7,  message: 'la cedula tiene que tener como minimo 7 caracteres', trigger: 'blur' }
+                    { min: 5, message: 'la cedula tiene que tener como minimo 7 caracteres', trigger: 'blur' }
                 ],
                 correo: [
-                    { type: 'email', required: true, message: 'Ingrese el correo electronico del paciente', trigger: 'blur',
-                }
+                    {
+                        type: 'email', required: false, message: 'Ingrese el correo electronico del paciente', trigger: 'blur',
+                    }
                 ],
                 telefono: [
-                    { type: 'string',required: true, message: 'Es obligatorio el numero de telefono ', trigger: 'blur' },
-                    { length:11,  message: 'El numero telefonico tiene que contener 11 digitos', trigger: 'blur'}
+                    { type: 'string', required: true, message: 'Es obligatorio el numero de telefono ', trigger: 'blur' },
+                    { length: 11, message: 'El numero telefonico tiene que contener 11 digitos', trigger: 'blur' }
                 ],
                 referidoPor: [
-                    { type: 'string',required: false, message: 'Ingrese el nombre del odontologo', trigger: 'blur' },
-                    { length:5,  message: 'El nombre tiene que ser como minimo de 5 caracteres', trigger: 'blur'}
+                    { type: 'string', required: false, message: 'Ingrese el nombre del odontologo', trigger: 'blur' },
+                    { length: 5, message: 'El nombre tiene que ser como minimo de 5 caracteres', trigger: 'blur' }
                 ],
                 profecion: [
                     { required: false, message: 'Ingrese su profesion ', trigger: 'bluer' },
-                    { min: 2,  message: 'Como minimo se tiene que ingresar 2 caracteres', trigger: 'blur' }
+                    { min: 2, message: 'Como minimo se tiene que ingresar 2 caracteres', trigger: 'blur' }
                 ],
                 genero: [
                     { required: true, message: 'Es obligatorio indicar el genero del paciente', trigger: 'blur' },
                 ],
                 motivoConsulta: [
-                    { required: true, message: 'Es obligato ingresar el motivo de la consulta', trigger: 'blur' },
-                    { min: 5,  message: 'El motivo de la consulta tiene que tener como minimo 5 caracteres', trigger: 'blur' }
+                    { required: false, message: 'Es obligato ingresar el motivo de la consulta', trigger: 'blur' },
+                    { min: 5, message: 'El motivo de la consulta tiene que tener como minimo 5 caracteres', trigger: 'blur' }
                 ],
                 direccion: [
                     { required: true, message: 'Ingrese la direccion del paciente', trigger: 'blur' },
-                    { min: 5,  message: 'Ingrese el nombre completo del paciente', trigger: 'blur' }
+                    { min: 1, message: 'Ingrese el nombre completo del paciente', trigger: 'blur' }
 
                 ],
                 diabetico: [
-                    
+
                     { required: true, message: 'Es obligatorio indicar si el paciente tiene diabetes', trigger: 'change' },
                 ],
                 antecedentesDiabetico: [
@@ -453,13 +455,13 @@ export default {
     methods: {
         async registroPaciente() {
             this.$refs['registrarPaciente'].validate(async (valid) => {
-                if(valid){
+                if (valid) {
                     try {
                         this.$store.dispatch('getLoadingApp', true);
                         this.loading = true;
                         const token = localStorage.getItem('token_acess');
                         console.log(this.nuevoHistorialPaciente)
-    
+
                         const request = await axios({
                             method: 'POST',
                             baseURL: config.backend.baseURL,
@@ -477,7 +479,7 @@ export default {
                             type: 'success',
                         });
                         this.$router.push({ path: '/admin/paciente/lista' });
-    
+
                     } catch (error) {
                         if (error.response) {
                             this.$message({

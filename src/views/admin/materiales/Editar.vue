@@ -6,8 +6,8 @@
                     <div class="rounded-t mb-0 px-4 py-3 border-0">
                         <h3 v-if="materialDetalles && materialDetalles.data"
                             class="font-semibold text-xl text-blueGray-700 uppercase">
-                            Editando Material <i
-                                class="text-verdiAnderson font-extrabold">@{{ materialDetalles.data[0].nombre }}</i>
+                            Editando Material <i class="text-verdiAnderson font-extrabold">@{{
+                                materialDetalles.data[0].nombre }}</i>
                         </h3>
                     </div>
                 </div>
@@ -15,7 +15,8 @@
 
                     <div v-if="materialDetalles && materialDetalles.data">
 
-                        <el-form label-position="top" :model="materialDetalles.data[0]" :rules="rules"  ref="editarMaterial" label-width="120px" class="demo-ruleForm">
+                        <el-form label-position="top" :model="materialDetalles.data[0]" :rules="rules" ref="editarMaterial"
+                            label-width="120px" class="demo-ruleForm">
                             <div class="flex flex-wrap justify-around">
                                 <div class="w-11/12">
                                     <el-divider>Datos de la materia</el-divider>
@@ -69,10 +70,10 @@
                                     <label>
                                         <p class="ml-1">Tipo</p>
                                         <el-form-item prop="id_tipo_recurso">
-                                            <el-select v-model="materialDetalles.data[0].id_tipo_recurso"  class="w-full">
-                                                <el-option
-                                                    v-for="item in tipoMaterial.data" :key="item.id_tipo_recurso"
-                                                    :label="item.nombre_tipo_recurso" :value="item.id_tipo_recurso"></el-option>
+                                            <el-select v-model="materialDetalles.data[0].id_tipo_recurso" class="w-full">
+                                                <el-option v-for="item in tipoMaterial.data" :key="item.id_tipo_recurso"
+                                                    :label="item.nombre_tipo_recurso"
+                                                    :value="item.id_tipo_recurso"></el-option>
                                             </el-select>
                                         </el-form-item>
 
@@ -194,31 +195,31 @@ export default {
             rules: {
                 nombre: [
                     { required: true, message: 'Es necesario ingresar los nombre del material', trigger: 'change' },
-                    { min: 2,  message: 'Los nombre tiene que tener mas de 5 caracteres', trigger: 'change' }
+                    { min: 2, message: 'Los nombre tiene que tener mas de 5 caracteres', trigger: 'change' }
                 ],
                 descripcion: [
                     { required: true, message: 'Es necesario ingresar los apellido del paciente', trigger: 'change' },
-                    { min: 5,  message: 'La descripcion tiene que ser mayor a  5 caracteres', trigger: 'change' }
+                    { min: 5, message: 'La descripcion tiene que ser mayor a  5 caracteres', trigger: 'change' }
                 ],
                 disponible: [
                     { required: true, message: 'Es necesario ingresar la cantidad disponible actualmente', trigger: 'change' },
-                    { min: 1, message: 'La cantidad disponible tiene que tener como minimo un digito ', trigger: 'change' }
+                    { message: 'La cantidad disponible tiene que tener como minimo un digito ', trigger: 'change' }
                 ],
                 minimo: [
                     { required: true, message: 'Es necesario ingresar la cantidad minima permitida', trigger: 'change' },
-                    { min: 1,  message: 'La cantidad minima permitida tiene que tener como minimo un digito', trigger: 'change' }
+                    { message: 'La cantidad minima permitida tiene que tener como minimo un digito', trigger: 'change' }
                 ],
                 id_tipo_recurso: [
-                    { required: true, message: 'Es obligatorio seleccionar un tipo de material', trigger: 'change'}
+                    { required: true, message: 'Es obligatorio seleccionar un tipo de material', trigger: 'change' }
                 ],
-                
+
             },
         }
     },
     methods: {
         async modificarMaterial(payload) {
             this.$refs['editarMaterial'].validate(async (valid) => {
-                if(valid){
+                if (valid) {
                     try {
                         this.$store.dispatch('getLoadingApp', true);
                         this.loading = true;
@@ -308,7 +309,9 @@ export default {
     }
 };
 </script>
-<style lang="scss">.el-button--danger {
+<style lang="scss">
+.el-button--danger {
     background-color: #dc2626;
-}</style>
+}
+</style>
   

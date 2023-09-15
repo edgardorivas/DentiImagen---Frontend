@@ -91,12 +91,13 @@
 
 
                 <el-row class="tac">
-                    <el-col >
+                    <el-col>
                         <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
                             <el-submenu index="1">
                                 <template slot="title">
                                     <i class="fa-solid fa-hospital-user text-sm"></i>
-                                    <span class="ml-3 md:min-w-full  text-xs text-black uppercase font-bold pt-1 pb-4 no-underline">Pacientes</span>
+                                    <span
+                                        class="ml-3 md:min-w-full  text-xs text-black uppercase font-bold pt-1 pb-4 no-underline">Pacientes</span>
                                 </template>
                                 <el-menu-item-group>
                                     <el-menu-item index="1-1">
@@ -118,7 +119,8 @@
                                         </li>
                                     </el-menu-item>
 
-                                    <el-menu-item index="1-3" v-if="getmiUsuario.rol != ('Secretaria') && getmiUsuario.rol != ('Administrador')">
+                                    <el-menu-item index="1-3"
+                                        v-if="getmiUsuario.rol != ('Secretaria') && getmiUsuario.rol != ('Administrador')">
                                         <li class="items-center">
                                             <router-link to="/admin/odontodiagrama/registro"
                                                 class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
@@ -174,7 +176,7 @@
                 -->
 
                 <!-- <ul class="md:flex-col md:min-w-full flex flex-col list-none"> -->
-                    <!-- <li class="items-center">
+                <!-- <li class="items-center">
                         <router-link to="/admin/paciente/agregar"
                             class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
                             exact-active-class="text-emerald-500 hover:text-emerald-600">
@@ -182,7 +184,7 @@
                             Nuevo Paciente
                         </router-link>
                     </li> -->
-                    <!-- <li class="items-center">
+                <!-- <li class="items-center">
                         <router-link to="/admin/paciente/lista"
                             class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
                             exact-active-class="text-emerald-500 hover:text-emerald-600">
@@ -203,12 +205,14 @@
 
 
                 <el-row class="tac">
-                    <el-col >
+                    <el-col>
                         <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
                             <el-submenu index="1">
                                 <template slot="title">
                                     <i class="fa-solid fa-money-bills text-sm"></i>
-                                    <span class="ml-3 md:min-w-full  text-xs text-black uppercase font-bold pt-1 pb-4 no-underline">Ventas y Presupuesto</span>
+                                    <span
+                                        class="ml-3 md:min-w-full  text-xs text-black uppercase font-bold pt-1 pb-4 no-underline">Ventas
+                                        y Presupuesto</span>
                                 </template>
 
 
@@ -236,7 +240,8 @@
                                     </el-menu-item>
                                 </el-menu-item-group>
 
-                                <el-menu-item-group v-if="getmiUsuario.rol != ('Odontologo')" title="Presupuestos a Clientes">
+                                <el-menu-item-group v-if="getmiUsuario.rol != ('Odontologo')"
+                                    title="Presupuestos a Clientes">
                                     <el-menu-item index="1-3">
                                         <li class="items-center">
                                             <router-link to="/admin/presupuesto/venta/agregar"
@@ -268,15 +273,18 @@
                 <hr class="my-4 md:min-w-full" />
 
                 <el-row class="tac">
-                    <el-col >
+                    <el-col>
                         <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
                             <el-submenu index="1">
                                 <template slot="title">
                                     <i class="fa-solid fa-cash-register mr-2 text-sm"></i>
-                                    <span class="ml-3 md:min-w-full  text-xs text-black uppercase font-bold pt-1 pb-4 no-underline">Recivos de compras</span>
+                                    <span
+                                        class="ml-3 md:min-w-full  text-xs text-black uppercase font-bold pt-1 pb-4 no-underline">Recibo
+                                        de compras</span>
                                 </template>
 
-                                <el-menu-item-group v-if="getmiUsuario.rol != ('Odontologo') && getmiUsuario.rol != ('Secretaria')">
+                                <el-menu-item-group
+                                    v-if="getmiUsuario.rol != ('Odontologo') && getmiUsuario.rol != ('Secretaria')">
                                     <el-menu-item index="1-5">
                                         <ul class="md:flex-col md:min-w-full flex flex-col list-none">
                                             <li class="items-center">
@@ -311,10 +319,10 @@
                 <hr class="my-4 md:min-w-full" />
 
                 <!-- <div v-if="getmiUsuario.rol != ('Odontologo')"> -->
-                    <!-- Divider -->
-                    <!-- <hr class="my-4 md:min-w-full" /> -->
-                    <!-- Heading -->
-                    <!-- <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+                <!-- Divider -->
+                <!-- <hr class="my-4 md:min-w-full" /> -->
+                <!-- Heading -->
+                <!-- <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
                         Ventas a Clientes
                     </h6>
                     <ul class="md:flex-col md:min-w-full flex flex-col list-none">
@@ -341,10 +349,10 @@
                 </div> -->
 
                 <!-- <div v-if="getmiUsuario.rol != ('Odontologo')"> -->
-                    <!-- Divider -->
-                    <!-- <hr class="my-4 md:min-w-full" /> -->
-                    <!-- Heading -->
-                    <!-- <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+                <!-- Divider -->
+                <!-- <hr class="my-4 md:min-w-full" /> -->
+                <!-- Heading -->
+                <!-- <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
                         Presupuestos a Clientes
                     </h6>
                     <ul class="md:flex-col md:min-w-full flex flex-col list-none">
@@ -368,10 +376,10 @@
                 </div> -->
 
                 <!-- <div v-if="getmiUsuario.rol != ('Odontologo') && getmiUsuario.rol != ('Secretaria')"> -->
-                    <!-- Divider -->
-                    <!-- <hr class="my-4 md:min-w-full" /> -->
-                    <!-- Heading -->
-                    <!-- <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+                <!-- Divider -->
+                <!-- <hr class="my-4 md:min-w-full" /> -->
+                <!-- Heading -->
+                <!-- <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
                         Compras a Proveedores
                     </h6>
                     <ul class="md:flex-col md:min-w-full flex flex-col list-none">
@@ -398,12 +406,13 @@
 
 
                 <el-row class="tac">
-                    <el-col >
+                    <el-col>
                         <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
                             <el-submenu index="1">
                                 <template slot="title">
                                     <i class="fa-solid fa-boxes-stacked  text-sm"></i>
-                                    <span class="ml-3 md:min-w-full text-xs text-black uppercase font-bold pt-1 pb-4 no-underline">Insumos</span>
+                                    <span
+                                        class="ml-3 md:min-w-full text-xs text-black uppercase font-bold pt-1 pb-4 no-underline">Insumos</span>
                                 </template>
                                 <el-menu-item-group>
 
@@ -420,7 +429,8 @@
                                         </ul>
                                     </el-menu-item>
 
-                                    <el-menu-item index="1-2" v-if="getmiUsuario.rol != ('Odontologo') && getmiUsuario.rol != ('Secretaria')">
+                                    <el-menu-item index="1-2"
+                                        v-if="getmiUsuario.rol != ('Odontologo') && getmiUsuario.rol != ('Secretaria')">
                                         <li class="items-center">
                                             <router-link to="/admin/materiales"
                                                 class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
@@ -431,7 +441,8 @@
                                         </li>
                                     </el-menu-item>
 
-                                    <el-menu-item index="1-3" v-if="getmiUsuario.rol != ('Odontologo') && getmiUsuario.rol != ('Secretaria')">
+                                    <el-menu-item index="1-3"
+                                        v-if="getmiUsuario.rol != ('Odontologo') && getmiUsuario.rol != ('Secretaria')">
                                         <li class="items-center">
                                             <router-link to="/admin/tipo-materiales"
                                                 class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
@@ -448,10 +459,10 @@
                 </el-row>
 
                 <!-- <div> -->
-                    <!-- Divider -->
-                    <!-- <hr class="my-4 md:min-w-full" /> -->
-                    <!-- Heading -->
-                    <!-- <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+                <!-- Divider -->
+                <!-- <hr class="my-4 md:min-w-full" /> -->
+                <!-- Heading -->
+                <!-- <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
                         Insumos
                     </h6>
 
@@ -465,7 +476,7 @@
                             </router-link>
                         </li>
                     </ul> -->
-                    <!-- <ul v-if="getmiUsuario.rol != ('Odontologo') && getmiUsuario.rol != ('Secretaria')"
+                <!-- <ul v-if="getmiUsuario.rol != ('Odontologo') && getmiUsuario.rol != ('Secretaria')"
                         class="md:flex-col md:min-w-full flex flex-col list-none">
                         <li class="items-center">
                             <router-link to="/admin/materiales"
@@ -489,10 +500,10 @@
 
 
                 <!-- <div v-if="getmiUsuario.rol != ('Secretaria')"> -->
-                    <!-- Divider -->
-                    <!-- <hr class="my-4 md:min-w-full" /> -->
-                    <!-- Heading -->
-                    <!-- <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+                <!-- Divider -->
+                <!-- <hr class="my-4 md:min-w-full" /> -->
+                <!-- Heading -->
+                <!-- <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
                         Servicios
                     </h6>
                     <ul class="md:flex-col md:min-w-full flex flex-col list-none">
@@ -518,16 +529,18 @@
 
                 <div v-if="getmiUsuario.rol != ('Secretaria') && getmiUsuario.rol != ('Odontologo')">
                     <el-row class="tac">
-                        <el-col >
-                            <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
+                        <el-col>
+                            <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen"
+                                @close="handleClose">
                                 <el-submenu index="1">
                                     <template slot="title">
                                         <i class="fa-solid fa-cash-register mr-2 text-sm"></i>
-                                        <span class="ml-3 md:min-w-full  text-xs text-black uppercase font-bold pt-1 pb-4 no-underline">Servicios</span>
+                                        <span
+                                            class="ml-3 md:min-w-full  text-xs text-black uppercase font-bold pt-1 pb-4 no-underline">Servicios</span>
                                     </template>
-    
+
                                     <el-menu-item-group>
-                                        <el-menu-item index="1-1" >
+                                        <el-menu-item index="1-1">
                                             <li class="items-center">
                                                 <router-link to="/admin/servicios/agregar"
                                                     class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
@@ -537,7 +550,7 @@
                                                 </router-link>
                                             </li>
                                         </el-menu-item>
-    
+
                                         <el-menu-item index="1-2">
                                             <li class="items-center">
                                                 <router-link to="/admin/servicios"
@@ -550,19 +563,19 @@
                                         </el-menu-item>
                                     </el-menu-item-group>
                                 </el-submenu>
-    
+
                             </el-menu>
                         </el-col>
                     </el-row>
                 </div>
 
-                
+
 
                 <!-- <div v-if="getmiUsuario.rol != ('Odontologo') && getmiUsuario.rol != ('Secretaria')"> -->
-                    <!-- Divider -->
-                    <!-- <hr class="my-4 md:min-w-full" /> -->
-                    <!-- Heading -->
-                    <!-- <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+                <!-- Divider -->
+                <!-- <hr class="my-4 md:min-w-full" /> -->
+                <!-- Heading -->
+                <!-- <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
                         Proveedores
                     </h6>
                     <ul class="md:flex-col md:min-w-full flex flex-col list-none">
@@ -588,16 +601,18 @@
 
                 <div v-if="getmiUsuario.rol != ('Secretaria') && getmiUsuario.rol != ('Odontologo')">
                     <el-row class="tac">
-                        <el-col >
-                            <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
+                        <el-col>
+                            <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen"
+                                @close="handleClose">
                                 <el-submenu index="1">
                                     <template slot="title">
                                         <i class="fa-solid fa-cash-register mr-2 text-sm"></i>
-                                        <span class="ml-3 md:min-w-full  text-xs text-black uppercase font-bold pt-1 pb-4 no-underline">Proveedores</span>
+                                        <span
+                                            class="ml-3 md:min-w-full  text-xs text-black uppercase font-bold pt-1 pb-4 no-underline">Proveedores</span>
                                     </template>
-    
+
                                     <el-menu-item-group>
-                                        <el-menu-item index="1-1" >
+                                        <el-menu-item index="1-1">
                                             <li class="items-center">
                                                 <router-link to="/admin/proveedores"
                                                     class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
@@ -607,7 +622,7 @@
                                                 </router-link>
                                             </li>
                                         </el-menu-item>
-    
+
                                         <el-menu-item index="1-2">
                                             <li class="items-center">
                                                 <router-link to="/admin/proveedores/agregar"
@@ -620,7 +635,7 @@
                                         </el-menu-item>
                                     </el-menu-item-group>
                                 </el-submenu>
-    
+
                             </el-menu>
                         </el-col>
                     </el-row>
@@ -629,8 +644,6 @@
             </div>
         </div>
     </nav>
-
-    
 </template>
 <script>
 import NotificationDropdown from "@/components/Dropdowns/NotificationDropdown.vue";
@@ -658,6 +671,8 @@ export default {
     }
 };
 </script>
-<style>.el-menu {
+<style>
+.el-menu {
     border: none
-}</style>
+}
+</style>
