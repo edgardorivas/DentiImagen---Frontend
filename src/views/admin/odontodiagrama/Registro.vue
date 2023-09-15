@@ -19,14 +19,17 @@
                             <div class="w-full md:w-2/2 lg:w-2/5 px-2 mb-3 py-1">
 
                                 <label class="md:w-1/2">
-                                    <p v-if="!odontodiagrama.paciente" class="ml-1">Paciente | <small>No esta registrado? <router-link
-                                                class="text-verdiAnderson" to="/admin/paciente/agregar">Registrar
+                                    <p v-if="!odontodiagrama.paciente" class="ml-1">Paciente | <small>No esta registrado?
+                                            <router-link class="text-verdiAnderson" to="/admin/paciente/agregar">Registrar
                                                 Paciente</router-link></small> </p>
 
-                                    <p v-else class="ml-1">Paciente | <el-button type="text" v-on:click="modalHistorialTratamientos(odontodiagrama.paciente)">Agregar historial de tratamiento</el-button> </p>
+                                    <p v-else class="ml-1">Paciente | <el-button type="text"
+                                            v-on:click="modalHistorialTratamientos(odontodiagrama.paciente)">Agregar
+                                            historial de tratamiento</el-button> </p>
 
-                                    <el-select v-model="odontodiagrama.paciente" filterable @change="actualizarUltimoOdontodiagrama"
-                                        placeholder="Seleccione el paciente" class="w-full">
+                                    <el-select v-model="odontodiagrama.paciente" filterable
+                                        @change="actualizarUltimoOdontodiagrama" placeholder="Seleccione el paciente"
+                                        class="w-full">
                                         <el-option v-for="paciente in pacientesData.data" :key="paciente.id_paciente"
                                             :label="paciente.nombre_paciente + ' ' + paciente.apellido_paciente"
                                             :value="paciente.id_paciente"></el-option>
@@ -62,17 +65,30 @@
                                     <div class="w-full">
                                         <p><small><i>Sección Adultos</i></small></p>
                                     </div>
+
                                     <div v-for="(diente, key_diente) of odontodiagrama.dientes['C-1'].adulto"
                                         :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
-                                        <button @click="abrirModal(diente)" type="button"
-                                            class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
-                                            :class="!diente.sano ? 'border-red-500' : ''">
-                                            <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
-                                            <i class="fa-solid fa-tooth text-3xl"></i>
-                                            <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
-                                            <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
-                                        </button>
+                                        <el-popover placement="top-start" title="Datos" width="200" trigger="hover"
+                                            :content="diente.afecciones">
+
+                                            <button slot="reference" @click="abrirModal(diente)" type="button"
+                                                class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
+                                                :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
+                                                <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
+                                                <i class="fa-solid fa-tooth text-3xl"></i>
+                                                <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
+                                                <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
+                                            </button>
+                                        </el-popover>
+
+
+
+
+
                                     </div>
+
+
+
                                 </div>
                                 <div class="flex flex-wrap justify-start flex-row-reverse mt-2">
                                     <div class="w-full">
@@ -82,7 +98,7 @@
                                         :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
                                         <button @click="abrirModal(diente)" type="button"
                                             class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
-                                            :class="!diente.sano ? 'border-red-500' : ''">
+                                            :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
                                             <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
                                             <i class="fa-solid fa-tooth text-2xl"></i>
                                             <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
@@ -106,7 +122,7 @@
                                         :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
                                         <button @click="abrirModal(diente)" type="button"
                                             class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
-                                            :class="!diente.sano ? 'border-red-500' : ''">
+                                            :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
                                             <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
                                             <i class="fa-solid fa-tooth text-3xl"></i>
                                             <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
@@ -122,7 +138,7 @@
                                         :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
                                         <button @click="abrirModal(diente)" type="button"
                                             class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
-                                            :class="!diente.sano ? 'border-red-500' : ''">
+                                            :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
                                             <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
                                             <i class="fa-solid fa-tooth text-2xl"></i>
                                             <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
@@ -146,7 +162,7 @@
                                         :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
                                         <button @click="abrirModal(diente)" type="button"
                                             class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
-                                            :class="!diente.sano ? 'border-red-500' : ''">
+                                            :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
                                             <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
                                             <i class="fa-solid fa-tooth text-2xl"></i>
                                             <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
@@ -162,7 +178,7 @@
                                         :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
                                         <button @click="abrirModal(diente)" type="button"
                                             class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
-                                            :class="!diente.sano ? 'border-red-500' : ''">
+                                            :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
                                             <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
                                             <i class="fa-solid fa-tooth text-3xl"></i>
                                             <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
@@ -186,7 +202,7 @@
                                         :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
                                         <button @click="abrirModal(diente)" type="button"
                                             class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
-                                            :class="!diente.sano ? 'border-red-500' : ''">
+                                            :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
                                             <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
                                             <i class="fa-solid fa-tooth text-2xl"></i>
                                             <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
@@ -202,7 +218,7 @@
                                         :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
                                         <button @click="abrirModal(diente)" type="button"
                                             class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
-                                            :class="!diente.sano ? 'border-red-500' : ''">
+                                            :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
                                             <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
                                             <i class="fa-solid fa-tooth text-3xl"></i>
                                             <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
@@ -245,8 +261,7 @@
                                     <div class=" mb-2">
                                         <label>
                                             <p class="ml-1 mb-1">Observacion general</p>
-                                            <el-input type="textarea" :rows="2"
-                                                placeholder="Observacion del diente"
+                                            <el-input type="textarea" :rows="2" placeholder="Observacion del diente"
                                                 v-model="diente.observacionGeneral">
                                             </el-input>
                                         </label>
@@ -295,7 +310,7 @@
                                                     class="fa-solid fa-xmark"></i> Eliminar</button>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                                 <div>
                                     <button @click="modal = false"
@@ -310,15 +325,16 @@
         </div>
 
         <!-- modal del historial del paciente -->
-        <el-dialog title="Agregar informacion de tratamientos del paciente" :visible.sync="centerDialogVisibleHistorial" width="30%" center>
+        <el-dialog title="Agregar informacion de tratamientos del paciente" :visible.sync="centerDialogVisibleHistorial"
+            width="30%" center>
             <div class="flex flex-wrap justify-around">
-                <el-form label-position="top" class="w-96" :model="formHistorialTratamiento" :rules="rules" ref="registrarhistorialTratamientos">
+                <el-form label-position="top" class="w-96" :model="formHistorialTratamiento" :rules="rules"
+                    ref="registrarhistorialTratamientos">
 
                     <label>
                         <p class="ml-1">Nombre</p>
                         <el-form-item prop="titulo">
-                            <el-input
-                                placeholder="Ingrese el titulo del tratamiento"
+                            <el-input placeholder="Ingrese el titulo del tratamiento"
                                 v-model="formHistorialTratamiento.titulo">
                             </el-input>
                         </el-form-item>
@@ -329,9 +345,7 @@
                     <label>
                         <p class="ml-1">Descripcion</p>
                         <el-form-item prop="descripcion">
-                            <el-input
-                                type="textarea"
-                                :autosize="{ minRows: 2, maxRows: 4}"
+                            <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4 }"
                                 placeholder="Ingrese la descripcion del tratamiento"
                                 v-model="formHistorialTratamiento.descripcion">
                             </el-input>
@@ -341,19 +355,16 @@
                     <label v-if="estatusObservacion">
                         <p class="ml-1">Observacion</p>
                         <el-form-item prop="observacion">
-                            <el-input
-                                type="textarea"
-                                placeholder="Ingrese la descripcion del tratamiento"
-                                v-model="formHistorialTratamiento.observacion"
-                                maxlength="250"
-                                show-word-limit>
+                            <el-input type="textarea" placeholder="Ingrese la descripcion del tratamiento"
+                                v-model="formHistorialTratamiento.observacion" maxlength="250" show-word-limit>
                             </el-input>
                         </el-form-item>
 
                         <el-button type="text" @click="observacionesEstado">Quitar observacion</el-button>
-                        
+
                     </label>
-                    <el-button type="text" v-if="!estatusObservacion" @click="estatusObservacion = true">Agregar observacion</el-button>
+                    <el-button type="text" v-if="!estatusObservacion" @click="estatusObservacion = true">Agregar
+                        observacion</el-button>
 
                 </el-form>
             </div>
@@ -386,10 +397,10 @@ export default {
     data() {
         return {
             centerDialogVisibleHistorial: false,
-            formHistorialTratamiento:{
-                titulo:'',
-                descripcion:'',
-                observacion:''
+            formHistorialTratamiento: {
+                titulo: '',
+                descripcion: '',
+                observacion: ''
             },
             odontodiagrama: this.getObjectOdontodiagrama(),
             modal: false,
@@ -400,26 +411,26 @@ export default {
             rules: {
                 titulo: [
                     { required: true, message: 'Es necesario ingresar el nombre del tratamiento', trigger: 'change' },
-                    { min: 2,  message: 'El titulo del tratamiento tiene que tener como minimo 2 caracteres', trigger: 'change' }
+                    { min: 2, message: 'El titulo del tratamiento tiene que tener como minimo 2 caracteres', trigger: 'change' }
                 ],
                 descripcion: [
                     { required: true, message: 'Es necesario ingresar la descripcion del tratamiento', trigger: 'change' },
-                    { min: 5,  message: 'La descripcion tiene que ser mayor a  5 caracteres', trigger: 'change' }
+                    { min: 5, message: 'La descripcion tiene que ser mayor a  5 caracteres', trigger: 'change' }
                 ],
                 observacion: [
-                    { min: 2, max:250, message: 'La observacion general tiene que tener como minimo 2 caracteres y como maximo 250 ', trigger: 'change' }
+                    { min: 2, max: 250, message: 'La observacion general tiene que tener como minimo 2 caracteres y como maximo 250 ', trigger: 'change' }
                 ],
             },
-            observacion:false,
-            estatusObservacion:false,
+            observacion: false,
+            estatusObservacion: false,
             pacientes: [],
-            loading:false
+            loading: false
         }
     },
     methods: {
-        async ingresarHistorialTratamiento(historialTratamiento){
+        async ingresarHistorialTratamiento(historialTratamiento) {
             this.$refs['registrarhistorialTratamientos'].validate(async (valid) => {
-                if(valid){
+                if (valid) {
                     try {
                         this.$store.dispatch('getLoadingApp', true);
                         const token = localStorage.getItem('token_acess');
@@ -434,12 +445,12 @@ export default {
                         });
                         this.$store.dispatch('getLoadingApp', false);
 
-                        this.formHistorialTratamiento={
-                            titulo:'',
-                            descripcion:'',
-                            observacion:''
+                        this.formHistorialTratamiento = {
+                            titulo: '',
+                            descripcion: '',
+                            observacion: ''
                         },
-                        this.centerDialogVisibleHistorial= false;
+                            this.centerDialogVisibleHistorial = false;
 
                         this.$message({
                             message: 'Se reistro el nuevo tratamiendo al historial del paciente',
@@ -450,8 +461,8 @@ export default {
                     } catch (error) {
                         if (error.response) {
                             this.$message({
-                              message: error.response.data.mensaje || 'Sin mensaje del servidor',
-                              type: 'error',
+                                message: error.response.data.mensaje || 'Sin mensaje del servidor',
+                                type: 'error',
                             });
                             this.$store.dispatch('getLoadingApp', false);
 
@@ -473,7 +484,7 @@ export default {
         },
         observacionesEstado() {
             this.formHistorialTratamiento.observacion = '';
-            this.estatusObservacion=false;
+            this.estatusObservacion = false;
         },
         getObjectOdontodiagrama() {
             return {
@@ -675,26 +686,26 @@ export default {
             }
         },
         async actualizarUltimoOdontodiagrama(evento) {
-          try {
-            this.$store.dispatch('getLoadingApp', true);
-            const token = localStorage.getItem('token_acess');
-            const resultado = await axios({
-                method: 'GET',
-                baseURL: config.backend.baseURL,
-                url: '/odontodiagrama/paciente/ultimo/' + evento,
-                headers: {
-                    ['auth-token']: token,
+            try {
+                this.$store.dispatch('getLoadingApp', true);
+                const token = localStorage.getItem('token_acess');
+                const resultado = await axios({
+                    method: 'GET',
+                    baseURL: config.backend.baseURL,
+                    url: '/odontodiagrama/paciente/ultimo/' + evento,
+                    headers: {
+                        ['auth-token']: token,
+                    }
+                });
+                if (resultado.data.data) {
+                    resultado.data.data.paciente = resultado.data.data.fk_historial_paciente;
+                    resultado.data.data.fechaRegistron = new Date();
+                    this.odontodiagrama = resultado.data.data;
                 }
-            });
-            if (resultado.data.data) {
-              resultado.data.data.paciente = resultado.data.data.fk_historial_paciente;
-              resultado.data.data.fechaRegistron = new Date();
-              this.odontodiagrama = resultado.data.data;
+            } catch (error) {
+                console.log(error)
             }
-          } catch (error) {
-            console.log(error)
-          }
-          this.$store.dispatch('getLoadingApp', false);
+            this.$store.dispatch('getLoadingApp', false);
         }
     },
     computed: {
