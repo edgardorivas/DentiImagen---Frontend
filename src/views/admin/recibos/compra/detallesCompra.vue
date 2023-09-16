@@ -211,4 +211,5 @@ export default {
 <style lang="scss">
 .el-date-editor {
     width: 100% !important;
-}</style>
+}
+</style>

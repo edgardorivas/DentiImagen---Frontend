@@ -43,8 +43,7 @@
 
                             <div class="w-full md:w-2/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label class="">
-                                    <p class="ml-1">Fecha del Odontodiagrama: <small class="">{{
-                                        parseDate(odontodiagrama.fechaRegistron) }}</small> </p>
+                                    <p class="ml-1">Fecha del Odontodiagrama</p>
                                     <el-date-picker v-model="odontodiagrama.fechaRegistron" type="datetime" size="large"
                                         :clearable="false" placeholder="Por favor seleccione la fecha">
                                     </el-date-picker>
@@ -68,10 +67,17 @@
 
                                     <div v-for="(diente, key_diente) of odontodiagrama.dientes['C-1'].adulto"
                                         :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
-                                        <el-popover placement="top-start" title="Datos" width="200" trigger="hover"
-                                            :content="diente.afecciones">
+                                        <el-popover placement="top-start" title="Datos" trigger="hover">
+                                            <div v-show="statusMensajeDiente">
+                                                <ul v-for="(mensaje, index) of mensajeDiente" :key="index">
+                                                    <li>
+                                                        {{ mensaje }}
+                                                    </li>
+                                                </ul>
+                                            </div>
 
-                                            <button slot="reference" @click="abrirModal(diente)" type="button"
+                                            <button @mouseover="datosDientesMensaje(diente)" slot="reference"
+                                                @click="abrirModal(diente)" type="button"
                                                 class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
                                                 :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
                                                 <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
@@ -79,15 +85,9 @@
                                                 <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
                                                 <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
                                             </button>
+
                                         </el-popover>
-
-
-
-
-
                                     </div>
-
-
 
                                 </div>
                                 <div class="flex flex-wrap justify-start flex-row-reverse mt-2">
@@ -96,14 +96,28 @@
                                     </div>
                                     <div v-for="(diente, key_diente) of odontodiagrama.dientes['C-1'].nino"
                                         :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
-                                        <button @click="abrirModal(diente)" type="button"
-                                            class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
-                                            :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
-                                            <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
-                                            <i class="fa-solid fa-tooth text-2xl"></i>
-                                            <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
-                                            <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
-                                        </button>
+
+                                        <el-popover placement="top-start" title="Datos" trigger="hover">
+                                            <div v-show="statusMensajeDiente">
+
+                                                <ul v-for="(mensaje, index) of mensajeDiente" :key="index">
+                                                    <li>
+                                                        {{ mensaje }}
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <button @mouseover="datosDientesMensaje(diente)" @click="abrirModal(diente)"
+                                                type="button" slot="reference"
+                                                class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
+                                                :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
+                                                <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
+                                                <i class="fa-solid fa-tooth text-2xl"></i>
+                                                <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
+                                                <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
+                                            </button>
+                                        </el-popover>
+
                                     </div>
                                 </div>
                             </div>
@@ -120,14 +134,26 @@
                                     </div>
                                     <div v-for="(diente, key_diente) of odontodiagrama.dientes['C-2'].adulto"
                                         :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
-                                        <button @click="abrirModal(diente)" type="button"
-                                            class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
-                                            :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
-                                            <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
-                                            <i class="fa-solid fa-tooth text-3xl"></i>
-                                            <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
-                                            <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
-                                        </button>
+                                        <el-popover placement="top-start" title="Datos" trigger="hover">
+                                            <div v-show="statusMensajeDiente">
+                                                <ul v-for="(mensaje, index) of mensajeDiente" :key="index">
+                                                    <li>
+                                                        {{ mensaje }}
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <button @click="abrirModal(diente)" type="button" slot="reference"
+                                                @mouseover="datosDientesMensaje(diente)"
+                                                class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
+                                                :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
+                                                <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
+                                                <i class="fa-solid fa-tooth text-3xl"></i>
+                                                <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
+                                                <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
+                                            </button>
+                                        </el-popover>
+
                                     </div>
                                 </div>
                                 <div class="flex flex-wrap justify-start mt-2">
@@ -136,14 +162,26 @@
                                     </div>
                                     <div v-for="(diente, key_diente) of odontodiagrama.dientes['C-2'].nino"
                                         :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
-                                        <button @click="abrirModal(diente)" type="button"
-                                            class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
-                                            :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
-                                            <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
-                                            <i class="fa-solid fa-tooth text-2xl"></i>
-                                            <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
-                                            <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
-                                        </button>
+                                        <el-popover placement="top-start" title="Datos" trigger="hover">
+                                            <div v-show="statusMensajeDiente">
+                                                <ul v-for="(mensaje, index) of mensajeDiente" :key="index">
+                                                    <li>
+                                                        {{ mensaje }}
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <button @click="abrirModal(diente)" type="button" slot="reference"
+                                                @mouseover="datosDientesMensaje(diente)"
+                                                class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
+                                                :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
+                                                <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
+                                                <i class="fa-solid fa-tooth text-2xl"></i>
+                                                <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
+                                                <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
+                                            </button>
+                                        </el-popover>
+
                                     </div>
                                 </div>
                             </div>
@@ -160,14 +198,28 @@
                                     </div>
                                     <div v-for="(diente, key_diente) of odontodiagrama.dientes['C-4'].nino"
                                         :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
-                                        <button @click="abrirModal(diente)" type="button"
-                                            class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
-                                            :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
-                                            <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
-                                            <i class="fa-solid fa-tooth text-2xl"></i>
-                                            <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
-                                            <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
-                                        </button>
+
+                                        <el-popover placement="top-start" title="Datos" trigger="hover">
+                                            <div v-show="statusMensajeDiente">
+                                                <ul v-for="(mensaje, index) of mensajeDiente" :key="index">
+                                                    <li>
+                                                        {{ mensaje }}
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <button @click="abrirModal(diente)" type="button" slot="reference"
+                                                @mouseover="datosDientesMensaje(diente)"
+                                                class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
+                                                :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
+                                                <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
+                                                <i class="fa-solid fa-tooth text-2xl"></i>
+                                                <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
+                                                <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
+                                            </button>
+                                        </el-popover>
+
+
                                     </div>
                                 </div>
                                 <div class="flex flex-wrap justify-start flex-row-reverse">
@@ -176,14 +228,25 @@
                                     </div>
                                     <div v-for="(diente, key_diente) of odontodiagrama.dientes['C-4'].adulto"
                                         :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
-                                        <button @click="abrirModal(diente)" type="button"
-                                            class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
-                                            :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
-                                            <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
-                                            <i class="fa-solid fa-tooth text-3xl"></i>
-                                            <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
-                                            <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
-                                        </button>
+                                        <el-popover placement="top-start" title="Datos" trigger="hover">
+                                            <div v-show="statusMensajeDiente">
+                                                <ul v-for="(mensaje, index) of mensajeDiente" :key="index">
+                                                    <li>
+                                                        {{ mensaje }}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <button @click="abrirModal(diente)" type="button" slot="reference"
+                                                @mouseover="datosDientesMensaje(diente)"
+                                                class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
+                                                :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
+                                                <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
+                                                <i class="fa-solid fa-tooth text-3xl"></i>
+                                                <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
+                                                <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
+                                            </button>
+                                        </el-popover>
+
                                     </div>
                                 </div>
                             </div>
@@ -200,14 +263,26 @@
                                     </div>
                                     <div v-for="(diente, key_diente) of odontodiagrama.dientes['C-3'].nino"
                                         :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
-                                        <button @click="abrirModal(diente)" type="button"
-                                            class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
-                                            :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
-                                            <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
-                                            <i class="fa-solid fa-tooth text-2xl"></i>
-                                            <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
-                                            <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
-                                        </button>
+                                        <el-popover placement="top-start" title="Datos" trigger="hover">
+                                            <div v-show="statusMensajeDiente">
+                                                <ul v-for="(mensaje, index) of mensajeDiente" :key="index">
+                                                    <li>
+                                                        {{ mensaje }}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <button @click="abrirModal(diente)" type="button" slot="reference"
+                                                @mouseover="datosDientesMensaje(diente)"
+                                                class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
+                                                :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
+                                                <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
+                                                <i class="fa-solid fa-tooth text-2xl"></i>
+                                                <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
+                                                <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
+                                            </button>
+                                        </el-popover>
+
+
                                     </div>
                                 </div>
                                 <div class="flex flex-wrap justify-start">
@@ -216,14 +291,24 @@
                                     </div>
                                     <div v-for="(diente, key_diente) of odontodiagrama.dientes['C-3'].adulto"
                                         :key="key_diente" class="w-1/4 md:w-1/6 lg:w-1/12 m-1">
-                                        <button @click="abrirModal(diente)" type="button"
-                                            class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
-                                            :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
-                                            <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
-                                            <i class="fa-solid fa-tooth text-3xl"></i>
-                                            <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
-                                            <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
-                                        </button>
+                                        <el-popover placement="top-start" title="Datos" trigger="hover">
+                                            <div v-show="statusMensajeDiente">
+                                                <ul v-for="(mensaje, index) of mensajeDiente" :key="index">
+                                                    <li>
+                                                        {{ mensaje }}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <button @click="abrirModal(diente)" type="button" slot="reference"
+                                                @mouseover="datosDientesMensaje(diente)"
+                                                class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
+                                                :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
+                                                <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
+                                                <i class="fa-solid fa-tooth text-3xl"></i>
+                                                <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
+                                                <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
+                                            </button>
+                                        </el-popover>
                                     </div>
                                 </div>
                             </div>
@@ -245,14 +330,14 @@
                                 <div class="flex flex-col overflow-y-auto">
                                     <div class="w-full px-2 mb-3 py-1">
                                         <label>
-                                            <p class="ml-1 mb-1">Diente Sano / Finalizado?</p>
+                                            <p class="ml-1 mb-1">Diente Sano</p>
                                             <el-switch class="ml-3" v-model="diente.sano" active-color="#13ce66"
                                                 inactive-color="#ff4949"></el-switch>
                                         </label>
                                     </div>
                                     <div class="w-full px-2 mb-3 py-1">
                                         <label>
-                                            <p class="ml-1 mb-1">Diente Ausente?</p>
+                                            <p class="ml-1 mb-1">Diente Ausente</p>
                                             <el-switch class="ml-3" v-model="diente.ausente" active-color="#13ce66"
                                                 inactive-color="#ff4949"></el-switch>
                                         </label>
@@ -278,12 +363,19 @@
                                     <div v-for="(afeccion, index) of diente.afecciones" :key="index"
                                         class="w-full px-2 mb-3 py-1 bg-slate-100 transition-all delay-150 duration-300">
                                         <div class="mb-2">
+
                                             <label>
                                                 <p class="ml-1 mb-1">Afección: <small>{{ afeccion.nombre || 'Sin Titulo'
                                                 }}</small></p>
-                                                <el-input placeholder="Nombre de la afeccion"
-                                                    v-model="afeccion.nombre"></el-input>
+
+                                                <el-select filterable placeholder="Afección" class="w-full" allow-create
+                                                    v-model="afeccion.nombre">
+                                                    <el-option v-for="(afeccion, index) of afecciones" :key="index"
+                                                        :label="afeccion.nombre" :value="afeccion.key"></el-option>
+                                                </el-select>
+
                                             </label>
+
                                         </div>
                                         <div class="mb-2">
                                             <label>
@@ -397,6 +489,41 @@ export default {
     data() {
         return {
             centerDialogVisibleHistorial: false,
+            statusMensajeDiente: false,
+            mensajeDiente: [],
+            afecciones: [
+                { nombre: 'Amalgama', key: 'Amalgama' },
+                { nombre: 'Amalgama de plata', key: 'Amalgama de plata' },
+                { nombre: 'Amalgamas de mercurio ', key: 'Amalgamas de mercurio ' },
+                { nombre: 'Amalgama dental blanca', key: 'Amalgama dental blanca' },
+                { nombre: 'Caries', key: 'Caries' },
+                { nombre: 'Caries de corona', key: 'Caries de corona' },
+                { nombre: 'Caries de fisura', key: 'Caries de fisura' },
+                { nombre: 'Caries radicular', key: 'Caries radicular' },
+                { nombre: 'Caries recurrentes', key: 'Caries recurrentes' },
+                { nombre: 'Caries interdental', key: 'Caries interdental' },
+                { nombre: 'Caries obturación', key: 'Caries obturación' },
+                { nombre: 'Corona', key: 'Corona' },
+                { nombre: 'Corona de metal-porcelana', key: 'Corona de metal-porcelana' },
+                { nombre: 'Corona total de porcelana', key: 'Corona total de porcelana' },
+                { nombre: 'Corona total de metal', key: 'Corona total de metal' },
+                { nombre: 'Corona sobre implante', key: 'Corona sobre implante' },
+                { nombre: 'Corona de circonia', key: 'Corona de circonia' },
+                { nombre: 'Endodoncia', key: 'Endodoncia' },
+                { nombre: 'Endodoncias unirradiculares', key: 'Endodoncias unirradiculares' },
+                { nombre: 'Endodoncias birradiculares', key: 'Endodoncias birradiculares' },
+                { nombre: 'Endodoncias multirradiculares', key: 'Endodoncias multirradiculares' },
+                { nombre: 'Perno', key: 'Perno' },
+                { nombre: 'Perno de fibra de vidrio', key: 'Perno de fibra de vidrio' },
+                { nombre: 'Perno en prótesis fija', key: 'Perno en prótesis fija' },
+                { nombre: 'Pilar Pontico', key: 'Pilar Pontico' },
+                { nombre: 'Por extraer', key: 'Por extraer' },
+                { nombre: 'Resina', key: 'Resina' },
+                { nombre: 'Resina Cerv', key: 'Resina Cerv' },
+                { nombre: 'Resina Cerv', key: 'Resina Cerv' },
+                { nombre: 'Resina Prev', key: 'Resina Prev' },
+                { nombre: 'Sellante', key: 'Sellante' },
+            ],
             formHistorialTratamiento: {
                 titulo: '',
                 descripcion: '',
@@ -706,7 +833,22 @@ export default {
                 console.log(error)
             }
             this.$store.dispatch('getLoadingApp', false);
+        },
+        datosDientesMensaje(datos) {
+            this.statusMensajeDiente = false;
+            let mensaje
+            if (!datos.sano) {
+                this.mensajeDiente = datos.afecciones.map((afeccion) => {
+                    return `${afeccion.nombre} - ${afeccion.completado ? 'completo' : 'incompleto'}`
+                })
+
+            } else {
+                this.mensajeDiente = datos.ausente ? ['El diente esta ausente'] : ['El diente esta sano']
+            }
+            this.statusMensajeDiente = true;
+
         }
+
     },
     computed: {
         // usuarios () {

@@ -136,7 +136,7 @@
                     </el-col>
                 </el-row>
 
-                <hr class="my-4 md:min-w-full" />
+                <hr class="my-4 md:min-w-full" v-if="getmiUsuario.rol != ('Odontologo')" />
 
 
 
@@ -204,7 +204,7 @@
                 <!-- </ul> -->
 
 
-                <el-row class="tac">
+                <el-row class="tac" v-if="getmiUsuario.rol != ('Odontologo')">
                     <el-col>
                         <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
                             <el-submenu index="1">
@@ -270,9 +270,10 @@
                     </el-col>
                 </el-row>
 
-                <hr class="my-4 md:min-w-full" />
+                <hr class="my-4 md:min-w-full"
+                    v-if="getmiUsuario.rol != ('Odontologo') && getmiUsuario.rol != ('Secretaria')" />
 
-                <el-row class="tac">
+                <el-row class="tac" v-if="getmiUsuario.rol != ('Odontologo') && getmiUsuario.rol != ('Secretaria')">
                     <el-col>
                         <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
                             <el-submenu index="1">
