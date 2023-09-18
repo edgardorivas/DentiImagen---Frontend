@@ -33,9 +33,8 @@
 						</template>
 
 						<el-table
-							:data="proveedores.data.filter(data => !search || data.nombre_proveedor.toLowerCase().includes(search.toLowerCase()))"
+							:data="tableData.filter(data => !search || data.nombre_proveedor.toLowerCase().includes(search.toLowerCase()))"
 							class="w-full p-10">
-
 							<el-table-column prop="nombre_proveedor" label="Nombre">
 								<template slot-scope="scope">
 									<router-link :to="`/admin/proveedores/${scope.row.id_provedor}`"
@@ -60,6 +59,9 @@
 								</template>
 							</el-table-column>
 						</el-table>
+						<el-pagination @current-change="handleCurrentChange" :page-size="pageSize"
+							layout="prev, pager, next" :total="total" :current-page.sync="currentPage">
+						</el-pagination>
 
 						<!-- Modales de busqueda-->
 						<el-drawer title="Busqueda Avanzada" :visible.sync="modal" direction="rtl"
@@ -155,10 +157,222 @@ export default {
 	},
 	created() {
 		this.$store.dispatch("obtenerListaDeProveedores");
+		this.totalRegistro()
+		this.actualizarDatosTabla()
+		// this.handleSizeChange(this.proveedores.data)
 		//this.aplicarFiltro();
 	},
 	data() {
 		return {
+			proveedores: {
+				data: [
+					{
+						correo_proveedor: "junitopp@gmail.com",
+						estado_borrado: false,
+						id_provedor: 1,
+						nombre_proveedor: "juanito",
+						rif_provedor: "0123456789",
+						telefono_proveedor: "01234567896",
+					},
+					{
+						correo_proveedor: "junitopp@gmail.com",
+						estado_borrado: false,
+						id_provedor: 1,
+						nombre_proveedor: "juanito",
+						rif_provedor: "0123456789",
+						telefono_proveedor: "01234567896",
+					},
+					{
+						correo_proveedor: "junitopp@gmail.com",
+						estado_borrado: false,
+						id_provedor: 1,
+						nombre_proveedor: "juanito",
+						rif_provedor: "0123456789",
+						telefono_proveedor: "01234567896",
+					},
+					{
+						correo_proveedor: "junitopp@gmail.com",
+						estado_borrado: false,
+						id_provedor: 1,
+						nombre_proveedor: "juanito",
+						rif_provedor: "0123456789",
+						telefono_proveedor: "01234567896",
+					},
+					{
+						correo_proveedor: "junitopp@gmail.com",
+						estado_borrado: false,
+						id_provedor: 1,
+						nombre_proveedor: "juanito",
+						rif_provedor: "0123456789",
+						telefono_proveedor: "01234567896",
+					},
+					{
+						correo_proveedor: "junitopp@gmail.com",
+						estado_borrado: false,
+						id_provedor: 1,
+						nombre_proveedor: "juanito",
+						rif_provedor: "0123456789",
+						telefono_proveedor: "01234567896",
+					},
+					{
+						correo_proveedor: "junitopp@gmail.com",
+						estado_borrado: false,
+						id_provedor: 1,
+						nombre_proveedor: "juanito",
+						rif_provedor: "0123456789",
+						telefono_proveedor: "01234567896",
+					},
+					{
+						correo_proveedor: "junitopp@gmail.com",
+						estado_borrado: false,
+						id_provedor: 1,
+						nombre_proveedor: "juanito",
+						rif_provedor: "0123456789",
+						telefono_proveedor: "01234567896",
+					},
+					{
+						correo_proveedor: "junitopp@gmail.com",
+						estado_borrado: false,
+						id_provedor: 1,
+						nombre_proveedor: "juanito",
+						rif_provedor: "0123456789",
+						telefono_proveedor: "01234567896",
+					},
+					{
+						correo_proveedor: "junitopp@gmail.com",
+						estado_borrado: false,
+						id_provedor: 1,
+						nombre_proveedor: "jupiter",
+						rif_provedor: "0123456789",
+						telefono_proveedor: "01234567896",
+					},
+					{
+						correo_proveedor: "junitopp@gmail.com",
+						estado_borrado: false,
+						id_provedor: 1,
+						nombre_proveedor: "juanito",
+						rif_provedor: "0123456789",
+						telefono_proveedor: "01234567896",
+					},
+					{
+						correo_proveedor: "junitopp@gmail.com",
+						estado_borrado: false,
+						id_provedor: 1,
+						nombre_proveedor: "juanito",
+						rif_provedor: "0123456789",
+						telefono_proveedor: "01234567896",
+					},
+					{
+						correo_proveedor: "junitopp@gmail.com",
+						estado_borrado: false,
+						id_provedor: 1,
+						nombre_proveedor: "juanito",
+						rif_provedor: "0123456789",
+						telefono_proveedor: "01234567896",
+					},
+					{
+						correo_proveedor: "junitopp@gmail.com",
+						estado_borrado: false,
+						id_provedor: 1,
+						nombre_proveedor: "juanito",
+						rif_provedor: "0123456789",
+						telefono_proveedor: "01234567896",
+					},
+					{
+						correo_proveedor: "junitopp@gmail.com",
+						estado_borrado: false,
+						id_provedor: 1,
+						nombre_proveedor: "juanito",
+						rif_provedor: "0123456789",
+						telefono_proveedor: "01234567896",
+					},
+					{
+						correo_proveedor: "junitopp@gmail.com",
+						estado_borrado: false,
+						id_provedor: 1,
+						nombre_proveedor: "juanito",
+						rif_provedor: "0123456789",
+						telefono_proveedor: "01234567896",
+					},
+					{
+						correo_proveedor: "junitopp@gmail.com",
+						estado_borrado: false,
+						id_provedor: 1,
+						nombre_proveedor: "juanito",
+						rif_provedor: "0123456789",
+						telefono_proveedor: "01234567896",
+					},
+					{
+						correo_proveedor: "junitopp@gmail.com",
+						estado_borrado: false,
+						id_provedor: 1,
+						nombre_proveedor: "juanito",
+						rif_provedor: "0123456789",
+						telefono_proveedor: "01234567896",
+					},
+					{
+						correo_proveedor: "junitopp@gmail.com",
+						estado_borrado: false,
+						id_provedor: 1,
+						nombre_proveedor: "juanito",
+						rif_provedor: "0123456789",
+						telefono_proveedor: "01234567896",
+					},
+					{
+						correo_proveedor: "junitopp@gmail.com",
+						estado_borrado: false,
+						id_provedor: 1,
+						nombre_proveedor: "mercurio",
+						rif_provedor: "0123456789",
+						telefono_proveedor: "01234567896",
+					},
+					{
+						correo_proveedor: "junitopp@gmail.com",
+						estado_borrado: false,
+						id_provedor: 1,
+						nombre_proveedor: "inicio",
+						rif_provedor: "0123456789",
+						telefono_proveedor: "01234567896",
+					},
+					{
+						correo_proveedor: "junitopp@gmail.com",
+						estado_borrado: false,
+						id_provedor: 1,
+						nombre_proveedor: "juanito",
+						rif_provedor: "0123456789",
+						telefono_proveedor: "01234567896",
+					},
+					{
+						correo_proveedor: "junitopp@gmail.com",
+						estado_borrado: false,
+						id_provedor: 1,
+						nombre_proveedor: "juanito",
+						rif_provedor: "0123456789",
+						telefono_proveedor: "01234567896",
+					},
+					{
+						correo_proveedor: "junitopp@gmail.com",
+						estado_borrado: false,
+						id_provedor: 1,
+						nombre_proveedor: "juanito",
+						rif_provedor: "0123456789",
+						telefono_proveedor: "01234567896",
+					},
+					{
+						correo_proveedor: "junitopp@gmail.com",
+						estado_borrado: false,
+						id_provedor: 1,
+						nombre_proveedor: "final",
+						rif_provedor: "0123456789",
+						telefono_proveedor: "01234567896",
+					},
+				]
+			},
+			tablaDatos: [],
+			currentPage: 1,
+			totalRegistroPagina: 10,
+			pageSize: 1,
+			total: 0,
 			modal: false,
 			search: "",
 			url: `http://localhost:3000/pdf/proveedor`,
@@ -166,6 +380,27 @@ export default {
 		};
 	},
 	methods: {
+		totalRegistro() {
+			this.total = this.proveedores.data.length / this.totalRegistroPagina;
+		},
+		handleSizeChange(val) {
+			this.pageSize = val;
+			this.actualizarDatosTabla();
+		},
+		handleCurrentChange(val) {
+			this.currentPage = val;
+			this.actualizarDatosTabla();
+		},
+		actualizarDatosTabla() {
+			this.$store.dispatch('getLoadingApp', true);
+			this.tableData = []
+			let startIndex = (this.currentPage - 1) * this.totalRegistroPagina;
+			const endIndex = startIndex + this.totalRegistroPagina;
+			this.tableData = this.proveedores.data.slice(startIndex, endIndex);
+			this.$store.dispatch('getLoadingApp', false);
+
+
+		},
 		parseDate(date) {
 			return new Date(date).toLocaleString();
 		},
@@ -183,10 +418,10 @@ export default {
 		// usuarios () {
 		//   return this.$store.getters.getusuarios;
 		// },
-		proveedores() {
-			console.log(this.$store.getters.getProveedores);
-			return this.$store.getters.getProveedores;
-		},
+		// proveedores() {
+		// 	console.log(this.$store.getters.getProveedores);
+		// 	return this.$store.getters.getProveedores;
+		// },
 		nivelesUsuario() {
 			return this.$store.getters.getnivelesUsuarios;
 		},
