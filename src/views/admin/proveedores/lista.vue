@@ -167,7 +167,7 @@ export default {
 			proveedores: {
 				data: [
 					{
-						correo_proveedor: "junitopp@gmail.com",
+						correo_proveedor: "junitopp@gmail.com 1",
 						estado_borrado: false,
 						id_provedor: 1,
 						nombre_proveedor: "juanito",
@@ -183,7 +183,7 @@ export default {
 						telefono_proveedor: "01234567896",
 					},
 					{
-						correo_proveedor: "junitopp@gmail.com",
+						correo_proveedor: "junitopp@gmail.com 3",
 						estado_borrado: false,
 						id_provedor: 1,
 						nombre_proveedor: "juanito",
@@ -199,7 +199,7 @@ export default {
 						telefono_proveedor: "01234567896",
 					},
 					{
-						correo_proveedor: "junitopp@gmail.com",
+						correo_proveedor: "junitopp@gmail.com 5",
 						estado_borrado: false,
 						id_provedor: 1,
 						nombre_proveedor: "juanito",
@@ -215,7 +215,7 @@ export default {
 						telefono_proveedor: "01234567896",
 					},
 					{
-						correo_proveedor: "junitopp@gmail.com",
+						correo_proveedor: "junitopp@gmail.com 7",
 						estado_borrado: false,
 						id_provedor: 1,
 						nombre_proveedor: "juanito",
@@ -231,7 +231,7 @@ export default {
 						telefono_proveedor: "01234567896",
 					},
 					{
-						correo_proveedor: "junitopp@gmail.com",
+						correo_proveedor: "junitopp@gmail.com 9",
 						estado_borrado: false,
 						id_provedor: 1,
 						nombre_proveedor: "juanito",
@@ -239,7 +239,7 @@ export default {
 						telefono_proveedor: "01234567896",
 					},
 					{
-						correo_proveedor: "junitopp@gmail.com",
+						correo_proveedor: "junitopp@gmail.com 10",
 						estado_borrado: false,
 						id_provedor: 1,
 						nombre_proveedor: "jupiter",
@@ -319,7 +319,7 @@ export default {
 						telefono_proveedor: "01234567896",
 					},
 					{
-						correo_proveedor: "junitopp@gmail.com",
+						correo_proveedor: "junitopp@gmail.com 20",
 						estado_borrado: false,
 						id_provedor: 1,
 						nombre_proveedor: "mercurio",
@@ -359,7 +359,7 @@ export default {
 						telefono_proveedor: "01234567896",
 					},
 					{
-						correo_proveedor: "junitopp@gmail.com",
+						correo_proveedor: "junitopp@gmail.com 25",
 						estado_borrado: false,
 						id_provedor: 1,
 						nombre_proveedor: "final",
@@ -368,7 +368,7 @@ export default {
 					},
 				]
 			},
-			tablaDatos: [],
+			tableData: [],
 			currentPage: 1,
 			totalRegistroPagina: 10,
 			pageSize: 1,
@@ -376,7 +376,6 @@ export default {
 			modal: false,
 			search: "",
 			url: `http://localhost:3000/pdf/proveedor`,
-
 		};
 	},
 	methods: {
@@ -392,15 +391,13 @@ export default {
 			this.actualizarDatosTabla();
 		},
 		actualizarDatosTabla() {
-			this.$store.dispatch('getLoadingApp', true);
-			this.tableData = []
-			let startIndex = (this.currentPage - 1) * this.totalRegistroPagina;
-			const endIndex = startIndex + this.totalRegistroPagina;
-			this.tableData = this.proveedores.data.slice(startIndex, endIndex);
-			this.$store.dispatch('getLoadingApp', false);
-
-
-		},
+      this.$store.dispatch('getLoadingApp', true);
+      this.tableData = [];
+      let startIndex = (this.currentPage - 1) * this.totalRegistroPagina;
+      const endIndex = startIndex + this.totalRegistroPagina;
+      this.tableData = this.proveedores.data.slice().slice(startIndex, endIndex);
+      this.$store.dispatch('getLoadingApp', false);
+    },
 		parseDate(date) {
 			return new Date(date).toLocaleString();
 		},
