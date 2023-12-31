@@ -24,19 +24,19 @@
           </div>
         </div>
 
-        <div class="mt-5">
+        <div class="mt-5 w-full">
           <div v-if="usuarios && usuarios.data">
 
-            <template class="h-32 w-32 ">
-              <el-input v-model="search" class="h-1/6 w-2/12 ml-10" placeholder="Buscar" />
+            <template class="h-32 w-28">
+              <el-input v-model="search" class="h-1/6 w-3/12 ml-10" placeholder="Buscar" />
             </template>
 
             <el-table
               :data="usuarios.data.filter(data => !search || data.nombre.toLowerCase().includes(search.toLowerCase()))"
-              class="w-full p-10">
+              class="w-full p-10 text-sm">
               <el-table-column prop="usuario" label="Usuario">
                 <template slot-scope="scope">
-                  <router-link :to="`/admin/usuarios/${scope.row.id_usuario}`" class="uppercase text-verdiAnderson">
+                  <router-link :to="`/admin/usuarios/${scope.row.id_usuario}`" class=" text-verdiAnderson">
                     @{{ scope.row.usuario }}
                   </router-link>
                 </template>
@@ -44,23 +44,17 @@
 
               <el-table-column prop="nombre" label="Nombres"></el-table-column>
               <el-table-column prop="apellido" label="Apellidos"></el-table-column>
-              <el-table-column prop="correo" label="Correo Electronico"></el-table-column>
+              <el-table-column prop="correo" label="Correo"></el-table-column>
 
-              <el-table-column prop="rol" label="Rango">
+              <el-table-column prop="rol" label="Rol">
                 <template slot-scope="scope">
                   <p class="text-verdiAnderson uppercase">{{ scope.row.rol }}</p>
                 </template>
               </el-table-column>
 
-              <el-table-column prop="especializacion" label="Especializacion"></el-table-column>
+              <el-table-column prop="especializacion" label="Area"></el-table-column>
 
-              <el-table-column prop="fecha" label="Creado">
-                <template slot-scope="scope">
-                  <p class="">{{ parseDate(scope.row.fecha) }}</p>
-                </template>
-              </el-table-column>
-
-              <el-table-column label="Operaciones">
+              <el-table-column label="Opciones">
                 <template slot-scope="scope">
                   <p class="text-center">
                     <router-link :to="`/admin/usuarios/${scope.row.id_usuario}`"

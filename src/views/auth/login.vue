@@ -7,7 +7,7 @@
     <br />
     <form class="flex flex-wrap mx-5"  @submit.prevent="loginUsuario">
       <div class="w-full mb-3">
-        <input class="block w-full px-3 py-2.5 rounded-lg border" required v-model="auth.usuario" type="text" placeholder="Usuario" >
+        <input class="block w-full px-3  py-2.5 rounded-lg border" required v-model="auth.usuario" type="text" placeholder="Usuario" >
       </div>
       <div class="w-full">
         <input class="block w-full px-3 py-2.5 rounded-lg border" required v-model="auth.contrasena" type="password" placeholder="Contraseña">
@@ -94,6 +94,6 @@
 <style type="scss" scoped>
   p {
     line-height: 24px;
-    color: #373737;
+    color: #3f3f3f;
   }
 </style>

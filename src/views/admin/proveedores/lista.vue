@@ -26,14 +26,14 @@
 				</div>
 
 				<div class="mt-5 ">
-					<div v-if="proveedores && proveedores.data">
+          <div v-if="proveedores && proveedores.data">
 						<!--tabla-->
 						<template class="relative h-32 w-32 ">
 							<el-input v-model="search" class="h-1/6 w-2/12 ml-10" placeholder="Buscar" />
 						</template>
 
 						<el-table
-							:data="tableData.filter(data => !search || data.nombre_proveedor.toLowerCase().includes(search.toLowerCase()))"
+							:data="   proveedores.data.filter(data => !search || data.nombre_proveedor.toLowerCase().includes(search.toLowerCase()))"
 							class="w-full p-10">
 							<el-table-column prop="nombre_proveedor" label="Nombre">
 								<template slot-scope="scope">
@@ -46,8 +46,6 @@
 							<el-table-column prop="correo_proveedor" label="Correo Electronico"></el-table-column>
 							<el-table-column prop="telefono_proveedor" label="Telefon"></el-table-column>
 							<el-table-column prop="rif_provedor" label="RIF"></el-table-column>
-							<!--fin tabla-->
-
 							<el-table-column label="Operaciones">
 								<template slot-scope="scope">
 									<p class="text-left pl-10">
@@ -59,9 +57,7 @@
 								</template>
 							</el-table-column>
 						</el-table>
-						<el-pagination @current-change="handleCurrentChange" :page-size="pageSize"
-							layout="prev, pager, next" :total="total" :current-page.sync="currentPage">
-						</el-pagination>
+
 
 						<!-- Modales de busqueda-->
 						<el-drawer title="Busqueda Avanzada" :visible.sync="modal" direction="rtl"
@@ -157,217 +153,12 @@ export default {
 	},
 	created() {
 		this.$store.dispatch("obtenerListaDeProveedores");
-		this.totalRegistro()
-		this.actualizarDatosTabla()
 		// this.handleSizeChange(this.proveedores.data)
 		//this.aplicarFiltro();
 	},
 	data() {
 		return {
-			proveedores: {
-				data: [
-					{
-						correo_proveedor: "junitopp@gmail.com 1",
-						estado_borrado: false,
-						id_provedor: 1,
-						nombre_proveedor: "juanito",
-						rif_provedor: "0123456789",
-						telefono_proveedor: "01234567896",
-					},
-					{
-						correo_proveedor: "junitopp@gmail.com",
-						estado_borrado: false,
-						id_provedor: 1,
-						nombre_proveedor: "juanito",
-						rif_provedor: "0123456789",
-						telefono_proveedor: "01234567896",
-					},
-					{
-						correo_proveedor: "junitopp@gmail.com 3",
-						estado_borrado: false,
-						id_provedor: 1,
-						nombre_proveedor: "juanito",
-						rif_provedor: "0123456789",
-						telefono_proveedor: "01234567896",
-					},
-					{
-						correo_proveedor: "junitopp@gmail.com",
-						estado_borrado: false,
-						id_provedor: 1,
-						nombre_proveedor: "juanito",
-						rif_provedor: "0123456789",
-						telefono_proveedor: "01234567896",
-					},
-					{
-						correo_proveedor: "junitopp@gmail.com 5",
-						estado_borrado: false,
-						id_provedor: 1,
-						nombre_proveedor: "juanito",
-						rif_provedor: "0123456789",
-						telefono_proveedor: "01234567896",
-					},
-					{
-						correo_proveedor: "junitopp@gmail.com",
-						estado_borrado: false,
-						id_provedor: 1,
-						nombre_proveedor: "juanito",
-						rif_provedor: "0123456789",
-						telefono_proveedor: "01234567896",
-					},
-					{
-						correo_proveedor: "junitopp@gmail.com 7",
-						estado_borrado: false,
-						id_provedor: 1,
-						nombre_proveedor: "juanito",
-						rif_provedor: "0123456789",
-						telefono_proveedor: "01234567896",
-					},
-					{
-						correo_proveedor: "junitopp@gmail.com",
-						estado_borrado: false,
-						id_provedor: 1,
-						nombre_proveedor: "juanito",
-						rif_provedor: "0123456789",
-						telefono_proveedor: "01234567896",
-					},
-					{
-						correo_proveedor: "junitopp@gmail.com 9",
-						estado_borrado: false,
-						id_provedor: 1,
-						nombre_proveedor: "juanito",
-						rif_provedor: "0123456789",
-						telefono_proveedor: "01234567896",
-					},
-					{
-						correo_proveedor: "junitopp@gmail.com 10",
-						estado_borrado: false,
-						id_provedor: 1,
-						nombre_proveedor: "jupiter",
-						rif_provedor: "0123456789",
-						telefono_proveedor: "01234567896",
-					},
-					{
-						correo_proveedor: "junitopp@gmail.com",
-						estado_borrado: false,
-						id_provedor: 1,
-						nombre_proveedor: "juanito",
-						rif_provedor: "0123456789",
-						telefono_proveedor: "01234567896",
-					},
-					{
-						correo_proveedor: "junitopp@gmail.com",
-						estado_borrado: false,
-						id_provedor: 1,
-						nombre_proveedor: "juanito",
-						rif_provedor: "0123456789",
-						telefono_proveedor: "01234567896",
-					},
-					{
-						correo_proveedor: "junitopp@gmail.com",
-						estado_borrado: false,
-						id_provedor: 1,
-						nombre_proveedor: "juanito",
-						rif_provedor: "0123456789",
-						telefono_proveedor: "01234567896",
-					},
-					{
-						correo_proveedor: "junitopp@gmail.com",
-						estado_borrado: false,
-						id_provedor: 1,
-						nombre_proveedor: "juanito",
-						rif_provedor: "0123456789",
-						telefono_proveedor: "01234567896",
-					},
-					{
-						correo_proveedor: "junitopp@gmail.com",
-						estado_borrado: false,
-						id_provedor: 1,
-						nombre_proveedor: "juanito",
-						rif_provedor: "0123456789",
-						telefono_proveedor: "01234567896",
-					},
-					{
-						correo_proveedor: "junitopp@gmail.com",
-						estado_borrado: false,
-						id_provedor: 1,
-						nombre_proveedor: "juanito",
-						rif_provedor: "0123456789",
-						telefono_proveedor: "01234567896",
-					},
-					{
-						correo_proveedor: "junitopp@gmail.com",
-						estado_borrado: false,
-						id_provedor: 1,
-						nombre_proveedor: "juanito",
-						rif_provedor: "0123456789",
-						telefono_proveedor: "01234567896",
-					},
-					{
-						correo_proveedor: "junitopp@gmail.com",
-						estado_borrado: false,
-						id_provedor: 1,
-						nombre_proveedor: "juanito",
-						rif_provedor: "0123456789",
-						telefono_proveedor: "01234567896",
-					},
-					{
-						correo_proveedor: "junitopp@gmail.com",
-						estado_borrado: false,
-						id_provedor: 1,
-						nombre_proveedor: "juanito",
-						rif_provedor: "0123456789",
-						telefono_proveedor: "01234567896",
-					},
-					{
-						correo_proveedor: "junitopp@gmail.com 20",
-						estado_borrado: false,
-						id_provedor: 1,
-						nombre_proveedor: "mercurio",
-						rif_provedor: "0123456789",
-						telefono_proveedor: "01234567896",
-					},
-					{
-						correo_proveedor: "junitopp@gmail.com",
-						estado_borrado: false,
-						id_provedor: 1,
-						nombre_proveedor: "inicio",
-						rif_provedor: "0123456789",
-						telefono_proveedor: "01234567896",
-					},
-					{
-						correo_proveedor: "junitopp@gmail.com",
-						estado_borrado: false,
-						id_provedor: 1,
-						nombre_proveedor: "juanito",
-						rif_provedor: "0123456789",
-						telefono_proveedor: "01234567896",
-					},
-					{
-						correo_proveedor: "junitopp@gmail.com",
-						estado_borrado: false,
-						id_provedor: 1,
-						nombre_proveedor: "juanito",
-						rif_provedor: "0123456789",
-						telefono_proveedor: "01234567896",
-					},
-					{
-						correo_proveedor: "junitopp@gmail.com",
-						estado_borrado: false,
-						id_provedor: 1,
-						nombre_proveedor: "juanito",
-						rif_provedor: "0123456789",
-						telefono_proveedor: "01234567896",
-					},
-					{
-						correo_proveedor: "junitopp@gmail.com 25",
-						estado_borrado: false,
-						id_provedor: 1,
-						nombre_proveedor: "final",
-						rif_provedor: "0123456789",
-						telefono_proveedor: "01234567896",
-					},
-				]
-			},
+
 			tableData: [],
 			currentPage: 1,
 			totalRegistroPagina: 10,
@@ -412,15 +203,11 @@ export default {
 		}
 	},
 	computed: {
-		// usuarios () {
-		//   return this.$store.getters.getusuarios;
-		// },
-		// proveedores() {
-		// 	console.log(this.$store.getters.getProveedores);
-		// 	return this.$store.getters.getProveedores;
-		// },
 		nivelesUsuario() {
 			return this.$store.getters.getnivelesUsuarios;
+		},
+    proveedores() {
+			return this.$store.getters.getProveedores;
 		},
 	},
 };

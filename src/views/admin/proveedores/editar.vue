@@ -12,7 +12,7 @@
                     </div>
                 </div>
                 <div class="mt-5 pb-5">
-            
+
                     <div v-if="proveedorDetalles && proveedorDetalles.data">
                         <form @submit.prevent="modificarProveedor(proveedorDetalles.data[0])">
                             <div class="flex flex-wrap justify-around">
@@ -52,14 +52,14 @@
                                             v-model="proveedorDetalles.data[0].rif_provedor"></el-input>
                                     </label>
                                 </div>
-                                
+
                                 <!--visualizar los items del proveedor-->
                                 <div class="w-11/12 m-0 mt-2">
                                     <el-divider>Lista de materiales del proveedor</el-divider>
                                 </div>
                                 <div class="w-11/12 m-0 p-0">
 
-                                    <div class="flex flex-row-reverse my-2 mr-5">
+                                    <div class="flex flex-row-reverse my-2 mb-16 mr-5">
                                         <button @click="centerDialogVisible = true" class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                                             Agregar Item
                                         </button>
@@ -69,16 +69,16 @@
                                         </button>
 
                                     </div>
-                                    
-                                    
+
+
                                     <!-- tabla para visualizar los items asociados al proveedor -->
                                     <div class="w-11/12 m-0 p-0">
                                         <el-table :data="materialesProveedor.data" class="w-full">
                                             <!-- {{ scope.$index, tableData}} -->
                                             <el-table-column prop="id_recurso" label="Id"></el-table-column>
-                                            <el-table-column prop="nombre_recurso" label="Nombre del material"></el-table-column>
+                                            <el-table-column prop="nombre_recurso" label="Material"></el-table-column>
                                             <el-table-column prop="descripcion_recurso" label="Descripcion"></el-table-column>
-                                            
+
                                             <el-table-column fixed="right" label="Operaciones" width="170">
                                                 <template slot-scope="scope">
                                                     <el-popconfirm confirm-button-text='Si, Eliminar' confirm-button-type="danger"
@@ -165,7 +165,7 @@ export default {
         this.$store.dispatch('obtenerRecursosProveedor', { id: this.$route.params.ID });
         //this.$store.dispatch('obtenerListaDeproducto');
 
-        
+
     },
     data() {
         return {
@@ -262,7 +262,7 @@ export default {
                 this.$store.dispatch('getLoadingApp', true);
                 this.loading = true;
                 const token = localStorage.getItem('token_acess');
-                
+
                 if(this.nuevosItems.length <= 0){
                     throw new Error('No se a asociado ningun materiale nuevo ')
                 }
@@ -280,14 +280,14 @@ export default {
                 this.$store.dispatch('getLoadingApp', false);
                 this.loading = false;
                 this.$store.dispatch('obtenerRecursosProveedor', { id: this.$route.params.ID });
-                
+
 
                 this.centerDialogVisible = false
                 this.$message({
                     message: 'Registrado Exitosamente',
                     type: 'success',
                 });
-                
+
             } catch (error) {
                 if (error.response) {
                     this.$message({
@@ -332,7 +332,7 @@ export default {
                     message: 'Eliminacion exitosa',
                     type: 'success',
                 });
-                
+
             } catch (error) {
                 if (error.response) {
                     this.$message({
@@ -344,7 +344,7 @@ export default {
                         message: error.message || 'Sin mensaje del servidor',
                         type: 'error',
                     });
-                } 
+                }
                 else {
                     this.$message({
                         message: 'No estas conectado a internet.',
@@ -354,7 +354,7 @@ export default {
                 this.$store.dispatch('getLoadingApp', false);
                 this.loading = false;
             }
-            
+
 
         },
         openNewTab() {
@@ -372,30 +372,30 @@ export default {
         proveedorDetalles() {
             return this.$store.getters.getDetalleProveedoresId;
         },
-        
+
         materialesProveedor() {
             return this.$store.getters.getRecursosProveedor;
         },
 
         materiales() {
-            
+
             let res = [];
             let materialesAsociadosProveedor = this.materialesProveedor.data;
-            
+
             if(typeof materialesAsociadosProveedor != "undefined" &&  !(materialesAsociadosProveedor instanceof Error)){
                 let materiales = this.$store.getters.getproducto;
                 console.log(materiales)
 
                 res = materiales.data.filter(item => {
-                    return !materialesAsociadosProveedor.filter(x => item.id_recurso == x.id_recurso).length > 0 
+                    return !materialesAsociadosProveedor.filter(x => item.id_recurso == x.id_recurso).length > 0
                 });
                 console.log(res)
-              
+
                 return res;
-                
+
             }
             return this.$store.getters.getproducto.data
-            
+
         }
     }
 };
@@ -412,4 +412,3 @@ th {
     font-size: 110%;
 }
 </style>
-  

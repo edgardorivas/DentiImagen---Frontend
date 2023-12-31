@@ -36,7 +36,7 @@
 						<el-table class="w-full p-5"
 							:data="pacientes.data.filter(data => !search || data.nombre_paciente.toLowerCase().includes(search.toLowerCase()))">
 
-							<el-table-column prop="nombre_paciente" label="Nombre del paciente" width="200">
+							<el-table-column prop="nombre_paciente" label="Paciente" width="200">
 								<template slot-scope="scope">
 									<router-link :to="`/admin/paciente/id/${scope.row.id_paciente}`"
 										class="uppercase text-verdiAnderson">
@@ -47,9 +47,9 @@
 							<el-table-column prop="apellido_paciente" label="Apellido" width="200"></el-table-column>
 							<el-table-column prop="edad_paciente" label="Edad" width="80"></el-table-column>
 							<el-table-column prop="cedula_paciente" label="Cedula"></el-table-column>
-							<el-table-column prop="telefono_paciente" label="Telefono celular"></el-table-column>
-							<el-table-column prop="correo_paciente" label="Correo Electronico"
-								width="250"></el-table-column>
+							<el-table-column prop="telefono_paciente" label="Telefono"></el-table-column>
+							<el-table-column prop="correo_paciente" label="Correo"
+								width="200"></el-table-column>
 							<el-table-column prop="genero_paciente" label="Genero"></el-table-column>
 
 							<el-table-column prop="genero_paciente" label="Genero">
@@ -63,7 +63,7 @@
 
 
 
-							<el-table-column prop="fecha_creacion" label="Creado" width="200">
+							<el-table-column prop="fecha_creacion" label="Creado" >
 								<template slot-scope="scope">
 									<p class="">{{ parseDate(scope.row.fecha_creacion) }}</p>
 								</template>

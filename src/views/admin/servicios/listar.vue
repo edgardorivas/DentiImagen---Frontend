@@ -5,7 +5,7 @@
                 <div class="rounded-t mb-0 px-4 py-3 border-0">
                     <div class="flex flex-wrap items-center">
                         <div class="relative w-full px-4 max-w-full flex-grow flex-1">
-                            <h3 class="font-semibold text-base text-blueGray-700">
+                            <h3 class="font-semibold  text-blueGray-700">
                                 Lista de Servicios
                             </h3>
                         </div>
@@ -20,17 +20,17 @@
                 <div class="mt-5">
                     <div v-if="servicios && servicios.data">
 
-                        <template class="relative h-32 w-32 ">
+                        <template class="relative h-32 w-6/12 ">
                             <el-input v-model="search" class="h-1/6 w-2/12 ml-10" placeholder="Buscar" />
                         </template>
 
                         <el-table :data="servicios.data.filter(data => !search ||
                             data.nombre_servicio.toLowerCase().includes(search.toLowerCase()))" class="w-full p-10">
 
-                            <el-table-column prop="nombre_servicio" label="Nombre del Servicio">
+                            <el-table-column prop="nombre_servicio" label="Servicio">
                                 <template slot-scope="scope">
                                     <router-link :to="`/admin/servicios/${scope.row.id_servicio}`"
-                                        class="uppercase text-verdiAnderson">
+                                        class=" text-verdiAnderson">
                                         {{ scope.row.nombre_servicio }}
                                     </router-link>
                                 </template>
@@ -42,7 +42,7 @@
                                 <template slot-scope="scope">
                                     <p class="text-left ml-8">
                                         <router-link :to="`/admin/servicios/${scope.row.id_servicio}`"
-                                            class="text-verdiAnderson text-xs w-full">
+                                            class="text-verdiAnderson  w-full">
                                             Editar
                                         </router-link>
                                     </p>
@@ -97,4 +97,3 @@ th {
     color: rgb(0 200 165 / var(--tw-text-opacity));
 }
 </style>
-  
