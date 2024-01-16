@@ -10,20 +10,14 @@
                             </h3>
                         </div>
                         <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-                            <router-link to="/admin/tipo-materiales/agregar"
-                                class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 ">
+                            <button
+                                class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 "
+                                v-on:click="modalTipoMaterial()">
                                 Agregar nuevo
-                            </router-link>
+                            </button>
                         </div>
                     </div>
                 </div>
-                <!--
-          <div class="px-5 mt-3 flex justify-start">
-            <button @click="modal = true" class="bg-verdiAnderson text-white py-2 px-3 rounded-md uppercase">
-              Busqueda Avanzada
-            </button>
-          </div> 
-          -->
                 <div class="mt-5">
 
                     <div v-if="tipoProducto && tipoProducto.data">
@@ -76,11 +70,49 @@
                     </div>
                 </div>
             </div>
+
+            <!-- modal del nuevo tipo de material -->
+            <el-dialog title="Nuevo tipo de material" :visible.sync="centerDialogVisibleNuevoTipo" width="30%" center>
+                <div class="flex flex-wrap justify-around">
+                    <el-form label-position="top" class="w-96" :model="nuevoTipoMaterial" :rules="rules"
+                        ref="nuevoTipoMaterial">
+
+                        <label>
+                            <p class="ml-1">Nombre</p>
+                            <el-form-item prop="nombre">
+                                <el-input placeholder="Nombre del tipo de material"
+                                    v-model="nuevoTipoMaterial.nombre"></el-input>
+                            </el-form-item>
+                        </label>
+                        <label>
+                            <p class="ml-1">Descripcion</p>
+                            <el-form-item prop="descripcion">
+                                <el-input placeholder="Descripcion del tipo material"
+                                    v-model="nuevoTipoMaterial.descripcion"></el-input>
+                            </el-form-item>
+                        </label>
+                    </el-form>
+                </div>
+
+                <div slot="footer" class="dialog-footer flex flex-wrap justify-around">
+                    <button slot="reference" :disabled="loading"
+                        class="w-full md:w-1/3 bg-red-600 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
+                        @click="centerDialogVisibleNuevoTipo = false" type="button">
+                        Cerrar
+                    </button>
+                    <button slot="reference" :disabled="loading"
+                        class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
+                        v-on:click="registroTipoMaterial" type="button">
+                        Ingresar
+                    </button>
+                </div>
+            </el-dialog>
         </div>
     </div>
 </template>
 <script>
-import config from '../../../../config';
+import config from "../../../../config";
+import axios from "axios";
 export default {
     name: 'typeProduct',
     metaInfo: {
@@ -92,6 +124,23 @@ export default {
     },
     data() {
         return {
+            nuevoTipoMaterial: {
+                nombre: null,
+                descripcion: null,
+            },
+            loading: false,
+            rules: {
+                nombre: [
+                    { required: true, message: 'Es necesario ingresar el nombre del tipo de material', trigger: 'change' },
+                    { min: 2, message: 'el nombre del tipo de material tiene que ser como minimo 2 caracteres', trigger: 'change' }
+                ],
+                descripcion: [
+                    { required: true, message: 'Es necesario ingresar la descripcion del tipo de material', trigger: 'change' },
+                    { min: 5, message: 'La descripcion tiene que ser mayor a  5 caracteres', trigger: 'change' }
+                ]
+
+            },
+            centerDialogVisibleNuevoTipo: false,
             modal: false,
             search: "",
         }
@@ -104,12 +153,71 @@ export default {
         handleClose() {
             this.modal = false;
         },
+        modalTipoMaterial() {
+            this.centerDialogVisibleNuevoTipo = true;
+        },
+        async registroTipoMaterial() {
+            this.$refs['nuevoTipoMaterial'].validate(async (valid) => {
+                if (valid) {
+                    try {
+                        this.$store.dispatch('getLoadingApp', true);
+                        this.loading = true;
+                        const token = localStorage.getItem('token_acess');
+                        await axios({
+                            method: 'POST',
+                            baseURL: config.backend.baseURL,
+                            url: '/tipo-recurso',
+                            headers: {
+                                ['auth-token']: token,
+                            },
+                            data: this.nuevoTipoMaterial
+                        });
+                        this.$store.dispatch('getLoadingApp', false);
+                        this.loading = false;
+                        this.$message({
+                            message: 'Registrado Exitosamente',
+                            type: 'success',
+                        });
+                        // this.$router.push({ path: '/admin/tipo-materiales' });
+                        this.$store.dispatch('obtenerListaDeTipoProducto')
+                        this.centerDialogVisibleNuevoTipo = false;
+                        this.nuevoTipoMaterial = {
+                            nombre: null,
+                            descripcion: null,
+                        }
+                        this.resetForm("nuevoTipoMaterial")
+                    } catch (error) {
+                        console.log("entro en el error======", error)
+                        if (error.response) {
+                            this.$message({
+                                message: error.response.data.mensaje || 'Sin mensaje del servidor',
+                                type: 'error',
+                            });
+                        } else {
+                            this.$message({
+                                message: 'No estas conectado a internet.',
+                                type: 'error'
+                            });
+                        }
+                        this.$store.dispatch('getLoadingApp', false);
+                        this.loading = false;
+                    }
+                }
+            });
+
+        },
+        resetForm(formName) {
+            this.$refs[formName].resetFields();
+        }
 
     },
     computed: {
         tipoProducto() {
             return this.$store.getters.getTipoProducto;
         },
+        materiales() {
+            return this.$store.getters.getproducto;
+        }
     }
 }
 </script>

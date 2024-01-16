@@ -10,10 +10,10 @@
                             </h3>
                         </div>
                         <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-                            <router-link to="/admin/servicios/agregar"
+                            <button v-on:click="modalServicio()"
                                 class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
                                 Agregar nuevo
-                            </router-link>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -54,12 +54,55 @@
                         <h3> No Exisiten servicios registrados</h3>
                     </div>
                 </div>
+                <!-- modal del nuevo servicio -->
+                <el-dialog title="Nuevo Servicio" :visible.sync="centerDialogVisibleNuevoServicio" width="30%" center>
+                    <div class="flex flex-wrap justify-around">
+                        <el-form label-position="top" class="w-96" :model="nuevoServicio" :rules="rules"
+                            ref="registrarServicio">
+
+                            <label>
+                                <p class="ml-1">Nombre</p>
+                                <el-form-item prop="nombre">
+                                    <el-input placeholder="Nombre del servicio" v-model="nuevoServicio.nombre"></el-input>
+                                </el-form-item>
+                            </label>
+                            <label>
+                                <p class="ml-1">Valor del servicio</p>
+                                <el-form-item prop="costo">
+                                    <el-input placeholder="Costo del servicio" type="number"
+                                        v-model="nuevoServicio.costo"></el-input>
+                                </el-form-item>
+                            </label>
+                            <label>
+                                <p class="ml-1">Descripcion</p>
+                                <el-form-item prop="descripcion">
+                                    <el-input placeholder="Descripcion del servicio"
+                                        v-model="nuevoServicio.descripcion"></el-input>
+                                </el-form-item>
+                            </label>
+                        </el-form>
+                    </div>
+
+                    <div slot="footer" class="dialog-footer flex flex-wrap justify-around">
+                        <button slot="reference" :disabled="loading"
+                            class="w-full md:w-1/3 bg-red-600 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
+                            @click="centerDialogVisibleNuevoServicio = false" type="button">
+                            Cerrar
+                        </button>
+                        <button slot="reference" :disabled="loading"
+                            class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
+                            v-on:click="registrarServicio" type="button">
+                            Ingresar
+                        </button>
+                    </div>
+                </el-dialog>
             </div>
         </div>
     </div>
 </template>
 <script>
 import config from "../../../config";
+import axios from "axios";
 export default {
     name: "listar-servicios",
     metaInfo: {
@@ -74,10 +117,83 @@ export default {
         return {
             modal: false,
             search: "",
+            centerDialogVisibleNuevoServicio: false,
+            nuevoServicio: {
+                nombre: '',
+                descripcion: '',
+                costo: '',
+            },
+            rules: {
+                nombre: [
+                    { required: true, message: 'Es necesario ingresar el nombre del servicio', trigger: 'change' },
+                    { min: 2, message: 'El nombre del servicio tiene que ser como minimo 2 caracteres', trigger: 'change' }
+                ],
+                descripcion: [
+                    { required: true, message: 'Es necesario ingresar la descripcion del servicio', trigger: 'change' },
+                    { min: 5, message: 'La descripcion tiene que ser mayor a  5 caracteres', trigger: 'change' }
+                ],
+                costo: [
+                    { required: true, message: 'Es necesario ingresar el costo del servicio', trigger: 'change' },
+                    { min: 1, message: 'El costo del servicio tiene que ser como minimo 1 digito', trigger: 'change' }
+                ],
+            },
+            loading: false,
+
         };
     },
     methods: {
+        resetForm(formName) {
+            this.$refs[formName].resetFields();
+        },
+        async registrarServicio() {
+            this.$refs['registrarServicio'].validate(async (valid) => {
+                if (valid) {
+                    try {
+                        this.$store.dispatch("getLoadingApp", true);
+                        this.loading = true;
+                        const token = localStorage.getItem("token_acess");
+                        const request = await axios({
+                            method: "POST",
+                            baseURL: config.backend.baseURL,
+                            url: "/servicios/registrar",
+                            headers: {
+                                ["auth-token"]: token,
+                            },
+                            data: this.nuevoServicio,
+                        });
+                        this.$store.dispatch("getLoadingApp", false);
+                        this.loading = false;
+                        this.$message({
+                            message: "Registrado Exitosamente",
+                            type: "success",
+                        });
+                        this.$store.dispatch("obtenerServicios");
+                        this.centerDialogVisibleNuevoServicio = false
+                        this.resetForm("registrarServicio")
+                    } catch (error) {
+                        console.log("entro en el error=====", error)
+                        if (error.response) {
+                            this.$message({
+                                message: error.response.data.mensaje || "Sin mensaje del servidor",
+                                type: "error",
+                            });
+                        } else {
+                            this.$message({
+                                message: "No estas conectado a internet.",
+                                type: "error",
+                            });
+                        }
+                        this.$store.dispatch("getLoadingApp", false);
+                        this.loading = false;
+                    }
+                }
+            });
 
+
+        },
+        modalServicio() {
+            this.centerDialogVisibleNuevoServicio = true;
+        },
 
     },
     computed: {

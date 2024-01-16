@@ -9,17 +9,19 @@
                         </h3>
                     </div>
                 </div>
-                <div class="mt-5 pb-5">
-
-
+                <div class="mt-10">
+                    <el-steps align-center :active="active" finish-status="success">
+                        <el-step title="Datos personales"></el-step>
+                        <el-step title="Informacion odontologica"></el-step>
+                        <el-step title="Historicos de padecimientos"></el-step>
+                    </el-steps>
+                </div>
+                <div class="flex justify-center w-full sm:px-5 md:px-20 lg:px-36">
                     <!-- formulario original -->
                     <el-form label-position="top" :model="nuevoHistorialPaciente" :rules="rules" ref="registrarPaciente"
                         label-width="120px" class="demo-ruleForm">
-                        <div class="flex flex-wrap justify-around">
 
-                            <div class="w-11/12">
-                                <el-divider>Datos del Paciente</el-divider>
-                            </div>
+                        <div v-if="active == 1" class="my-10 flex flex-wrap justify-around">
 
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 ml-2 py-1">
                                 <label>
@@ -63,7 +65,7 @@
 
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
-                                    <p class="ml-1">Sexo</p>
+                                    <p class="ml-1">Genero</p>
                                     <el-form-item prop="genero">
                                         <el-select v-model="nuevoHistorialPaciente.genero" style="width: 100%;" size="large"
                                             placeholder="Genero del Paciente">
@@ -96,27 +98,6 @@
                                     </el-form-item>
                                 </label>
                             </div>
-
-                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                <label>
-                                    <p class="ml-1">Motivo de la Consulta</p>
-                                    <el-form-item prop="motivoConsulta">
-                                        <el-input placeholder="Motivo de la Consulta"
-                                            v-model="nuevoHistorialPaciente.motivoConsulta"></el-input>
-                                    </el-form-item>
-                                </label>
-                            </div>
-
-                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                <label>
-                                    <p class="ml-1">Profesion </p>
-                                    <el-form-item prop="profecion">
-                                        <el-input placeholder="Profesion del Paciente"
-                                            v-model="nuevoHistorialPaciente.profecion"></el-input>
-                                    </el-form-item>
-                                </label>
-                            </div>
-
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Direccion </p>
@@ -126,17 +107,18 @@
                                     </el-form-item>
                                 </label>
                             </div>
+                        </div>
+                        <div v-if="active == 2" class="my-10 flex flex-wrap justify-around ">
 
-                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 ml-2 py-1">
                                 <label>
-                                    <p class="ml-1">¿ Alergia a algun medicamento?</p>
-                                    <el-form-item prop="alergicoAlgunMedicamento">
-                                        <el-input placeholder="Indique el nombre del medicamento"
-                                            v-model="nuevoHistorialPaciente.alergicoAlgunMedicamento"></el-input>
+                                    <p class="ml-1">Motivo de la Consulta</p>
+                                    <el-form-item prop="motivoConsulta">
+                                        <el-input placeholder="Motivo de la Consulta"
+                                            v-model="nuevoHistorialPaciente.motivoConsulta"></el-input>
                                     </el-form-item>
                                 </label>
                             </div>
-
 
 
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
@@ -167,6 +149,16 @@
                                     </el-form-item>
                                 </label>
                             </div>
+
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">Profesion </p>
+                                    <el-form-item prop="profecion">
+                                        <el-input placeholder="Profesion del Paciente"
+                                            v-model="nuevoHistorialPaciente.profecion"></el-input>
+                                    </el-form-item>
+                                </label>
+                            </div>
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">¿ Esta usted en tratamiento ?</p>
@@ -176,12 +168,17 @@
                                     </el-form-item>
                                 </label>
                             </div>
-
-                            <div class="w-11/12">
-                                <el-divider>Datos historicos de padecimientos</el-divider>
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">¿ Alergia a algun medicamento?</p>
+                                    <el-form-item prop="alergicoAlgunMedicamento">
+                                        <el-input placeholder="Indique el nombre del medicamento"
+                                            v-model="nuevoHistorialPaciente.alergicoAlgunMedicamento"></el-input>
+                                    </el-form-item>
+                                </label>
                             </div>
-
-
+                        </div>
+                        <div v-if="active == 3" class="flex flex-wrap justify-around mt-5">
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">¿ Sufre de presion arterial ?</p>
@@ -301,9 +298,306 @@
                             </div>
                         </div>
 
-                        <br>
+                        <div class="flex flex-wrap justify-around">
+                            <button type="button"
+                                class="w-full bg-none md:w-1/3  text-verdiAnderson transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
+                                @click="prev">
+                                Anterior
+                            </button>
+                            <button type="button"
+                                class="w-full bg-none md:w-1/3  text-verdiAnderson transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
+                                @click="next">
+                                Siguiente
+                            </button>
+                        </div>
 
                         <div class="flex flex-wrap justify-around">
+
+                            <!-- <div class="w-11/12">
+                                <el-divider>Datos del Paciente</el-divider>
+                            </div> -->
+
+                            <!-- <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 ml-2 py-1">
+                                <label>
+                                    <p class="ml-1">Nombre</p>
+                                    <el-form-item prop="nombre">
+                                        <el-input placeholder="Nombre del Paciente"
+                                            v-model="nuevoHistorialPaciente.nombre"></el-input>
+                                    </el-form-item>
+                                </label>
+                            </div>
+
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">Apellido</p>
+                                    <el-form-item prop="apellido">
+                                        <el-input placeholder="Apellido del Paciente"
+                                            v-model="nuevoHistorialPaciente.apellido"></el-input>
+                                    </el-form-item>
+                                </label>
+                            </div>
+
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">Edad</p>
+                                    <el-form-item prop="edad">
+                                        <el-input placeholder="Edad del Paciente" type="number"
+                                            v-model="nuevoHistorialPaciente.edad"></el-input>
+                                    </el-form-item>
+                                </label>
+                            </div>
+
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">Cedula</p>
+                                    <el-form-item prop="cedula">
+                                        <el-input placeholder="Cedula del Paciente" type="number"
+                                            v-model="nuevoHistorialPaciente.cedula"></el-input>
+                                    </el-form-item>
+                                </label>
+                            </div>
+
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">Genero</p>
+                                    <el-form-item prop="genero">
+                                        <el-select v-model="nuevoHistorialPaciente.genero" style="width: 100%;" size="large"
+                                            placeholder="Genero del Paciente">
+                                            <el-option key="Masculino" label="Masculino" value="Masculino">
+                                            </el-option>
+                                            <el-option key="Femenino" label="Femenino" value="Femenino">
+                                            </el-option>
+                                        </el-select>
+                                    </el-form-item>
+                                </label>
+                            </div>
+
+
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">Telefono</p>
+                                    <el-form-item prop="telefono">
+                                        <el-input placeholder="Telefono del Paciente" type="number"
+                                            v-model="nuevoHistorialPaciente.telefono"></el-input>
+                                    </el-form-item>
+                                </label>
+                            </div>
+
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">Correo Electronico</p>
+                                    <el-form-item prop="correo">
+                                        <el-input placeholder="Correo del Paciente" type="email"
+                                            v-model="nuevoHistorialPaciente.correo"></el-input>
+                                    </el-form-item>
+                                </label>
+                            </div> -->
+
+                            <!-- <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">Motivo de la Consulta</p>
+                                    <el-form-item prop="motivoConsulta">
+                                        <el-input placeholder="Motivo de la Consulta"
+                                            v-model="nuevoHistorialPaciente.motivoConsulta"></el-input>
+                                    </el-form-item>
+                                </label>
+                            </div>
+
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">Profesion </p>
+                                    <el-form-item prop="profecion">
+                                        <el-input placeholder="Profesion del Paciente"
+                                            v-model="nuevoHistorialPaciente.profecion"></el-input>
+                                    </el-form-item>
+                                </label>
+                            </div> -->
+
+                            <!-- <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">Direccion </p>
+                                    <el-form-item prop="direccion">
+                                        <el-input placeholder="Direccion del Paciente"
+                                            v-model="nuevoHistorialPaciente.direccion"></el-input>
+                                    </el-form-item>
+                                </label>
+                            </div> -->
+
+                            <!-- <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">¿ Alergia a algun medicamento?</p>
+                                    <el-form-item prop="alergicoAlgunMedicamento">
+                                        <el-input placeholder="Indique el nombre del medicamento"
+                                            v-model="nuevoHistorialPaciente.alergicoAlgunMedicamento"></el-input>
+                                    </el-form-item>
+                                </label>
+                            </div>
+
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label v-if="trabajadoresOdontologicos">
+                                    <p class="ml-1">Odontologo Asignado</p>
+                                    <el-form-item prop="trabajadorOdontologo">
+                                        <el-select v-model="nuevoHistorialPaciente.trabajadorOdontologo"
+                                            style="width: 100%;" size="large" placeholder="Genero del Paciente">
+                                            <el-option v-for=" trabajador in trabajadoresOdontologicos"
+                                                :key="trabajador.id_trabajador"
+                                                :label="trabajador.nombre + ' - ' + trabajador.especializacion"
+                                                :value="trabajador.id_trabajador">
+                                            </el-option>
+                                        </el-select>
+                                    </el-form-item>
+                                </label>
+                                <label v-else>
+                                    <h4>No hay odontologos registrados</h4>
+                                </label>
+                            </div>
+
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">Odontologo Referido</p>
+                                    <el-form-item prop="referidoPor">
+                                        <el-input placeholder="Indique el nombre del doctor referido"
+                                            v-model="nuevoHistorialPaciente.referidoPor"></el-input>
+                                    </el-form-item>
+                                </label>
+                            </div>
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">¿ Esta usted en tratamiento ?</p>
+                                    <el-form-item prop="estaTratamiento">
+                                        <el-input placeholder="E paciente esta en tratamiento"
+                                            v-model="nuevoHistorialPaciente.estaTratamiento"></el-input>
+                                    </el-form-item>
+                                </label>
+                            </div> -->
+
+                            <!-- <div class="w-11/12">
+                                <el-divider>Datos historicos de padecimientos</el-divider>
+                            </div> -->
+
+
+                            <!-- <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">¿ Sufre de presion arterial ?</p>
+                                    <el-form-item prop="sufreTensionAlterial">
+                                        <el-radio-group v-model="nuevoHistorialPaciente.sufreTensionAlterial">
+                                            <el-radio label="1">SI</el-radio>
+                                            <el-radio label="0">NO</el-radio>
+                                        </el-radio-group>
+                                    </el-form-item>
+                                </label>
+                            </div>
+
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">¿ Diabetico ?</p>
+                                    <el-form-item prop="diabetico">
+                                        <el-radio-group v-model="nuevoHistorialPaciente.diabetico">
+                                            <el-radio label="1">SI</el-radio>
+                                            <el-radio label="0">NO</el-radio>
+                                        </el-radio-group>
+                                    </el-form-item>
+                                </label>
+                            </div>
+
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">¿ Antecedentes familiares de diabetes ?</p>
+                                    <el-form-item prop="antecedentesDiabetico">
+                                        <el-radio-group v-model="nuevoHistorialPaciente.antecedentesDiabetico">
+                                            <el-radio label="1">SI</el-radio>
+                                            <el-radio label="0">NO</el-radio>
+                                        </el-radio-group>
+                                    </el-form-item>
+
+                                </label>
+                            </div>
+
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">¿ Ha sufrido de Hepatitis ?</p>
+                                    <el-form-item prop="antecedentesDiabetico">
+                                        <el-radio-group v-model="nuevoHistorialPaciente.sufridoHepatitis">
+                                            <el-radio label="1">SI</el-radio>
+                                            <el-radio label="0">NO</el-radio>
+                                        </el-radio-group>
+
+                                    </el-form-item>
+
+                                </label>
+                            </div>
+
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">¿ Ha sufrido de Herpes ?</p>
+                                    <el-form-item prop="sufridoHerpes">
+                                        <el-radio-group v-model="nuevoHistorialPaciente.sufridoHerpes">
+                                            <el-radio label="1">SI</el-radio>
+                                            <el-radio label="0">NO</el-radio>
+                                        </el-radio-group>
+                                    </el-form-item>
+
+                                </label>
+                            </div>
+
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">¿ Ha sufrido de Afecciones cardiacas ?</p>
+                                    <el-form-item prop="efeccionesCardiacas">
+                                        <el-radio-group v-model="nuevoHistorialPaciente.efeccionesCardiacas">
+                                            <el-radio label="1">SI</el-radio>
+                                            <el-radio label="0">NO</el-radio>
+                                        </el-radio-group>
+
+                                    </el-form-item>
+
+                                </label>
+                            </div>
+
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">¿ Problemas con la Anestecia ?</p>
+                                    <el-form-item prop="sufridoAnestecia">
+                                        <el-radio-group v-model="nuevoHistorialPaciente.sufridoAnestecia">
+                                            <el-radio label="1">SI</el-radio>
+                                            <el-radio label="0">NO</el-radio>
+                                        </el-radio-group>
+
+                                    </el-form-item>
+
+                                </label>
+                            </div>
+
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">¿ Es usted propenso a las Hemorragias ?</p>
+                                    <el-form-item prop="propensoHemorragias">
+                                        <el-radio-group v-model="nuevoHistorialPaciente.propensoHemorragias">
+                                            <el-radio label="1">SI</el-radio>
+                                            <el-radio label="0">NO</el-radio>
+                                        </el-radio-group>
+                                    </el-form-item>
+
+                                </label>
+                            </div>
+
+                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">¿ Ha convulsionado alguna vez ?</p>
+                                    <el-form-item prop="convulcionAlgunaVez">
+                                        <el-radio-group v-model="nuevoHistorialPaciente.convulcionAlgunaVez">
+                                            <el-radio label="1">SI</el-radio>
+                                            <el-radio label="0">NO</el-radio>
+                                        </el-radio-group>
+                                    </el-form-item>
+
+                                </label>
+                            </div> -->
+                        </div>
+
+                        <br>
+
+                        <div class="flex flex-wrap justify-around mb-10">
                             <button :disabled="loading" type="button" v-on:click="registroPaciente()"
                                 class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">Guardar</button>
                         </div>
@@ -329,6 +623,8 @@ export default {
     },
     data() {
         return {
+            active: 1,
+
             nuevoHistorialPaciente: {
                 nombre: "",
                 apellido: "",
@@ -504,6 +800,17 @@ export default {
         },
         mostrarTrabajadoresRol() {
             this.$store.dispatch("obtenerListaDeTrabajadoresRol");
+        },
+        next() {
+            if (this.active < 3) {
+                this.active++;
+            }
+        },
+        prev() {
+            if (this.active > 1) {
+                this.active--;
+            }
+
         },
     },
     computed: {

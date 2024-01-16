@@ -17,23 +17,23 @@
 								PDF
 							</button>
 
-							<router-link to="/admin/proveedores/agregar"
+							<button v-on:click="modalProveedor"
 								class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
 								Agregar nuevo
-							</router-link>
+							</button>
 						</div>
 					</div>
 				</div>
 
 				<div class="mt-5 ">
-          <div v-if="proveedores && proveedores.data">
+					<div v-if="proveedores && proveedores.data">
 						<!--tabla-->
 						<template class="relative h-32 w-32 ">
 							<el-input v-model="search" class="h-1/6 w-2/12 ml-10" placeholder="Buscar" />
 						</template>
 
 						<el-table
-							:data="   proveedores.data.filter(data => !search || data.nombre_proveedor.toLowerCase().includes(search.toLowerCase()))"
+							:data="proveedores.data.filter(data => !search || data.nombre_proveedor.toLowerCase().includes(search.toLowerCase()))"
 							class="w-full p-10">
 							<el-table-column prop="nombre_proveedor" label="Nombre">
 								<template slot-scope="scope">
@@ -139,12 +139,77 @@
 						</div>
 					</div>
 				</div>
+				<!-- modal del nuevo proveedor -->
+				<el-dialog title="Nuevo proveedor" :visible.sync="centerDialogVisibleProveedor" width="30%" center>
+					<div class="flex flex-wrap justify-around">
+						<el-form label-position="top" class="w-96" :model="nuevoProveedor" :rules="rules"
+							ref="registrarProvedor">
+
+							<label>
+								<p class="ml-1">Nombre</p>
+								<el-form-item prop="nombre">
+									<el-input placeholder="Nombre del proveedor" v-model="nuevoProveedor.nombre"></el-input>
+								</el-form-item>
+							</label>
+							<label>
+								<p class="ml-1">Email</p>
+								<el-form-item prop="correo">
+									<el-input placeholder="Correo del proveedor" type="email"
+										v-model="nuevoProveedor.correo"></el-input>
+								</el-form-item>
+							</label>
+							<label>
+								<p class="ml-1">Numero telefonico</p>
+								<el-form-item prop="telefono">
+									<el-input placeholder="Telefono del proveedor" type="number"
+										v-model="nuevoProveedor.telefono"></el-input>
+								</el-form-item>
+							</label>
+							<label>
+								<p class="ml-1">RIF</p>
+								<el-form-item prop="rif">
+									<el-input placeholder="RIF del proveedor" v-model="nuevoProveedor.rif"></el-input>
+								</el-form-item>
+							</label>
+							<label v-if="materiales && materiales.data">
+								<p class="ml-1">Insumos</p>
+								<el-form-item prop="recursos">
+									<el-select v-model="nuevoProveedor.recursos" multiple placeholder="Materiales"
+										class="w-full">
+										<el-option v-for="item in materiales.data" :key="item.id" :label="item.nombre"
+											:value="item.id"></el-option>
+									</el-select>
+								</el-form-item>
+							</label>
+							<label v-else class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+								<el-alert title="No existen insumos guardados" type="error" :closable=false
+									description="Registre los insumos existentes">
+								</el-alert>
+							</label>
+						</el-form>
+					</div>
+
+					<div slot="footer" class="dialog-footer flex flex-wrap justify-around">
+						<button slot="reference" :disabled="loading"
+							class="w-full md:w-1/3 bg-red-600 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
+							@click="centerDialogVisibleProveedor = false" type="button">
+							Cerrar
+						</button>
+						<button slot="reference" :disabled="loading"
+							class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
+							v-on:click="registrarProveedor" type="button">
+							Ingresar
+						</button>
+					</div>
+				</el-dialog>
 			</div>
 		</div>
 	</div>
 </template>
 <script>
 import config from "../../../config";
+import axios from "axios";
+
 export default {
 	name: "proveedores-list",
 	metaInfo: {
@@ -153,8 +218,7 @@ export default {
 	},
 	created() {
 		this.$store.dispatch("obtenerListaDeProveedores");
-		// this.handleSizeChange(this.proveedores.data)
-		//this.aplicarFiltro();
+		this.$store.dispatch('obtenerListaDeproducto');
 	},
 	data() {
 		return {
@@ -167,9 +231,89 @@ export default {
 			modal: false,
 			search: "",
 			url: `http://localhost:3000/pdf/proveedor`,
+			centerDialogVisibleProveedor: false,
+			nuevoProveedor: {
+				nombre: null,
+				correo: null,
+				telefono: null,
+				rif: null,
+				recursos: [],
+			},
+			rules: {
+				nombre: [
+					{ required: true, message: 'Es necesario ingresar el nombre del proveedor', trigger: 'change' },
+					{ min: 2, message: 'El nombre del proveedor tiene que ser como minimo 2 caracteres', trigger: 'change' }
+				],
+				correo: [
+					{ type: "email", required: true, message: 'Es necesario ingresar el correo electronico del proveedor', trigger: 'change' },
+				],
+				telefono: [
+					{ required: true, message: 'Es necesario ingresar el numero telefonico del proveedor', trigger: 'change' },
+					{ length: 11, message: 'Se tiene que escribir los 11 digitos de un numero celular', trigger: 'change' }
+				],
+				rif: [
+					{ required: true, message: 'Es necesario ingresar el RIF del proveedor', trigger: 'change' },
+					{ length: 10, message: 'Se tiene que escribir los 10 digitos del RIF', trigger: 'change' }
+				],
+				recursos: [
+					{ type: 'array', required: true, message: 'Es necesario ingresar los materiales que maneja este proveedor', trigger: 'change' },
+				],
+			},
+			loading: false,
+
 		};
 	},
 	methods: {
+		modalProveedor() {
+			this.centerDialogVisibleProveedor = true;
+		},
+		resetForm(formName) {
+			this.$refs[formName].resetFields();
+		},
+		async registrarProveedor() {
+			this.$refs['registrarProvedor'].validate(async (valid) => {
+				if (valid) {
+					try {
+						this.$store.dispatch('getLoadingApp', true);
+						this.loading = true;
+						const token = localStorage.getItem('token_acess');
+						const request = await axios({
+							method: 'POST',
+							baseURL: config.backend.baseURL,
+							url: '/provedor',
+							headers: {
+								['auth-token']: token,
+							},
+							data: this.nuevoProveedor
+						});
+						this.$store.dispatch('getLoadingApp', false);
+						this.loading = false;
+						this.$message({
+							message: 'Registrado Exitosamente',
+							type: 'success',
+						});
+						this.$store.dispatch("obtenerListaDeProveedores")
+						this.centerDialogVisibleProveedor = false
+						this.resetForm("registrarProvedor")
+					} catch (error) {
+						if (error.response) {
+							this.$message({
+								message: error.response.data.mensaje || 'Sin mensaje del servidor',
+								type: 'error',
+							});
+						} else {
+							this.$message({
+								message: 'No estas conectado a internet.',
+								type: 'error'
+							});
+						}
+						this.$store.dispatch('getLoadingApp', false);
+						this.loading = false;
+						console.clear()
+					}
+				}
+			});
+		},
 		totalRegistro() {
 			this.total = this.proveedores.data.length / this.totalRegistroPagina;
 		},
@@ -182,13 +326,13 @@ export default {
 			this.actualizarDatosTabla();
 		},
 		actualizarDatosTabla() {
-      this.$store.dispatch('getLoadingApp', true);
-      this.tableData = [];
-      let startIndex = (this.currentPage - 1) * this.totalRegistroPagina;
-      const endIndex = startIndex + this.totalRegistroPagina;
-      this.tableData = this.proveedores.data.slice().slice(startIndex, endIndex);
-      this.$store.dispatch('getLoadingApp', false);
-    },
+			this.$store.dispatch('getLoadingApp', true);
+			this.tableData = [];
+			let startIndex = (this.currentPage - 1) * this.totalRegistroPagina;
+			const endIndex = startIndex + this.totalRegistroPagina;
+			this.tableData = this.proveedores.data.slice().slice(startIndex, endIndex);
+			this.$store.dispatch('getLoadingApp', false);
+		},
 		parseDate(date) {
 			return new Date(date).toLocaleString();
 		},
@@ -206,9 +350,12 @@ export default {
 		nivelesUsuario() {
 			return this.$store.getters.getnivelesUsuarios;
 		},
-    proveedores() {
+		proveedores() {
 			return this.$store.getters.getProveedores;
 		},
+		materiales() {
+			return this.$store.getters.getproducto;
+		}
 	},
 };
 </script>

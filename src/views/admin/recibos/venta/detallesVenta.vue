@@ -5,6 +5,7 @@
             <div v-if="venta && venta.data"
                 class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
                 <div class="flex justify-center">
+
                     <div class="rounded-t mb-0 px-4 py-3 border-0">
                         <h3 class="font-semibold text-xl text-blueGray-700 uppercase">
                             Detalles del recibo de venta
@@ -17,7 +18,12 @@
                             <div class="flex flex-wrap justify-around">
                                 <div style="    width: 800px;"
                                     class="block w-2/3 mb-10  p-6 bg-white border border-gray-200 rounded-lg shadow-md ">
-
+                                    <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
+                                        <button v-on:click="openNewTab" type="button"
+                                            class="bg-red-600 text-white active:bg-red-500 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 ">
+                                            Descargar PDF
+                                        </button>
+                                    </div>
                                     <div class="flex justify-center">
                                         <div class="rounded-t mb-0 px-4 py-3 border-0">
                                             <p class="font-semibold text-lg text-verdiAnderson uppercase">
@@ -148,13 +154,6 @@
                                         <p class=" text-verdiAnderson w-1/2 pl-5 text-2xl">Total dolares</p>
                                         <p class="w-1/2 text-right text-2xl pl-5">{{ venta.data[0].precio_total }} $</p>
 
-                                    </div>
-                                    <br>
-                                    <div class="flex flex-wrap justify-around">
-
-                                        <button :disabled="loading"
-                                            class="w-full md:w-1/3 bg-red-600 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
-                                            type="button" v-on:click="openNewTab">Descargar PDF</button>
                                     </div>
 
                                 </div>
