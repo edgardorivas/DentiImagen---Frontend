@@ -11,8 +11,8 @@
     </div>
     <div class="p-4 flex-auto w-full h-11/12">
       <!-- Chart -->
-      <div class="relative h-80">
-        <canvas id="line-chart"></canvas>
+      <div class="relative h-80 w-full">
+        <canvas class="w-full" id="line-chart"></canvas>
       </div>
     </div>
   </div>
@@ -21,7 +21,14 @@
 import Chart from 'chart.js/auto';
 
 export default {
+  props: {
+    config: {
+      type: Object,
+      require: true
+    }
+  },
   mounted: function () {
+
     this.$nextTick(function () {
       var config = {
         type: "line",
@@ -122,7 +129,7 @@ export default {
         },
       };
       var ctx = document.getElementById("line-chart").getContext("2d");
-      window.myLine = new Chart(ctx, config);
+      window.myLine = new Chart(ctx, this.config);
     });
   },
 };

@@ -19,6 +19,12 @@
 <script>
 import Chart from 'chart.js/auto';
 export default {
+	props: {
+		config: {
+			type: Object,
+			require: true
+		}
+	},
 	mounted: function () {
 		this.$nextTick(function () {
 			let config = {
@@ -88,7 +94,7 @@ export default {
 				},
 			};
 			let ctx = document.getElementById("bar-chart2").getContext("2d");
-			window.myBar = new Chart(ctx, config);
+			window.myBar = new Chart(ctx, this.config);
 		});
 	},
 };

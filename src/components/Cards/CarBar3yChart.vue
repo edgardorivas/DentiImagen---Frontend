@@ -6,6 +6,7 @@
                     <h2 class="text-blueGray-700 text-xl font-semibold">
                         Compra
                     </h2>
+                    {{ config }}
                 </div>
             </div>
         </div>
@@ -19,6 +20,12 @@
 <script>
 import Chart from 'chart.js/auto';
 export default {
+    props: {
+        config: {
+            type: Object,
+            require: true
+        }
+    },
     mounted: function () {
         this.$nextTick(function () {
             let config = {
