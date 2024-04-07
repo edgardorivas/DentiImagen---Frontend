@@ -131,7 +131,7 @@
                                     <el-table-column prop="idServicio" label="Id"></el-table-column>
                                     <el-table-column prop="nombre_servicio" label="Servicio"></el-table-column>
 
-                                    <el-table-column label="Costo del servicio">
+                                    <el-table-column label="Valor">
                                         <template slot-scope="scope">
                                             <div v-for="item in servicios.data" :key="item.id_servicio">
                                                 <p v-if="item.id_servicio == scope.row.idServicio">
@@ -143,10 +143,10 @@
 
                                     <el-table-column prop="cantidadRealizadas" label="Repeticiones"></el-table-column>
 
-                                    <el-table-column label="Operaciones" width="170">
+                                    <el-table-column label="Operaciones">
                                         <template slot-scope="scope">
                                             <button type="button"
-                                                class="w-full text-center bg-none text-red-600 uppercase rounded-md"
+                                                class="w-full  bg-none text-red-600 uppercase rounded-md"
                                                 @click="eliminarAsociacion(datosVenta.servicios[scope.$index].idServicio)">
                                                 Eliminar
                                             </button>
@@ -237,7 +237,7 @@
                             <div class="w-11/12 mt-10 m-0 p-0">
 
                                 <div class="block w-7/8 mb-10  p-6 bg-white border border-gray-200 rounded-lg shadow-md">
-                                  
+
                                     <div class="flex justify-center">
                                         <div class="rounded-t mb-0 px-4 py-3 border-0">
                                             <p class="font-semibold text-lg text-verdiAnderson uppercase">
@@ -696,7 +696,7 @@ export default {
 
         },
         async ingresarVenta() {
-            
+
             try {
                 this.$store.dispatch('getLoadingApp', true);
                 this.loading = true;

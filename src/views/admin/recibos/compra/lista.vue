@@ -38,11 +38,8 @@
                                 </template>
                             </el-table-column>
 
-                            <el-table-column prop="telefono_trabajador" label="movil del Usuario"></el-table-column>
+                            <el-table-column prop="telefono_trabajador" label="Telefono"></el-table-column>
 
-
-
-                            <el-table-column prop="forma_pago" label="Pago"></el-table-column>
                             <el-table-column prop="nombre_proveedor" label="Proveedor">
                                 <template slot-scope="scope">
                                     <router-link :to="`/admin/proveedores/${scope.row.id_proveedor}`"
@@ -51,7 +48,6 @@
                                     </router-link>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="monto_total" label="Monto total"></el-table-column>
 
                             <el-table-column prop="referencias" label="Referencia">
                                 <template slot-scope="scope">
@@ -69,7 +65,7 @@
                             </el-table-column>
                             <!--fin tabla-->
 
-                            <el-table-column label="Opciones" width="170">
+                            <el-table-column label="Opciones" >
                                 <template slot-scope="scope">
                                     <p class="text-left">
                                         <router-link :to="`/admin/recibo/compra/detalles/${scope.row.id_compra}`"

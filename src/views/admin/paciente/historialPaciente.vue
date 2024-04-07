@@ -72,9 +72,10 @@
                             </div>
                         </div>
                     </section>
+
                     <section v-if="paciente" class="w-full m-0 py-0 px-5">
                         <h2 class="text-center">Datos adicionales</h2>
-                        <div class="w-10/12 ml-80  mb-3 text-gray-600 text-sm">
+                        <div class="w-10/12 ml-40  mb-3 text-gray-600 text-sm">
                             <div class="flex flex-wrap w-full mt-10 justify-between">
                                 <div class="w-5/12 mb-3">
                                     <p><span>¿ Sufre de presion arterial ?: {{ paciente.suefre_presion_alterial == true ?
@@ -129,16 +130,17 @@
                                 <div class="w-11/12 text-center">
 
                                     <div class="flex flex-wrap justify-around">
-
                                         <h4 class="text-gray-600">Fecha:
                                             {{ parseDate(odontodiagramaPaciente[posicion].fecha_registro) }}</h4>
-                                        <!-- <button type="button" @click="centerDialogVisible = true"
-                                            class="bg-verdiAnderson px-3 rounded-sm text-white text-lg">
-                                            Abrir Estadisticas
-                                        </button> -->
 
-                                        <el-button class="border-0 mb-2 bg-violet-200 text-violet-700 hover:bg-violet-100"
-                                            @click="centerDialogVisible = true" round> Estadisticas</el-button>
+                                        <div>
+
+                                          <el-button class="border-0  bg-violet-200 text-violet-700 hover:bg-violet-100"
+                                              @click="centerDialogVisible = true" round> Estadisticas</el-button>
+
+                                          <el-button class="border-0  bg-blue-400 text-white hover:text-white hover:bg-blue-400"
+                                              @click="mostrarInformacion = !mostrarInformacion" round> informacion</el-button>
+                                        </div>
 
                                     </div>
 
@@ -166,10 +168,19 @@
                                                     </ul>
                                                 </div>
 
-                                                <button @click="abrirModal(diente)" type="button"
+                                                <button v-if="!mostrarInformacion" @click="abrirModal(diente)" type="button"
                                                     @mouseover="datosDientesMensaje(diente)" slot="reference"
                                                     class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
                                                     :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
+                                                    <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
+                                                    <i class="fa-solid fa-tooth text-3xl"></i>
+                                                    <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
+                                                    <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
+                                                </button>
+                                                <button v-else @click="abrirModal(diente)" type="button"
+                                                    @mouseover="datosDientesMensaje(diente)" slot="reference"
+                                                    class="w-full border border-verdiAnderson rounded-md bg-verdiAnderson"
+                                                    :class="!diente.sano ? 'border-red-500 bg-red-400' : '' || diente.ausente ? 'border-blue-700 bg-blue-500' : ''">
                                                     <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
                                                     <i class="fa-solid fa-tooth text-3xl"></i>
                                                     <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
@@ -198,10 +209,19 @@
                                                     </ul>
                                                 </div>
 
-                                                <button @click="abrirModal(diente)" type="button"
+                                                <button v-if="!mostrarInformacion" @click="abrirModal(diente)" type="button"
                                                     @mouseover="datosDientesMensaje(diente)" slot="reference"
                                                     class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
                                                     :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
+                                                    <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
+                                                    <i class="fa-solid fa-tooth text-2xl"></i>
+                                                    <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
+                                                    <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
+                                                </button>
+                                                <button v-else @click="abrirModal(diente)" type="button"
+                                                    @mouseover="datosDientesMensaje(diente)" slot="reference"
+                                                    class="w-full border border-verdiAnderson rounded-md bg-verdiAnderson"
+                                                    :class="!diente.sano ? 'border-red-500 bg-red-400' : '' || diente.ausente ? 'border-blue-700 bg-blue-500' : ''">
                                                     <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
                                                     <i class="fa-solid fa-tooth text-2xl"></i>
                                                     <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
@@ -236,10 +256,19 @@
                                                     </ul>
                                                 </div>
 
-                                                <button @click="abrirModal(diente)" type="button"
+                                                <button v-if="!mostrarInformacion" @click="abrirModal(diente)" type="button"
                                                     @mouseover="datosDientesMensaje(diente)" slot="reference"
                                                     class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
                                                     :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
+                                                    <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
+                                                    <i class="fa-solid fa-tooth text-3xl"></i>
+                                                    <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
+                                                    <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
+                                                </button>
+                                                <button v-else @click="abrirModal(diente)" type="button"
+                                                    @mouseover="datosDientesMensaje(diente)" slot="reference"
+                                                    class="w-full border border-verdiAnderson rounded-md bg-verdiAnderson"
+                                                    :class="!diente.sano ? 'border-red-500 bg-red-400' : '' || diente.ausente ? 'border-blue-700 bg-blue-500' : ''">
                                                     <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
                                                     <i class="fa-solid fa-tooth text-3xl"></i>
                                                     <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
@@ -266,10 +295,19 @@
                                                     </ul>
                                                 </div>
 
-                                                <button @click="abrirModal(diente)" type="button"
+                                                <button v-if="!mostrarInformacion" @click="abrirModal(diente)" type="button"
                                                     @mouseover="datosDientesMensaje(diente)" slot="reference"
                                                     class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
                                                     :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
+                                                    <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
+                                                    <i class="fa-solid fa-tooth text-2xl"></i>
+                                                    <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
+                                                    <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
+                                                </button>
+                                                <button v-else @click="abrirModal(diente)" type="button"
+                                                    @mouseover="datosDientesMensaje(diente)" slot="reference"
+                                                    class="w-full border border-verdiAnderson rounded-md bg-verdiAnderson"
+                                                    :class="!diente.sano ? 'border-red-500 bg-red-400' : '' || diente.ausente ? 'border-blue-700 bg-blue-500' : ''">
                                                     <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
                                                     <i class="fa-solid fa-tooth text-2xl"></i>
                                                     <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
@@ -304,10 +342,19 @@
                                                     </ul>
                                                 </div>
 
-                                                <button @click="abrirModal(diente)" type="button"
+                                                <button v-if="!mostrarInformacion" @click="abrirModal(diente)" type="button"
                                                     @mouseover="datosDientesMensaje(diente)" slot="reference"
                                                     class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
                                                     :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
+                                                    <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
+                                                    <i class="fa-solid fa-tooth text-2xl"></i>
+                                                    <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
+                                                    <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
+                                                </button>
+                                                <button v-else @click="abrirModal(diente)" type="button"
+                                                    @mouseover="datosDientesMensaje(diente)" slot="reference"
+                                                    class="w-full border border-verdiAnderson rounded-md bg-verdiAnderson"
+                                                    :class="!diente.sano ? 'border-red-500 bg-red-400' : '' || diente.ausente ? 'border-blue-700 bg-blue-500' : ''">
                                                     <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
                                                     <i class="fa-solid fa-tooth text-2xl"></i>
                                                     <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
@@ -334,10 +381,19 @@
                                                         </li>
                                                     </ul>
                                                 </div>
-                                                <button @click="abrirModal(diente)" type="button"
+                                                <button v-if="!mostrarInformacion" @click="abrirModal(diente)" type="button"
                                                     @mouseover="datosDientesMensaje(diente)" slot="reference"
                                                     class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
                                                     :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
+                                                    <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
+                                                    <i class="fa-solid fa-tooth text-3xl"></i>
+                                                    <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
+                                                    <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
+                                                </button>
+                                                <button v-else @click="abrirModal(diente)" type="button"
+                                                    @mouseover="datosDientesMensaje(diente)" slot="reference"
+                                                    class="w-full border border-verdiAnderson rounded-md bg-verdiAnderson"
+                                                    :class="!diente.sano ? 'border-red-500 bg-red-400' : '' || diente.ausente ? 'border-blue-700 bg-blue-500' : ''">
                                                     <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
                                                     <i class="fa-solid fa-tooth text-3xl"></i>
                                                     <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
@@ -372,10 +428,19 @@
                                                     </ul>
                                                 </div>
 
-                                                <button @click="abrirModal(diente)" type="button"
+                                                <button v-if="!mostrarInformacion" @click="abrirModal(diente)" type="button"
                                                     @mouseover="datosDientesMensaje(diente)" slot="reference"
                                                     class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
                                                     :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
+                                                    <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
+                                                    <i class="fa-solid fa-tooth text-2xl"></i>
+                                                    <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
+                                                    <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
+                                                </button>
+                                                <button v-else @click="abrirModal(diente)" type="button"
+                                                    @mouseover="datosDientesMensaje(diente)" slot="reference"
+                                                    class="w-full border border-verdiAnderson rounded-md bg-verdiAnderson"
+                                                    :class="!diente.sano ? 'border-red-500 bg-red-400' : '' || diente.ausente ? 'border-blue-700 bg-blue-500' : ''">
                                                     <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
                                                     <i class="fa-solid fa-tooth text-2xl"></i>
                                                     <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
@@ -400,10 +465,19 @@
                                                         </li>
                                                     </ul>
                                                 </div>
-                                                <button @click="abrirModal(diente)" type="button"
+                                                <button v-if="!mostrarInformacion" @click="abrirModal(diente)" type="button"
                                                     @mouseover="datosDientesMensaje(diente)" slot="reference"
                                                     class="w-full border border-verdiAnderson rounded-md hover:bg-verdiAnderson"
                                                     :class="!diente.sano ? 'border-red-500 hover:bg-red-400' : '' || diente.ausente ? 'border-blue-700 hover:bg-blue-500' : ''">
+                                                    <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
+                                                    <i class="fa-solid fa-tooth text-3xl"></i>
+                                                    <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
+                                                    <i v-if="diente.afecciones.length" class="fa-solid fa-exclamation"></i>
+                                                </button>
+                                                <button v-else @click="abrirModal(diente)" type="button"
+                                                    @mouseover="datosDientesMensaje(diente)" slot="reference"
+                                                    class="w-full border border-verdiAnderson rounded-md  bg-verdiAnderson"
+                                                    :class="!diente.sano ? 'border-red-500  bg-red-400' : '' || diente.ausente ? 'border-blue-700  bg-blue-500' : ''">
                                                     <p class="text-center"><small><i>{{ key_diente }}</i></small></p>
                                                     <i class="fa-solid fa-tooth text-3xl"></i>
                                                     <i v-if="diente.ausente" class="fa-solid fa-xmark"></i>
@@ -653,7 +727,7 @@
                         <p class="px-2 mb-4 text-center">Imagen del paciente</p>
 
 
-                        <div class="demo-fit ml-24">
+                        <div class="demo-fit ml-12">
                             <div class="block" key="none">
                                 <img src="../../../assets/avatar_masculino.svg" v-if="!imagePreview" class="w-10/12 h-5/6">
                                 <img :src="imagePreview" v-else class="w-10/12 h-5/6">
@@ -661,7 +735,7 @@
                             </div>
                         </div>
 
-                        <div class="ml-56 mb-3 mt-3">
+                        <div class="ml-32 mb-3 mt-3">
                             <input type="file" @change="previewImage" class="block w-full text-sm text-white
                 file:mr-4 file:py-2 file:px-4
                 file:rounded-full file:border-0
@@ -704,6 +778,7 @@ export default {
     },
     data() {
         return {
+            mostrarInformacion : false,
             statusMensajeDiente: false,
             mensajeDiente: [],
             url: 'http://localhost:3000/paciente/img/',

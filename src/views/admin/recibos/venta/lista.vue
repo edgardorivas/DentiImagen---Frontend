@@ -28,7 +28,7 @@
 
                         <el-table
                             :data="Ventas.data.filter(data => !search || data.nombre_paciente.toLowerCase().includes(search.toLowerCase()))"
-                            class="w-full">
+                            class="w-full mt-10 ml-5">
 
                             <el-table-column fixed prop="paciente" label="Paciente">
                                 <template slot-scope="scope">

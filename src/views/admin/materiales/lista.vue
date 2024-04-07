@@ -51,12 +51,12 @@
                         </el-table>
 
                         <!-- Modales de busqueda -->
-                        <!-- 
+                        <!--
               <el-drawer title="Busqueda Avanzada" :visible.sync="modal" direction="rtl" :before-close="handleClose">
                 <form class="h-full" @submit.prevent="aplicarFiltro">
                   <div class="flex flex-col content-between justify-between h-full">
                     <div class="flex flex-col">
-                      
+
                       <div class="w-full px-2 mb-3 py-1">
                         <label>
                           <p class="ml-1 mb-1">Nombre</p>
@@ -90,7 +90,7 @@
                           </el-select>
                         </label>
                       </div>
-                      
+
                     </div>
                     <div>
                       <button class="w-full bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2" type="submit">Buscar</button>
@@ -130,13 +130,7 @@
                                     <el-input placeholder="Nombre del material" v-model="nuevoMaterial.nombre"></el-input>
                                 </el-form-item>
                             </label>
-                            <label>
-                                <p class="ml-1">Descripcion</p>
-                                <el-form-item prop="descripcion">
-                                    <el-input placeholder="Descripcion del material"
-                                        v-model="nuevoMaterial.descripcion"></el-input>
-                                </el-form-item>
-                            </label>
+
                             <label>
                                 <p class="ml-1">Cantidad disponible</p>
                                 <el-form-item prop="cantidadD">
@@ -149,6 +143,13 @@
                                 <el-form-item prop="cantidadM">
                                     <el-input placeholder="Cantidad minima" type="number"
                                         v-model="nuevoMaterial.cantidadM"></el-input>
+                                </el-form-item>
+                            </label>
+                            <label>
+                                <p class="ml-1">Descripcion</p>
+                                <el-form-item prop="descripcion">
+                                    <el-input placeholder="Descripcion del material"
+                                        v-model="nuevoMaterial.descripcion"></el-input>
                                 </el-form-item>
                             </label>
 
@@ -283,6 +284,8 @@ export default {
                             message: 'Registrado Exitosamente',
                             type: 'success',
                         });
+                        this.$store.dispatch('obtenerTipoProducto');
+                        this.$store.dispatch("obtenerListaDeproducto");
                         this.centerDialogVisibleNuevoMaterial = false
                         this.resetForm("registrarMaterial")
                     } catch (error) {
@@ -332,4 +335,3 @@ export default {
     width: 100% !important;
 }
 </style>
-  

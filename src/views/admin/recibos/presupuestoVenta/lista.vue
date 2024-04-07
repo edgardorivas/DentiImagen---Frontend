@@ -58,7 +58,7 @@
                             </el-table-column>
 
 
-                            <el-table-column label="Operaciones" width="170">
+                            <el-table-column label="Opciones" width="170">
                                 <template slot-scope="scope">
                                     <p class="text-left">
                                         <router-link :to="`/admin/presupuesto/venta/detalles/${scope.row.id_presupuesto}`"

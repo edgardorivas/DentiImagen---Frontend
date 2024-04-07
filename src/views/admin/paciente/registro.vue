@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-wrap mt-4">
-        <div class="w-10/12 mb-12 m-auto xl:mb-0 px-4">
+        <div class="w-10/12 mb-12 m-auto xl:mb-0">
             <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
                 <div class="flex justify-center">
                     <div class="rounded-t mb-0 px-4 py-3 border-0">
@@ -16,7 +16,7 @@
                         <el-step title="Historicos de padecimientos"></el-step>
                     </el-steps>
                 </div>
-                <div class="flex justify-center w-full sm:px-5 md:px-20 lg:px-36">
+                <div class="flex justify-center w-full">
                     <!-- formulario original -->
                     <el-form label-position="top" :model="nuevoHistorialPaciente" :rules="rules" ref="registrarPaciente"
                         label-width="120px" class="demo-ruleForm">

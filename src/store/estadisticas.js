@@ -64,6 +64,8 @@ export default {
                     },
                     data: payload,
                 });
+                console.log(resultado.data.data)
+
                 for (const estadistica of resultado.data.data) {
                     switch (estadistica.name) {
                         case 'paciente':

@@ -28,7 +28,7 @@
                         <el-table
                             :data="tipoProducto.data.filter(data => !search || data.nombre_tipo_recurso.toLowerCase().includes(search.toLowerCase()))"
                             class="w-full p-10">
-                            <el-table-column prop="nombre_tipo_recurso" label="Nombre" width="190">
+                            <el-table-column prop="nombre_tipo_recurso" label="Nombre" >
                                 <template slot-scope="scope">
                                     <router-link :to="`/admin/tipo-materiales/${scope.row.id_tipo_recurso}`"
                                         class="uppercase text-verdiAnderson">
@@ -41,7 +41,7 @@
 
                             <el-table-column label="Operaciones">
                                 <template slot-scope="scope">
-                                    <p class="text-center">
+                                    <p class="">
                                         <router-link :to="`/admin/tipo-materiales/${scope.row.id_tipo_recurso}`"
                                             class="text-verdiAnderson text-xs w-full">
                                             Editar
@@ -226,4 +226,3 @@ export default {
     width: 100% !important;
 }
 </style>
-  
