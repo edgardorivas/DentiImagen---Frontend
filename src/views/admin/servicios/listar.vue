@@ -49,6 +49,11 @@
                                 </template>
                             </el-table-column>
                         </el-table>
+                        <el-pagination class="text-center my-5"
+                          layout="prev, pager, next"
+                          @current-change="pasarLote"
+                          :total='servicios.dataExtra'>
+                        </el-pagination>
                     </div>
                     <div v-else>
                         <h3> No Exisiten servicios registrados</h3>
@@ -193,6 +198,10 @@ export default {
         },
         modalServicio() {
             this.centerDialogVisibleNuevoServicio = true;
+        },
+        async pasarLote(lote){
+          console.log(lote)
+          this.$store.dispatch("obtenerServicios",lote-1)
         },
 
     },

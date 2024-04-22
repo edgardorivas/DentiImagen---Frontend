@@ -24,14 +24,14 @@ export default {
         },
     },
     actions: {
-        async obtenerServicios(context) {
+        async obtenerServicios(context,lote=0) {
             const token = localStorage.getItem('token_acess')
             context.dispatch('getLoadingApp', true);
             try {
                 const resultado = await axios({
                     method: 'GET',
                     baseURL: config.backend.baseURL,
-                    url: '/servicios',
+                    url: `/servicios?lote=${lote}`,
                     headers: {
                         ['auth-token']: token,
                     }

@@ -74,14 +74,14 @@ export default {
             }
             context.dispatch('getLoadingApp', false);
         },
-        async obtenerListaCompra(context, payload = { id: String }) {
+        async obtenerListaCompra(context, payload =0) {
             const token = localStorage.getItem('token_acess')
             context.dispatch('getLoadingApp', true);
             try {
                 const resultado = await axios({
                     method: 'GET',
                     baseURL: config.backend.baseURL,
-                    url: '/compra',
+                    url: `/compra?lote=${payload}`,
                     headers: {
                         ['auth-token']: token,
                     },

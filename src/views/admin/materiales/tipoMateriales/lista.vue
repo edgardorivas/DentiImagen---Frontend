@@ -50,6 +50,12 @@
                                 </template>
                             </el-table-column>
                         </el-table>
+
+                        <el-pagination class="text-center my-5"
+                          layout="prev, pager, next"
+                          @current-change="pasarLote"
+                          :total='tipoProducto.dataExtra'>
+                        </el-pagination>
                     </div>
                     <div v-else class=" w-1/2 sm:ml-32 md:ml-36 lg:ml-64 mb-20">
                         <div class=" flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 " role="warning">
@@ -92,6 +98,7 @@
                             </el-form-item>
                         </label>
                     </el-form>
+
                 </div>
 
                 <div slot="footer" class="dialog-footer flex flex-wrap justify-around">
@@ -208,7 +215,11 @@ export default {
         },
         resetForm(formName) {
             this.$refs[formName].resetFields();
-        }
+        },
+        async pasarLote(lote){
+          console.log(lote)
+          this.$store.dispatch("obtenerListaDeTipoProducto",lote-1)
+        },
 
     },
     computed: {

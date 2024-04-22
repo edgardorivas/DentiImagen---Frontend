@@ -17,14 +17,14 @@ export default {
     },
   },
   actions: {
-    async obtenerInventario (context) {
+    async obtenerInventario (context,lote=0) {
       const token = localStorage.getItem('token_acess')
       context.dispatch('getLoadingApp', true);
       try {
         const resultado = await axios({
           method: 'GET',
           baseURL: config.backend.baseURL,
-          url: '/inventario',
+          url: `/inventario?lote=${lote}`,
           headers: {
             ['auth-token']: token,
           }

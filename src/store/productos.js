@@ -38,14 +38,14 @@ export default {
         },
     },
     actions: {
-        async obtenerListaDeproducto(context) {
+        async obtenerListaDeproducto(context,lote=0) {
             const token = localStorage.getItem('token_acess')
             context.dispatch('getLoadingApp', true);
             try {
                 const resultado = await axios({
                     method: 'GET',
                     baseURL: config.backend.baseURL,
-                    url: '/recurso',
+                    url: `/recurso?lote=${lote}`,
                     headers: {
                         ['auth-token']: token,
                     }

@@ -32,14 +32,14 @@ export default {
 		}
 	},
 	actions: {
-		async obtenerListaDeProveedores(context) {
+		async obtenerListaDeProveedores(context,lote=0) {
 			const token = localStorage.getItem('token_acess')
 			context.dispatch('getLoadingApp', true);
 			try {
 				const resultado = await axios({
 					method: 'GET',
 					baseURL: config.backend.baseURL,
-					url: '/provedor',
+					url: `/provedor?lote=${lote}`,
 					headers: {
 						['auth-token']: token,
 					}

@@ -74,6 +74,12 @@
 								</template>
 							</el-table-column>
 						</el-table>
+
+            <el-pagination class="text-center my-5"
+              layout="prev, pager, next"
+              @current-change="pasarLote"
+              :total='pacientes.dataExtra'>
+            </el-pagination>
 					</div>
 					<!-- mensaje de alert cuando no se encuentre ningun registro -->
 					<div v-else class=" w-1/2 sm:ml-32 md:ml-36 lg:ml-64 mb-20">
@@ -128,6 +134,9 @@ export default {
 		handleClose() {
 			this.modal = false;
 		},
+    async pasarLote(lote){
+      this.$store.dispatch("obtenerListaDePacientes",lote-1)
+    },
 		openNewTab() {
 			window.open(this.url, '_blank');
 		}

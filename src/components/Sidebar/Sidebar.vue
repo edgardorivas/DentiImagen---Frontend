@@ -169,10 +169,10 @@
                     </el-col>
                 </el-row> -->
 
-                <!-- 
+                <!--
                     <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
                         Consultas
-                    </h6> 
+                    </h6>
                 -->
 
                 <!-- <ul class="md:flex-col md:min-w-full flex flex-col list-none"> -->
@@ -327,7 +327,7 @@
                         Ventas a Clientes
                     </h6>
                     <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-                        
+
                         <li class="items-center">
                             <router-link to="/admin/recibo/venta/agregar"
                                 class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"

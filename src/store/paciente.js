@@ -39,7 +39,7 @@ export default {
             return state.paciente
         },
         getHistorialTratamiento: (state, value) => {
-            return state.historialTratamiento 
+            return state.historialTratamiento
         },
         getUsuariosOdontologicos: (state) => {
             return state.usuariosOdontologicos
@@ -52,14 +52,14 @@ export default {
         },
     },
     actions: {
-        async obtenerListaDePacientes(context) {
+        async obtenerListaDePacientes(context, lote) {
             const token = localStorage.getItem('token_acess')
             context.dispatch('getLoadingApp', true);
             try {
                 const resultado = await axios({
                     method: 'GET',
                     baseURL: config.backend.baseURL,
-                    url: '/paciente',
+                    url: `/paciente?lote=${lote ? lote:0}`,
                     headers: {
                         ['auth-token']: token,
                     }

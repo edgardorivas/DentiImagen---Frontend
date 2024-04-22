@@ -1,9 +1,4 @@
 <template>
-    <!--
-        - cambia la forma en la que se vizualisa los registros en ves de una tabla que se vean como tarjetas con su informacion
-        Error: si registro una compra y despues vengo al inventario no se refresca si no que me sigue mostrando los valores que existian 
-        antes del nuevo registro de compra
-    -->
     <div class="flex flex-wrap mt-4">
         <div class="w-full mb-12 xl:mb-0 px-4">
             <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
@@ -25,14 +20,6 @@
                     </button>
                 </div>
                 <div v-if="inventario && inventario.data">
-                    <!-- 
-                    <div class="px-5 mt-3 flex ">
-
-                        <button @click="modal = true"
-                            class="bg-verdiAnderson justify-start text-white py-2 px-3 rounded-md uppercase">
-                            Busqueda Avanzada
-                        </button>
-                    </div> -->
 
                     <div class="mt-5">
                         <div>
@@ -50,7 +37,11 @@
                                     <el-table-column prop="minimo" label="Cantidad Minima"></el-table-column>
                                     <el-table-column prop="disponible" label="Cantidad Disponible"></el-table-column>
                                 </el-table>
-
+                                <el-pagination class="text-center my-5"
+                                  layout="prev, pager, next"
+                                  @current-change="pasarLote"
+                                  :total='inventario.dataExtra'>
+                                </el-pagination>
                             </template>
 
                             <!-- Modales de busqueda -->
@@ -59,50 +50,7 @@
                                 <form class="h-full" @submit.prevent="aplicarFiltro">
                                     <div class="flex flex-col content-between justify-between h-full">
                                         <div class="flex flex-col">
-                                            <!-- Contenido 
-                                            <div class="w-full px-2 mb-3 py-1">
-                                                <label>
-                                                    <p class="ml-1 mb-1">Nombre</p>
-                                                    <el-input placeholder="Nombre del Trabajador"
-                                                        v-model="search.nombre"></el-input>
-                                                </label>
-                                            </div>
-                                            <div class="w-full px-2 mb-3 py-1">
-                                                <label>
-                                                    <p class="ml-1 mb-1">Usuario</p>
-                                                    <el-input placeholder="Usuario del Trabajador"
-                                                        v-model="search.usuario"></el-input>
-                                                </label>
-                                            </div>
-                                            <div class="w-full px-2 mb-3 py-1">
-                                                <label>
-                                                    <p class="ml-1 mb-1">Especializacion</p>
-                                                    <el-input placeholder="Especializacion del Trabajador"
-                                                        v-model="search.especializacion"></el-input>
-                                                </label>
-                                            </div>
-                                            <div class="w-full px-2 mb-3 py-1">
-                                                <label>
-                                                    <p class="ml-1 mb-1">Fecha</p>
-                                                    <el-date-picker v-model="search.fecha" type="date"
-                                                        placeholder="Selecciona una fecha"></el-date-picker>
-                                                </label>
-                                            </div>
-                                            <div v-if="nivelesUsuario && nivelesUsuario.data" class="w-full px-2 mb-3 py-1">
-                                                <label>
-                                                    <p class="ml-1">Nivel / Rol</p>
-                                                    <el-select v-model="search.nivel" placeholder="Nivel del trabajador"
-                                                        class="w-full">
-                                                        <el-option label="Ninguno" :value="null"></el-option>
-                                                        <el-option v-for="item in nivelesUsuario.data"
-                                                            :key="item.id_nivel_usuario" :label="item.nombre_nivel_usuario"
-                                                            :value="item.id_nivel_usuario"></el-option>
-                                                    </el-select>
-                                                </label>
-                                            </div>
-                                             Fin del contenido 
-                                            -->
-                                        </div>
+                                       </div>
                                         <div>
                                             <button
                                                 class="w-full bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2"
@@ -176,7 +124,11 @@ export default {
         },
         openNewTab() {
             window.open(this.url, '_blank');
-        }
+        },
+        async pasarLote(lote){
+          console.log(lote)
+          this.$store.dispatch("obtenerInventario",lote-1)
+        },
     },
     computed: {
         inventario() {

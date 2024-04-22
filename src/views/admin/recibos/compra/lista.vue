@@ -77,6 +77,11 @@
                                 </template>
                             </el-table-column>
                         </el-table>
+                        <el-pagination class="text-center my-5"
+                          layout="prev, pager, next"
+                          @current-change="pasarLote"
+                          :total='compras.dataExtra'>
+                        </el-pagination>
                     </div>
 
                     <div v-else class=" w-1/2 sm:ml-32 md:ml-36 lg:ml-64 mb-20">
@@ -135,7 +140,11 @@ export default {
         },
         aplicarFiltro() {
             this.$store.dispatch('obtenerDetalleUsuario', this.search);
-        }
+        },
+        async pasarLote(lote){
+          console.log(lote)
+          this.$store.dispatch("obtenerListaCompra",lote-1)
+        },
     },
     computed: {
         // usuarios () {

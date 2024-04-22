@@ -58,7 +58,11 @@
 							</el-table-column>
 						</el-table>
 
-
+            <el-pagination class="text-center my-5"
+              layout="prev, pager, next"
+              @current-change="pasarLote"
+              :total='proveedores.dataExtra'>
+            </el-pagination>
 						<!-- Modales de busqueda-->
 						<el-drawer title="Busqueda Avanzada" :visible.sync="modal" direction="rtl"
 							:before-close="handleClose">
@@ -325,6 +329,10 @@ export default {
 			this.currentPage = val;
 			this.actualizarDatosTabla();
 		},
+    async pasarLote(lote){
+      console.log(lote)
+      this.$store.dispatch("obtenerListaDeProveedores",lote-1)
+    },
 		actualizarDatosTabla() {
 			this.$store.dispatch('getLoadingApp', true);
 			this.tableData = [];

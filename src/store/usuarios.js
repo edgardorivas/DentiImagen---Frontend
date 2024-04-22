@@ -96,7 +96,7 @@ export default {
           },
           data: payload,
         });
-        context.commit("setdetalleUsuarioId", resultado.data);
+        context.commit("setdetalleUsuarioId", resultado);
       } catch (error) {
         if (error.response) {
           Notification({

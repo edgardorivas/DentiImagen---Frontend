@@ -64,64 +64,12 @@
                             </el-table-column>
 
                         </el-table>
-                        <!-- Modales de busqueda
-                        <el-drawer title="Busqueda Avanzada" :visible.sync="modal" direction="rtl"
-                            :before-close="handleClose">
-                            <form class="h-full" @submit.prevent="aplicarFiltro">
-                                <div class="flex flex-col content-between justify-between h-full">
-                                    <div class="flex flex-col">
-                                         Contenido
-                                        <div class="w-full px-2 mb-3 py-1">
-                                            <label>
-                                                <p class="ml-1 mb-1">Nombre</p>
-                                                <el-input placeholder="Nombre del Trabajador"
-                                                    v-model="search.nombre"></el-input>
-                                            </label>
-                                        </div>
-                                        <div class="w-full px-2 mb-3 py-1">
-                                            <label>
-                                                <p class="ml-1 mb-1">Usuario</p>
-                                                <el-input placeholder="Usuario del Trabajador"
-                                                    v-model="search.usuario"></el-input>
-                                            </label>
-                                        </div>
-                                        <div class="w-full px-2 mb-3 py-1">
-                                            <label>
-                                                <p class="ml-1 mb-1">Especializacion</p>
-                                                <el-input placeholder="Especializacion del Trabajador"
-                                                    v-model="search.especializacion"></el-input>
-                                            </label>
-                                        </div>
-                                        <div class="w-full px-2 mb-3 py-1">
-                                            <label>
-                                                <p class="ml-1 mb-1">Fecha</p>
-                                                <el-date-picker v-model="search.fecha" type="date"
-                                                    placeholder="Selecciona una fecha"></el-date-picker>
-                                            </label>
-                                        </div>
-                                        <div v-if="nivelesUsuario && nivelesUsuario.data" class="w-full px-2 mb-3 py-1">
-                                            <label>
-                                                <p class="ml-1">Nivel / Rol</p>
-                                                <el-select v-model="search.nivel" placeholder="Nivel del trabajador"
-                                                    class="w-full">
-                                                    <el-option label="Ninguno" :value="null"></el-option>
-                                                    <el-option v-for="item in nivelesUsuario.data"
-                                                        :key="item.id_nivel_usuario" :label="item.nombre_nivel_usuario"
-                                                        :value="item.id_nivel_usuario"></el-option>
-                                                </el-select>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <button
-                                        class="w-full bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2"
-                                        type="submit">Buscar</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </el-drawer>
-                        Fin del contenido -->
-                    </div>
+                        <el-pagination class="text-center my-5"
+                          layout="prev, pager, next"
+                          @current-change="pasarLote"
+                          :total='Ventas.dataExtra'>
+                        </el-pagination>
+                      </div>
                     <div v-else class=" w-1/2 sm:ml-32 md:ml-36 lg:ml-64 mb-20">
 
                         <div class=" flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 " role="warning">
@@ -174,6 +122,10 @@ export default {
         },
         handleClose() {
             this.modal = false;
+        },
+        async pasarLote(lote){
+          console.log(lote)
+          this.$store.dispatch("obtenerListaVentas",lote-1)
         },
 
     },

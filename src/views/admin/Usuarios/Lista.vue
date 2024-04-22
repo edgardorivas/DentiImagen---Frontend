@@ -32,7 +32,7 @@
             </template>
 
             <el-table
-              :data="usuarios.data.filter(data => !search || data.nombre.toLowerCase().includes(search.toLowerCase()))"
+              :data="usuarios.data.data.filter(data => !search || data.nombre.toLowerCase().includes(search.toLowerCase()))"
               class="w-full p-10 text-sm">
               <el-table-column prop="usuario" label="Usuario">
                 <template slot-scope="scope">
@@ -65,6 +65,13 @@
                 </template>
               </el-table-column>
             </el-table>
+
+            <el-pagination class="text-center my-5"
+              layout="prev, pager, next"
+              @current-change="pasarLote"
+              :total='usuarios.data.dataExtra'>
+            </el-pagination>
+
             <!-- Modales de busqueda -->
             <el-drawer title="Busqueda Avanzada" :visible.sync="modal" direction="rtl" :before-close="handleClose">
               <form class="h-full" @submit.prevent="aplicarFiltro">
@@ -125,6 +132,7 @@
 </template>
 <script>
 import config from '../../../config';
+import axios from 'axios';
 export default {
   name: 'users-list',
   metaInfo: {
@@ -138,6 +146,7 @@ export default {
   data() {
     return {
       modal: false,
+      loteUsuarios: [],
       search: '',
       url: `http://localhost:3000/pdf/trabajadores`,
 
@@ -152,6 +161,9 @@ export default {
     },
     aplicarFiltro() {
       this.$store.dispatch('obtenerDetalleUsuario', this.search);
+    },
+    async pasarLote(lote){
+      this.$store.dispatch("obtenerDetalleUsuario",{lote:lote-1})
     },
     openNewTab() {
       window.open(this.url, '_blank');

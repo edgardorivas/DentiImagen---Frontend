@@ -43,14 +43,14 @@ export default {
 
     },
     actions: {
-        async obtenerListaVentas(context, payload = { id: String }) {
+        async obtenerListaVentas(context, payload = 0) {
             const token = localStorage.getItem('token_acess')
             context.dispatch('getLoadingApp', true);
             try {
                 const resultado = await axios({
                     method: 'GET',
                     baseURL: config.backend.baseURL,
-                    url: '/venta',
+                    url: `/venta?lote=${payload}`,
                     headers: {
                         ['auth-token']: token,
                     },
