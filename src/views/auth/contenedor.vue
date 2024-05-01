@@ -3,7 +3,7 @@
     <div class="flex justify-center" id="container-auth">
       <div class="flex flex-col">
         <div class="md:mt-40">
-          <div class="justify-center w-1/3 m-auto">
+          <div class="justify-center w-2/3 m-auto  ml-56">
             <img alt="Vue logo" width="300px" src="@/assets/logotipoEmpresa.png">
           </div>
           <router-view />

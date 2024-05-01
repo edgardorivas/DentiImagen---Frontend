@@ -96,7 +96,8 @@ export default {
           },
           data: payload,
         });
-        context.commit("setdetalleUsuarioId", resultado);
+        console.log(resultado.data)
+        context.commit("setdetalleUsuarioId", resultado.data);
       } catch (error) {
         if (error.response) {
           Notification({

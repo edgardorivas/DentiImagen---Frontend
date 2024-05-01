@@ -15,7 +15,7 @@
                     <div v-if="usuarioDetalle && usuarioDetalle.data">
                         <el-form label-position="top" :model="usuarioDetalle.data[0]" :rules="rules"  ref="editarUsuario" label-width="120px" class="demo-ruleForm">
                             <div class="flex flex-wrap justify-around">
-                                
+
                                 <div class="w-11/12">
                                     <el-divider>Datos del Trabajador</el-divider>
                                 </div>
@@ -54,7 +54,7 @@
                                         <el-form-item prop="correo">
                                             <el-input placeholder="Correo del trabajador" type="email" auto-complete="email" v-model="usuarioDetalle.data[0].correo"></el-input>
                                         </el-form-item>
-                                    
+
                                     </label>
                                 </div>
                                 <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
@@ -102,7 +102,7 @@
                                         <p class="ml-1">Confirmar Contraseña</p>
                                         <el-form-item prop="claveRecuperacion">
                                             <el-input type="password" placeholder="Contraseña del trabajador" minlength="8"
-                                                auto-complete="confirm-password" 
+                                                auto-complete="confirm-password"
                                                 v-model="usuarioDetalle.data[0].claveRecuperacion" show-password></el-input>
                                         </el-form-item>
                                     </label>
@@ -114,7 +114,7 @@
                                         <p class="ml-1">Nivel / Rol</p>
                                         <el-select disabled v-model="usuarioDetalle.data[0].rol"
                                             class="w-full">
-                                            <el-option  
+                                            <el-option
                                                 :label="usuarioDetalle.data[0].rol"
                                                 :value="usuarioDetalle.data[0].id_rol"></el-option>
                                         </el-select>
@@ -218,7 +218,7 @@
                                 <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                     <label>
                                         <p class="ml-1">Nombre de Usuario</p>
-                                        <el-input placeholder="Nombre de usuario del trabajador" 
+                                        <el-input placeholder="Nombre de usuario del trabajador"
                                             v-model="usuarioDetalle.data[0].usuario"></el-input>
                                     </label>
                                 </div>
@@ -270,7 +270,7 @@
                                     <label>
                                         <p class="ml-1">Confirmar Contraseña</p>
                                         <el-input type="password" placeholder="Contraseña del trabajador" minlength="8"
-                                            auto-complete="confirm-password" 
+                                            auto-complete="confirm-password"
                                             v-model="usuarioDetalle.data[0].claveRecuperacion" show-password></el-input>
                                     </label>
                                 </div>
@@ -281,7 +281,7 @@
                                         <p class="ml-1">Nivel / Rol</p>
                                         <el-select disabled v-model="usuarioDetalle.data[0].rol"
                                             class="w-full">
-                                            <el-option  
+                                            <el-option
                                                 :label="usuarioDetalle.data[0].rol"
                                                 :value="usuarioDetalle.data[0].id_rol"></el-option>
                                         </el-select>
@@ -434,14 +434,14 @@ export default {
             this.$refs['editarUsuario'].validate(async (valid) => {
                 if(valid){
                     try {
-                        if((typeof payload.clave !== 'undefined' || typeof payload.claveRecuperacion !== 'undefined') && 
+                        if((typeof payload.clave !== 'undefined' || typeof payload.claveRecuperacion !== 'undefined') &&
                         payload.clave != payload.claveRecuperacion){
-        
+
                             this.$message({
                                 message: 'La clave enviada no concuerdan',
                                 type: 'warning',
                             });
-        
+
                         }
                         else{
                             this.$store.dispatch('getLoadingApp', true);
@@ -464,8 +464,8 @@ export default {
                             });
                             this.$router.push({ path: '/admin/usuarios' });
                         }
-        
-        
+
+
                     } catch (error) {
                         if (error.response) {
                             this.$message({

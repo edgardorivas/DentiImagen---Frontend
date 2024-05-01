@@ -32,7 +32,7 @@
             </template>
 
             <el-table
-              :data="usuarios.data.data.filter(data => !search || data.nombre.toLowerCase().includes(search.toLowerCase()))"
+              :data="usuarios.data.filter(data => !search || data.nombre.toLowerCase().includes(search.toLowerCase()))"
               class="w-full p-10 text-sm">
               <el-table-column prop="usuario" label="Usuario">
                 <template slot-scope="scope">
@@ -69,7 +69,7 @@
             <el-pagination class="text-center my-5"
               layout="prev, pager, next"
               @current-change="pasarLote"
-              :total='usuarios.data.dataExtra'>
+              :total='usuarios.dataExtra'>
             </el-pagination>
 
             <!-- Modales de busqueda -->
