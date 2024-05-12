@@ -122,7 +122,12 @@ const routes = [
         name: 'Editar servicios',
         component: () => import('../views/admin/servicios/editar.vue'),
       },
-
+      // notificacion
+      {
+        path: "/admin/notificaciones",
+        name: 'Notificaciones',
+        component: () => import('../views/admin/notificacion/lista.vue'),
+      },
       //recibos de compra
       {
         path: "/admin/recibo/compra/agregar",

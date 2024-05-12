@@ -76,33 +76,36 @@
                     </div>
                 </div>
                 <!-- modal del nuevo material -->
-                <el-dialog title="Nuevo insumo" :visible.sync="centerDialogVisibleNuevoMaterial" width="30%" center>
+                <el-dialog title="Nuevo insumo" :visible.sync="centerDialogVisibleNuevoMaterial" width="%" center>
                     <div class="flex flex-wrap justify-around">
-                        <el-form label-position="top" class="w-full" :model="nuevoMaterial" :rules="rules"
+                        <el-form label-position="top" class="w-full flex flex-wrap" :model="nuevoMaterial" :rules="rules"
                             ref="registrarMaterial">
 
-                            <label>
+                            <label class="w-2/5 mx-5">
                                 <p class="ml-1">Nombre</p>
                                 <el-form-item prop="nombre">
                                     <el-input placeholder="Nombre del material" v-model="nuevoMaterial.nombre"></el-input>
                                 </el-form-item>
                             </label>
 
-                            <label>
-                                <p class="ml-1">Cantidad disponible</p>
-                                <el-form-item prop="cantidadD">
-                                    <el-input placeholder="Cantidad disponible" type="number"
-                                        v-model="nuevoMaterial.cantidadD"></el-input>
-                                </el-form-item>
-                            </label>
-                            <label>
-                                <p class="ml-1">Cantidad minima</p>
+                            <label class="w-2/5  mx-5">
+                                <p class="ml-1">Cantidad minima de unidades</p>
                                 <el-form-item prop="cantidadM">
-                                    <el-input placeholder="Cantidad minima" type="number"
+                                    <el-input placeholder="minima" type="number"
                                         v-model="nuevoMaterial.cantidadM"></el-input>
                                 </el-form-item>
                             </label>
-                            <label>
+
+                            <label class="w-2/5  mx-5">
+                                <p class="ml-1">Cantidad maxima de unidades</p>
+                                <el-form-item prop="cantidadMax">
+                                    <el-input placeholder="maximo" type="number"
+                                        v-model="nuevoMaterial.cantidadMax"></el-input>
+                                </el-form-item>
+                            </label>
+
+
+                            <label class="w-2/5  mx-5">
                                 <p class="ml-1">Descripcion</p>
                                 <el-form-item prop="descripcion">
                                     <el-input placeholder="Descripcion del material"
@@ -110,7 +113,7 @@
                                 </el-form-item>
                             </label>
 
-                            <label v-if="tipoMaterial && tipoMaterial.data">
+                            <label class="w-2/5  mx-5" v-if="tipoMaterial && tipoMaterial.data">
                                 <p class="ml-1">Tipo de material</p>
                                 <el-form-item prop="tipo_recurso">
                                     <el-select v-model="nuevoMaterial.tipo_recurso" placeholder="Tipo de materia"
@@ -120,13 +123,48 @@
                                     </el-select>
                                 </el-form-item>
                             </label>
-                            <label v-else class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
+
+                            <label  v-else class="w-2/5  mx-5 lg:w-2/5 px-2 mb-3 py-1">
                                 <el-alert title="No existen tipos de materiales" type="error" :closable=false
                                     description="Ingrese como minimo 1 tipo de material">
                                 </el-alert>
                             </label>
 
-                        </el-form>
+                            <label class="w-2/5  mx-5" v-if="estatusObservacion">
+                                <p class="ml-1">Cantidad disponible</p>
+                                <el-form-item >
+                                    <el-input placeholder="Cantidad disponible" type="number"
+                                        v-model="nuevoMaterial.cantidadD"></el-input>
+                                </el-form-item>
+                            </label>
+
+                            <label class="w-2/5  mx-5" v-if="estatusObservacion">
+                                <p class="ml-1">Unidad de medida</p>
+                                <el-select class="w-full" v-model="nuevoMaterial.tipoUnidades" placeholder="Unidades de medida">
+                                  <el-option
+                                    v-for="item in options"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value">
+                                  </el-option>
+                                </el-select>
+                            </label>
+
+                            <label class="w-2/5  mx-5" v-if="nuevoMaterial.tipoUnidades === 'caja' || nuevoMaterial.tipoUnidades === 'paquete' ">
+                                <p class="ml-1">cuantas unidades tiene el paquete/caja</p>
+                                <el-form-item >
+                                    <el-input placeholder="Cantidad disponible" type="number"
+                                        v-model="nuevoMaterial.unidadesCaja"></el-input>
+                                </el-form-item>
+                            </label>
+
+
+
+                          </el-form>
+                          <el-button type="text" v-if="!estatusObservacion" @click="estatusObservacion = true">
+                            Agregar la cantidad de unidades disponibles
+                          </el-button>
+                          <el-button v-else type="text" @click="observacionesEstado">Quitar las unidades disponibles</el-button>
                     </div>
 
                     <div slot="footer" class="dialog-footer flex flex-wrap justify-around">
@@ -161,13 +199,29 @@ export default {
     },
     data() {
         return {
+            estatusObservacion: false,
             nuevoMaterial: {
                 nombre: '',
                 descripcion: '',
-                cantidadD: '',
-                cantidadM: '',
+                cantidadD: 0,
+                cantidadMax: '',
+                cantidadM: "5",
                 tipo_recurso: '',
+                tipoUnidades: '',
+                unidadesCaja: 0
             },
+            options: [
+              {
+                value: 'caja',
+                label: 'caja'
+              }, {
+                value: 'unidad',
+                label: 'unidad'
+              },{
+                value: 'paquete',
+                label: 'paquete'
+              }
+            ],
             centerDialogVisibleNuevoMaterial: false,
             modal: false,
             search: "",
@@ -186,7 +240,10 @@ export default {
                 ],
                 cantidadM: [
                     { required: true, message: 'Es necesario ingresar la cantidad minima permitida', trigger: 'change' },
-                    { min: 1, message: 'La cantidad minima permitida tiene que tener como minimo un digito', trigger: 'change' }
+                ],
+                cantidadMax: [
+                    { required: true, message: 'Es necesario ingresar la cantidad maxima permitida', trigger: 'change' },
+                    { max: 9999, message: 'La cantidad sobrepasa el maximo permitido', trigger: 'change' }
                 ],
                 tipo_recurso: [
                     { required: true, message: 'Es obligatorio seleccionar un tipo de material', trigger: 'change', }
@@ -197,6 +254,10 @@ export default {
         }
     },
     methods: {
+      observacionesEstado() {
+            this.nuevoMaterial.tipoUnidades = '';
+            this.estatusObservacion = false;
+        },
         parseDate(date) {
             return new Date(date).toLocaleString();
         },
@@ -207,9 +268,15 @@ export default {
             this.centerDialogVisibleNuevoMaterial = true;
         },
         async registroMaterial() {
+            /* eslint-disable */
             this.$refs['registrarMaterial'].validate(async (valid) => {
                 if (valid) {
                     try {
+                        if (this.nuevoMaterial.tipoUnidades === 'caja' || this.nuevoMaterial.tipoUnidades === 'paquete') {
+                            this.nuevoMaterial.cantidadD = this.nuevoMaterial.cantidadD * this.nuevoMaterial.unidadesCaja;
+                        }
+                        console.log("=========unidades===========");
+                        console.log({disponible: this.nuevoMaterial.cantidadD});
                         this.$store.dispatch('getLoadingApp', true);
                         this.loading = true;
                         const token = localStorage.getItem('token_acess');
@@ -222,6 +289,7 @@ export default {
                             },
                             data: this.nuevoMaterial
                         });
+
                         this.$store.dispatch('getLoadingApp', false);
                         this.loading = false;
                         this.$message({
@@ -246,7 +314,6 @@ export default {
                         }
                         this.$store.dispatch('getLoadingApp', false);
                         this.loading = false;
-                        console.clear()
                     }
                 }
             });

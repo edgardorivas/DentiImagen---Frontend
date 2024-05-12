@@ -14,6 +14,7 @@ import presupuestos from './presupuestos';
 import servicios from './servicios';
 import configuraciones from './configuraciones';
 import estadisticas from './estadisticas';
+import notificaciones from './notificaciones';
 
 Vue.use(Vuex)
 
@@ -34,6 +35,7 @@ export default new Vuex.Store({
     proveedores,
     materialesProveedor,
     inventario,
+    notificaciones,
     pacientes,
     presupuestos,
     venta,

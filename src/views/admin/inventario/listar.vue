@@ -28,15 +28,17 @@
                                     <el-input v-model="search" class="h-1/6 w-2/12 ml-10" placeholder="Buscar" />
                                 </template>
 
-                                <el-table class="p-10 "
+                                <el-table class="p-10 " :row-class-name="tableRowClassName"
                                     :data="inventario.data.filter(data => !search || data.nombre.toLowerCase().includes(search.toLowerCase()))"
                                     style="width: 100%">
 
                                     <el-table-column prop="nombre" label="Nombres"></el-table-column>
                                     <el-table-column prop="tipo" label="Tipo de material"></el-table-column>
-                                    <el-table-column prop="minimo" label="Cantidad Minima"></el-table-column>
-                                    <el-table-column prop="disponible" label="Cantidad Disponible"></el-table-column>
+                                    <el-table-column prop="minimo" label="Minimo de unidades"></el-table-column>
+                                    <el-table-column prop="disponible" label="Unidades disponibles"></el-table-column>
+                                    <el-table-column prop="maximo" label="Maximo de unidades"></el-table-column>
                                 </el-table>
+
                                 <el-pagination class="text-center my-5"
                                   layout="prev, pager, next"
                                   @current-change="pasarLote"
@@ -98,6 +100,7 @@ export default {
     data() {
         return {
             modal: false,
+            bloqueado: false,
             search: '',
             /*
                 search: {
@@ -129,6 +132,29 @@ export default {
           console.log(lote)
           this.$store.dispatch("obtenerInventario",lote-1)
         },
+        tableRowClassName({row, rowIndex}) {
+          console.log('====================')
+          console.log({row})
+          console.log({rowIndex})
+          const resta = row.disponible - row.minimo
+          if(resta <= 10 && resta >= 8 ){
+            return 'warning-row';
+
+          }
+          if(resta <= 7 && resta >= 4){
+            return 'naranja-row';
+
+          }
+          if(resta <= 3 && resta >= 1){
+            return 'red-row';
+
+          }
+          if(resta <=0){
+            return 'nada-row';
+          }
+
+        return 'blue-row';
+      }
     },
     computed: {
         inventario() {
@@ -142,4 +168,22 @@ export default {
 .el-date-editor {
     width: 100% !important;
 }
+.el-table .warning-row {
+    background: rgb(237, 230, 218);
+  }
+.el-table .blue-row {
+    background: rgb(215, 243, 228);
+  }
+
+  .el-table .red-row {
+    background: #fa6e6e;
+    color: #ffffff;
+  }
+
+  .el-table .naranja-row {
+    background: #ffc07d;
+  }
+  .el-table .nada-row {
+    background: #cfcfcf;
+  }
 </style>

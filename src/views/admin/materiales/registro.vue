@@ -81,62 +81,7 @@
                                 class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">Guardar</button>
                         </div>
                     </el-form>
-
-                    <!-- <form @submit.prevent="registroMaterial">
-
-                        <div class="flex flex-wrap justify-around">
-                            <div class="w-11/12">
-                                <el-divider>Datos del Material</el-divider>
-                            </div>
-                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                <label>
-                                    <p class="ml-1">Nombre</p>
-                                    <el-input placeholder="Nombre del material" auto-complete="name"
-                                        v-model="nuevoMaterial.nombre"></el-input>
-                                </label>
-                            </div>
-                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                <label>
-                                    <p class="ml-1">Descripcion</p>
-                                    <el-input placeholder="Descripcion del material" auto-complete="family-name"
-                                        v-model="nuevoMaterial.descripcion"></el-input>
-                                </label>
-                            </div>
-                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                <label>
-                                    <p class="ml-1">Cantidad disponible</p>
-                                    <el-input placeholder="Cantidad disponible" type="number" auto-complete="number"
-                                        v-model="nuevoMaterial.cantidadD"></el-input>
-                                </label>
-                            </div>
-                            <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                <label>
-                                    <p class="ml-1">Cantidad minima</p>
-                                    <el-input placeholder="Cantidad minima" type="number" auto-complete="tel"
-                                        v-model="nuevoMaterial.cantidadM"></el-input>
-                                </label>
-                            </div>
-
-                            <div v-if="tipoMaterial && tipoMaterial.data" class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                <label>
-                                    <p class="ml-1">Tipo</p>
-                                    <el-select v-model="nuevoMaterial.tipo_recurso" placeholder="Tipo de materia"
-                                        class="w-full">
-                                        <el-option v-for="item in tipoMaterial.data" :key="item.id_tipo_recurso"
-                                            :label="item.nombre_tipo_recurso" :value="item.id_tipo_recurso"></el-option>
-                                    </el-select>
-                                </label>
-                            </div>
-
-                        </div>
-                        <br>
-                        <div class="flex flex-wrap justify-around">
-                            <button :disabled="loading"
-                                class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">Guardar</button>
-                        </div>
-
-                    </form> -->
-                </div>
+              </div>
             </div>
         </div>
     </div>
@@ -160,7 +105,7 @@ export default {
                 nombre: '',
                 descripcion: '',
                 cantidadD: '',
-                cantidadM: '',
+                cantidadM: 5,
                 tipo_recurso: '',
             },
             rules: {
@@ -178,12 +123,12 @@ export default {
                 ],
                 cantidadM: [
                     { required: true, message: 'Es necesario ingresar la cantidad minima permitida', trigger: 'change' },
-                    { min: 1,  message: 'La cantidad minima permitida tiene que tener como minimo un digito', trigger: 'change' }
+                    { min: 5,  message: 'La cantidad minima permitida tiene que tener como minimo un digito', trigger: 'change' }
                 ],
                 tipo_recurso: [
                     { required: true, message: 'Es obligatorio seleccionar un tipo de material', trigger: 'change',}
                 ],
-                
+
             },
             loading: false,
         }
@@ -211,7 +156,14 @@ export default {
                             message: 'Registrado Exitosamente',
                             type: 'success',
                         });
-                        this.$router.push({ path: '/admin/materiales' });
+                        this.nuevoMaterial ={
+                          nombre: '',
+                          descripcion: '',
+                          cantidadD: '',
+                          cantidadM: 5,
+                          tipo_recurso: '',
+                        }
+                        // this.$router.push({ path: '/admin/materiales' });
                     } catch (error) {
                         if (error.response) {
                             this.$message({
@@ -241,4 +193,3 @@ export default {
     }
 };
 </script>
-  

@@ -106,7 +106,7 @@
                                 <p class="px-2 mb-3 text-center">Seleccione los materiales </p>
                                 <div v-if="materiales" class="w-full md:w-1/2 lg:w-3/12 px-2 mb-3 py-1">
                                     <label>
-                                        <el-select v-model="nuevosItems.materiales"  multiple placeholder="Materiales disponibles" class="w-96 ml-24">
+                                        <el-select v-model="nuevosItems.materiales"  multiple placeholder="Materiales disponibles" class="w-60 ml-24">
                                             <el-option v-for="item in materiales" :key="item.id" :label="item.nombre"  :value="item.id"></el-option>
                                         </el-select>
                                     </label>
@@ -280,7 +280,9 @@ export default {
                 this.$store.dispatch('getLoadingApp', false);
                 this.loading = false;
                 this.$store.dispatch('obtenerRecursosProveedor', { id: this.$route.params.ID });
-
+                this.nuevosItems = {
+                  materiales:[]
+                }
 
                 this.centerDialogVisible = false
                 this.$message({
@@ -307,6 +309,8 @@ export default {
         },
         async eliminarAsociacionItemProveedor(idProveedor,indiceArray,arrayMateriales){
             let idMaterial= arrayMateriales[indiceArray].id_recurso
+            console.log("entro en la data===========")
+            console.log({idMaterial})
             try {
                 if(this.materialesProveedor.data.length <= 1){
                     throw new Error("El proveedor tiene que tener como minimo un material asociado")
@@ -314,6 +318,8 @@ export default {
                 this.$store.dispatch('getLoadingApp', true);
                 this.loading = true;
                 const token = localStorage.getItem('token_acess');
+                console.log("entro en la data==22=========")
+            console.log({idMaterial,idProveedor})
                 const request = await axios({
                     method: 'PATCH',
                     baseURL: config.backend.baseURL,
@@ -332,7 +338,9 @@ export default {
                     message: 'Eliminacion exitosa',
                     type: 'success',
                 });
-
+                this.nuevosItems = {
+                materiales:[]
+            }
             } catch (error) {
                 if (error.response) {
                     this.$message({
@@ -360,12 +368,6 @@ export default {
         openNewTab() {
             window.open(this.url, '_blank');
         }
-        // mostrarMaterialesProveedor() {
-        //     this.materialesProveedor =  this.$store.getters.getRecursosProveedor;
-        //     // return this.$store.getters.getRecursosProveedor;
-        // },
-
-
 
     },
     computed: {
