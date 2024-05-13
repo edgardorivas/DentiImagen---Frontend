@@ -5,7 +5,8 @@ import { Notification } from 'element-ui'
 export default {
     state: {
         servicios: [],
-        servicioEspecifico:[]
+        servicioEspecifico:[],
+        servicioInsumoEspecifico:[]
     },
     mutations: {
         setServicios: (state, value) => {
@@ -14,6 +15,9 @@ export default {
         setServicioEspecifico: (state, value) => {
             state.servicioEspecifico = value
         },
+        setServicioInsumoEspecifico: (state, value) => {
+            state.servicioInsumoEspecifico = value
+        },
     },
     getters: {
         getServicios: (state) => {
@@ -21,6 +25,9 @@ export default {
         },
         getServicioEspecifico: (state) => {
             return state.servicioEspecifico
+        },
+        getServicioInsumoEspecifico: (state) => {
+            return state.servicioInsumoEspecifico
         },
     },
     actions: {
@@ -59,6 +66,7 @@ export default {
             }
             context.dispatch('getLoadingApp', false);
         },
+
         async obtenerServiciosEspecifico(context, payload = { id: String }) {
             const token = localStorage.getItem('token_acess')
             context.dispatch('getLoadingApp', true);
@@ -91,6 +99,42 @@ export default {
                     })
                 }
                 context.commit('setServicioEspecifico', [])
+            }
+            context.dispatch('getLoadingApp', false);
+        },
+
+        async obtenerServiciosMaterialesEspecifico(context, payload = { id: String }) {
+            const token = localStorage.getItem('token_acess')
+            context.dispatch('getLoadingApp', true);
+            try {
+                const resultado = await axios({
+                    method: 'GET',
+                    baseURL: config.backend.baseURL,
+                    url: `/servicios-recurso/mostrar/${payload.id}`,
+                    headers: {
+                        ['auth-token']: token,
+                    }
+                });
+
+                context.commit('setServicioInsumoEspecifico', resultado.data)
+            } catch (error) {
+                if (error.response) {
+                    context.dispatch('getLoadingApp', false);
+
+                    return false
+                    /*Notification({
+                      title: config.frontend.title,
+                      message: error.response.data.mensaje,
+                      type: 'warning'
+                    })*/
+                } else {
+                    Notification({
+                        title: config.frontend.title,
+                        message: 'Error al acceder a internet',
+                        type: 'error'
+                    })
+                }
+                context.commit('setServicioInsumoEspecifico', [])
             }
             context.dispatch('getLoadingApp', false);
         },
