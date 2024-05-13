@@ -543,11 +543,11 @@
                                     <el-menu-item-group>
                                         <el-menu-item index="1-1">
                                             <li class="items-center">
-                                                <router-link to="/admin/servicios/agregar"
+                                                <router-link to="/admin/servicios/asociar"
                                                     class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
                                                     exact-active-class="text-emerald-500 hover:text-emerald-600">
                                                     <i class="fa-solid fa-hospital-user mr-2 text-sm text-gray-400"></i>
-                                                    Nuevo Servicio
+                                                    Asociar insumos
                                                 </router-link>
                                             </li>
                                         </el-menu-item>

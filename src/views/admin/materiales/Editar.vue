@@ -100,77 +100,7 @@
                             </div>
                         </el-form>
 
-                        <!-- <form @submit.prevent="modificarMaterial(materialDetalles.data[0])">
-                            <div class="flex flex-wrap justify-around">
-                                <div class="w-11/12">
-                                    <el-divider>Datos de la materia</el-divider>
-                                </div>
-                                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                    <label>
-                                        <p class="ml-1">Nombres</p>
-                                        <el-input placeholder="Nombres de la materia" type="text" auto-complete="name"
-                                            v-model="materialDetalles.data[0].nombre"></el-input>
-                                    </label>
-                                </div>
-                                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                    <label>
-                                        <p class="ml-1">Descripcion</p>
-                                        <el-input placeholder="Descripcion del material" type="text"
-                                            auto-complete="family-name"
-                                            v-model="materialDetalles.data[0].descripcion"></el-input>
-                                    </label>
-                                </div>
 
-                                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                    <label>
-                                        <p class="ml-1">Cantidad disponible</p>
-                                        <el-input placeholder="Cantidad disponible del material" type="number"
-                                            auto-complete="family-name"
-                                            v-model="materialDetalles.data[0].disponible"></el-input>
-                                    </label>
-                                </div>
-
-                                <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                    <label>
-                                        <p class="ml-1">cantidad minima</p>
-                                        <el-input placeholder="cantidad minima del material" type="number"
-                                            auto-complete="family-name"
-                                            v-model="materialDetalles.data[0].minimo"></el-input>
-                                    </label>
-                                </div>
-
-                                <div v-if="tipoMaterial && tipoMaterial.data"
-                                    class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
-                                    <label>
-                                        <p class="ml-1">Tipo</p>
-                                        <el-select v-model="materialDetalles.data[0].tipo_recurso"  class="w-full">
-                                            <el-option
-                                                v-for="item in tipoMaterial.data" :key="item.id_tipo_recurso"
-                                                :selected="materialDetalles.data[0].id_tipo_recurso == item.id_tipo_recurso"
-                                                :label="item.nombre_tipo_recurso" :value="item.id_tipo_recurso"></el-option>
-                                        </el-select>
-                                    </label>
-                                </div>
-                                <div v-else>
-                                    <h3 class="mb-3 ml-3">No existen tipos de materiales</h3>
-                                </div>
-
-                            </div>
-                            <br>
-                            <div class="flex flex-wrap justify-around">
-                                <el-popconfirm confirm-button-text='Si, Eliminar' confirm-button-type="danger"
-                                    cancel-button-text='No, Cancelar' icon="el-icon-info" icon-color="red"
-                                    :title="`Estas seguro de eliminar el material ${materialDetalles.data[0].nombre}?`"
-                                    class="w-full md:w-1/3" @confirm="eliminarMaterial(materialDetalles.data[0])">
-                                    <button slot="reference" :disabled="loading"
-                                        class="w-full bg-red-600 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
-                                        type="button">Eliminar</button>
-                                </el-popconfirm>
-                                <button :disabled="loading"
-                                    class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
-                                    type="submit">Guardar</button>
-                            </div>
-                        </form> -->
                     </div>
                 </div>
             </div>
@@ -314,4 +244,3 @@ export default {
     background-color: #dc2626;
 }
 </style>
-  

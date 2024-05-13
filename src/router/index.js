@@ -113,9 +113,9 @@ const routes = [
         component: () => import('../views/admin/servicios/listar.vue'),
       },
       {
-        path: "/admin/servicios/agregar",
-        name: 'Agregar Servicios',
-        component: () => import('../views/admin/servicios/registrar.vue'),
+        path: "/admin/servicios/asociar",
+        name: 'Asociar insumos con el servicio',
+        component: () => import('../views/admin/servicios/asociarServicioInsumo.vue'),
       },
       {
         path: "/admin/servicios/:ID",

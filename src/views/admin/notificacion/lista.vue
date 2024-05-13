@@ -22,7 +22,7 @@
 							:data="notificacionesD.data.filter(data => !search || data.nombre_recurso.toLowerCase().includes(search.toLowerCase()))"
 							class="w-full p-10">
 							<el-table-column type="expand" :row-click="searchProvedor(props)"  >
-                <template slot-scope="props" >
+                <template slot-scope="props">
                   <div class="mx-20">
                     <p class="p-1" v-for="item in props.row.objetosSegundoArray" :key="item.id_provedor">
                       Proveedor: {{item.nombre_proveedor}}, Correo: {{item.correo_proveedor}}, Telefono: {{item.telefono_proveedor}}
@@ -32,9 +32,9 @@
 							</el-table-column>
 							<el-table-column prop="nombre_recurso" label="Insumo" >
 							</el-table-column>
-							<el-table-column prop="cantidad_minima" label="Minimo"></el-table-column>
-							<el-table-column prop="cantidad_disponible" label="Disponible"></el-table-column>
-							<el-table-column prop="cantidad_maxima" label="Maximo">
+							<el-table-column prop="cantidad_minima" label="Unidades minimas"></el-table-column>
+							<el-table-column prop="cantidad_disponible" label="Unidades disponibles"></el-table-column>
+							<el-table-column prop="cantidad_maxima" label="Unidades maximas">
 							</el-table-column>
 						</el-table>
 

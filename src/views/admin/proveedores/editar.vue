@@ -78,7 +78,6 @@
                                             <el-table-column prop="id_recurso" label="Id"></el-table-column>
                                             <el-table-column prop="nombre_recurso" label="Material"></el-table-column>
                                             <el-table-column prop="descripcion_recurso" label="Descripcion"></el-table-column>
-
                                             <el-table-column fixed="right" label="Operaciones" width="170">
                                                 <template slot-scope="scope">
                                                     <el-popconfirm confirm-button-text='Si, Eliminar' confirm-button-type="danger"
@@ -92,11 +91,8 @@
                                                     </el-popconfirm>
                                                 </template>
                                             </el-table-column>
-
                                         </el-table>
                                     </div>
-
-
                                 </div>
                             </div>
                             <br>
