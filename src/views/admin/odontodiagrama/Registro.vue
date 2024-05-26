@@ -415,14 +415,16 @@
                         <div class="h-full" v-if="diente">
                             <div class="flex flex-col content-between justify-between h-full">
                                 <div class="flex flex-col overflow-y-auto">
-                                    <div class="w-full px-2 mb-3 py-1">
+
+                                    <div class="w-full px-2 mb-3 py-1" v-if="(diente.sano && !diente.ausente) || !diente.sano">
                                         <label>
                                             <p class="ml-1 mb-1">Diente Sano</p>
                                             <el-switch class="ml-3" v-model="diente.sano" active-text="SI" active-color="#13ce66"  inactive-text="NO"
                                                 inactive-color="#ff4949"></el-switch>
                                         </label>
                                     </div>
-                                    <div class="w-full px-2 mb-3 py-1">
+
+                                    <div class="w-full px-2 mb-3 py-1" v-if="(diente.sano && !diente.ausente) ||  diente.ausente">
                                         <label>
                                             <p class="ml-1 mb-1">Diente Ausente</p>
                                             <el-switch class="ml-3" v-model="diente.ausente" active-text="SI" active-color="#13ce66"  inactive-text="NO"
@@ -439,7 +441,7 @@
                                         </label>
                                     </div>
 
-                                    <div class="w-full px-2 mb-3 py-1">
+                                    <div class="w-full px-2 mb-3 py-1" v-if="(diente.sano && !diente.ausente) || !diente.sano">
                                         <label>
                                             <p class="ml-1 mb-1">Afecciones / Problematica del Diente</p>
                                             <button @click="diente.afecciones.unshift(getNewAfeccion())"

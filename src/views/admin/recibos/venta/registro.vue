@@ -19,7 +19,6 @@
                         <el-step title="Vista previa"></el-step>
                     </el-steps>
                 </div>
-
                 <div class="flex justify-center w-full sm:px-5 md:px-20 lg:px-36">
                     <form >
 
@@ -90,13 +89,13 @@
 
                         <div v-if="active == 2" class="my-10 flex flex-wrap justify-around  ">
 
-                            <div v-if="servicios && servicios.data" class=" md:w-1/2 lg:w-3/6 px-2 mb-3 py-1">
+                            <div v-if="serviciosInsumo && serviciosInsumo.data" class=" md:w-1/2 lg:w-3/6 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Servicios</p>
                                     <el-select v-model="serviciosIngresados.idServicio"
                                         placeholder="Seleccione el Odontologo" class="w-full">
-                                        <el-option v-for="servicio in servicios.data" :key="servicio.id_servicio"
-                                            :label="servicio.nombre_servicio" :value="servicio.id_servicio">
+                                        <el-option v-for="servicio in serviciosInsumo.data" :key="servicio.idServicio"
+                                            :label="servicio.nombre" :value="servicio.idServicio">
                                         </el-option>
                                     </el-select>
                                 </label>
@@ -118,16 +117,31 @@
                                 </button>
                             </div>
 
-
-
                             <!-- Se agrega la tabla para los items -->
-                            <div v-if="datosServicioTabla.length" style="width: 750px;" class="w-12/12 mt-10  m-0 p-0">
+                            <div v-if="datosServicioTabla.length" style="width: 950px;" class="w-12/12 mt-10  m-0 p-0">
                                 <div class="w-12/12">
                                     <el-divider>Servicios aplicados</el-divider>
                                 </div>
-
                                 <!-- tabla -->
                                 <el-table :data="datosVenta.servicios" class="w-full mt-10 ">
+
+                                    <el-table-column type="expand" >
+                                      <template slot-scope="scope">
+                                        <div class="mx-20" v-for="item in serviciosInsumo.data" :key="item.id_servicio">
+
+                                          <div v-if="item.idServicio == scope.row.idServicio" class="flex flex-wrap justify-around">
+                                            <label v-for="insumo in item.consumible" :key="insumo.idRecurso" class="w-3/12 pr-5" >
+                                              <p class="ml-1">{{ insumo.nombre }}</p>
+                                              <el-input :placeholder="insumo.necesarios" :input="searchProvedor(insumo.idRecurso,insumo.necesarios)"  type="text"
+                                                  ></el-input>
+                                            </label>
+
+                                          </div>
+
+                                        </div>
+                                    </template>
+
+                                    </el-table-column>
                                     <el-table-column prop="idServicio" label="Id"></el-table-column>
                                     <el-table-column prop="nombre_servicio" label="Servicio"></el-table-column>
 
@@ -406,12 +420,12 @@
 
 
                         <div class="flex flex-wrap justify-around my-5">
-                            <button type="button"
+                            <button type="button" v-if="active > 1"
                                 class="w-full bg-none md:w-1/3  text-verdiAnderson transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
                                 @click="prev">
                                 Anterior
                             </button>
-                            <button type="button"
+                            <button type="button" v-if="active < 4"
                                 class="w-full bg-none md:w-1/3  text-verdiAnderson transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
                                 @click="next">
                                 Siguiente
@@ -419,7 +433,7 @@
                         </div>
 
                     </form>
-                    <!-- Modal para agregar Servicio -->
+                    <!-- Modal para agregar los materiales -->
                     <el-dialog title="Agregar los datos de los materiales" :visible.sync="centerDialogVisible" width="30%"
                         center>
                         <div class="flex flex-wrap justify-around">
@@ -509,10 +523,12 @@ export default {
         this.$store.dispatch("obtenerListaDeUsuarios");
         this.$store.dispatch("obtenerListaDePacientes");
         this.$store.dispatch("obtenerPrecioDolarBaseDatos");
+        this.$store.dispatch("obtenerServiciosMateriales");
     },
     data() {
         return {
             activeName: '1',
+            dataInsumo: null,
             aviso: true,
             active: 1,
             datosVenta: {
@@ -546,6 +562,26 @@ export default {
         };
     },
     methods: {
+      async searchProvedor(row,data){
+      try {
+        console.log("===================")
+        console.log({row,data})
+      } catch (error) {
+        if (error.response) {
+							this.$message({
+								message: error.response.data.mensaje || 'Sin mensaje del servidor',
+								type: 'error',
+							});
+						} else {
+							this.$message({
+								message: 'No estas conectado a internet.',
+								type: 'error'
+							});
+						}
+						this.$store.dispatch('getLoadingApp', false);
+						this.loading = false;
+      }
+    },
         valorDolar() {
             this.centerDialogVisibleDolar = true
 
@@ -632,11 +668,13 @@ export default {
                 });
                 return false;
             }
-            const servicio = this.servicios.data.filter(item => item.id_servicio == datos.idServicio)[0];
-            datos.costoServicio = servicio.costo_dolares
-            datos['nombre_servicio'] = servicio['nombre_servicio'];
+
+            const servicio = this.serviciosInsumo.data.filter(item => item.idServicio == datos.idServicio)[0];
+            datos.costoServicio = servicio.costo
+            datos['nombre_servicio'] = servicio['nombre'];
 
             this.datosVenta.servicios.push(Object.assign({}, datos));
+
             this.serviciosIngresados = {
                 idServicio: null,
                 costoServicio: 1,
@@ -790,6 +828,9 @@ export default {
         },
         servicios() {
             return this.$store.getters.getListaServicios;
+        },
+        serviciosInsumo() {
+            return this.$store.getters.getServicioInsumo;
         },
         precioDolarBaseDatos() {
             return this.$store.getters.getPrecioDolarFecha;

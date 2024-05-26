@@ -506,33 +506,37 @@
                                     <div class="h-full" v-if="diente">
                                         <div class="flex flex-col content-between justify-between h-full">
                                             <div class="flex flex-col overflow-y-auto">
-                                                <div class="w-full px-2 mb-3 py-1">
+
+                                                <div class="w-full px-2 mb-3 py-1" v-if="!diente.ausente">
                                                     <label>
-                                                        <p class="ml-1 mb-1">Diente Sano / Finalizado?</p>
-                                                        <el-switch class="ml-3" v-model="diente.sano" active-color="#13ce66"
+                                                        <p class="ml-1 mb-1">Afeccion / Diente Sano</p>
+                                                        <el-switch disabled  class="ml-3" v-model="diente.sano" active-color="#13ce66"
                                                             inactive-color="#ff4949"></el-switch>
                                                     </label>
                                                 </div>
-                                                <div class="w-full px-2 mb-3 py-1">
+
+                                                <div class="w-full px-2 mb-3 py-1" v-else>
                                                     <label>
                                                         <p class="ml-1 mb-1">Diente Ausente?</p>
-                                                        <el-switch class="ml-3" v-model="diente.ausente"
+                                                        <el-switch disabled class="ml-3" v-model="diente.ausente"
                                                             active-color="#13ce66" inactive-color="#ff4949"></el-switch>
                                                     </label>
                                                 </div>
+
                                                 <div class=" mb-2">
                                                     <label>
                                                         <p class="ml-1 mb-1">Observacion general</p>
-                                                        <el-input type="textarea" :rows="2"
+                                                        <el-input type="textarea" :rows="2" :disabled="true"
                                                             placeholder="Observacion del diente"
                                                             v-model="diente.observacionGeneral">
                                                         </el-input>
                                                     </label>
                                                 </div>
+
                                                 <div class="w-full px-2 mb-3 py-1">
                                                     <label>
                                                         <p class="ml-1 mb-1">Afecciones / Problematica del Diente</p>
-                                                        <button @click="diente.afecciones.unshift(getNewAfeccion())"
+                                                        <button @click="diente.afecciones.unshift(getNewAfeccion())" disabled
                                                             class="px-2 py-1 uppercase border border-verdiAnderson bg-verdiAnderson text-white rounded-sm">+
                                                             Agregar Afección</button>
                                                     </label>
@@ -544,14 +548,14 @@
                                                             <p class="ml-1 mb-1">Afección: <small>{{ afeccion.nombre || `Sin
                                                                     Titulo`
                                                             }}</small></p>
-                                                            <el-input placeholder="Nombre de la afeccion"
+                                                            <el-input placeholder="Nombre de la afeccion" :disabled="true"
                                                                 v-model="afeccion.nombre"></el-input>
                                                         </label>
                                                     </div>
                                                     <div class="mb-2">
                                                         <label>
                                                             <p class="ml-1 mb-1">Descripción</p>
-                                                            <el-input type="textarea" :rows="2"
+                                                            <el-input type="textarea" :rows="2" :disabled="true"
                                                                 placeholder="Informacion relevante sobre el diente que estas analizando"
                                                                 v-model="afeccion.descripcion">
                                                             </el-input>
@@ -560,13 +564,13 @@
                                                     <div class="mb-2">
                                                         <label>
                                                             <p class="ml-1 mb-1">Completado</p>
-                                                            <el-switch class="ml-3" v-model="afeccion.completado"
+                                                            <el-switch disabled class="ml-3" v-model="afeccion.completado"
                                                                 active-color="#13ce66" active-text="SI"
                                                                 inactive-color="#ff4949" inactive-text="NO"></el-switch>
                                                         </label>
                                                     </div>
                                                     <div class="flex justify-end">
-                                                        <button class="text-red-500 uppercase"
+                                                        <button class="text-red-500 uppercase" disabled
                                                             @click="eliminarAfeccion(diente.afecciones, index)"> <i
                                                                 class="fa-solid fa-xmark"></i> Eliminar</button>
                                                     </div>
@@ -584,7 +588,7 @@
                             <br>
                             <br>
 
-                            <div v-if="odontodiagramaPaciente && odontodiagramaPaciente.length"
+                            <div v-if="odontodiagramaPaciente.length > 1"
                                 class="flex flex-wrap justify-around">
                                 <button type="button" @click="anterior"
                                     class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md">

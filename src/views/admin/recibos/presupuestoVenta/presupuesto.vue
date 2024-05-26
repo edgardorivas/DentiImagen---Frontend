@@ -348,12 +348,12 @@
 
 
                         <div class="flex flex-wrap justify-around my-5">
-                            <button type="button"
+                            <button type="button" v-if="active > 1"
                                 class="w-full bg-none md:w-1/3  text-verdiAnderson transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
                                 @click="prev">
                                 Anterior
                             </button>
-                            <button type="button"
+                            <button type="button" v-if="active < 3"
                                 class="w-full bg-none md:w-1/3  text-verdiAnderson transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
                                 @click="next">
                                 Siguiente

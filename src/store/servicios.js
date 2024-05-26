@@ -6,7 +6,8 @@ export default {
     state: {
         servicios: [],
         servicioEspecifico:[],
-        servicioInsumoEspecifico:[]
+        servicioInsumoEspecifico:[],
+        servicioInsumo:[]
     },
     mutations: {
         setServicios: (state, value) => {
@@ -18,6 +19,9 @@ export default {
         setServicioInsumoEspecifico: (state, value) => {
             state.servicioInsumoEspecifico = value
         },
+        setServicioInsumo: (state, value) => {
+            state.servicioInsumo = value
+        },
     },
     getters: {
         getServicios: (state) => {
@@ -28,6 +32,9 @@ export default {
         },
         getServicioInsumoEspecifico: (state) => {
             return state.servicioInsumoEspecifico
+        },
+        getServicioInsumo: (state) => {
+            return state.servicioInsumo
         },
     },
     actions: {
@@ -63,6 +70,41 @@ export default {
                     })
                 }
                 context.commit('setServicios', [])
+            }
+            context.dispatch('getLoadingApp', false);
+        },
+        async obtenerServiciosMateriales(context,lote=0) {
+            const token = localStorage.getItem('token_acess')
+            context.dispatch('getLoadingApp', true);
+            try {
+                const resultado = await axios({
+                    method: 'GET',
+                    baseURL: config.backend.baseURL,
+                    url: `servicios-recurso/mostrar?lote=${lote}`,
+                    headers: {
+                        ['auth-token']: token,
+                    }
+                });
+
+                context.commit('setServicioInsumo', resultado.data)
+            } catch (error) {
+                if (error.response) {
+                    context.dispatch('getLoadingApp', false);
+
+                    return false
+                    /*Notification({
+                      title: config.frontend.title,
+                      message: error.response.data.mensaje,
+                      type: 'warning'
+                    })*/
+                } else {
+                    Notification({
+                        title: config.frontend.title,
+                        message: 'Error al acceder a internet',
+                        type: 'error'
+                    })
+                }
+                context.commit('setServicioInsumo', [])
             }
             context.dispatch('getLoadingApp', false);
         },
