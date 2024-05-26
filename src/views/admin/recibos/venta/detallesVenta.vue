@@ -1,11 +1,10 @@
 <template>
     <!-- se mejorara la presentacion de los recibos , y se mostraran como tajetas-->
     <div class="flex flex-wrap mt-4">
-        <div class="w-full mb-12 xl:mb-0 px-4">
-            <div v-if="venta && venta.data"
-                class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+        <div class="w-full mb-12 xl:mb-0 px-4 ">
+            <div v-if="venta && venta.data "
+                class="relative flex flex-col min-w-0 break-words bg-gray-100 w-full mb-6 shadow-lg rounded">
                 <div class="flex justify-center">
-
                     <div class="rounded-t mb-0 px-4 py-3 border-0">
                         <h3 class="font-semibold text-xl text-blueGray-700 uppercase">
                             Detalles del recibo de venta
@@ -107,42 +106,40 @@
                                     </div>
 
                                     <!-- tabla -->
-                                    <div v-if="detallesVenta && detallesVenta.data" class="relative overflow-x-auto mt-10">
-                                        <table class="w-full text-sm text-left text-gray-500  ">
-                                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
-                                                <tr>
-                                                    <th scope="col" class="px-6 text-sm py-3 text-verdiAnderson">
-                                                        Servicio
-                                                    </th>
-                                                    <th scope="col" class="px-6 text-sm py-3 text-verdiAnderson">
-                                                        Valor del servicio
-                                                    </th>
-                                                    <th scope="col" class="px-6 text-sm py-3 text-verdiAnderson">
-                                                        Cantidad de veces aplicada
-                                                    </th>
+                                    <div v-if="venta && venta.data" class="relative overflow-x-auto mt-10">
+                                      <el-table :data="venta.data[0].servicio_insumo" class="w-full mt-10 ">
+                                        <el-table-column type="expand" >
+                                          <template>
+                                            <div class="mx-20" v-for="(item) in venta.data[0].servicio_insumo" :key="item.id_servicio">
+                                              <div  class="flex flex-wrap justify-around mt-3">
+                                                <label v-for="(insumo) in item.consumible" :key="insumo.idRecurso" class="w-3/12 pr-5" >
 
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr v-for="servicio in detallesVenta.data"
-                                                    :key="servicio.id_detalles_servicios" class="bg-white border-b   ">
+                                                  <p class="ml-1">{{ insumo.nombre }}</p>
+                                                  <el-input :disabled="true" :placeholder="insumo.necesarios" v-model="insumo.necesarios"   type="number"
+                                                      ></el-input>
+                                                </label>
 
-                                                    <th scope="row" class="px-6 py-4 font-medium text-gray-500">
-                                                        {{ servicio.nombre_servicio }}
-                                                    </th>
+                                              </div>
 
-                                                    <td class="px-6 py-4">
-                                                        {{ servicio.presio_servicio }}
-                                                    </td>
+                                            </div>
+                                          </template>
+                                        </el-table-column>
 
-                                                    <td class="px-6 py-4">
-                                                        {{ servicio.cantidad }}
-                                                    </td>
+                                        <el-table-column prop="nombre" label="nombre"></el-table-column>
+                                        <el-table-column prop="costo" label="costo en dolares"></el-table-column>
+                                        <!--
+                                        <el-table-column label="Costo del servicio">
+                                            <template slot-scope="scope">
+                                                <div v-for="item in servicios.data" :key="item.id_servicio">
+                                                    <p v-if="item.id_servicio == scope.row.idServicio">
+                                                        {{ item.costo_dolares }}
+                                                    </p>
+                                                </div>
+                                            </template>
+                                        </el-table-column>
 
-                                                </tr>
-
-                                            </tbody>
-                                        </table>
+                                        <el-table-column prop="cantidadRealizadas" label="Cantidad"></el-table-column> -->
+                                      </el-table>
                                     </div>
 
 

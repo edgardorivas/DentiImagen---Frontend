@@ -15,7 +15,6 @@
                     <el-steps align-center :active="active" finish-status="success">
                         <el-step title="Datos basicos"></el-step>
                         <el-step title="Servicios aplicados"></el-step>
-                        <el-step title="Materiales invertidos"></el-step>
                         <el-step title="Vista previa"></el-step>
                     </el-steps>
                 </div>
@@ -127,19 +126,25 @@
 
                                     <el-table-column type="expand" >
                                       <template slot-scope="scope">
-                                        <div class="mx-20" v-for="item in serviciosInsumo.data" :key="item.id_servicio">
+                                        <div  class="mx-20" v-for="(item,index) in serviciosInsumo.data" :key="item.id_servicio">
 
                                           <div v-if="item.idServicio == scope.row.idServicio" class="flex flex-wrap justify-around">
-                                            <label v-for="insumo in item.consumible" :key="insumo.idRecurso" class="w-3/12 pr-5" >
+                                            <label v-for="(insumo,indexInsumo) in item.consumible" :key="insumo.idRecurso" class="w-3/12 pr-5" >
                                               <p class="ml-1">{{ insumo.nombre }}</p>
-                                              <el-input :placeholder="insumo.necesarios" :input="searchProvedor(insumo.idRecurso,insumo.necesarios)"  type="text"
+                                              <el-input :placeholder="insumo.necesarios" v-model="serviciosInsumo.data[index].consumible[indexInsumo].necesarios"   type="text"
                                                   ></el-input>
                                             </label>
+
+                                            <button type="button"
+                                                class="w-full mb-2 text-center mt-10  text-violet-500 uppercase rounded-md"
+                                                @click="asociarMaterialesIngresados(datosVenta.servicios[scope.$index],item.consumible,item)">
+                                                Guardar
+                                            </button>
 
                                           </div>
 
                                         </div>
-                                    </template>
+                                      </template>
 
                                     </el-table-column>
                                     <el-table-column prop="idServicio" label="Id"></el-table-column>
@@ -160,7 +165,7 @@
                                     <el-table-column label="Operaciones">
                                         <template slot-scope="scope">
                                             <button type="button"
-                                                class="w-full  bg-none text-red-600 uppercase rounded-md"
+                                                class="w-full bg-none text-red-600 uppercase rounded-md"
                                                 @click="eliminarAsociacion(datosVenta.servicios[scope.$index].idServicio)">
                                                 Eliminar
                                             </button>
@@ -174,7 +179,7 @@
 
                         </div>
 
-                        <div v-if="active == 3" class="flex flex-wrap justify-around mt-5">
+                        <!-- <div v-if="active == 3" class="flex flex-wrap justify-around mt-5">
 
 
                             <div class="w-11/12 mt-10  m-0 p-0">
@@ -245,9 +250,9 @@
 
 
 
-                        </div>
+                        </div> -->
 
-                        <div v-if="active == 4" style="    width: 900px;" class="flex flex-wrap justify-around mt-5">
+                        <div v-if="active == 3" style="    width: 900px;" class="flex flex-wrap justify-around mt-5">
                             <div class="w-11/12 mt-10 m-0 p-0">
 
                                 <div class="block w-7/8 mb-10  p-6 bg-white border border-gray-200 rounded-lg shadow-md">
@@ -347,22 +352,28 @@
                                         <el-divider>Servicio</el-divider>
                                     </div>
 
-
-
                                     <!-- tabla -->
                                     <div class="relative overflow-x-auto mt-10">
                                         <el-table :data="datosVenta.servicios" class="w-full mt-10 ">
-                                            <el-table-column prop="idServicio" label="Id"></el-table-column>
 
-                                            <el-table-column class="text-center" label="Operaciones">
-                                                <template slot-scope="scope">
-                                                    <div v-for="dato in datosServicioTabla" :key="dato.id_servicio">
-                                                        <p v-if="dato.id_servicio == scope.row.idServicio">
-                                                            {{ dato.nombre_servicio }}
-                                                        </p>
-                                                    </div>
-                                                </template>
+                                            <el-table-column type="expand" >
+                                              <template>
+                                                <div class="mx-20" v-for="(item) in datosVenta.dataServicionCompleta" :key="item.id_servicio">
+
+                                                  <div  class="flex flex-wrap justify-around">
+                                                    <label v-for="(insumo) in item.consumible" :key="insumo.idRecurso" class="w-3/12 pr-5" >
+                                                      <p class="ml-1">{{ insumo.nombre }}</p>
+                                                      <el-input :disabled="true" :placeholder="insumo.necesarios" v-model="insumo.necesarios"   type="number"
+                                                          ></el-input>
+                                                    </label>
+
+                                                  </div>
+
+                                                </div>
+                                              </template>
+
                                             </el-table-column>
+                                            <el-table-column prop="nombre_servicio" label="nombre"></el-table-column>
 
                                             <el-table-column label="Costo del servicio">
                                                 <template slot-scope="scope">
@@ -378,7 +389,7 @@
                                         </el-table>
                                     </div>
 
-                                    <div class="  flex flex-row-reverse my-2 mt-2 mr-5">
+                                    <div class=" flex flex-row-reverse my-2 mt-5 mr-5">
                                         <button @click="calculosRapidos()"
                                             class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                             type="button">
@@ -425,7 +436,7 @@
                                 @click="prev">
                                 Anterior
                             </button>
-                            <button type="button" v-if="active < 4"
+                            <button type="button" v-if="active < 3"
                                 class="w-full bg-none md:w-1/3  text-verdiAnderson transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
                                 @click="next">
                                 Siguiente
@@ -538,7 +549,8 @@ export default {
                 ivaVenta: "0",
                 precioDolar: "0",
                 servicios: [],
-                materiales: []
+                materiales: [],
+                dataServicionCompleta:[],
             },
             serviciosIngresados: {
                 idServicio: null,
@@ -651,7 +663,7 @@ export default {
                     break;
                 }
             }
-            if (this.active < 4) {
+            if (this.active < 3) {
                 this.active++;
             }
         },
@@ -682,28 +694,53 @@ export default {
             }
 
             this.datosServicioTabla.push(Object.assign({}, servicio));
+            // this.serviciosInsumo.data.push(Object.assign({}, servicio));
         },
-        asociarMaterialesIngresados(datos) {
-            if (!datos.idMaterial) {
+        asociarMaterialesIngresados(dataVenta,dataInsumo,InformacionServicio) {
+            let bandera =false
+            dataInsumo.forEach((value) => {
+              if(value.disponible - 5 <= +value.necesarios){
+                bandera = true
                 this.$message({
-                    message: 'Debes seleccionar el material',
+                    message: `La cantidad del insumo ${value.nombre} compromete el inventario, diponible ${value.disponible}`,
                     type: 'error',
                 });
-                return false;
+              }
+              this.datosVenta.materiales.push({
+                idMaterial:value.idRecurso,
+                cantidadMaterial:value.necesarios
+              });
+            })
+            if(!bandera){
+              this.$message({
+                    message: `Se asocio el ajuste de la cantidad del insumo a esta venta`,
+                    type: 'success',
+                });
             }
-            const recurso = this.producto.data.filter(item => item.id_recurso == datos.idMaterial)[0];
-            this.datosVenta.materiales.push(datos);
+            this.datosVenta.dataServicionCompleta.push(InformacionServicio)
 
-            this.materialesIngresados = {
-                idMaterial: null,
-                cantidadMaterial: 1
-            }
-            this.datosMaterialesTabla.push(recurso)
+            console.log("=============dataInsumo=============")
+            console.log({dataInsumo})
+            console.log("=============InformacionServicio=============")
+            console.log({InformacionServicio})
+            console.log("============= this.datosVenta=============")
+            console.log({dataVenta: this.datosVenta})
+
+            this.datosMaterialesTabla=this.datosVenta.materiales
             this.centerDialogVisible = false
         },
         eliminarAsociacion(id) {
             this.datosVenta.servicios = this.datosVenta.servicios.filter(item => item.idServicio != id);
             this.datosServicioTabla = this.datosServicioTabla.filter(item => item.id_servicio != id);
+        },
+        editarInsumos(dataVenta,dataServico,servicio){
+
+          console.log("==========================")
+          console.log({dataVenta})
+          console.log("=============dataServico=============")
+          console.log({dataServico})
+          console.log("=============servicio=============")
+          console.log({servicio})
         },
         eliminarAsociacionMaterial(datos) {
             this.datosVenta.materiales = this.datosVenta.materiales.filter(materiales => materiales.idServicio != datos)
@@ -734,7 +771,6 @@ export default {
 
         },
         async ingresarVenta() {
-
             try {
                 this.$store.dispatch('getLoadingApp', true);
                 this.loading = true;
