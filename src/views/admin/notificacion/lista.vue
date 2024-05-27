@@ -23,11 +23,21 @@
 							class="w-full p-10">
 							<el-table-column type="expand" :row-click="searchProvedor(props)"  >
                 <template slot-scope="props">
-                  <div class="mx-20">
-                    <p class="p-1" v-for="item in props.row.objetosSegundoArray" :key="item.id_provedor">
+
+                  <div class="mx-20 bg-gray-200" v-for="item in props.row.objetosSegundoArray" :key="item.id_provedor">
+                    <p class=" pt-2 pl-3" >
                       Proveedor: {{item.nombre_proveedor}}, Correo: {{item.correo_proveedor}}, Telefono: {{item.telefono_proveedor}}
                     </p>
+                    <p class="text-left">
+                      <router-link :to="`/admin/notificaciones/compra/${item.id_provedor}`"
+                          class="text-red-600 text-xs w-full">
+                          <p class="text-sm pt-2 pl-3">Crear recivo de compra</p>
+
+                      </router-link>
+                    </p>
+                    <el-divider></el-divider>
                   </div>
+
                 </template>
 							</el-table-column>
 							<el-table-column prop="nombre_recurso" label="Insumo" >

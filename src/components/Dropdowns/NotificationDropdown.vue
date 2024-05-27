@@ -19,7 +19,7 @@
     >
       <div v-for="(notificacion, index) of getNotifications.data" :key="index">
         <div v-if="!notificacion.estado_borrado && index < 8" class="bg-white">
-          <router-link to="/admin/inventario" class="cursor-pointer">
+          <router-link to="/admin/notificaciones" class="cursor-pointer">
             <p class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap text-blueGray-700 border-b-2">
               <small>Alerta de bajos insumos</small>
               <br>
@@ -31,7 +31,7 @@
       <!-- <div class="h-0 my-2 border border-solid border-blueGray-100" /> -->
       <router-link to="/admin/notificaciones" class="cursor-pointer">
         <p class="text-md py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700 text-center">
-          Ver todo el inventario
+          Ver todas las notificaciones
         </p>
       </router-link>
     </div>

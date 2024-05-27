@@ -136,6 +136,11 @@ const routes = [
         name: 'Notificaciones',
         component: () => import('../views/admin/notificacion/lista.vue'),
       },
+      {
+        path: "/admin/notificaciones/compra/:IDProveedor",
+        name: 'Notificaciones',
+        component: () => import('../views/admin/notificacion/registroCompras.vue'),
+      },
       //recibos de compra
       {
         path: "/admin/recibo/compra/agregar",
