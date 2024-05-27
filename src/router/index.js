@@ -72,6 +72,14 @@ const routes = [
         name: 'Editar materiales',
         component: () => import('../views/admin/materiales/Editar.vue'),
       },
+      //auditoria
+      {
+        path: "/admin/auditoria",
+        name: 'Auditoria',
+        component: () => import('../views/admin/auditoria/auditoria.vue'),
+      },
+
+
       //tipo-materiales
       {
         path: "/admin/tipo-materiales",

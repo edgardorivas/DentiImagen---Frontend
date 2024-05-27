@@ -15,6 +15,7 @@ import servicios from './servicios';
 import configuraciones from './configuraciones';
 import estadisticas from './estadisticas';
 import notificaciones from './notificaciones';
+import auditoria from './auditoria';
 
 Vue.use(Vuex)
 
@@ -30,6 +31,7 @@ export default new Vuex.Store({
   modules: {
     loading,
     usuarios,
+    auditoria,
     productos,
     tipoProducto,
     proveedores,

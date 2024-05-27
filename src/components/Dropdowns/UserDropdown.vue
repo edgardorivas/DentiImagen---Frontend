@@ -29,6 +29,14 @@
                     <el-button @click="restauracionBaseDatos()"
                         class="w-full py-4 border-none text-left text-blueGray-700">Restauracion</el-button>
                 </el-container>
+
+                <el-container v-if="getmiUsuario.id_rol == 1">
+                    <el-button @click="mostrarModal()" class="w-full py-4 border-none text-left text-blueGray-700">
+                      Auditoria
+                    </el-button>
+                </el-container>
+
+
             </div>
 
 
@@ -38,22 +46,44 @@
                 Cerrar Sesion
             </router-link>
         </div>
-        <!-- Modal para respaldo -->
-        <!-- <el-dialog title="Confirmacion de respaldo de la base de datos" :visible.sync="centerDialogVisible" width="30%"
-            center>
-            <p class="px-2 mb-4 text-center">Respaldo</p>
+        <!-- modal del nuevo material -->
+        <el-dialog title="Verificacion de identidad" :modal="false" class="bg-slate-200" :visible.sync="centerDialogVisibleNuevoMaterial" width="30%" center>
+          <div class="flex flex-wrap justify-around">
+              <el-form label-position="top" class="w-full flex flex-wrap" :model="dataLogin" :rules="rules"
+                  ref="verificacionIdentidadLogin">
 
-            <div slot="footer" class="dialog-footer flex flex-wrap justify-around">
-                <button slot="reference" :disabled="loading"
-                    class="w-full md:w-1/3 bg-red-600 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
-                    @click="centerDialogVisible = false" type="button">Cerrar</button>
+                  <label class="w-full mx-5">
+                      <p class="ml-1">Usuario</p>
+                      <el-form-item prop="usuario">
+                          <el-input placeholder="Nombre del usuario" v-model="dataLogin.usuario"></el-input>
+                      </el-form-item>
+                  </label>
 
-                <button :disabled="loading"
-                    class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
-                    type="button" v-on:click="respaldoBaseDatos()">Guardar</button>
-            </div>
+                  <label class="w-full  mx-5">
+                      <p class="ml-1">contraseña</p>
+                      <el-form-item prop="clave">
+                          <el-input placeholder="contraseña" type="password"
+                              v-model="dataLogin.clave"></el-input>
+                      </el-form-item>
+                  </label>
 
-        </el-dialog> -->
+                </el-form>
+          </div>
+
+          <div slot="footer" class="dialog-footer flex flex-wrap justify-around">
+              <button slot="reference" :disabled="loading"
+                  class="w-full md:w-1/3 bg-red-600 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
+                  @click="centerDialogVisibleNuevoMaterial = false" type="button">
+                  Cerrar
+              </button>
+              <button slot="reference" :disabled="loading"
+                  class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
+                  v-on:click="verificacionAuditoria" type="button">
+                  Ingresar
+              </button>
+          </div>
+        </el-dialog>
+
     </div>
 </template>
 
@@ -71,7 +101,22 @@ export default {
             respaldo: false,
             restauracion: false,
             centerDialogVisible: true,
-            loading: false
+            dataLogin:{
+              usuario:'',
+              clave:''
+            },
+            centerDialogVisibleNuevoMaterial: false,
+            rules: {
+                usuario: [
+                    { required: true, message: 'Es necesario ingresar el nombre de usuario', trigger: 'change' },
+                    { min: 2, message: 'El usuario tiene que tener mas de 2 digitos', trigger: 'change' }
+                ],
+                clave: [
+                    { required: true, message: 'Es necesario ingresar la contraseña', trigger: 'change' },
+                    { min: 5, message: 'La contraseña tiene que ser mayor a 5 caracteres', trigger: 'change' }
+                ],
+            },
+            loading: false,
         };
     },
     methods: {
@@ -195,7 +240,72 @@ export default {
                 this.loading = false;
                 console.clear()
             }
-        }
+        },
+
+        async mostrarModal(){
+          this.centerDialogVisibleNuevoMaterial = !this.centerDialogVisibleNuevoMaterial
+        },
+        resetForm(formName) {
+            this.$refs[formName].resetFields();
+        },
+        async verificacionAuditoria(){
+          this.$refs['verificacionIdentidadLogin'].validate(async (valid) => {
+                if (valid) {
+                    try {
+
+                        console.log("=========verificacionIdentidadLogin===========");
+                        this.$store.dispatch('getLoadingApp', true);
+
+                        this.loading = true;
+                        // const token = localStorage.getItem('token_acess');
+
+                        const request = await axios({
+                            method: 'POST',
+                            baseURL: config.backend.baseURL,
+                            url: '/login',
+                            data: this.dataLogin
+                        });
+
+
+
+                        this.centerDialogVisibleNuevoMaterial = false
+                        this.resetForm("verificacionIdentidadLogin")
+
+                        console.log('===========data===========')
+                        console.log({request})
+
+                        if(request.data.data.token){
+                          this.$router.push({ path: '/admin/auditoria' });
+                        }
+
+                        this.$store.dispatch('getLoadingApp', false);
+                        this.loading = false;
+
+                        this.$message({
+                            message: 'Verificacion Exitosa',
+                            type: 'success',
+                        });
+
+                    } catch (error) {
+                      console.log(error)
+                        if (error.response) {
+                            this.$message({
+                                message: error.response.data.mensaje || 'Sin mensaje del servidor',
+                                type: 'error',
+                            });
+                        } else {
+                            this.$message({
+                                message: 'No estas conectado a internet.',
+                                type: 'error'
+                            });
+                        }
+                        this.$store.dispatch('getLoadingApp', false);
+                        this.loading = false;
+                    }
+                }
+            });
+        },
+
     },
     computed: {
         getmiUsuario() {
