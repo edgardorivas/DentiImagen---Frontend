@@ -25,7 +25,7 @@
                       <div>
                           <template>
                               <template class="relative h-32 w-32 ">
-                                  <el-input v-model="search" class="h-1/6 w-2/12 ml-10" placeholder="Buscar" />
+                                  <el-input v-model="search" class="h-1/6 w-3/12 ml-10" placeholder="Buscar" />
                               </template>
 
                               <el-table class="p-10 "
