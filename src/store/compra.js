@@ -8,8 +8,6 @@ export default {
         listaCompra: [],
         detallesCompra: [],
         detallesCompraMateriales: [],
-
-
     },
     mutations: {
         setMaterialesProveedor: (state, value) => {

@@ -18,6 +18,7 @@
                         </div>
                     </div>
                 </div>
+                <!-- {{ compras.data }} -->
                 <div class="mt-5 ">
                     <div v-if="compras && compras.data">
                         <!--tabla-->
@@ -63,14 +64,34 @@
                                     <p class="">{{ parseDate(scope.row.fecha_compra) }}</p>
                                 </template>
                             </el-table-column>
+
+                            <el-table-column prop="estado_compra" label="Estado">
+                              <template slot-scope="scope">
+
+                                <el-tag class="text-sm p-2 pb-2"
+                                    :type="scope.row.estado_compra == 'Pendiente' ? 'warning' : scope.row.estado_compra == 'Verificado'? 'success' : 'danger'"
+                                    disable-transitions>{{ scope.row.estado_compra }}
+                                </el-tag>
+                              </template>
+
+                            </el-table-column>
                             <!--fin tabla-->
 
                             <el-table-column label="Opciones" >
                                 <template slot-scope="scope">
-                                    <p class="text-left">
+
+                                    <p class="text-left" v-if="scope.row.estado_compra != 'Pendiente'">
                                         <router-link :to="`/admin/recibo/compra/detalles/${scope.row.id_compra}`"
                                             class="text-red-600 text-xs w-full">
                                             <p class="text-sm">Detalles</p>
+
+                                        </router-link>
+                                    </p>
+
+                                    <p class="text-left" v-else>
+                                        <router-link :to="`/admin/recibo/compra/verificar/${scope.row.id_compra}`"
+                                            class="text-indigo-500 text-xs w-full">
+                                            <p class="text-sm">Procesar</p>
 
                                         </router-link>
                                     </p>

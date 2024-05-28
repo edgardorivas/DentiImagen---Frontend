@@ -145,7 +145,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div v-else class="w-11/12 m-0 p-0">
                                     <el-table :data="datos.recurso" class="w-full">
 
@@ -405,12 +404,15 @@ export default {
                   console.log({valor})
 
                     this.datos.recurso.push(valor)
+
                     this.datosRecurso = {
                         idRecurso: null,
                         unidades: null,
                         costo: null,
                         tipoMoneda: null,
-                    }
+                        unidadesCaja: null,
+                        tipoUnidades:null
+                    },
                     this.aviso = false
                     this.centerDialogVisible = false
                     this.datosMaterialesSinModificar.push(this.proveedorMateriales.data.filter(item => item.id_recurso == valor.idRecurso)[0])
@@ -428,9 +430,6 @@ export default {
                 if (valid) {
                     try {
                         this.$store.dispatch('getLoadingApp', true);
-
-
-
                         this.loading = true;
                         const token = localStorage.getItem('token_acess');
                         const request = await axios({
@@ -451,7 +450,7 @@ export default {
                             referencia: '',
                             montoTotal: "",
                         },
-                            this.$store.dispatch('getLoadingApp', false);
+                        this.$store.dispatch('getLoadingApp', false);
                         this.loading = false;
                         this.$message({
                             message: request.data.mensaje,

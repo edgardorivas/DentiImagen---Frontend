@@ -11,7 +11,6 @@
                         </h3>
                     </div>
                 </div>
-
                 <div class="mt-5 pb-5">
                     <div>
                         <form>
@@ -115,7 +114,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody v-if="detallesCompraMateriales && detallesCompraMateriales.data">
-                                                <tr v-for="material in detallesCompraMateriales.data"
+                                                <tr v-for="(material,index) in detallesCompraMateriales.data"
                                                     :key="material.id_recurso" class="bg-white border-b">
 
                                                     <th scope="row"
@@ -124,7 +123,7 @@
                                                     </th>
 
                                                     <td class="px-6 py-4">
-                                                        {{ material.unidades_compradas }}
+                                                        {{ detallesCompra.data[0].comprajson[0].recurso[index].unidades}}
                                                     </td>
 
                                                     <td class="px-6 py-4">
@@ -132,18 +131,16 @@
                                                     </td>
 
                                                     <td class="px-6 py-4">
-                                                        {{ material.costo_unidad }}
+                                                        {{ detallesCompra.data[0].comprajson[0].recurso[index].costo }}
                                                     </td>
                                                 </tr>
 
                                             </tbody>
                                         </table>
                                     </div>
-
-
                                     <div class="border flex flex-wrap  border-solid border-gray-400 my-10 p-5">
                                         <p class=" text-verdiAnderson w-1/2 pl-5 text-2xl">Total</p>
-                                        <p class="w-1/2 text-right text-2xl pl-5">{{ detallesCompra.data[0].monto_total }}
+                                        <p class="w-1/2 text-right text-2xl pl-5">{{ detallesCompra.data[0].comprajson[0].montoTotal }}
                                         </p>
 
                                     </div>
