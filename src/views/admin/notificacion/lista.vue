@@ -31,7 +31,7 @@
                     <p class="text-left">
                       <router-link :to="`/admin/notificaciones/compra/${item.id_provedor}`"
                           class="text-red-600 text-xs w-full">
-                          <p class="text-sm pt-2 pl-3">Crear recivo de compra</p>
+                          <p class="text-sm pt-2 pl-3">Crear recibo de compra</p>
 
                       </router-link>
                     </p>
