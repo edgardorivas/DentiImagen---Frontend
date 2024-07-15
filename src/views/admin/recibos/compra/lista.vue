@@ -39,7 +39,6 @@
                                 </template>
                             </el-table-column>
 
-                            <el-table-column prop="telefono_trabajador" label="Telefono"></el-table-column>
 
                             <el-table-column prop="nombre_proveedor" label="Proveedor">
                                 <template slot-scope="scope">

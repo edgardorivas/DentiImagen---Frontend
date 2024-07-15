@@ -239,8 +239,7 @@
                                                 class="input-with-select ">
                                                 <el-select v-model="datosRecurso.tipoMoneda" style="width:100px"
                                                     slot="prepend">
-                                                    <el-option label="$" value="dolares"></el-option>
-                                                    <el-option label="Bs" value="bolivares"></el-option>
+                                                    <el-option label="$" value="dolares" active></el-option>
                                                 </el-select>
                                             </el-input>
                                         </el-form-item>
@@ -368,23 +367,23 @@ export default {
                 ],
 
             },
-            rulesModal: {
-                idRecurso: [
-                    { required: true, message: 'Es necesario seleccionar el material comprado', trigger: 'change' },
-                ],
-                unidades: [
-                    { required: true, message: 'es necesario ingresar la cantidad comprada', trigger: 'change' },
-                    { min: 1, message: 'es necesario ingresar como minimo un valor de un digito', trigger: 'change' },
+            // rulesModal: {
+            //     idRecurso: [
+            //         { required: true, message: 'Es necesario seleccionar el material comprado', trigger: 'change' },
+            //     ],
+            //     unidades: [
+            //         { required: true, message: 'es necesario ingresar la cantidad comprada', trigger: 'change' },
+            //         { min: 1, message: 'es necesario ingresar como minimo un valor de un digito', trigger: 'change' },
 
-                ],
-                costo: [
-                    { required: true, message: 'Es necesario ingresar el costo del material', trigger: 'change' },
-                    { min: 1, message: 'es necesario ingresar como minimo un valor de un digito', trigger: 'change' },
+            //     ],
+            //     costo: [
+            //         { required: true, message: 'Es necesario ingresar el costo del material', trigger: 'change' },
+            //         { min: 1, message: 'es necesario ingresar como minimo un valor de un digito', trigger: 'change' },
 
-                ]
+            //     ]
 
 
-            },
+            // },
             loading: false,
         };
     },
@@ -395,7 +394,8 @@ export default {
     },
     methods: {
         agregarRecurso(valor) {
-            this.$refs['registrarMaterialCompra'].validate(async (valid) => {
+
+          this.$refs['registrarMaterialCompra'].validate(async (valid) => {
                 if (valid) {
                   if (valor.tipoUnidades === 'caja' || valor.tipoUnidades === 'paquete') {
                     valor.unidades = valor.unidades * valor.unidadesCaja;
@@ -403,7 +403,7 @@ export default {
                   console.log("datos de la compra")
                   console.log({valor})
 
-                    this.datos.recurso.push(valor)
+                    this.datos.recurso.push(this.datosRecurso)
 
                     this.datosRecurso = {
                         idRecurso: null,
@@ -418,10 +418,10 @@ export default {
                     this.datosMaterialesSinModificar.push(this.proveedorMateriales.data.filter(item => item.id_recurso == valor.idRecurso)[0])
 
                     this.proveedorMateriales.data = this.proveedorMateriales.data.filter(item => item.id_recurso != valor.idRecurso);
+                    // this.$refs["registrarMaterialCompra"].resetFields();
 
                 }
             });
-
 
 
         },

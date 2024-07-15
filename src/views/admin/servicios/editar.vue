@@ -9,18 +9,24 @@
                         </h3>
                     </div>
                 </div>
-
                 <div class="mt-5 pb-5">
+
+                  <!-- <el-button class="border-0  w-32 bg-violet-500 text-violet-700" @click="centerDialogVisible = true" round>
+                      Estadisticas
+                    </el-button> -->
+
                     <el-form label-position="top" :model="detallesServicio.data[0]" :rules="rules"  ref="EditarServicio" label-width="120px" class="demo-ruleForm">
                         <div class="flex flex-wrap justify-around">
                             <div class="w-11/12">
                                 <el-divider>Datos del Servicio</el-divider>
                             </div>
+
+
                             <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                                 <label>
                                     <p class="ml-1">Nombre</p>
 									<el-form-item prop="nombre_servicio">
-                                        <el-input  v-model="detallesServicio.data[0].nombre_servicio"></el-input>
+                    <el-input  v-model="detallesServicio.data[0].nombre_servicio"></el-input>
 									</el-form-item>
 
                                 </label>
@@ -42,13 +48,23 @@
                                 </label>
                             </div>
                         </div>
+
                         <br />
-
-
-
                     </el-form>
 
-                    <div class="ml-36 mb-10 w-10/12" v-if="detallesServicioInsumos && detallesServicioInsumos.data">
+                  <div class="mt-20 ml-10 w-11/12">
+                    <el-divider>Insumos asociados</el-divider>
+                  </div>
+
+                  <div class="text-right mr-24" @click="centerDialogVisible=!centerDialogVisible">
+                    <button
+                      class= "bg-violet-200  text-violet-700 hover:bg-violet-100 text-xs font-bold px-3 py-1 rounded  mr-1 transition-all duration-150"
+                      type="button">
+                      Asociar
+                    </button>
+                  </div>
+
+                  <div class="ml-36 mb-10 w-10/12" v-if="detallesServicioInsumos && detallesServicioInsumos.data">
                       <el-table :data="detallesServicioInsumos.data[0].consumible" class="w-full">
                           <!-- {{ scope.$index, tableData}} -->
                           <el-table-column prop="idRecurso" label="Id"></el-table-column>
@@ -94,8 +110,44 @@
                             <button :disabled="loading"
                                 class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
                                 type="button" v-on:click="editarServicio">Guardar</button>
+                  </div>
+
+                  <el-dialog title="Agregar Insumos" :visible.sync="centerDialogVisible" width="30%"
+                        center>
+                        <div class="flex flex-wrap justify-around">
+                            <div class="w-full px-2 mb-3 py-1">
+                              <label>
+                                <p class="ml-1">Insumos</p>
+                                <el-select v-model="dataInsumo.idRecurso" placeholder="Insumo" class="w-full">
+                                    <el-option v-for="item in inventario.data" :key="item.id_recurso" :label="item.nombre"
+                                        :value="item.id_recurso"></el-option>
+                                </el-select>
+                              </label>
+                            </div>
+
+                            <div class="w-full px-2 mb-3 py-1">
+                                <label>
+                                    <p class="ml-1">Unidades a Utilizar</p>
+                                    <el-input placeholder="Unidades compradas"
+                                        v-model="dataInsumo.montoConsumible" type="number"></el-input>
+                                </label>
+                            </div>
                         </div>
 
+                        <div slot="footer" class="dialog-footer flex flex-wrap justify-around">
+                            <button slot="reference" :disabled="loading"
+                                class="w-full md:w-1/3 bg-red-600 text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
+                                @click="centerDialogVisible = false" type="button">
+                                Cerrar
+                            </button>
+                            <button slot="reference" :disabled="loading"
+                                class="w-full md:w-1/3 bg-verdiAnderson text-white transition duration-500 transform hover:-translate-y-1 hover:scale-100 uppercase py-2 rounded-md"
+                                @click="registrarServicio(dataInsumo)" type="button">
+                                Ingresar
+                            </button>
+                        </div>
+
+                    </el-dialog>
                 </div>
             </div>
         </div>
@@ -111,11 +163,26 @@ export default {
         titleTemplate: "%s | Agregar nuevo Servicio",
     },
     created() {
-        this.$store.dispatch('obtenerServiciosEspecifico', { id: this.$route.params.ID });
-        this.$store.dispatch('obtenerServiciosMaterialesEspecifico', { id: this.$route.params.ID });
+      this.$store.dispatch('obtenerInventario');
+      this.$store.dispatch('obtenerServiciosEspecifico', { id: this.$route.params.ID });
+      this.$store.dispatch('obtenerServiciosMaterialesEspecifico', { id: this.$route.params.ID });
+
     },
     data() {
         return {
+          informacionInsumo:[],
+          nuevaAsociacion:[],
+          centerDialogVisible: false,
+          asociacionServicio:{
+            servicioId:this.$route.params.ID,
+            insumo:[]
+          },
+          dataInsumo:{
+            idRecurso:'',
+            disponible:'',
+            nombre:'',
+            montoConsumible:null,
+          },
             rules: {
                 nombre_servicio: [
                     { required: true, message: 'Es necesario ingresar el nombre del servicio', trigger: 'change' },
@@ -134,6 +201,33 @@ export default {
         };
     },
     methods: {
+        filtrarInsumos(){
+          const arraydata=[]
+          this.detallesServicioInsumos.data[0].consumible.forEach((value) => {
+            arraydata.push(value.idRecurso)
+          })
+          this.inventario.data.forEach((value)=>{
+            if(!arraydata.includes(value.id_recurso)){
+              this.informacionInsumo.push(value)
+            }
+          })
+          console.log("entro===============")
+        },
+
+        async asociarMaterialesIngresados(data) {
+            let bandera =false
+
+            this.inventario.data.forEach((value) => {
+              if(value.id_recurso === data.idRecurso) {
+                  data.nombre = value.nombre
+                  data.disponible = value.disponible
+                }
+            })
+
+            // this.datosVenta.dataServicionCompleta.push(InformacionServicio)
+            this.datosMaterialesTabla=this.datosVenta.materiales
+            this.centerDialogVisible = false
+        },
         async editarServicio() {
             this.$refs['EditarServicio'].validate(async (valid) => {
                 if(valid){
@@ -251,7 +345,56 @@ export default {
                 this.loading = false;
                 console.clear()
             }
-        }
+        },
+        async registrarServicio(dataInsumo) {
+          try {
+            const dataInventario = this.inventario.data.find((value) =>  dataInsumo.idRecurso === value.id_recurso);
+
+            const consumible ={
+              servicioId:this.$route.params.ID,
+              insumo:[{idRecurso:dataInventario.id_recurso,
+              nombre:dataInventario.nombre,
+              montoConsumible:dataInsumo.montoConsumible,}]
+
+            }
+
+              this.$store.dispatch("getLoadingApp", true);
+              this.loading = true;
+              const token = localStorage.getItem("token_acess");
+              const request = await axios({
+                  method: "POST",
+                  baseURL: config.backend.baseURL,
+                  url: "/servicios-recurso/registrar",
+                  headers: {
+                      ["auth-token"]: token,
+                  },
+                  data: consumible,
+              });
+              this.$store.dispatch("getLoadingApp", false);
+              this.loading = false;
+              this.$message({
+                  message: "Registrado Exitosamente",
+                  type: "success",
+              });
+              this.$router.push({ path: "/admin/servicios" });
+          } catch (error) {
+              if (error.response) {
+                  this.$message({
+                      message: error.response.data.mensaje || "Sin mensaje del servidor",
+                      type: "error",
+                  });
+              } else {
+                  this.$message({
+                      message: "No estas conectado a internet.",
+                      type: "error",
+                  });
+              }
+              this.$store.dispatch("getLoadingApp", false);
+              this.loading = false;
+              // console.clear();
+          }
+
+        },
     },
     computed: {
         detallesServicio() {
@@ -259,6 +402,9 @@ export default {
         },
         detallesServicioInsumos() {
             return this.$store.getters.getServicioInsumoEspecifico;
+        },
+        inventario() {
+            return this.$store.getters.getInventario;
         },
 
     }

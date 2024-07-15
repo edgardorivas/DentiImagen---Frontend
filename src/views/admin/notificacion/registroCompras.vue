@@ -49,7 +49,7 @@
 
                           <div class="w-full md:w-1/2 lg:w-2/5 px-2 mb-3 py-1">
                               <label>
-                                  <p class="ml-1">Monto Total</p>
+                                  <p class="ml-1">Total en dolares</p>
                                   <el-form-item prop="montoTotal">
 
                                       <el-input placeholder="Monto total " type="number"
@@ -220,8 +220,6 @@
                                   </label>
                               </div>
 
-
-
                               <div class="w-full px-2 mb-3 py-1">
                                   <label>
                                       <p class="ml-1">adquiridos</p>
@@ -240,7 +238,6 @@
                                               <el-select v-model="datosRecurso.tipoMoneda" style="width:100px"
                                                   slot="prepend">
                                                   <el-option label="$" value="dolares"></el-option>
-                                                  <el-option label="Bs" value="bolivares"></el-option>
                                               </el-select>
                                           </el-input>
                                       </el-form-item>
@@ -369,23 +366,23 @@ export default {
               ],
 
           },
-          rulesModal: {
-              idRecurso: [
-                  { required: true, message: 'Es necesario seleccionar el material comprado', trigger: 'change' },
-              ],
-              unidades: [
-                  { required: true, message: 'es necesario ingresar la cantidad comprada', trigger: 'change' },
-                  { min: 1, message: 'es necesario ingresar como minimo un valor de un digito', trigger: 'change' },
+          // rulesModal: {
+          //     idRecurso: [
+          //         { required: true, message: 'Es necesario seleccionar el material comprado', trigger: 'change' },
+          //     ],
+          //     unidades: [
+          //         { required: true, message: 'es necesario ingresar la cantidad comprada', trigger: 'change' },
+          //         { min: 1, message: 'es necesario ingresar como minimo un valor de un digito', trigger: 'change' },
 
-              ],
-              costo: [
-                  { required: true, message: 'Es necesario ingresar el costo del material', trigger: 'change' },
-                  { min: 1, message: 'es necesario ingresar como minimo un valor de un digito', trigger: 'change' },
+          //     ],
+          //     costo: [
+          //         { required: true, message: 'Es necesario ingresar el costo del material', trigger: 'change' },
+          //         { min: 1, message: 'es necesario ingresar como minimo un valor de un digito', trigger: 'change' },
 
-              ]
+          //     ]
 
 
-          },
+          // },
           loading: false,
       };
   },

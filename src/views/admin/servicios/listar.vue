@@ -36,7 +36,7 @@
                                 </template>
                             </el-table-column>
                             <el-table-column prop="descripcion" label="Descripcion"></el-table-column>
-                            <el-table-column prop="costo_dolares" label="Presio"></el-table-column>
+                            <el-table-column prop="costo_dolares" label="Precio Dolares"></el-table-column>
 
                             <el-table-column label="Operaciones">
                                 <template slot-scope="scope">

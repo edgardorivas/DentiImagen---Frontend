@@ -26,8 +26,7 @@
                             </label>
                         </div>
                       -->
-
-                        <div v-if="servicios && servicios.data" class="w-2/5  py-1">
+                      <div v-if="servicios && servicios.data" class="w-2/5  py-1">
                             <label>
                                 <p class="ml-1">Servicios</p>
                                 <el-form-item prop="servicio">
@@ -48,7 +47,7 @@
                             <label>
                                 <p class="ml-1">Insumos</p>
                                 <el-form-item prop="servicio">
-                                    <el-select v-model="dataInsumo.idRecurso" placeholder="Inventario"
+                                    <el-select v-model="dataInsumo.idRecurso" placeholder="Insumo"
                                         class="w-full">
                                         <el-option v-for="item in inventario.data" :key="item.id_recurso" :label="item.nombre"
                                             :value="item.id_recurso"></el-option>
@@ -64,7 +63,6 @@
                             <el-button class="w-20" @click="agregarInsumo(dataInsumo)"  slot="append" icon="el-icon-check"></el-button>
                           </el-input>
                         </div>
-
                         <div class=" mb-10 mt-10 w-10/12 m-0 p-0" v-if="(dataInsumo.idRecurso && asociacionServicio.servicioId) || asociacionServicio.insumo.length ">
                           <el-table :data="asociacionServicio.insumo" class="w-full">
                               <!-- {{ scope.$index, tableData}} -->
@@ -132,11 +130,11 @@ export default {
     data() {
         return {
           asociacionServicio:{
-            servicioId:0,
+            servicioId:'',
             insumo:[]
           },
           dataInsumo:{
-            idRecurso:0,
+            idRecurso:'',
             nombre:'',
             montoConsumible:null,
           },
@@ -164,10 +162,12 @@ export default {
     },
     methods: {
       eliminarAsociacion(id){
-        this.asociacionServicio.insumo=this.asociacionServicio.insumo.filter((value)=> value.idRecurso != id)
+        const data = this.asociacionServicio.insumo.filter((value)=> value.idRecurso != id);
+        const data2 = this.asociacionServicio.insumo.filter((value)=> value.idRecurso == id);
+        this.inventario.data.push({id:data2[0].idRecurso,nombre:data2[0].nombre,id_recurso:data2[0].idRecurso })
+        this.asociacionServicio.insumo = data
       },
       agregarInsumo(data){
-
         this.inventario.data.forEach((value) => {
           if(value.id_recurso === data.idRecurso){
             data.nombre = value.nombre
@@ -181,7 +181,7 @@ export default {
         })
         this.asociacionServicio.insumo.push(data);
         this.dataInsumo={
-          idRecurso:0,
+          idRecurso:'',
           nombre:'',
           montoConsumible:null,
         }
