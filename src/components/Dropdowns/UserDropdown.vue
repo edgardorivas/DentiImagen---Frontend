@@ -46,7 +46,7 @@
                 Cerrar Sesion
             </router-link>
         </div>
-        <!-- modal del nuevo material -->
+
         <el-dialog title="Verificacion de identidad" :modal="false" class="bg-slate-200" :visible.sync="centerDialogVisibleNuevoMaterial" width="30%" center>
           <div class="flex flex-wrap justify-around">
               <el-form label-position="top" class="w-full flex flex-wrap" :model="dataLogin" :rules="rules"

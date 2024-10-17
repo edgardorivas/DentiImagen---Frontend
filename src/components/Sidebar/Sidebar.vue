@@ -442,7 +442,7 @@
                                         </li>
                                     </el-menu-item>
 
-                                    <el-menu-item index="1-3"
+                                    <!-- <el-menu-item index="1-3"
                                         v-if="getmiUsuario.rol != ('Odontologo') && getmiUsuario.rol != ('Secretaria')">
                                         <li class="items-center">
                                             <router-link to="/admin/tipo-materiales"
@@ -452,7 +452,7 @@
                                                 Tipos Materiales
                                             </router-link>
                                         </li>
-                                    </el-menu-item>
+                                    </el-menu-item> -->
                                 </el-menu-item-group>
                             </el-submenu>
                         </el-menu>
